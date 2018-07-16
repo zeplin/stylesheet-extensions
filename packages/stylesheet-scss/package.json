@@ -1,0 +1,21 @@
+{
+  "name": "stylesheet-scss",
+  "version": "0.1.0",
+  "description": "Sample extension description.",
+  "scripts": {
+    "start": "zem start",
+    "build": "zem build",
+    "clean": "zem clean",
+    "exec": "zem exec"
+  },
+  "zeplin": {
+    "displayName": "stylesheet-scss",
+    "projectTypes": [
+      "web"
+    ]
+  },
+  "dependencies": {
+    "extension-style-kit": "^1.0.0",
+    "zem": "^0.2.0"
+  }
+}
