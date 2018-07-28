@@ -34,7 +34,7 @@ class TextStyle {
             font.letterSpacing ? new Length(font.letterSpacing) : LetterSpacing.DEFAULT_VALUE
         ));
 
-        if ("textAlign" in font) {
+        if ("textAlign" in font && font.textAlign) {
             props.push(new TextAlign(font.textAlign));
         }
 
