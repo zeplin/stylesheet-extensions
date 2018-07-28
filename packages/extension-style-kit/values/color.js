@@ -89,10 +89,6 @@ class Color {
         return this.object.equals(other.object);
     }
 
-    toHexString() {
-        return toHexString(this.object);
-    }
-
     toGradient({ colorFormat }) {
         const colorCSS = this.toStyleValue({ colorFormat });
 
