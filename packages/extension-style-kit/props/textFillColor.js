@@ -1,3 +1,4 @@
+import { webkit } from "../utils";
 import { STYLE_PROPS } from "../constants";
 
 class TextFillColor {
@@ -18,4 +19,6 @@ class TextFillColor {
     }
 }
 
-export default TextFillColor;
+const webKitTextFillColor = webkit(TextFillColor);
+
+export default webKitTextFillColor;

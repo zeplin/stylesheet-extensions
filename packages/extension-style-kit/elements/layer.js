@@ -74,8 +74,8 @@ class Layer {
 
             if (this.hasGradient) {
                 textStyleProps.push(new BgClip("text"));
-                textStyleProps.push(new webkit(BgClip)("text")); // eslint-disable-line
-                textStyleProps.push(new webkit(TextFillColor)("transparent")); // eslint-disable-line
+                textStyleProps.push(new webkit(BgClip)("text"));
+                textStyleProps.push(new TextFillColor("transparent"));
 
                 const bgImages = layer.fills.map(function (fill) {
                     return Layer.fillToGradient(fill);
@@ -190,7 +190,7 @@ class Layer {
 
         if (layer.type === "text" && fill.type === "color") {
             return [
-                new webkit(TextStroke)(new Length(thickness), new Color(fill.color))
+                new TextStroke(new Length(thickness), new Color(fill.color))
             ];
         }
 

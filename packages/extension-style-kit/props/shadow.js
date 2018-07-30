@@ -18,10 +18,10 @@ class Shadow {
     }
 
     static generateTextShadow(shadow, { densityDivisor, colorFormat }, variables) {
-        return `${new Length(shadow.offsetX).toStyleValue({ densityDivisor })} ${
-            new Length(shadow.offsetY).toStyleValue({ densityDivisor })} ${
-            new Length(shadow.blurRadius).toStyleValue({ densityDivisor })} ${
-            new Color(shadow.color).toStyleValue({ colorFormat })}`;
+        return `${new Length(shadow.offsetX).toStyleValue({ densityDivisor }, variables)} ${
+            new Length(shadow.offsetY).toStyleValue({ densityDivisor }, variables)} ${
+            new Length(shadow.blurRadius).toStyleValue({ densityDivisor }, variables)} ${
+            new Color(shadow.color).toStyleValue({ colorFormat }, variables)}`;
     }
 
     static generateBoxShadow(shadow, { densityDivisor, colorFormat }, variables) {

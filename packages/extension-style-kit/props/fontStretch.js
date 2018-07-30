@@ -22,6 +22,10 @@ class FontStretch {
     }
 
     getValue() {
+        if (this.hasDefaultValue()) {
+            return FontStretch.DEFAULT_VALUE;
+        }
+
         return this.value;
     }
 }

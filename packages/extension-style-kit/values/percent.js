@@ -2,7 +2,7 @@ const HUNDRED = 100;
 
 class Percent {
     constructor(value) {
-        this.value = value || 0;
+        this.value = value;
     }
 
     equals(other) {

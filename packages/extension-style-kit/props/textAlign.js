@@ -5,16 +5,8 @@ class TextAlign {
         this.value = value;
     }
 
-    static get DEFAULT_VALUE() {
-        return "normal";
-    }
-
     get name() {
         return STYLE_PROPS.TEXT_ALIGN;
-    }
-
-    hasDefaultValue() {
-        return this.value === TextAlign.DEFAULT_VALUE;
     }
 
     equals(other) {

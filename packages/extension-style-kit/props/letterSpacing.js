@@ -26,7 +26,7 @@ class LetterSpacing {
             return this.value;
         }
 
-        return this.value.getValue(params, variables);
+        return this.value.toStyleValue(params, variables);
     }
 }
 

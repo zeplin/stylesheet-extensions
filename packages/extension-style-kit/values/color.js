@@ -1,5 +1,7 @@
 import { Color as ExtensionColor } from "@zeplin/extension-model";
 
+import Gradient from "./gradient";
+
 function toHex(num) {
     var hexNum = Math.trunc(num + (num / 255));
     hexNum = Math.max(0, Math.min(hexNum, 255));
@@ -57,7 +59,7 @@ function toHSLAString(color) {
 
 function getColorStringByFormat(color, colorFormat) {
     if (!("r" in color && "g" in color && "b" in color && "a" in color)) {
-        return;
+        return "";
     }
 
     switch (colorFormat) {
@@ -70,7 +72,6 @@ function getColorStringByFormat(color, colorFormat) {
         case "hsl":
             return toHSLAString(color);
 
-        case "default":
         default:
             return color.a < 1 ? toRGBAString(color) : toHexString(color);
     }
@@ -89,10 +90,10 @@ class Color {
         return this.object.equals(other.object);
     }
 
-    toGradient({ colorFormat }) {
-        const colorCSS = this.toStyleValue({ colorFormat });
+    toGradient() {
+        const { r, g, b, a } = this.object;
 
-        return `linear-gradient(${colorCSS}, ${colorCSS})`;
+        return Gradient.fromRGBA({ r, g, b, a });
     }
 
     toStyleValue({ colorFormat }, variables) {

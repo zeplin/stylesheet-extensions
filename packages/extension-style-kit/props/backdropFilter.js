@@ -13,15 +13,18 @@ class BackdropFilter {
         return (
             this.filters.length === other.filters.length &&
             this.filters.every(filter => {
-                const f = other.filters.find(fx => fx === filter);
+                const f = other.filters.find(fx => fx.fn === filter.fn);
 
-                return f && f.args.join(", ") === filter.args.join(", ");
+                return (
+                    f && f.args.length === filter.args.length &&
+                    filter.args.every((a, idx) => a.equals(f.args[idx]))
+                );
             })
         );
     }
 
-    getValue() {
-        return this.filters.map(({ fn, args }) => `${fn}(${args.join(", ")})`).join(" ");
+    getValue(params) {
+        return this.filters.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params)).join(" ")})`).join(" ");
     }
 }
 

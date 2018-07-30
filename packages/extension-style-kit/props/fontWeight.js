@@ -8,6 +8,10 @@ class FontWeight {
         this.value = value;
     }
 
+    static get DEFAULT_VALUE() {
+        return WEIGHT_NORMAL;
+    }
+
     get name() {
         return STYLE_PROPS.FONT_WEIGHT;
     }

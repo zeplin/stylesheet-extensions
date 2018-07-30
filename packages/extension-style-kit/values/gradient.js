@@ -1,3 +1,5 @@
+import { Gradient as ExtensionGradient } from "@zeplin/extension-model";
+
 import Color from "./color";
 import Percent from "./percent";
 
@@ -22,6 +24,27 @@ function toCSSAngle(angle) {
 }
 /* eslint-enable no-magic-numbers */
 
+function generateColorGradient({ r, g, b, a }) {
+    return {
+        type: "linear",
+        from: {
+            x: 0.5,
+            y: 0
+        },
+        to: {
+            x: 0.5,
+            y: 1
+        },
+        colorStops: [{
+            color: { r, g, b, a },
+            position: 0
+        }, {
+            color: { r, g, b, a },
+            position: 1
+        }]
+    };
+}
+
 class Gradient {
     constructor(gradientObject) {
         this.object = gradientObject;
@@ -37,11 +60,22 @@ class Gradient {
         return `${new Color(colorStop.color).toStyleValue({ colorFormat }, variables)}${pos}`;
     }
 
+    static fromRGBA({ r, g, b, a }) {
+        return new Gradient(
+            new ExtensionGradient(
+                generateColorGradient({ r, g, b, a }),
+                100, 100
+            )
+        );
+    }
+
     equals(other) {
         return (
-            this.colorStops.length === other.colorStops.length &&
-            this.colorStops.every((cs, index) => {
-                const otherCs = other.colorStops[index];
+            this.object.type === other.object.type &&
+            this.object.angle === other.object.angle &&
+            this.object.colorStops.length === other.object.colorStops.length &&
+            this.object.colorStops.every((cs, index) => {
+                const otherCs = other.object.colorStops[index];
 
                 return otherCs.position === cs.position && otherCs.color.equals(cs.color);
             })

@@ -2,7 +2,7 @@ import Scalar from "./scalar";
 
 class Length {
     constructor(value, unit = "px") {
-        this.value = value;// || 0;
+        this.value = value;
         this.unit = unit;
     }
 

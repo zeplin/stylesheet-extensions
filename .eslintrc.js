@@ -1,4 +1,7 @@
 module.exports = {
+    env: {
+        "jest": true
+    },
     extends: "@zeplin/eslint-config",
     "globals": {
         "Intl": true,
@@ -6,12 +9,6 @@ module.exports = {
     },
     rules: {
         "no-var": "off",
-        "no-magic-numbers": [
-            "error",
-            {
-                "ignore": [-1, 0, 1, 2, 255]
-            }
-        ],
         "new-cap": "off",
         "valid-jsdoc": "off",
         "prefer-template": "error",

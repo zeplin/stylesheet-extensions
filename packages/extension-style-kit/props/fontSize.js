@@ -22,6 +22,10 @@ class FontSize {
     }
 
     getValue(params, variables) {
+        if (this.hasDefaultValue()) {
+            return FontSize.DEFAULT_VALUE;
+        }
+
         return this.value.toStyleValue(params, variables);
     }
 }

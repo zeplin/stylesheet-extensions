@@ -81,6 +81,10 @@ function webkit(Prop) {
             return `-webkit-${this.instance.name}`;
         }
 
+        equals(other) {
+            return this.instance.equals(other.instance || other);
+        }
+
         getValue(params) {
             return this.instance.getValue(params);
         }
