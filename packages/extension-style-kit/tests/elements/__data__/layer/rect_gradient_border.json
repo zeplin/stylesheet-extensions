@@ -1,0 +1,115 @@
+{
+    "type": "shape",
+    "name": "rect-gradient-border",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 10,
+    "absoluteRect": {
+        "x": 67,
+        "y": 349,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 349,
+        "x": 67,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [
+        {
+            "position": "inside",
+            "thickness": 4,
+            "fill": {
+                "type": "gradient",
+                "blendMode": "normal",
+                "fill": {
+                    "type": "linear",
+                    "from": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "to": {
+                        "x": 1.0199999809265137,
+                        "y": 1.0099999904632568
+                    },
+                    "colorStops": [
+                        {
+                            "color": {
+                                "r": 48,
+                                "g": 35,
+                                "b": 174,
+                                "a": 1
+                            },
+                            "position": 0
+                        },
+                        {
+                            "color": {
+                                "r": 200,
+                                "g": 109,
+                                "b": 215,
+                                "a": 1
+                            },
+                            "position": 1
+                        }
+                    ]
+                },
+                "gradient": {
+                    "type": "linear",
+                    "from": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "to": {
+                        "x": 1.0199999809265137,
+                        "y": 1.0099999904632568
+                    },
+                    "colorStops": [
+                        {
+                            "color": {
+                                "r": 48,
+                                "g": 35,
+                                "b": 174,
+                                "a": 1
+                            },
+                            "position": 0
+                        },
+                        {
+                            "color": {
+                                "r": 200,
+                                "g": 109,
+                                "b": 215,
+                                "a": 1
+                            },
+                            "position": 1
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [],
+    "assets": []
+}

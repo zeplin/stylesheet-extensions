@@ -1,0 +1,204 @@
+{
+    "type": "text",
+    "name": "Orwell's multiple text style",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 19,
+        "y": 398,
+        "width": 454,
+        "height": 65
+    },
+    "rect": {
+        "y": 398,
+        "x": 19,
+        "width": 454,
+        "height": 65
+    },
+    "content": "All animals are equal, but some animals are more equal than others.\n",
+    "borders": [],
+    "fills": [],
+    "shadows": [],
+    "textStyles": [
+        {
+            "range": {
+                "location": 0,
+                "length": 21
+            },
+            "style": {
+                "fontFace": "Consolas-Bold",
+                "fontSize": 20,
+                "fontWeight": 700,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "bold",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 21,
+                "length": 5
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 27,
+                "length": 4
+            },
+            "style": {
+                "fontFace": "Consolas-Italic",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "italic",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 32,
+                "length": 16
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 49,
+                "length": 5
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 24,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 55,
+                "length": 4
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 3,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 60,
+                "length": 6
+            },
+            "style": {
+                "fontFace": "Helvetica",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Helvetica",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "range": {
+                "location": 66,
+                "length": 1
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "assets": []
+}

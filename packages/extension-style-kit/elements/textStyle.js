@@ -13,44 +13,32 @@ import RuleSet from "../ruleSet";
 import { selectorize } from "../utils";
 
 class TextStyle {
-    constructor(textStyleObject, containerLayer) {
+    constructor(textStyleObject) {
         this.font = textStyleObject;
 
-        this.props = this.collectProps(containerLayer);
+        this.props = this.collectProps();
     }
 
-    collectProps(containerLayer) {
+    collectProps() {
         const { font } = this;
         let props = [
             new FontFamily(font.fontFamily),
             new FontSize(new Length(font.fontSize))
         ];
 
-        if (font.fontWeight) {
-            props.push(new FontWeight(font.fontWeight));
-        }
+        props.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
+        props.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
+        props.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
+        props.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
+        props.push(new LetterSpacing(
+            font.letterSpacing ? new Length(font.letterSpacing) : LetterSpacing.DEFAULT_VALUE
+        ));
 
-        if (font.fontStyle) {
-            props.push(new FontStyle(font.fontStyle));
-        }
-
-        if (font.fontStretch) {
-            props.push(new FontStretch(font.fontStretch));
-        }
-
-        if (font.lineHeight) {
-            props.push(new LineHeight(font.lineHeight, font.fontSize));
-        }
-
-        if (font.letterSpacing) {
-            props.push(new LetterSpacing(new Length(font.letterSpacing)));
-        }
-
-        if (font.textAlign) {
+        if ("textAlign" in font) {
             props.push(new TextAlign(font.textAlign));
         }
 
-        if (font.color) {
+        if ("color" in font) {
             props.push(new FontColor(new Color(font.color)));
         }
 

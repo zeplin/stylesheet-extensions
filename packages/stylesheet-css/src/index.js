@@ -65,9 +65,9 @@ function layer(context, selectedLayer) {
     const { defaultTextStyle } = selectedLayer;
 
     if (selectedLayer.type === "text" && defaultTextStyle) {
-        const textStyleRuleSet = new TextStyle(defaultTextStyle).style;
+        const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
 
-        textStyleRuleSet.props.forEach(p => layerRuleSet.addProp(p));
+        textStyleProps.forEach(p => layerRuleSet.addProp(p));
 
         getUniqueLayerTextStyles(selectedLayer).filter(
             textStyle => !defaultTextStyle.equals(textStyle)

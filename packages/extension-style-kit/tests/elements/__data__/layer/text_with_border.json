@@ -1,0 +1,71 @@
+{
+    "type": "text",
+    "name": "Text with border",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 256,
+        "y": 179,
+        "width": 253,
+        "height": 20
+    },
+    "rect": {
+        "y": 179,
+        "x": 256,
+        "width": 253,
+        "height": 20
+    },
+    "content": "Simple text with border",
+    "borders": [
+        {
+            "position": "center",
+            "thickness": 3,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 248,
+                    "g": 231,
+                    "b": 28,
+                    "a": 1
+                },
+                "color": {
+                    "r": 248,
+                    "g": 231,
+                    "b": 28,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "fills": [],
+    "shadows": [],
+    "textStyles": [
+        {
+            "range": {
+                "location": 0,
+                "length": 23
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "assets": []
+}

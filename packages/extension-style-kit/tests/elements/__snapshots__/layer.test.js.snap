@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`layer colored text layer with color fill 1`] = `
+".Colored-text-with-layer-fill {
+  width: 154px;
+  height: 10px;
+  mix-blend-mode: lighten;
+  background-blend-mode: saturation;
+  background-image: linear-gradient(to bottom, rgb(245, 166, 35), rgb(245, 166, 35));
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(245, 166, 35);
+}"
+`;
+
+exports[`layer layer with multiple text style 1`] = `
+".Orwells-multiple-text-style {
+  width: 227px;
+  height: 32.5px;
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(0, 0, 0);
+}
+
+.Orwells-multiple-text-style .text-style-1 {
+  font-weight: bold;
+}
+
+.Orwells-multiple-text-style .text-style-2 {
+  font-style: italic;
+}
+
+.Orwells-multiple-text-style .text-style-3 {
+  font-size: 12px;
+}
+
+.Orwells-multiple-text-style .text-style-4 {
+  letter-spacing: 1.5px;
+}
+
+.Orwells-multiple-text-style .text-style-5 {
+  font-family: Helvetica;
+}"
+`;
+
+exports[`layer plain text layer 1`] = `
+".Simple-text {
+  width: 60.5px;
+  height: 10px;
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(0, 0, 0);
+}"
+`;
+
+exports[`layer right aligned text layer 1`] = `
+".Right-aligned {
+  width: 113.5px;
+  height: 48px;
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.4;
+  letter-spacing: 1px;
+  text-align: right;
+  color: rgb(0, 0, 0);
+}"
+`;
+
+exports[`layer rotated shape layer 1`] = `
+".rect-rotated {
+  width: 69px;
+  height: 49.5px;
+  transform: rotate(13deg);
+  border: solid 0.5px rgb(151, 151, 151);
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
+exports[`layer shape layer with border radius 1`] = `
+".rect-border-radius {
+  width: 69px;
+  height: 49.5px;
+  border-radius: 3px;
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
+exports[`layer shape layer with gradient border 1`] = `
+".rect-gradient-border {
+  width: 69px;
+  height: 49.5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-image-source: linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  border-image-slice: 1;
+  background-image: rgb(216, 216, 216), linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}"
+`;
+
+exports[`layer shape layer with gradient fill and gradient border 1`] = `
+".rect-gradient-fill-gradient-border {
+  width: 69px;
+  height: 49.5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-image-source: linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  border-image-slice: 1;
+  background-image: linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 48%, rgb(180, 236, 81)), linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}"
+`;
+
+exports[`layer shape layer with multiple border 1`] = `
+".rect-multiple-border {
+  width: 69px;
+  height: 49.5px;
+  border: solid 2px rgb(65, 117, 5);
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
+exports[`layer shape layer with multiple fill color 1`] = `
+".rect-blent-color-fill {
+  width: 69px;
+  height: 49.5px;
+  border: solid 0.5px rgb(151, 151, 151);
+  background-blend-mode: difference, exclusion;
+  background-image: linear-gradient(to bottom, rgb(189, 16, 224), rgb(189, 16, 224)), linear-gradient(to bottom, rgb(74, 144, 226), rgb(74, 144, 226));
+}"
+`;
+
+exports[`layer shape layer with multiple shadow 1`] = `
+".rect-multiple-shadow {
+  width: 69px;
+  height: 49.5px;
+  box-shadow: 0 1px 2px 0 rgba(158, 12, 12, 0.5), inset 0 0.5px 1.5px 0 rgb(245, 166, 35), inset 0 0.5px 3px 3px rgb(248, 231, 28);
+  border: solid 0.5px rgb(151, 151, 151);
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
+exports[`layer simple shape layer 1`] = `
+".rect-simple {
+  width: 69px;
+  height: 49.5px;
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
+exports[`layer text layer with blur 1`] = `
+".Burred-text {
+  width: 115.5px;
+  height: 10px;
+  -webkit-filter: blur(1.12px);
+  filter: blur(1.12px);
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(0, 0, 0);
+}"
+`;
+
+exports[`layer text layer with border 1`] = `
+".Text-with-border {
+  width: 126.5px;
+  height: 10px;
+  -webkit-text-stroke: 1.5px rgb(248, 231, 28);
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(0, 0, 0);
+}"
+`;
+
+exports[`layer text layer with color fill 1`] = `
+".Color-fill {
+  width: 66px;
+  height: 10px;
+  background-color: rgb(245, 166, 35);
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(245, 166, 35);
+}"
+`;
+
+exports[`layer text layer with gradient fill 1`] = `
+".Gradient-fill-blent {
+  width: 104.5px;
+  height: 10px;
+  background-blend-mode: multiply, lighten;
+  background-image: linear-gradient(to bottom, rgb(250, 217, 97), rgb(247, 107, 28)), linear-gradient(95deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to bottom, rgb(250, 217, 97), rgb(247, 107, 28)), linear-gradient(95deg, rgb(48, 35, 174), rgb(200, 109, 215));
+}"
+`;
+
+exports[`layer text layer with multiple color fill 1`] = `
+".Multiple-color-fill {
+  width: 115.5px;
+  height: 10px;
+  background-blend-mode: lighten, color-burn;
+  background-image: linear-gradient(to bottom, rgb(65, 117, 5), rgb(65, 117, 5)), linear-gradient(to bottom, rgb(248, 231, 28), rgb(248, 231, 28));
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(65, 117, 5);
+}"
+`;
+
+exports[`layer text layer with shadow 1`] = `
+".Text-with-shadow {
+  width: 126.5px;
+  height: 10px;
+  text-shadow: 0 1px 2px rgb(126, 211, 33), 0 0.5px 1.5px rgb(189, 16, 224);
+  font-family: Consolas;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(0, 0, 0);
+}"
+`;

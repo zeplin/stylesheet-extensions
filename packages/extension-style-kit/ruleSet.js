@@ -5,6 +5,7 @@ class RuleSet {
     }
 
     addProp(prop) {
+        this.props = this.props.filter(p => p !== prop.name);
         this.props.push(prop);
     }
 

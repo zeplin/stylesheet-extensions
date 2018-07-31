@@ -1,0 +1,65 @@
+{
+    "type": "shape",
+    "name": "rect-rotated",
+    "exportable": false,
+    "rotation": -13,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 251,
+        "y": 50,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 50,
+        "x": 251,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [
+        {
+            "position": "inside",
+            "thickness": 1,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                },
+                "color": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [],
+    "assets": []
+}

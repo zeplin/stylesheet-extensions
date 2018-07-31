@@ -81,9 +81,9 @@ function layer(context, selectedLayer) {
         if (useMixin && textStyleName && !isHtmlTag(selectorize(textStyleName))) {
             layerRuleSet.addProp(new Mixin(selectorize(textStyleName).replace(/^\./, "")));
         } else {
-            const textStyleRuleSet = new TextStyle(defaultTextStyle).style;
+            const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
 
-            textStyleRuleSet.props.forEach(p => layerRuleSet.addProp(p));
+            textStyleProps.forEach(p => layerRuleSet.addProp(p));
         }
 
         getUniqueLayerTextStyles(selectedLayer).filter(

@@ -24,6 +24,7 @@ import BorderStyle from "../props/borderStyle";
 import BorderImageSlice from "../props/borderImageSlice";
 import BackdropFilter from "../props/backdropFilter";
 import Filter from "../props/Filter";
+import FontColor from "../props/fontColor";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
@@ -31,6 +32,7 @@ import {
     selectorize,
     webkit
 } from "../utils";
+import BgOrigin from "../props/bgOrigin";
 
 class Layer {
     constructor(layerObject = {}) {
@@ -67,8 +69,8 @@ class Layer {
             textStyleProps = textStyleProps.filter(prop => !(prop instanceof Color));
 
             if (this.hasGradient) {
-                textStyleProps.push(new BgClip("text"));
-                textStyleProps.push(new webkit(BgClip)("text"));
+                textStyleProps.push(new (webkit(BgClip))(["text"]));
+                textStyleProps.push(new BgClip(["text"]));
                 textStyleProps.push(new TextFillColor("transparent"));
 
                 const bgImages = layer.fills.map(function (fill) {
@@ -87,7 +89,7 @@ class Layer {
                     blentColor = blentColor.blend(textStyle.color);
                 }
 
-                textStyleProps.push(new Color(blentColor));
+                textStyleProps.push(new FontColor(new Color(blentColor)));
             }
         }
 
@@ -118,7 +120,7 @@ class Layer {
                 if (bgImages) {
                     bgImages.push(borderFill);
                 } else if (this.fillColor) {
-                    bgImages = [bgImages, borderFill];
+                    bgImages = [this.fillColor, borderFill];
                 } else {
                     /*
                         * Actually the background should be transparent if there are no fills,
@@ -208,7 +210,7 @@ class Layer {
     }
 
     generateBackgroundProps() {
-        const { bgImages, fillColor, object: layer } = this;
+        const { bgImages, elementBorder, fillColor, object: layer } = this;
         const props = [];
 
         if (this.hasFill && this.hasBlendMode) {
@@ -217,6 +219,11 @@ class Layer {
 
         if (bgImages) {
             props.push(new BgImage(bgImages));
+
+            if (layer.borderRadius && elementBorder && elementBorder.fill.type === "gradient") {
+                props.push(new BgOrigin(["border-box"]));
+                props.push(new BgClip([...Array(bgImages.length - 1).fill("content-box"), "border-box"]));
+            }
         } else if (fillColor) {
             props.push(new BgColor(fillColor));
         }
@@ -232,7 +239,7 @@ class Layer {
         } = this;
         let props = [
             new Width(new Length(layer.rect.width)),
-            new Height(new Length(layer.rect.width))
+            new Height(new Length(layer.rect.height))
         ];
 
         if (layer.exportable) {
@@ -261,7 +268,7 @@ class Layer {
         }
 
         if (layer.shadows.length) {
-            props.push(new Shadow(layer.shadows, layer.type === "text" ? Shadow.TEXT : Shadow.BOX));
+            props.push(new Shadow(layer.shadows, layer.type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX));
         }
 
         if (elementBorder) {

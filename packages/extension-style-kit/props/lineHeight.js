@@ -17,7 +17,8 @@ class LineHeight {
     }
 
     equals(other) {
-        return this.lineHeight === other.lineHeight && this.fontSize === other.fontSize;
+        return (this.hasDefaultValue() && other.hasDefaultValue()) ||
+            (this.lineHeight === other.lineHeight && this.fontSize === other.fontSize);
     }
 
     hasDefaultValue() {

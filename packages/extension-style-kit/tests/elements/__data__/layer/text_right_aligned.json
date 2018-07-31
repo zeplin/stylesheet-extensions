@@ -1,0 +1,52 @@
+{
+    "type": "text",
+    "name": "Right aligned",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 211,
+        "y": 30,
+        "width": 227,
+        "height": 96
+    },
+    "rect": {
+        "y": 30,
+        "x": 211,
+        "width": 227,
+        "height": 96
+    },
+    "content": "Right \naligned",
+    "borders": [],
+    "fills": [],
+    "shadows": [],
+    "textStyles": [
+        {
+            "range": {
+                "location": 0,
+                "length": 13
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "lineHeight": 48,
+                "textAlign": "right",
+                "letterSpacing": 2,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "assets": []
+}

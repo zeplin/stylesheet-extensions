@@ -1,3 +1,5 @@
+import Length from "../values/length";
+
 import { STYLE_PROPS } from "../constants";
 
 class LetterSpacing {
@@ -6,7 +8,7 @@ class LetterSpacing {
     }
 
     static get DEFAULT_VALUE() {
-        return "normal";
+        return new Length(0);
     }
 
     get name() {
@@ -14,7 +16,7 @@ class LetterSpacing {
     }
 
     hasDefaultValue() {
-        return this.value === LetterSpacing.DEFAULT_VALUE;
+        return this.value.equals(LetterSpacing.DEFAULT_VALUE);
     }
 
     equals(other) {
@@ -23,7 +25,7 @@ class LetterSpacing {
 
     getValue(params, variables) {
         if (this.hasDefaultValue()) {
-            return this.value;
+            return "normal";
         }
 
         return this.value.toStyleValue(params, variables);

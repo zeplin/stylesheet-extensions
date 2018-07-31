@@ -1,0 +1,105 @@
+{
+    "type": "shape",
+    "name": "rect-multiple-border",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 260,
+        "y": 196,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 196,
+        "x": 260,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [
+        {
+            "position": "inside",
+            "thickness": 7,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                },
+                "color": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "position": "center",
+            "thickness": 4,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 235,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                },
+                "color": {
+                    "r": 235,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        },
+        {
+            "position": "outside",
+            "thickness": 4,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 65,
+                    "g": 117,
+                    "b": 5,
+                    "a": 1
+                },
+                "color": {
+                    "r": 65,
+                    "g": 117,
+                    "b": 5,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [],
+    "assets": []
+}
