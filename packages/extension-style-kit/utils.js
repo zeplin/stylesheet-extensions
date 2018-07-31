@@ -105,9 +105,28 @@ function getPropValue(value, variables, params) {
     return varName ? varName : styleValue;
 }
 
+function getUniqueLayerTextStyles(layer) {
+    const uniqueTextStyles = [];
+
+    layer.textStyles.forEach(({ textStyle }) => {
+        const found = uniqueTextStyles.some(function (ts) {
+            return textStyle.equals(ts);
+        });
+
+        if (found) {
+            return;
+        }
+
+        uniqueTextStyles.push(textStyle);
+    });
+
+    return uniqueTextStyles;
+}
+
 export {
     blendColors,
     getPropValue,
+    getUniqueLayerTextStyles,
     isHtmlTag,
     isPropInherited,
     selectorize,

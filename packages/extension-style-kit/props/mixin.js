@@ -1,10 +1,10 @@
 class Mixin {
-    constructor(selector) {
-        this.selector = selector;
+    constructor(identifier) {
+        this.id = identifier;
     }
 
-    getValue() {
-        return `${this.selector}()`;
+    get identifier() {
+        return this.id;
     }
 }
 
