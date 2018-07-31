@@ -6,4 +6,6 @@ const OPTION_NAMES = {
     MIXIN: "mixin"
 };
 
-export { OPTION_NAMES };
+const LANG = "scss";
+
+export { LANG, OPTION_NAMES };

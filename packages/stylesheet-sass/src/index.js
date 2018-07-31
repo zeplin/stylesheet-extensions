@@ -6,7 +6,7 @@ import RuleSet from "extension-style-kit/ruleSet";
 import { isHtmlTag, getUniqueLayerTextStyles, selectorize } from "extension-style-kit/utils";
 
 import SassGenerator from "./generator";
-import { OPTION_NAMES } from "./constants";
+import { LANG, OPTION_NAMES } from "./constants";
 
 function getVariableMap(projectColors, params) {
     const variables = {};
@@ -39,7 +39,7 @@ function styleguideColors(context, colors) {
 
     return {
         code: colors.map(c => sassGenerator.variable(c.name, new Color(c))).join("\n"),
-        language: "json"
+        language: LANG
     };
 }
 
@@ -53,7 +53,7 @@ function styleguideTextStyles(context, textStyles) {
 
             return sassGenerator.ruleSet(style, { mixin: params.useMixin });
         }).join("\n"),
-        language: "json"
+        language: LANG
     };
 }
 
@@ -103,7 +103,7 @@ function layer(context, selectedLayer) {
 
     return {
         code: [layerStyle, ...childrenStyles].join("\n\n"),
-        language: "json"
+        language: LANG
     };
 }
 

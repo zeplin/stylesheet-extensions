@@ -6,4 +6,6 @@ const OPTION_NAMES = {
     MIXIN: "mixin"
 };
 
-export { OPTION_NAMES };
+const LANG = "stylus";
+
+export { LANG, OPTION_NAMES };
