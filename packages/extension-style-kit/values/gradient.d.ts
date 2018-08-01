@@ -10,6 +10,8 @@ interface RGBA {
 declare class Gradient {
     constructor(gradientObject: object);
 
+    static fromRGBA(rgba: RGBA): Gradient;
+
     equals(other: Gradient): boolean;
 
     toStyleValue(params: ColorParams, variables: VariableMap): string;

@@ -1,4 +1,5 @@
 import { ColorParams, VariableMap } from "../common";
+import Gradient from "./gradient";
 
 interface RGBA {
     r: number;
@@ -14,7 +15,7 @@ declare class Color {
 
     equals(other: Color): boolean;
 
-    toGradient(params: ColorParams): string;
+    toGradient(): Gradient;
 
     toStyleValue(params: ColorParams, variables: VariableMap): string;
 }

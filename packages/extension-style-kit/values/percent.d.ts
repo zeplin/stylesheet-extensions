@@ -1,7 +1,7 @@
 declare class Percent {
     constructor(value: number);
 
-    equals(other: Scalar): boolean;
+    equals(other: Percent): boolean;
 
     toStyleValue(): string;
 }

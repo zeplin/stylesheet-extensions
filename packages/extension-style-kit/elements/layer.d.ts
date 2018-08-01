@@ -2,14 +2,8 @@ import { BackgroundImage, StyleProp } from "../common";
 import Color from "../values/color";
 import RuleSet from "../ruleSet";
 
-interface LayerParams {
-    showDefaultValues?: boolean;
-    showDimensions?: boolean;
-    useMixin?: boolean;
-}
-
 declare class Layer {
-    constructor(layerObject: object, params: LayerParams);
+    constructor(layerObject: object);
 
     style: RuleSet;
     childrenStyles: Array<RuleSet>;
