@@ -1,0 +1,105 @@
+{
+    "type": "shape",
+    "name": "rect-multiple-shadow",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 74,
+        "y": 196,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 196,
+        "x": 74,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [
+        {
+            "position": "inside",
+            "thickness": 1,
+            "fill": {
+                "type": "color",
+                "blendMode": "normal",
+                "fill": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                },
+                "color": {
+                    "r": 151,
+                    "g": 151,
+                    "b": 151,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [
+        {
+            "type": "outer",
+            "offsetX": 0,
+            "offsetY": 2,
+            "blurRadius": 4,
+            "spread": 0,
+            "color": {
+                "r": 158,
+                "g": 12,
+                "b": 12,
+                "a": 0.5
+            }
+        },
+        {
+            "type": "inner",
+            "offsetX": 0,
+            "offsetY": 1,
+            "blurRadius": 3,
+            "spread": 0,
+            "color": {
+                "r": 245,
+                "g": 166,
+                "b": 35,
+                "a": 1
+            }
+        },
+        {
+            "type": "inner",
+            "offsetX": 0,
+            "offsetY": 1,
+            "blurRadius": 6,
+            "spread": 6,
+            "color": {
+                "r": 248,
+                "g": 231,
+                "b": 28,
+                "a": 1
+            }
+        }
+    ],
+    "textStyles": [],
+    "assets": []
+}

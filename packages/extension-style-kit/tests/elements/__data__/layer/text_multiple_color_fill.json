@@ -1,0 +1,77 @@
+{
+    "type": "text",
+    "name": "Multiple color fill",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 41,
+        "y": 126,
+        "width": 231,
+        "height": 20
+    },
+    "rect": {
+        "y": 126,
+        "x": 41,
+        "width": 231,
+        "height": 20
+    },
+    "content": "Multiple color filled",
+    "borders": [],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "color-burn",
+            "fill": {
+                "r": 248,
+                "g": 231,
+                "b": 28,
+                "a": 1
+            },
+            "color": {
+                "r": 248,
+                "g": 231,
+                "b": 28,
+                "a": 1
+            }
+        },
+        {
+            "type": "color",
+            "blendMode": "lighten",
+            "fill": {
+                "r": 65,
+                "g": 117,
+                "b": 5,
+                "a": 1
+            },
+            "color": {
+                "r": 65,
+                "g": 117,
+                "b": 5,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [
+        {
+            "range": {
+                "location": 0,
+                "length": 21
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular"
+            }
+        }
+    ],
+    "assets": []
+}

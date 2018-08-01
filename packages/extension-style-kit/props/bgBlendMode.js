@@ -6,11 +6,11 @@ class BgBlendMode {
     }
 
     get name() {
-        return STYLE_PROPS.BLEND_MODE;
+        return STYLE_PROPS.BACKGROUND_BLEND_MODE;
     }
 
     equals(other) {
-        return Array.from(this.values).sort().join(", ") === Array.from(other.values).sort().join(", ");
+        return this.values.join(", ") === other.values.join(", ");
     }
 
     getValue() {

@@ -1,0 +1,44 @@
+{
+    "type": "shape",
+    "name": "rect-border-radius",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 6,
+    "absoluteRect": {
+        "x": 454,
+        "y": 188,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 188,
+        "x": 454,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [],
+    "assets": []
+}

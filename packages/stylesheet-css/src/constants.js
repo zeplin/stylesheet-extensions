@@ -5,4 +5,6 @@ const OPTION_NAMES = {
     UNITLESS_LINE_HEIGHT: "unitlessLineHeight"
 };
 
-export { OPTION_NAMES };
+const LANG = "css";
+
+export { LANG, OPTION_NAMES };

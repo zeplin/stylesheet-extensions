@@ -1,0 +1,77 @@
+{
+    "type": "text",
+    "name": "Text with shadow",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 1,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 19,
+        "y": 268,
+        "width": 253,
+        "height": 20
+    },
+    "rect": {
+        "y": 268,
+        "x": 19,
+        "width": 253,
+        "height": 20
+    },
+    "content": "Simple text with shadow",
+    "borders": [],
+    "fills": [],
+    "shadows": [
+        {
+            "type": "outer",
+            "offsetX": 0,
+            "offsetY": 2,
+            "blurRadius": 4,
+            "spread": 0,
+            "color": {
+                "r": 126,
+                "g": 211,
+                "b": 33,
+                "a": 1
+            }
+        },
+        {
+            "type": "inner",
+            "offsetX": 0,
+            "offsetY": 1,
+            "blurRadius": 3,
+            "spread": 15,
+            "color": {
+                "r": 189,
+                "g": 16,
+                "b": 224,
+                "a": 1
+            }
+        }
+    ],
+    "textStyles": [
+        {
+            "range": {
+                "location": 0,
+                "length": 23
+            },
+            "style": {
+                "fontFace": "Consolas",
+                "fontSize": 20,
+                "fontWeight": 400,
+                "fontStyle": "normal",
+                "fontFamily": "Consolas",
+                "fontStretch": "normal",
+                "letterSpacing": 0,
+                "weightText": "regular",
+                "color": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1
+                }
+            }
+        }
+    ],
+    "assets": []
+}

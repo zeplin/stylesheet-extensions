@@ -1,9 +1,11 @@
 import Layer from "extension-style-kit/elements/layer";
 import TextStyle from "extension-style-kit/elements/textStyle";
 import Color from "extension-style-kit/values/color";
+import RuleSet from "extension-style-kit/ruleSet";
+import { getUniqueLayerTextStyles, selectorize } from "extension-style-kit/utils";
 
 import CssGenerator from "./generator";
-import { OPTION_NAMES } from "./constants";
+import { LANG, OPTION_NAMES } from "./constants";
 
 function getVariableMap(projectColors, params) {
     const variables = {};
@@ -31,47 +33,60 @@ function getParams(context) {
 
 function styleguideColors(context, colors) {
     const params = getParams(context);
-    const lessGenerator = createGenerator(context.project, params);
+    const cssGenerator = createGenerator(context.project, params);
 
     return {
-        code: colors.map(c => lessGenerator.variable(c.name, new Color(c))).join("\n"),
-        language: "json"
+        code: colors.map(c => cssGenerator.variable(c.name, new Color(c))).join("\n"),
+        language: LANG
     };
 }
 
 function styleguideTextStyles(context, textStyles) {
     const params = getParams(context);
-    const { showDefaultValues } = params;
-    const lessGenerator = createGenerator(context.project, params);
+    const cssGenerator = createGenerator(context.project, params);
 
     return {
-        code: textStyles.map(
-            t => lessGenerator.ruleSet(new TextStyle(t, { showDefaultValues }).style)
-        ).join("\n"),
-        language: "json"
+        code: textStyles.map(t => {
+            const { style } = new TextStyle(t);
+
+            return cssGenerator.ruleSet(style);
+        }).join("\n"),
+        language: LANG
     };
 }
 
 function layer(context, selectedLayer) {
     const params = getParams(context);
-    const { showDimensions, showDefaultValues } = params;
-    const lessGenerator = createGenerator(context.project, params);
+    const cssGenerator = createGenerator(context.project, params);
 
-    selectedLayer.textStyles.forEach(({ textStyle }) => {
-        const projectTextStyle = context.project.findTextStyleEqual(textStyle);
+    const l = new Layer(selectedLayer);
+    const layerRuleSet = l.style;
+    const childrenRuleSet = [];
+    const { defaultTextStyle } = selectedLayer;
 
-        if (projectTextStyle) {
-            textStyle.name = projectTextStyle.name;
-        }
-    });
+    if (selectedLayer.type === "text" && defaultTextStyle) {
+        const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
 
-    const l = new Layer(selectedLayer, { showDimensions, showDefaultValues });
-    const layerStyle = lessGenerator.ruleSet(l.style);
-    const childrenStyles = l.childrenStyles.map(s => lessGenerator.ruleSet(s));
+        textStyleProps.forEach(p => layerRuleSet.addProp(p));
+
+        getUniqueLayerTextStyles(selectedLayer).filter(
+            textStyle => !defaultTextStyle.equals(textStyle)
+        ).forEach((textStyle, idx) => {
+            childrenRuleSet.push(
+                new RuleSet(
+                    `${selectorize(selectedLayer.name)} ${selectorize(`text-style-${idx + 1}`)}`,
+                    l.getLayerTextStyleProps(textStyle)
+                )
+            );
+        });
+    }
+
+    const layerStyle = cssGenerator.ruleSet(layerRuleSet);
+    const childrenStyles = childrenRuleSet.map(s => cssGenerator.ruleSet(s, { parentProps: layerRuleSet.props }));
 
     return {
         code: [layerStyle, ...childrenStyles].join("\n\n"),
-        language: "json"
+        language: LANG
     };
 }
 

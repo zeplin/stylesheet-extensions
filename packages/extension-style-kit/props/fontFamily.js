@@ -22,6 +22,10 @@ class FontFamily {
     }
 
     getValue() {
+        if (this.hasDefaultValue()) {
+            return FontFamily.DEFAULT_VALUE;
+        }
+
         return this.value;
     }
 }

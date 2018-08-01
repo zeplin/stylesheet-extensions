@@ -1,0 +1,44 @@
+{
+    "type": "shape",
+    "name": "rect-opacity",
+    "exportable": false,
+    "rotation": 0,
+    "opacity": 0.2231584821428571,
+    "blendMode": "normal",
+    "borderRadius": 0,
+    "absoluteRect": {
+        "x": 454,
+        "y": 337,
+        "width": 138,
+        "height": 99
+    },
+    "rect": {
+        "y": 337,
+        "x": 454,
+        "width": 138,
+        "height": 99
+    },
+    "content": "",
+    "borders": [],
+    "fills": [
+        {
+            "type": "color",
+            "blendMode": "normal",
+            "fill": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            },
+            "color": {
+                "r": 216,
+                "g": 216,
+                "b": 216,
+                "a": 1
+            }
+        }
+    ],
+    "shadows": [],
+    "textStyles": [],
+    "assets": []
+}

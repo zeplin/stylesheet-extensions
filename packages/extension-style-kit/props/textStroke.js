@@ -1,3 +1,4 @@
+import { webkit } from "../utils";
 import { STYLE_PROPS } from "../constants";
 
 class TextStroke {
@@ -21,4 +22,6 @@ class TextStroke {
     }
 }
 
-export default TextStroke;
+const webKitTextStroke = webkit(TextStroke);
+
+export default webKitTextStroke;

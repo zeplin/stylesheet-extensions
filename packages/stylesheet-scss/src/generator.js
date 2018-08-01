@@ -1,4 +1,5 @@
-import Mixin from "../../extension-style-kit/props/mixin";
+import Mixin from "extension-style-kit/props/mixin";
+import { isHtmlTag, isPropInherited } from "extension-style-kit/utils";
 
 const PREFIX = "$";
 const MIDFIX = ":";
@@ -15,15 +16,41 @@ class SCSS {
         });
     }
 
+    filterProps(childProps, parentProps, isMixin) {
+        const { params: { showDefaultValues, showDimensions } } = this;
+
+        return childProps.filter(prop => {
+            if (!showDimensions && (prop.name === "width" || prop.name === "height")) {
+                return false;
+            }
+
+            const parentProp = parentProps.find(p => p.name === prop.name);
+
+            if (parentProp) {
+                if (!parentProp.equals(prop)) {
+                    return true;
+                }
+
+                return !isPropInherited(prop.name);
+            }
+
+            if (prop.hasDefaultValue && prop.hasDefaultValue()) {
+                return !isMixin && showDefaultValues;
+            }
+
+            return true;
+        });
+    }
+
     prop(p, mixin) {
         if (p instanceof Mixin) {
-            return `${INDENTATION}${p.getValue()}`;
+            return `${INDENTATION}@include ${p.identifier}${SUFFIX}`;
         }
 
-        let params = this.params;
+        let { params } = this;
 
         if (mixin) {
-            params = Object.assign({}, this.params, { defaultValues: false });
+            params = Object.assign({}, params, { showDefaultValues: false });
         }
 
         return `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(params, this.variables)}${SUFFIX}`;
@@ -33,8 +60,12 @@ class SCSS {
         return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, props }, mixin = false) {
-        return `${selector}${mixin ? "()" : ""} {\n${props.map(p => this.prop(p, mixin)).join("\n")}\n}`;
+    ruleSet({ selector, props }, { parentProps = [], mixin = false } = {}) {
+        const isMixin = !isHtmlTag(selector) && mixin;
+        const filteredProps = this.filterProps(props, parentProps, isMixin);
+        const ruleSelector = isMixin ? selector.replace(/^\./, "@mixin ") : selector;
+
+        return `${ruleSelector}${isMixin ? "()" : ""} {\n${filteredProps.map(p => this.prop(p, isMixin)).join("\n")}\n}`;
     }
 }
 

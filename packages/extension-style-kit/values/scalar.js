@@ -9,7 +9,7 @@ function round(number, precision) {
 
 class Scalar {
     constructor(value) {
-        this.value = value || 0;
+        this.value = value;
     }
 
     equals(other) {

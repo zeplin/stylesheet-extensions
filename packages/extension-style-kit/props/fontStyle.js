@@ -22,6 +22,10 @@ class FontStyle {
     }
 
     getValue() {
+        if (this.hasDefaultValue()) {
+            return FontStyle.DEFAULT_VALUE;
+        }
+
         return this.value;
     }
 }

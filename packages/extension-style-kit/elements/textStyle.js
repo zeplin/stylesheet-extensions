@@ -13,65 +13,32 @@ import RuleSet from "../ruleSet";
 import { selectorize } from "../utils";
 
 class TextStyle {
-    constructor(textStyleObject, { showDefaultValues } = {}) {
+    constructor(textStyleObject) {
         this.font = textStyleObject;
-        this.showDefaultValues = showDefaultValues;
 
         this.props = this.collectProps();
     }
 
     collectProps() {
-        const { font, showDefaultValues } = this;
+        const { font } = this;
         let props = [
             new FontFamily(font.fontFamily),
             new FontSize(new Length(font.fontSize))
         ];
 
-        if (font.fontWeight) {
-            const fontWeight = new FontWeight(font.fontWeight);
+        props.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
+        props.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
+        props.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
+        props.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
+        props.push(new LetterSpacing(
+            font.letterSpacing ? new Length(font.letterSpacing) : LetterSpacing.DEFAULT_VALUE
+        ));
 
-            if (!fontWeight.hasDefaultValue() || showDefaultValues) {
-                props.push(fontWeight);
-            }
-        }
-
-        if (font.fontStyle) {
-            const fontStyle = new FontStyle(font.fontStyle);
-
-            if (!fontStyle.hasDefaultValue() || showDefaultValues) {
-                props.push(fontStyle);
-            }
-        }
-
-        if (font.fontStretch) {
-            const fontStretch = new FontStretch(font.fontStretch);
-
-            if (!fontStretch.hasDefaultValue() || showDefaultValues) {
-                props.push(fontStretch);
-            }
-        }
-
-        if (font.lineHeight) {
-            const lineHeight = new LineHeight(font.lineHeight, font.fontSize);
-
-            if (!lineHeight.hasDefaultValue() || showDefaultValues) {
-                props.push(lineHeight);
-            }
-        }
-
-        if (font.letterSpacing) {
-            const letterSpacing = new LetterSpacing(new Length(font.letterSpacing));
-
-            if (!letterSpacing.hasDefaultValue() || showDefaultValues) {
-                props.push(letterSpacing);
-            }
-        }
-
-        if (font.textAlign) {
+        if ("textAlign" in font) {
             props.push(new TextAlign(font.textAlign));
         }
 
-        if (font.color) {
+        if ("color" in font) {
             props.push(new FontColor(new Color(font.color)));
         }
 

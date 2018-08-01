@@ -11,17 +11,20 @@ class Transform {
 
     equals(other) {
         return (
-            this.filters.length === other.filters.length &&
-            this.filters.every(filter => {
-                const f = other.filters.find(fx => fx === filter);
+            this.transforms.length === other.transforms.length &&
+            this.transforms.every(filter => {
+                const f = other.transforms.find(fx => fx.fn === filter.fn);
 
-                return f && f.args.join(", ") === filter.args.join(", ");
+                return (
+                    f && f.args.length === filter.args.length &&
+                    filter.args.every((a, idx) => a.equals(f.args[idx]))
+                );
             })
         );
     }
 
-    getValue() {
-        return this.transforms.map(({ fn, args }) => `${fn}(${args.join(", ")})`).join(", ");
+    getValue(params, variables) {
+        return this.transforms.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, variables)).join(" ")})`).join(" ");
     }
 }
 

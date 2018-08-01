@@ -1,8 +1,8 @@
 import { STYLE_PROPS } from "../constants";
 
 class BgClip {
-    constructor(value) {
-        this.value = value;
+    constructor(values) {
+        this.values = values;
     }
 
     get name() {
@@ -10,11 +10,11 @@ class BgClip {
     }
 
     equals(other) {
-        return this.value === other.value;
+        return this.values.join(", ") === other.values.join(", ");
     }
 
     getValue() {
-        return this.value;
+        return this.values.join(", ");
     }
 }
 

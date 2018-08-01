@@ -17,16 +17,17 @@ class LineHeight {
     }
 
     equals(other) {
-        return this.lineHeight === other.lineHeight && this.fontSize === other.fontSize;
+        return (this.hasDefaultValue() && other.hasDefaultValue()) ||
+            (this.lineHeight === other.lineHeight && this.fontSize === other.fontSize);
     }
 
     hasDefaultValue() {
-        return this.value === LineHeight.DEFAULT_VALUE;
+        return this.lineHeight === LineHeight.DEFAULT_VALUE;
     }
 
     getValue(params, variables) {
         if (this.hasDefaultValue()) {
-            return this.value;
+            return this.lineHeight;
         }
 
         const { unitlessLineHeight } = params;
