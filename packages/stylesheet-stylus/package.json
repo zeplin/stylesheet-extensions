@@ -10,7 +10,7 @@
     "exec": "zem exec"
   },
   "dependencies": {
-    "extension-style-kit": "^1.0.0",
+    "zeplin-extension-style-kit": "^1.0.0",
     "zem": "^0.2.0"
   },
   "author": {
