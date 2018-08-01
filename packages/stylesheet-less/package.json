@@ -1,21 +1,70 @@
 {
-  "name": "stylesheet-less",
-  "version": "0.1.0",
-  "description": "Sample extension description.",
+  "name": "zeplin-less-extension",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Generates Less snippets from colors, text styles and layers.",
+  "author": {
+    "name": "Zeplin",
+    "email": "support@zeplin.io",
+    "url": "http://zeplin.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeplin/zeplin-stylesheet-extensions.git"
+  },
   "scripts": {
     "start": "zem start",
     "build": "zem build",
     "clean": "zem clean",
     "exec": "zem exec"
   },
+  "dependencies": {
+    "zeplin-extension-style-kit": "^1.0.0",
+    "zem": "^0.2.0"
+  },
   "zeplin": {
-    "displayName": "stylesheet-less",
+    "displayName": "Less",
     "projectTypes": [
       "web"
-    ]
-  },
-  "dependencies": {
-    "extension-style-kit": "^1.0.0",
-    "zem": "^0.2.0"
+    ],
+    "options": [{
+      "name": "Color format",
+      "type": "picker",
+      "id": "colorFormat",
+      "options": [{
+          "name": "Default",
+          "value": "default"
+      }, {
+          "name": "HEX",
+          "value": "hex"
+      }, {
+          "name": "RGB",
+          "value": "rgb"
+      }, {
+          "name": "HSL",
+          "value": "hsl"
+      }],
+      "default": "default"
+    }, {
+      "name": "Dimensions",
+      "type": "switch",
+      "id": "showDimensions",
+      "default": true
+    }, {
+      "name": "Unitless line-height",
+      "type": "switch",
+      "id": "unitlessLineHeight",
+      "default": true
+    }, {
+      "name": "Text styles as mixins",
+      "type": "switch",
+      "id": "mixin",
+      "default": true
+    }, {
+      "name": "Default values",
+      "type": "switch",
+      "id": "showDefaultValues",
+      "default": true
+    }]
   }
 }

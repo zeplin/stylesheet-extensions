@@ -1,4 +1,4 @@
-import { isPropInherited } from "extension-style-kit/utils";
+import { isPropInherited } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const MIDFIX = ":";

@@ -1,12 +1,28 @@
 {
-  "plugins": [
-    "transform-es2015-modules-commonjs",
-    ["module-resolver", {
-      "root": ["./"],
-      "alias": {
-        "@root": "./",
-        "@testHelpers": "./tests/helpers"
-      }
+  "presets": [
+    ["env", {
+        "targets": {
+          "browsers": ["chrome >= 45", "safari >= 9.1", "firefox >= 45"]
+        }
     }]
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs",
+        ["module-resolver", {
+          "root": ["./"],
+          "alias": {
+            "@root": "./",
+            "@testHelpers": "./tests/helpers"
+          }
+        }]
+      ]
+    }
+  }
 }

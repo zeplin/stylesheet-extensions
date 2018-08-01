@@ -1,4 +1,4 @@
-import { isPropInherited } from "../../../utils";
+import { isPropInherited } from "@root/utils";
 
 const PREFIX = "--";
 const MIDFIX = ":";

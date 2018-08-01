@@ -1,8 +1,8 @@
-import Layer from "../../../elements/layer";
-import TextStyle from "../../../elements/textStyle";
-import Color from "../../../values/color";
-import RuleSet from "../../../ruleSet";
-import { getUniqueLayerTextStyles, selectorize } from "../../../utils";
+import Layer from "@root/elements/layer";
+import TextStyle from "@root/elements/textStyle";
+import Color from "@root/values/color";
+import RuleSet from "@root/ruleSet";
+import { getUniqueLayerTextStyles, selectorize } from "@root/utils";
 
 import Generator from "./generator";
 

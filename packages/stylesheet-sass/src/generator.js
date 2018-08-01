@@ -1,5 +1,5 @@
-import Mixin from "extension-style-kit/props/mixin";
-import { isHtmlTag, isPropInherited } from "extension-style-kit/utils";
+import Mixin from "zeplin-extension-style-kit/props/mixin";
+import { isHtmlTag, isPropInherited } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
 const MIDFIX = ":";

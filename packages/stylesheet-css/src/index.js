@@ -1,8 +1,8 @@
-import Layer from "extension-style-kit/elements/layer";
-import TextStyle from "extension-style-kit/elements/textStyle";
-import Color from "extension-style-kit/values/color";
-import RuleSet from "extension-style-kit/ruleSet";
-import { getUniqueLayerTextStyles, selectorize } from "extension-style-kit/utils";
+import Layer from "zeplin-extension-style-kit/elements/layer";
+import TextStyle from "zeplin-extension-style-kit/elements/textStyle";
+import Color from "zeplin-extension-style-kit/values/color";
+import RuleSet from "zeplin-extension-style-kit/ruleSet";
+import { getUniqueLayerTextStyles, selectorize } from "zeplin-extension-style-kit/utils";
 
 import CssGenerator from "./generator";
 import { LANG, OPTION_NAMES } from "./constants";
