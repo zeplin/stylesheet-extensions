@@ -6,7 +6,7 @@ import RuleSet from "zeplin-extension-style-kit/ruleSet";
 import { isHtmlTag, getUniqueLayerTextStyles, selectorize } from "zeplin-extension-style-kit/utils";
 
 import LessGenerator from "./generator";
-import { LANG, OPTION_NAMES } from "./constants";
+import { COPYRIGHT, LANG, OPTION_NAMES } from "./constants";
 
 function getVariableMap(projectColors, params) {
     const variables = {};
@@ -52,7 +52,7 @@ function styleguideTextStyles(context, textStyles) {
             const { style } = new TextStyle(t);
 
             return lessGenerator.ruleSet(style, { mixin: params.useMixin });
-        }).join("\n"),
+        }).join("\n\n"),
         language: LANG
     };
 }
@@ -107,8 +107,37 @@ function layer(context, selectedLayer) {
     };
 }
 
+function comment(context, text) {
+    return `/* ${text} */`;
+}
+
+function exportStyleguideColors(context, colors) {
+    const { code: colorCode, language } = styleguideColors(context, colors);
+    const code = `${comment(context, COPYRIGHT)}\n\n${colorCode}`;
+
+    return {
+        code,
+        filename: "colors.less",
+        language
+    };
+}
+
+function exportStyleguideTextStyles(context, textStyles) {
+    const { code: textStyleCode, language } = styleguideTextStyles(context, textStyles);
+    const code = `${comment(context, COPYRIGHT)}\n\n${textStyleCode}`;
+
+    return {
+        code,
+        filename: "fonts.less",
+        language
+    };
+}
+
 export default {
     styleguideColors,
     styleguideTextStyles,
-    layer
+    layer,
+    comment,
+    exportStyleguideColors,
+    exportStyleguideTextStyles
 };

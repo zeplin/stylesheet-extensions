@@ -5,7 +5,7 @@ import RuleSet from "zeplin-extension-style-kit/ruleSet";
 import { getUniqueLayerTextStyles, selectorize } from "zeplin-extension-style-kit/utils";
 
 import CssGenerator from "./generator";
-import { LANG, OPTION_NAMES } from "./constants";
+import { COPYRIGHT, LANG, OPTION_NAMES } from "./constants";
 
 function getVariableMap(projectColors, params) {
     const variables = {};
@@ -34,9 +34,10 @@ function getParams(context) {
 function styleguideColors(context, colors) {
     const params = getParams(context);
     const cssGenerator = createGenerator(context.project, params);
+    const code = `:root {\n${colors.map(c => `  ${cssGenerator.variable(c.name, new Color(c))}`).join("\n")}\n}`
 
     return {
-        code: colors.map(c => cssGenerator.variable(c.name, new Color(c))).join("\n"),
+        code,
         language: LANG
     };
 }
@@ -50,7 +51,7 @@ function styleguideTextStyles(context, textStyles) {
             const { style } = new TextStyle(t);
 
             return cssGenerator.ruleSet(style);
-        }).join("\n"),
+        }).join("\n\n"),
         language: LANG
     };
 }
@@ -90,8 +91,37 @@ function layer(context, selectedLayer) {
     };
 }
 
+function comment(context, text) {
+    return `/* ${text} */`;
+}
+
+function exportStyleguideColors(context, colors) {
+    const { code: colorCode, language } = styleguideColors(context, colors);
+    const code = `${comment(context, COPYRIGHT)}\n\n${colorCode}`;
+
+    return {
+        code,
+        filename: "colors.css",
+        language
+    };
+}
+
+function exportStyleguideTextStyles(context, textStyles) {
+    const { code: textStyleCode, language } = styleguideTextStyles(context, textStyles);
+    const code = `${comment(context, COPYRIGHT)}\n\n${textStyleCode}`;
+
+    return {
+        code,
+        filename: "fonts.css",
+        language
+    };
+}
+
 export default {
     styleguideColors,
     styleguideTextStyles,
-    layer
+    layer,
+    comment,
+    exportStyleguideColors,
+    exportStyleguideTextStyles
 };
