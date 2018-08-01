@@ -1,20 +1,39 @@
 {
-  "name": "extension-style-kit",
+  "name": "zeplin-extension-style-kit",
   "version": "1.0.0",
   "description": "",
-  "main": "constants.js",
+  "main": "index.js",
   "scripts": {
-    "test": "jest -c ./tests/jest.config.js"
+    "build": "babel ./ -d ./lib --ignore tests,scripts,package.json --copy-files",
+    "test": "BABEL_ENV=test jest -c ./tests/jest.config.js",
+    "clean": "rm -rf ./lib"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "zeplin",
+    "zeplin-extension",
+    "extension"
+  ],
+  "author": {
+    "name": "Zeplin",
+    "email": "support@zeplin.io",
+    "url": "http://zeplin.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeplin/zeplin-stylesheet-extensions.git"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@zeplin/eslint-config": "^1.3.2",
-    "@zeplin/extension-model": "^1.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "css.escape": "^1.5.1",
+    "babel-preset-env": "^1.7.0",
     "jest": "^23.4.2"
+  },
+  "dependencies": {
+    "@zeplin/extension-model": "^1.3.0",
+    "css.escape": "^1.5.1"
   }
 }
