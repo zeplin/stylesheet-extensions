@@ -2,6 +2,7 @@ import Gradient from "./values/gradient";
 
 declare namespace zesk {
     type BackgroundImage = Gradient;
+    type StyleParams = AllParams | ColorParams | LengthParams;
 
     interface StyleValue {
         equals(other: StyleValue);
@@ -10,21 +11,22 @@ declare namespace zesk {
 
     interface StyleProp {
         name: string;
-        hasDefaultValue(): boolean;
+        hasDefaultValue?(): boolean;
         equals(other: StyleProp): boolean;
         getValue(params: StyleParams, variables: VariableMap);
     }
 
-    interface StyleParams {
+    interface AllParams {
         densityDivisor?: number;
         colorFormat?: string;
+        unitlessLineHeight?: boolean;
     }
 
-    interface ColorParams extends StyleParams {
+    interface ColorParams {
         colorFormat: string;
     }
 
-    interface LengthParams extends StyleParams {
+    interface LengthParams {
         densityDivisor: number;
     }
 

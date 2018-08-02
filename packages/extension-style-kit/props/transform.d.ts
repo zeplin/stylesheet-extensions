@@ -1,13 +1,13 @@
-import { StyleFunction } from "../common";
+import { StyleFunction, StyleParams, VariableMap } from "../common";
 
 declare class Transform {
-    constructor(filters: Array<StyleFunction>);
+    constructor(fns: Array<StyleFunction>);
 
     name: string;
 
     equals(other: Transform): boolean;
 
-    getValue(): string;
+    getValue(params: StyleParams, variables: VariableMap): string;
 }
 
 export = Transform;

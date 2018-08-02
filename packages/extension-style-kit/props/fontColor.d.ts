@@ -1,7 +1,8 @@
 import { ColorParams, VariableMap } from "../common";
+import Color from "../values/color"
 
 declare class FontColor {
-    constructor(values: string[]);
+    constructor(value: Color);
 
     name: string;
 
