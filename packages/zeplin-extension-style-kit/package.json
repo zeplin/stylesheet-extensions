@@ -1,7 +1,7 @@
 {
   "name": "zeplin-extension-style-kit",
   "version": "1.0.0",
-  "description": "",
+  "description": "Models and utilities to generate CSS-like style code in Zeplin extensions.",
   "main": "index.js",
   "scripts": {
     "build": "babel ./ -d ./lib --ignore tests,scripts,package.json --copy-files",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zeplin/zeplin-stylesheet-extensions.git"
+    "url": "https://github.com/zeplin/stylesheet-extensions.git"
   },
   "license": "MIT",
   "devDependencies": {

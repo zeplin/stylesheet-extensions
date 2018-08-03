@@ -6,4 +6,4 @@ This monorepo consists of stylesheet extensions and a utility that extracts styl
  - [SCSS](packages/stylesheet-scss)
  - [Sass](packages/stylesheet-sass)
  - [Stylus](packages/stylesheet-stylus)
- - [zeplin-extension-style-kit](packages/extension-style-kit)
+ - [zeplin-extension-style-kit](packages/zeplin-extension-style-kit)
