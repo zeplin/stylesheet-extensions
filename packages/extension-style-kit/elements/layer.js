@@ -158,7 +158,7 @@ class Layer {
 
         if (layer.type === "text" && fill.type === "color") {
             return [
-                new TextStroke(new Length(thickness), new Color(fill.color))
+                new (webkit(TextStroke))(new Length(thickness), new Color(fill.color))
             ];
         }
 

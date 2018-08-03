@@ -819,14 +819,14 @@ new TextFillColor("transparent").getValue()
 
 ## TextStroke
 ### `constructor(length, color)`: `TextStroke`
-Creates `-webkit-text-stroke` property with `length` and `color`. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-text-stroke).
+Creates `text-stroke` property with `length` and `color`. It should be prefixed with `-webkit`. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-text-stroke).
 
 #### Parameters:
  - `length`: [`Length`](./values.md#length).
  - `color`: [`Color`](./values.md#color).
 
 ### name: string
-Returns `-webkit-text-stroke`
+Returns `text-stroke`
 
 ### `equals(other)`: `boolean`
 Equality check.

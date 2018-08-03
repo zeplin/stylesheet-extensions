@@ -10,7 +10,7 @@ test("property name", () => {
         color: Color.fromRGBA({ r: 0, g: 0, b: 0 })
     });
 
-    expect(textStroke.name).toBe("-webkit-text-stroke");
+    expect(textStroke.name).toBe("text-stroke");
 });
 
 test("text-stroke value", () => {
