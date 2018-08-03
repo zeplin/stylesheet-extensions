@@ -6,6 +6,12 @@ class Length {
         this.unit = unit;
     }
 
+    valueOf() {
+        const { value, unit } = this;
+
+        return `length::v:${value}:u:${unit}`;
+    }
+
     equals(other) {
         return this.value === other.value && this.unit === other.unit;
     }

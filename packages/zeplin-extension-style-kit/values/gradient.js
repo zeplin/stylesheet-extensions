@@ -48,6 +48,12 @@ class ColorStop {
         this.object = colorStopObject;
     }
 
+    valueOf() {
+        const { object: { position, color: { r, g, b, a } } } = this;
+
+        return `colorStop::p:${position}:r:${r}:g:${g}:b:${b}:a:${a}`;
+    }
+
     equals(other) {
         return other.object.position === this.object.position && other.object.color.equals(this.object.color);
     }
@@ -77,6 +83,12 @@ class Gradient {
                 100, 100
             )
         );
+    }
+
+    valueOf() {
+        const { type, angle } = this.object;
+
+        return `gradient::t:${type}:a:${angle}:${this.colorStops.map(cs => cs.valueOf()).join(":")}`;
     }
 
     equals(other) {

@@ -12,7 +12,7 @@ function getVariableMap(projectColors, params) {
     const variables = {};
 
     projectColors.forEach(projectColor => {
-        variables[new Color(projectColor).toStyleValue(params)] = projectColor.name;
+        variables[new Color(projectColor).valueOf()] = projectColor.name;
     });
 
     return variables;
@@ -68,22 +68,26 @@ function layer(context, selectedLayer) {
     const { defaultTextStyle } = selectedLayer;
 
     if (selectedLayer.type === "text" && defaultTextStyle) {
-        selectedLayer.textStyles.forEach(({ textStyle }) => {
-            const projectTextStyle = context.project.findTextStyleEqual(textStyle);
+        const projectTextStyle = context.project.findTextStyleEqual(defaultTextStyle);
+        const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
+        let textStyleName;
 
-            if (projectTextStyle) {
-                textStyle.name = projectTextStyle.name;
-            }
-        });
-
-        const { name: textStyleName } = defaultTextStyle;
+        if (projectTextStyle) {
+            textStyleName = projectTextStyle.name;
+        }
 
         if (useMixin && textStyleName && !isHtmlTag(selectorize(textStyleName))) {
+            const mixinRuleSet = new RuleSet("mixin", l.getLayerTextStyleDeclarations(projectTextStyle));
+
+            declarations.forEach(d => {
+                if (!mixinRuleSet.hasProperty(d.name)) {
+                    layerRuleSet.addDeclaration(d);
+                }
+            });
+
             layerRuleSet.addDeclaration(new Mixin(selectorize(textStyleName).replace(/^\./, "")));
         } else {
-            const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
-
-            declarations.forEach(p => layerRuleSet.addDeclaration(p));
+            declarations.forEach(d => layerRuleSet.addDeclaration(d));
         }
 
         getUniqueLayerTextStyles(selectedLayer).filter(

@@ -5,6 +5,7 @@ declare namespace zesk {
     type StyleParams = AllParams | ColorParams | LengthParams;
 
     interface StyleValue {
+        valueOf(): string;
         equals(other: StyleValue);
         toStyleValue(params: StyleParams, variables: VariableMap);
     }

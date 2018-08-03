@@ -12,6 +12,10 @@ class RuleSet {
         return Object.keys(this.declarationMap).map(name => this.declarationMap[name]);
     }
 
+    hasProperty(property) {
+        return property in this.declarationMap;
+    }
+
     addDeclaration(declaration) {
         this.declarationMap[declaration.name] = declaration;
     }

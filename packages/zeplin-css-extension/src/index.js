@@ -11,7 +11,7 @@ function getVariableMap(projectColors, params) {
     const variables = {};
 
     projectColors.forEach(projectColor => {
-        variables[new Color(projectColor).toStyleValue(params)] = projectColor.name;
+        variables[new Color(projectColor).valueOf()] = projectColor.name;
     });
 
     return variables;

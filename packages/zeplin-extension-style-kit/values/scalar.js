@@ -13,6 +13,12 @@ class Scalar {
         this.precision = precision;
     }
 
+    valueOf() {
+        const { value, precision } = this;
+
+        return `scalar::v:${value}:p:${precision}`;
+    }
+
     equals(other) {
         return this.value === other.value;
     }

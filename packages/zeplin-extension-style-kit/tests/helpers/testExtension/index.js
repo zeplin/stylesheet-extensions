@@ -6,30 +6,6 @@ import { getUniqueLayerTextStyles, selectorize } from "@root/utils";
 
 import Generator from "./generator";
 
-/*
-
-function getVariableMap(projectColors, params) {
-    const variables = {};
-
-    projectColors.forEach(projectColor => {
-        variables[new Color(projectColor).toStyleValue(params)] = projectColor.name;
-    });
-
-    return variables;
-}
-
-function getParams(context) {
-    return {
-        densityDivisor: context.project.densityDivisor,
-        colorFormat: context.getOption(OPTION_NAMES.COLOR_FORMAT),
-        showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
-        showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
-        unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT)
-    };
-}
-
-*/
-
 class Extension {
     constructor(params, variables = {}) {
         this.params = params;

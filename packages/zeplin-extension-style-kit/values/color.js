@@ -70,6 +70,12 @@ class Color {
         return new Color(new ExtensionColor({ r, g, b, a }));
     }
 
+    valueOf() {
+        const { r, g, b, a } = this.object;
+
+        return `color::r:${r}:g:${g}:b:${b}:a:${a}`;
+    }
+
     equals(other) {
         return this.object.equals(other.object);
     }
@@ -81,13 +87,13 @@ class Color {
     }
 
     toStyleValue({ colorFormat }, variables) {
-        const value = getColorStringByFormat(this.object, colorFormat);
+        const value = this.valueOf();
 
         if (variables && value in variables) {
             return variables[value];
         }
 
-        return value;
+        return getColorStringByFormat(this.object, colorFormat);
     }
 }
 

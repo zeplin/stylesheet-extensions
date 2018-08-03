@@ -5,6 +5,12 @@ class Percent {
         this.value = value;
     }
 
+    valueOf() {
+        const { value } = this;
+
+        return `percent::v:${value}`;
+    }
+
     equals(other) {
         return this.value === other.value;
     }

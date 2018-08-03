@@ -6,6 +6,12 @@ class Angle {
         this.unit = unit;
     }
 
+    valueOf() {
+        const { value, unit } = this;
+
+        return `angle::v:${value}:u:${unit}`;
+    }
+
     equals(other) {
         return this.value === other.value && this.unit === other.unit;
     }

@@ -4,6 +4,9 @@ Values represent CSS values used in properties. They are parametric models that 
 ## StyleValue
 Forms the base interface for all style values.
 
+### `valueOf()`: `string`
+This property returns the primitive value for the `StyleValue` instance.
+
 ### `equals(other: StyleValue)`: `boolean`
 Given an `other` value instance, this method determines if `other` equals to the self.
 
