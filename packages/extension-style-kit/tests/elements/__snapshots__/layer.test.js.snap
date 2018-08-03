@@ -174,8 +174,8 @@ exports[`layer text layer with blur 1`] = `
 ".Burred-text {
   width: 115.5px;
   height: 10px;
-  -webkit-filter: blur(1.12px);
-  filter: blur(1.12px);
+  -webkit-filter: blur(1.1px);
+  filter: blur(1.1px);
   font-family: Consolas;
   font-size: 10px;
   font-weight: normal;
@@ -235,7 +235,6 @@ exports[`layer text layer with gradient fill 1`] = `
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(to bottom, rgb(250, 217, 97), rgb(247, 107, 28)), linear-gradient(95deg, rgb(48, 35, 174), rgb(200, 109, 215));
 }"
 `;
 

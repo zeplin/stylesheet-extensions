@@ -6,6 +6,12 @@ test("default unit is px", () => {
     expect(length.toStyleValue({ densityDivisor: 1 })).toBe("13px");
 });
 
+test("decimal number precision is 1", () => {
+    const length = new Length(13.21);
+
+    expect(length.toStyleValue({ densityDivisor: 1 })).toBe("13.2px");
+});
+
 test("length with specific unit", () => {
     const length = new Length(3, "ch");
 

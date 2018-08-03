@@ -1,5 +1,5 @@
 function round(number, precision) {
-    var formattedNumber = Number(number).toLocaleString("en-US", {
+    const formattedNumber = Number(number).toLocaleString("en-US", {
         useGrouping: false,
         maximumFractionDigits: precision
     });
@@ -8,8 +8,9 @@ function round(number, precision) {
 }
 
 class Scalar {
-    constructor(value) {
+    constructor(value, precision = 2) {
         this.value = value;
+        this.precision = precision;
     }
 
     equals(other) {
@@ -17,7 +18,7 @@ class Scalar {
     }
 
     toStyleValue() {
-        return round(this.value, 2);
+        return `${round(this.value, this.precision)}`;
     }
 }
 
