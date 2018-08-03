@@ -1,16 +1,23 @@
 class RuleSet {
     constructor(selector, props) {
         this.selector = selector;
-        this.props = props;
+        this.propMap = {};
+
+        props.forEach(prop => {
+            this.propMap[prop.name] = prop;
+        });
+    }
+
+    get props() {
+        return Object.keys(this.propMap).map(name => this.propMap[name]);
     }
 
     addProp(prop) {
-        this.props = this.props.filter(p => p !== prop.name);
-        this.props.push(prop);
+        this.propMap[prop.name] = prop;
     }
 
     removeProp(prop) {
-        this.props = this.props.filter(p => !p.equals(prop));
+        delete this.propMap[prop.name];
     }
 }
 
