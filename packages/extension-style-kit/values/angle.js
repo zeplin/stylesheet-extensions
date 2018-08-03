@@ -7,7 +7,7 @@ class Angle {
     }
 
     equals(other) {
-        return (this.value === other.value && this.unit === other.unit);
+        return this.value === other.value && this.unit === other.unit;
     }
 
     toStyleValue() {

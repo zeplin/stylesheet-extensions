@@ -46,15 +46,11 @@ class Layer {
     }
 
     get hasBlendMode() {
-        return this.object.fills.some(function (f) {
-            return f.blendMode && f.blendMode !== "normal";
-        });
+        return this.object.fills.some(f => f.blendMode && f.blendMode !== "normal");
     }
 
     get hasGradient() {
-        return this.object.fills.some(function (f) {
-            return f.type === "gradient";
-        });
+        return this.object.fills.some(f => f.type === "gradient");
     }
 
     get hasFill() {
@@ -73,9 +69,7 @@ class Layer {
                 textStyleProps.push(new BgClip(["text"]));
                 textStyleProps.push(new TextFillColor("transparent"));
 
-                const bgImages = layer.fills.map(function (fill) {
-                    return Layer.fillToGradient(fill);
-                });
+                const bgImages = layer.fills.map(fill => Layer.fillToGradient(fill));
 
                 if (textStyle.color) {
                     bgImages.push(new Color(textStyle.color).toGradient());
@@ -97,9 +91,9 @@ class Layer {
     }
 
     get elementBorder() {
-        const { object: layer } = this;
+        const { object: { borders } } = this;
 
-        return layer.borders.length ? layer.borders[layer.borders.length - 1] : null;
+        return borders.length ? borders[borders.length - 1] : null;
     }
 
     get bgImages() {

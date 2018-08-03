@@ -16,7 +16,7 @@ const HTML_TAGS = [
 ];
 
 function isHtmlTag(str) {
-    return HTML_TAGS.indexOf(str.toLowerCase()) > -1;
+    return HTML_TAGS.includes(str.toLowerCase());
 }
 
 const NOT_INHERITED_PROPS = [
@@ -30,13 +30,11 @@ function isPropInherited(prop) {
 }
 
 function blendColors(colors) {
-    return colors.reduce(function (blendedColor, color) {
-        return blendedColor.blend(color);
-    });
+    return colors.reduce((blendedColor, color) => blendedColor.blend(color));
 }
 
 function escape(str) {
-    var escapedStr = str.trim()
+    let escapedStr = str.trim()
         .replace(/[^\s\w-]/g, "")
         .replace(/^(-?\d+)+/, "")
         .replace(/\s+/g, "-");
@@ -53,14 +51,14 @@ function selectorize(str) {
         return "";
     }
 
-    var selectorizedStr = str.trim();
+    let selectorizedStr = str.trim();
 
     if (isHtmlTag(selectorizedStr)) {
         return selectorizedStr.toLowerCase();
     }
 
     if (/^[#.]/.test(selectorizedStr)) {
-        var name = escape(selectorizedStr.substr(1));
+        const name = escape(selectorizedStr.substr(1));
 
         if (name) {
             return selectorizedStr[0] + name;
@@ -109,9 +107,7 @@ function getUniqueLayerTextStyles(layer) {
     const uniqueTextStyles = [];
 
     layer.textStyles.forEach(({ textStyle }) => {
-        const found = uniqueTextStyles.some(function (ts) {
-            return textStyle.equals(ts);
-        });
+        const found = uniqueTextStyles.some(textStyle.equals, textStyle);
 
         if (found) {
             return;

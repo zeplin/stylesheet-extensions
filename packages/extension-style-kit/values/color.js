@@ -2,60 +2,44 @@ import { Color as ExtensionColor } from "@zeplin/extension-model";
 
 import Gradient from "./gradient";
 
+const alphaFormatter = new Intl.NumberFormat("en-US", {
+    useGrouping: false,
+    maximumFractionDigits: 2
+});
+
 function toHex(num) {
-    var hexNum = Math.trunc(num + (num / 255));
+    let hexNum = Math.trunc(num + (num / 255));
     hexNum = Math.max(0, Math.min(hexNum, 255));
-    return (hexNum < 16 ? "0" : "") + hexNum.toString(16); // eslint-disable-line no-magic-numbers
+
+    return (hexNum < 16 ? "0" : "") + hexNum.toString(16);
 }
 
-function toHexString(color, prefix) {
-    var hexCode = color.hexBase();
+function toHexString(color) {
+    let hexCode = color.hexBase();
 
     if (color.a < 1) {
-        var hexA = toHex(color.a * 255);
-
-        hexCode = prefix ? (hexA + hexCode) : (hexCode + hexA);
+        hexCode += toHex(color.a * 255);
     }
 
     return `#${hexCode}`;
 }
 
 function toRGBAString(color) {
-    var alphaFormatter = new Intl.NumberFormat("en-US", {
-        useGrouping: false,
-        maximumFractionDigits: 2
-    });
+    const rgb = `${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)}`;
 
-    var rgb = `${Math.round(color.r)}, ${
-        Math.round(color.g)}, ${
-        Math.round(color.b)}`;
-
-    var rgbStr = color.a < 1
-        ? `rgba(${rgb}, ${alphaFormatter.format(color.a)}`
-        : `rgb(${rgb}`;
-
-    return `${rgbStr})`;
+    return color.a < 1
+        ? `rgba(${rgb}, ${alphaFormatter.format(color.a)})`
+        : `rgb(${rgb})`;
 }
 
-/* eslint-disable no-magic-numbers */
-function toHSLAString(color) {
-    var alphaFormatter = new Intl.NumberFormat("en-US", {
-        useGrouping: false,
-        maximumFractionDigits: 2
-    });
+function toHSLString(color) {
+    const hslColor = color.toHSL();
+    const hsl = `${Math.round(hslColor.h * 360)}, ${Math.round(hslColor.s * 100)}%, ${Math.round(hslColor.l * 100)}%`;
 
-    var hslColor = color.toHSL();
-    var hsl = `${Math.round(hslColor.h * 360)}, ${
-        Math.round(hslColor.s * 100)}%, ${
-        Math.round(hslColor.l * 100)}%`;
-
-    var hslStr = color.a < 1
-        ? `hsla(${hsl}, ${alphaFormatter.format(color.a)}`
-        : `hsl(${hsl}`;
-
-    return `${hslStr})`;
+    return color.a < 1
+        ? `hsla(${hsl}, ${alphaFormatter.format(color.a)})`
+        : `hsl(${hsl})`;
 }
-/* eslint-enable no-magic-numbers */
 
 function getColorStringByFormat(color, colorFormat) {
     if (!("r" in color && "g" in color && "b" in color && "a" in color)) {
@@ -70,7 +54,7 @@ function getColorStringByFormat(color, colorFormat) {
             return toRGBAString(color);
 
         case "hsl":
-            return toHSLAString(color);
+            return toHSLString(color);
 
         default:
             return color.a < 1 ? toRGBAString(color) : toHexString(color);
