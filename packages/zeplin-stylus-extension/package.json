@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zeplin/zeplin-stylesheet-extensions.git"
+    "url": "https://github.com/zeplin/stylesheet-extensions.git"
   },
   "zeplin": {
     "displayName": "Stylus",
