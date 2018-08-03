@@ -12,12 +12,12 @@ class Transform {
     equals(other) {
         return (
             this.transforms.length === other.transforms.length &&
-            this.transforms.every(filter => {
-                const f = other.transforms.find(fx => fx.fn === filter.fn);
+            this.transforms.every((fn, index) => {
+                const f = other.transforms[index];
 
                 return (
-                    f && f.args.length === filter.args.length &&
-                    filter.args.every((a, idx) => a.equals(f.args[idx]))
+                    f.args.length === fn.args.length &&
+                    fn.args.every((a, idx) => a.equals(f.args[idx]))
                 );
             })
         );

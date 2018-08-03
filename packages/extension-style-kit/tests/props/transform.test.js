@@ -19,7 +19,7 @@ test("single transform", () => {
     expect(transform.getValue({ densityDivisor: 1 })).toBe("translateX(13px)");
 });
 
-test("multiple filters", () => {
+test("multiple functions", () => {
     const transform = new Transform([
         { fn: "translateX", args: [new Length(13, "px")] },
         { fn: "scaleY", args: [new Scalar(0.3)] }
@@ -39,7 +39,20 @@ test("equality check", () => {
     expect(transform.equals(other)).toBe(true);
 });
 
-test("equality check (different filters)", () => {
+test("equality check (multiple functions in same order)", () => {
+    const transform = new Transform([
+        { fn: "translateX", args: [new Length(13, "px")] },
+        { fn: "scaleY", args: [new Scalar(0.3)] }
+    ]);
+    const other = new Transform([
+        { fn: "translateX", args: [new Length(13, "px")] },
+        { fn: "scaleY", args: [new Scalar(0.3)] }
+    ]);
+
+    expect(transform.equals(other)).toBe(true);
+});
+
+test("equality check (different functions)", () => {
     const transform = new Transform([
         { fn: "translateX", args: [new Length(13, "px")] },
         { fn: "scaleY", args: [new Scalar(0.3)] }
@@ -51,7 +64,7 @@ test("equality check (different filters)", () => {
     expect(transform.equals(other)).toBe(false);
 });
 
-test("equality check (same filters in differing order)", () => {
+test("equality check (same functions in differing order)", () => {
     const transform = new Transform([
         { fn: "translateX", args: [new Length(13, "px")] },
         { fn: "scaleY", args: [new Scalar(0.3)] }
@@ -61,5 +74,5 @@ test("equality check (same filters in differing order)", () => {
         { fn: "translateX", args: [new Length(13, "px")] }
     ]);
 
-    expect(transform.equals(other)).toBe(true);
+    expect(transform.equals(other)).toBe(false);
 });

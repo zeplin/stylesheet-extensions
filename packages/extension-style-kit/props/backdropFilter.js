@@ -12,11 +12,11 @@ class BackdropFilter {
     equals(other) {
         return (
             this.filters.length === other.filters.length &&
-            this.filters.every(filter => {
-                const f = other.filters.find(fx => fx.fn === filter.fn);
+            this.filters.every((filter, index) => {
+                const f = other.filters[index];
 
                 return (
-                    f && f.args.length === filter.args.length &&
+                    f.args.length === filter.args.length &&
                     filter.args.every((a, idx) => a.equals(f.args[idx]))
                 );
             })

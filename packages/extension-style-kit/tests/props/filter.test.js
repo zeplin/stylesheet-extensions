@@ -39,6 +39,19 @@ test("equality check", () => {
     expect(filter.equals(other)).toBe(true);
 });
 
+test("equality check (multiple filters in same order)", () => {
+    const filter = new Filter([
+        { fn: "blur", args: [new Length(13, "px")] },
+        { fn: "saturate", args: [new Percent(1.3)] }
+    ]);
+    const other = new Filter([
+        { fn: "blur", args: [new Length(13, "px")] },
+        { fn: "saturate", args: [new Percent(1.3)] }
+    ]);
+
+    expect(filter.equals(other)).toBe(true);
+});
+
 test("equality check (different filters)", () => {
     const filter = new Filter([
         { fn: "blur", args: [new Length(13, "px")] },
@@ -61,5 +74,5 @@ test("equality check (same filters in differing order)", () => {
         { fn: "blur", args: [new Length(13, "px")] }
     ]);
 
-    expect(filter.equals(other)).toBe(true);
+    expect(filter.equals(other)).toBe(false);
 });

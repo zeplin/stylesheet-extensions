@@ -39,6 +39,19 @@ test("equality check", () => {
     expect(backdropFilter.equals(other)).toBe(true);
 });
 
+test("equality check (multiple filters in same order)", () => {
+    const backdropFilter = new BackdropFilter([
+        { fn: "blur", args: [new Length(13, "px")] },
+        { fn: "saturate", args: [new Percent(1.3)] }
+    ]);
+    const other = new BackdropFilter([
+        { fn: "blur", args: [new Length(13, "px")] },
+        { fn: "saturate", args: [new Percent(1.3)] }
+    ]);
+
+    expect(backdropFilter.equals(other)).toBe(true);
+});
+
 test("equality check (different filters)", () => {
     const backdropFilter = new BackdropFilter([
         { fn: "blur", args: [new Length(13, "px")] },
@@ -61,5 +74,5 @@ test("equality check (same filters in differing order)", () => {
         { fn: "blur", args: [new Length(13, "px")] }
     ]);
 
-    expect(backdropFilter.equals(other)).toBe(true);
+    expect(backdropFilter.equals(other)).toBe(false);
 });
