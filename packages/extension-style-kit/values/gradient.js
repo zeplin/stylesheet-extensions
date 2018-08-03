@@ -3,7 +3,6 @@ import { Gradient as ExtensionGradient } from "@zeplin/extension-model";
 import Color from "./color";
 import Percent from "./percent";
 
-/* eslint-disable no-magic-numbers */
 function toCSSAngle(angle) {
     switch (angle) {
         case 0:
@@ -22,7 +21,6 @@ function toCSSAngle(angle) {
             return `${angle}deg`;
     }
 }
-/* eslint-enable no-magic-numbers */
 
 function generateColorGradient({ r, g, b, a }) {
     return {
@@ -45,25 +43,37 @@ function generateColorGradient({ r, g, b, a }) {
     };
 }
 
+class ColorStop {
+    constructor(colorStopObject) {
+        this.object = colorStopObject;
+    }
+
+    equals(other) {
+        return other.object.position === this.object.position && other.object.color.equals(this.object.color);
+    }
+
+    toStyleValue({ colorFormat }, variables) {
+        const { object: { position, color } } = this;
+        let pos = "";
+
+        if (position !== 1 && position) {
+            pos = ` ${new Percent(position).toStyleValue()}`;
+        }
+
+        return `${new Color(color).toStyleValue({ colorFormat }, variables)}${pos}`;
+    }
+}
+
 class Gradient {
     constructor(gradientObject) {
         this.object = gradientObject;
+        this.colorStops = this.object.colorStops.map(cs => new ColorStop(cs));
     }
 
-    static getColorStopStyle(colorStop, colorFormat, variables) {
-        let pos = "";
-
-        if (colorStop.position !== 1 && colorStop.position) {
-            pos = ` ${new Percent(colorStop.position).toStyleValue()}`;
-        }
-
-        return `${new Color(colorStop.color).toStyleValue({ colorFormat }, variables)}${pos}`;
-    }
-
-    static fromRGBA({ r, g, b, a }) {
+    static fromRGBA(rgba) {
         return new Gradient(
             new ExtensionGradient(
-                generateColorGradient({ r, g, b, a }),
+                generateColorGradient(rgba),
                 100, 100
             )
         );
@@ -73,34 +83,25 @@ class Gradient {
         return (
             this.object.type === other.object.type &&
             this.object.angle === other.object.angle &&
-            this.object.colorStops.length === other.object.colorStops.length &&
-            this.object.colorStops.every((cs, index) => {
-                const otherCs = other.object.colorStops[index];
-
-                return otherCs.position === cs.position && otherCs.color.equals(cs.color);
-            })
+            this.colorStops.length === other.colorStops.length &&
+            this.colorStops.every((cs, index) => cs.equals(other.colorStops[index]))
         );
     }
 
     toStyleValue({ colorFormat }, variables) {
         const { object: gradient } = this;
-        const colorStopStyle = gradient.colorStops.map(
-            cs => Gradient.getColorStopStyle(cs, colorFormat, variables)
-        ).join(", ");
+        const colorStopStyle = this.colorStops.map(cs => cs.toStyleValue({ colorFormat }, variables)).join(", ");
 
         switch (gradient.type) {
             case "linear":
-                // TODO: calculate gradient stops with correct gradient axis
                 return `linear-gradient(${toCSSAngle(gradient.angle)}, ${colorStopStyle})`;
 
             case "radial":
-                // TODO: calculate gradient end point according to gradient.to and element rect
-                // TODO: elliptic gradients are missing
                 return `radial-gradient(circle at ${new Percent(gradient.from.x).toStyleValue()} ${new Percent(gradient.from.y).toStyleValue()}, ${colorStopStyle})`;
 
             case "angular":
-                // TODO: far from correct, only available via polyfill: https://github.com/leaverou/conic-gradient
-                return `conic-gradient(${colorStopStyle}, ${Gradient.getColorStopStyle(gradient.colorStops[0], colorFormat, variables)})`;
+                return `conic-gradient(${colorStopStyle}, ${this.colorStops[0].toStyleValue({ colorFormat }, variables)})`;
+
             default:
                 return "";
         }
