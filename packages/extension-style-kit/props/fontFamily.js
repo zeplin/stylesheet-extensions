@@ -5,16 +5,8 @@ class FontFamily {
         this.value = value;
     }
 
-    static get DEFAULT_VALUE() {
-        return "normal";
-    }
-
     get name() {
         return STYLE_PROPS.FONT_FAMILY;
-    }
-
-    hasDefaultValue() {
-        return this.value === FontFamily.DEFAULT_VALUE;
     }
 
     equals(other) {
@@ -22,10 +14,6 @@ class FontFamily {
     }
 
     getValue() {
-        if (this.hasDefaultValue()) {
-            return FontFamily.DEFAULT_VALUE;
-        }
-
         return this.value;
     }
 }

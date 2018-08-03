@@ -12,18 +12,6 @@ test("font-family value", () => {
     expect(fontFamily.getValue()).toBe("Helvetica");
 });
 
-test("has default value", () => {
-    const fontFamily = new FontFamily(FontFamily.DEFAULT_VALUE);
-
-    expect(fontFamily.hasDefaultValue()).toBe(true);
-});
-
-test("not have default value", () => {
-    const fontFamily = new FontFamily("Helvetica");
-
-    expect(fontFamily.hasDefaultValue()).toBe(false);
-});
-
 test("equality check", () => {
     const fontFamily = new FontFamily("Helvetica");
     const other = new FontFamily("Helvetica");
