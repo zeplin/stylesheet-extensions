@@ -57,9 +57,9 @@ class Extension {
         const { defaultTextStyle } = selectedLayer;
 
         if (selectedLayer.type === "text" && defaultTextStyle) {
-            const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
+            const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
 
-            textStyleProps.forEach(p => layerRuleSet.addProp(p));
+            declarations.forEach(p => layerRuleSet.addDeclaration(p));
 
             getUniqueLayerTextStyles(selectedLayer).filter(
                 textStyle => !defaultTextStyle.equals(textStyle)
@@ -67,14 +67,16 @@ class Extension {
                 childrenRuleSet.push(
                     new RuleSet(
                         `${selectorize(selectedLayer.name)} ${selectorize(`text-style-${idx + 1}`)}`,
-                        l.getLayerTextStyleProps(textStyle)
+                        l.getLayerTextStyleDeclarations(textStyle)
                     )
                 );
             });
         }
 
         const layerStyle = this.generator.ruleSet(layerRuleSet);
-        const childrenStyles = childrenRuleSet.map(s => this.generator.ruleSet(s, { parentProps: layerRuleSet.props }));
+        const childrenStyles = childrenRuleSet.map(
+            s => this.generator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
+        );
 
         return [layerStyle, ...childrenStyles].join("\n\n");
     }

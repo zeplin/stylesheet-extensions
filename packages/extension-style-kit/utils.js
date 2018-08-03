@@ -25,8 +25,8 @@ const NOT_INHERITED_PROPS = [
     "-webkit-text-fill-color"
 ];
 
-function isPropInherited(prop) {
-    return !NOT_INHERITED_PROPS.includes(prop);
+function isDeclarationInherited(declaration) {
+    return !NOT_INHERITED_PROPS.includes(declaration);
 }
 
 function blendColors(colors) {
@@ -69,10 +69,10 @@ function selectorize(str) {
     return selectorizedStr && `.${selectorizedStr}`;
 }
 
-function webkit(Prop) {
+function webkit(Declaration) {
     return class {
         constructor(...args) {
-            this.instance = new Prop(...args);
+            this.instance = new Declaration(...args);
         }
 
         get name() {
@@ -89,7 +89,7 @@ function webkit(Prop) {
     };
 }
 
-function getPropValue(value, variables, params) {
+function getDeclarationValue(value, variables, params) {
     const styleValue = value.toStyleValue(params);
 
     if (!variables) {
@@ -121,10 +121,10 @@ function getUniqueLayerTextStyles(layer) {
 
 export {
     blendColors,
-    getPropValue,
+    getDeclarationValue,
     getUniqueLayerTextStyles,
     isHtmlTag,
-    isPropInherited,
+    isDeclarationInherited,
     selectorize,
     webkit
 };

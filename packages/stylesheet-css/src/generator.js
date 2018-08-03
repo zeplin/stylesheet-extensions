@@ -1,4 +1,4 @@
-import { isPropInherited } from "zeplin-extension-style-kit/utils";
+import { isDeclarationInherited } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const MIDFIX = ":";
@@ -15,25 +15,25 @@ class CSS {
         });
     }
 
-    filterProps(childProps, parentProps) {
+    filterDeclarations(childDeclarations, parentDeclarations) {
         const { params: { showDefaultValues, showDimensions } } = this;
 
-        return childProps.filter(prop => {
-            if (!showDimensions && (prop.name === "width" || prop.name === "height")) {
+        return childDeclarations.filter(declaration => {
+            if (!showDimensions && (declaration.name === "width" || declaration.name === "height")) {
                 return false;
             }
 
-            const parentProp = parentProps.find(p => p.name === prop.name);
+            const parentDeclaration = parentDeclarations.find(p => p.name === declaration.name);
 
-            if (parentProp) {
-                if (!parentProp.equals(prop)) {
+            if (parentDeclaration) {
+                if (!parentDeclaration.equals(declaration)) {
                     return true;
                 }
 
-                return !isPropInherited(prop.name);
+                return !isDeclarationInherited(declaration.name);
             }
 
-            if (prop.hasDefaultValue && prop.hasDefaultValue()) {
+            if (declaration.hasDefaultValue && declaration.hasDefaultValue()) {
                 return showDefaultValues;
             }
 
@@ -45,9 +45,9 @@ class CSS {
         return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, props }, { parentProps = [] } = {}) {
-        const filteredProps = this.filterProps(props, parentProps);
-        return `${selector} {\n${filteredProps.map(p => `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
+    ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
+        const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
+        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
     }
 }
 

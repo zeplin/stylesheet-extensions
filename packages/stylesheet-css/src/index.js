@@ -34,7 +34,7 @@ function getParams(context) {
 function styleguideColors(context, colors) {
     const params = getParams(context);
     const cssGenerator = createGenerator(context.project, params);
-    const code = `:root {\n${colors.map(c => `  ${cssGenerator.variable(c.name, new Color(c))}`).join("\n")}\n}`
+    const code = `:root {\n${colors.map(c => `  ${cssGenerator.variable(c.name, new Color(c))}`).join("\n")}\n}`;
 
     return {
         code,
@@ -66,9 +66,9 @@ function layer(context, selectedLayer) {
     const { defaultTextStyle } = selectedLayer;
 
     if (selectedLayer.type === "text" && defaultTextStyle) {
-        const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
+        const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
 
-        textStyleProps.forEach(p => layerRuleSet.addProp(p));
+        declarations.forEach(p => layerRuleSet.addDeclaration(p));
 
         getUniqueLayerTextStyles(selectedLayer).filter(
             textStyle => !defaultTextStyle.equals(textStyle)
@@ -76,14 +76,16 @@ function layer(context, selectedLayer) {
             childrenRuleSet.push(
                 new RuleSet(
                     `${selectorize(selectedLayer.name)} ${selectorize(`text-style-${idx + 1}`)}`,
-                    l.getLayerTextStyleProps(textStyle)
+                    l.getLayerTextStyleDeclarations(textStyle)
                 )
             );
         });
     }
 
     const layerStyle = cssGenerator.ruleSet(layerRuleSet);
-    const childrenStyles = childrenRuleSet.map(s => cssGenerator.ruleSet(s, { parentProps: layerRuleSet.props }));
+    const childrenStyles = childrenRuleSet.map(
+        s => cssGenerator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
+    );
 
     return {
         code: [layerStyle, ...childrenStyles].join("\n\n"),

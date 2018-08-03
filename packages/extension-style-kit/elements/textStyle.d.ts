@@ -1,4 +1,4 @@
-import { StyleProp } from "../common";
+import { StyleDeclaration } from "../common";
 import RuleSet from "../ruleSet";
 
 declare class TextStyle {

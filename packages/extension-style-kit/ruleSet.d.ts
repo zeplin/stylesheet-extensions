@@ -1,15 +1,15 @@
-import { StyleProp } from "../common";
+import { StyleDeclaration } from "../common";
 
 declare class RuleSet {
-    constructor(selector: string, props: Array<StyleProp>);
+    constructor(selector: string, declarations: Array<StyleDeclaration>);
 
     selector: string;
 
-    props: Array<StyleProp>;
+    declarations: Array<StyleDeclaration>;
 
-    addProp(prop: StyleProp): void;
+    addDeclaration(declaration: StyleDeclaration): void;
 
-    removeProp(prop: StyleProp): void;
+    removeDeclaration(declaration: StyleDeclaration): void;
 }
 
 export = RuleSet;

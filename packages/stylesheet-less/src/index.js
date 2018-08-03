@@ -1,7 +1,7 @@
 import Layer from "zeplin-extension-style-kit/elements/layer";
 import TextStyle from "zeplin-extension-style-kit/elements/textStyle";
 import Color from "zeplin-extension-style-kit/values/color";
-import Mixin from "zeplin-extension-style-kit/props/mixin";
+import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import RuleSet from "zeplin-extension-style-kit/ruleSet";
 import { isHtmlTag, getUniqueLayerTextStyles, selectorize } from "zeplin-extension-style-kit/utils";
 
@@ -79,11 +79,11 @@ function layer(context, selectedLayer) {
         const { name: textStyleName } = defaultTextStyle;
 
         if (useMixin && textStyleName && !isHtmlTag(selectorize(textStyleName))) {
-            layerRuleSet.addProp(new Mixin(selectorize(textStyleName).replace(/^\./, "")));
+            layerRuleSet.addDeclaration(new Mixin(selectorize(textStyleName).replace(/^\./, "")));
         } else {
-            const textStyleProps = l.getLayerTextStyleProps(defaultTextStyle);
+            const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
 
-            textStyleProps.forEach(p => layerRuleSet.addProp(p));
+            declarations.forEach(p => layerRuleSet.addDeclaration(p));
         }
 
         getUniqueLayerTextStyles(selectedLayer).filter(
@@ -92,14 +92,16 @@ function layer(context, selectedLayer) {
             childrenRuleSet.push(
                 new RuleSet(
                     `${selectorize(selectedLayer.name)} ${selectorize(`text-style-${idx + 1}`)}`,
-                    l.getLayerTextStyleProps(textStyle)
+                    l.getLayerTextStyleDeclarations(textStyle)
                 )
             );
         });
     }
 
     const layerStyle = lessGenerator.ruleSet(layerRuleSet);
-    const childrenStyles = childrenRuleSet.map(s => lessGenerator.ruleSet(s, { parentProps: layerRuleSet.props }));
+    const childrenStyles = childrenRuleSet.map(
+        s => lessGenerator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
+    );
 
     return {
         code: [layerStyle, ...childrenStyles].join("\n\n"),

@@ -34,14 +34,14 @@ Layer element is created from extension layer data.
 ### `fillColor`: [`Color`]()
  If a layer has multiple color fill and the blend mode is set to normal for each of them, this property returns the blent of them.
 
-### `getLayerTextStyleProps(textStyle)`: [`Array<StyleProp>`](./props.md#styleprop)
+### `getLayerTextStyleDeclarations(textStyle)`: [`Array<StyleDeclaration>`](./declarations.md#styledeclaration)
 Any layer with color/gradient has effect on the style of the tex styles it contains. This method takes a [ExtensionModels.TextStyle](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md) instance and returns the list of its style properties taking into account the parent layer's fills.
 
 #### Parameters:
  - `textStyle`: An instance of [`ExtensionModels.TextStyle`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md)
 
 Returns:
-An array of [StyleProp](./props.md#styleProp).
+An array of [StyleDeclaration](./declarations.md#styleDeclaration).
 
 
 ## TextStyle

@@ -1,5 +1,5 @@
-import Mixin from "zeplin-extension-style-kit/props/mixin";
-import { isHtmlTag, isPropInherited } from "zeplin-extension-style-kit/utils";
+import Mixin from "zeplin-extension-style-kit/declarations/mixin";
+import { isHtmlTag, isDeclarationInherited } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
 const MIDFIX = ":";
@@ -16,25 +16,25 @@ class SCSS {
         });
     }
 
-    filterProps(childProps, parentProps, isMixin) {
+    filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
         const { params: { showDefaultValues, showDimensions } } = this;
 
-        return childProps.filter(prop => {
-            if (!showDimensions && (prop.name === "width" || prop.name === "height")) {
+        return childDeclarations.filter(declaration => {
+            if (!showDimensions && (declaration.name === "width" || declaration.name === "height")) {
                 return false;
             }
 
-            const parentProp = parentProps.find(p => p.name === prop.name);
+            const parentDeclaration = parentDeclarations.find(p => p.name === declaration.name);
 
-            if (parentProp) {
-                if (!parentProp.equals(prop)) {
+            if (parentDeclaration) {
+                if (!parentDeclaration.equals(declaration)) {
                     return true;
                 }
 
-                return !isPropInherited(prop.name);
+                return !isDeclarationInherited(declaration.name);
             }
 
-            if (prop.hasDefaultValue && prop.hasDefaultValue()) {
+            if (declaration.hasDefaultValue && declaration.hasDefaultValue()) {
                 return !isMixin && showDefaultValues;
             }
 
@@ -42,7 +42,7 @@ class SCSS {
         });
     }
 
-    prop(p, mixin) {
+    declaration(p, mixin) {
         if (p instanceof Mixin) {
             return `${INDENTATION}@include ${p.identifier}${SUFFIX}`;
         }
@@ -60,12 +60,12 @@ class SCSS {
         return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, props }, { parentProps = [], mixin = false } = {}) {
+    ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {
         const isMixin = !isHtmlTag(selector) && mixin;
-        const filteredProps = this.filterProps(props, parentProps, isMixin);
+        const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations, isMixin);
         const ruleSelector = isMixin ? selector.replace(/^\./, "@mixin ") : selector;
 
-        return `${ruleSelector}${isMixin ? "()" : ""} {\n${filteredProps.map(p => this.prop(p, isMixin)).join("\n")}\n}`;
+        return `${ruleSelector}${isMixin ? "()" : ""} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
     }
 }
 

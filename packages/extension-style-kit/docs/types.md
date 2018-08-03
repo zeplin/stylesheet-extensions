@@ -1,7 +1,7 @@
 # Common types
 
 ## StyleParams
-This includes all the possible parameters that can be used by any [values](./values.md) or [props](./props.md).
+This includes all the possible parameters that can be used by any [values](./values.md) or [declarations](./declarations.md).
 
 ### `densityDivisor`: `number`
 This number represents the pixel density assumed in the design data.

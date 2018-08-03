@@ -1,14 +1,14 @@
 import Length from "../values/length";
 import Color from "../values/color";
-import FontFamily from "../props/fontFamily";
-import FontSize from "../props/fontSize";
-import FontStyle from "../props/fontStyle";
-import FontStretch from "../props/fontStretch";
-import FontWeight from "../props/fontWeight";
-import FontColor from "../props/fontColor";
-import TextAlign from "../props/textAlign";
-import LineHeight from "../props/lineHeight";
-import LetterSpacing from "../props/letterSpacing";
+import FontFamily from "../declarations/fontFamily";
+import FontSize from "../declarations/fontSize";
+import FontStyle from "../declarations/fontStyle";
+import FontStretch from "../declarations/fontStretch";
+import FontWeight from "../declarations/fontWeight";
+import FontColor from "../declarations/fontColor";
+import TextAlign from "../declarations/textAlign";
+import LineHeight from "../declarations/lineHeight";
+import LetterSpacing from "../declarations/letterSpacing";
 import RuleSet from "../ruleSet";
 import { selectorize } from "../utils";
 
@@ -16,37 +16,37 @@ class TextStyle {
     constructor(textStyleObject) {
         this.font = textStyleObject;
 
-        this.props = this.collectProps();
+        this.declarations = this.collectDeclarations();
     }
 
-    collectProps() {
+    collectDeclarations() {
         const { font } = this;
-        let props = [
+        let declarations = [
             new FontFamily(font.fontFamily),
             new FontSize(new Length(font.fontSize))
         ];
 
-        props.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
-        props.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
-        props.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
-        props.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
-        props.push(new LetterSpacing(
+        declarations.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
+        declarations.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
+        declarations.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
+        declarations.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
+        declarations.push(new LetterSpacing(
             font.letterSpacing ? new Length(font.letterSpacing) : LetterSpacing.DEFAULT_VALUE
         ));
 
         if ("textAlign" in font && font.textAlign) {
-            props.push(new TextAlign(font.textAlign));
+            declarations.push(new TextAlign(font.textAlign));
         }
 
         if ("color" in font) {
-            props.push(new FontColor(new Color(font.color)));
+            declarations.push(new FontColor(new Color(font.color)));
         }
 
-        return props;
+        return declarations;
     }
 
     get style() {
-        return new RuleSet(selectorize(this.font.name), this.props);
+        return new RuleSet(selectorize(this.font.name), this.declarations);
     }
 }
 

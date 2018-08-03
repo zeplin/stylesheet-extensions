@@ -2,26 +2,26 @@
 
 It represents property block and the selector identifying it.
 
-### `constructor(selector, props)`: `RuleSet`
-Creates a `RuleSet` object which is identifed by `selector` and contains `props` as style properties.
+### `constructor(selector, declarations)`: `RuleSet`
+Creates a `RuleSet` object which is identifed by `selector` and contains `declarations` as style properties.
 
 #### Parameters:
  - `selector`: `string`
- - `props`: Array of [`StyleProp`](./props.md#styleprop).
+ - `declarations`: Array of [`StyleDeclaration`](./declarations.md#styledeclaration).
 
 ### `selector`: `string`
 Returns selector identifying the ruleset.
 
-### `addProp(prop)`: `void`
-Add `prop` to the props list of ruleset.
+### `addDeclaration(declaration)`: `void`
+Add `declaration` to the declarations list of ruleset.
 
 #### Parameters:
- - `prop`: `StyleProp`
+ - `declaration`: `StyleDeclaration`
 
-### `removeProp(prop)`: `void`
-Remove `prop` from the props list of ruleset.
+### `removeDeclaration(declaration)`: `void`
+Remove `declaration` from the declarations list of ruleset.
 
 #### Parameters:
- - `prop`: `StyleProp`
+ - `declaration`: `StyleDeclaration`
 
 

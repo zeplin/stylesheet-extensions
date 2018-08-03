@@ -1,4 +1,4 @@
-import { BackgroundImage, StyleProp } from "../common";
+import { BackgroundImage, StyleDeclaration } from "../common";
 import Color from "../values/color";
 import RuleSet from "../ruleSet";
 
@@ -15,7 +15,7 @@ declare class Layer {
     bgImages: Array<BackgroundImage>;
     fillColor: Color;
 
-    getLayerTextStyleProps(textStyle: object): Array<StyleProp>;
+    getLayerTextStyleDeclarations(textStyle: object): Array<StyleDeclaration>;
 }
 
 export = Layer;

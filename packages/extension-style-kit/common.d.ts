@@ -9,10 +9,10 @@ declare namespace zesk {
         toStyleValue(params: StyleParams, variables: VariableMap);
     }
 
-    interface StyleProp {
+    interface StyleDeclaration {
         name: string;
         hasDefaultValue?(): boolean;
-        equals(other: StyleProp): boolean;
+        equals(other: StyleDeclaration): boolean;
         getValue(params: StyleParams, variables: VariableMap);
     }
 

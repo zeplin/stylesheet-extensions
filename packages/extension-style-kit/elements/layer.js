@@ -3,28 +3,28 @@ import Color from "../values/color";
 import Gradient from "../values/gradient";
 import Length from "../values/length";
 import Scalar from "../values/scalar";
-import Border from "../props/border";
-import Shadow from "../props/shadow";
-import Opacity from "../props/opacity";
-import Width from "../props/width";
-import Height from "../props/height";
-import ObjectFit from "../props/objectFit";
-import Transform from "../props/transform";
-import MixBlendMode from "../props/mixBlendMode";
-import BorderRadius from "../props/borderRadius";
-import BgBlendMode from "../props/bgBlendMode";
-import BgImage from "../props/bgImage";
-import BgColor from "../props/bgColor";
-import BgClip from "../props/bgClip";
-import TextFillColor from "../props/textFillColor";
-import TextStroke from "../props/textStroke";
-import BorderImageSource from "../props/borderImageSource";
-import BorderWidth from "../props/borderWidth";
-import BorderStyle from "../props/borderStyle";
-import BorderImageSlice from "../props/borderImageSlice";
-import BackdropFilter from "../props/backdropFilter";
-import Filter from "../props/Filter";
-import FontColor from "../props/fontColor";
+import Border from "../declarations/border";
+import Shadow from "../declarations/shadow";
+import Opacity from "../declarations/opacity";
+import Width from "../declarations/width";
+import Height from "../declarations/height";
+import ObjectFit from "../declarations/objectFit";
+import Transform from "../declarations/transform";
+import MixBlendMode from "../declarations/mixBlendMode";
+import BorderRadius from "../declarations/borderRadius";
+import BgBlendMode from "../declarations/bgBlendMode";
+import BgImage from "../declarations/bgImage";
+import BgColor from "../declarations/bgColor";
+import BgClip from "../declarations/bgClip";
+import TextFillColor from "../declarations/textFillColor";
+import TextStroke from "../declarations/textStroke";
+import BorderImageSource from "../declarations/borderImageSource";
+import BorderWidth from "../declarations/borderWidth";
+import BorderStyle from "../declarations/borderStyle";
+import BorderImageSlice from "../declarations/borderImageSlice";
+import BackdropFilter from "../declarations/backdropFilter";
+import Filter from "../declarations/Filter";
+import FontColor from "../declarations/fontColor";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
@@ -32,13 +32,13 @@ import {
     selectorize,
     webkit
 } from "../utils";
-import BgOrigin from "../props/bgOrigin";
+import BgOrigin from "../declarations/bgOrigin";
 
 class Layer {
     constructor(layerObject = {}) {
         this.object = layerObject;
 
-        this.props = this.collectProps();
+        this.declarations = this.collectDeclarations();
     }
 
     static fillToGradient(fill) {
@@ -57,17 +57,17 @@ class Layer {
         return this.object.fills.length > 0;
     }
 
-    getLayerTextStyleProps(textStyle) {
+    getLayerTextStyleDeclarations(textStyle) {
         const { object: layer } = this;
-        let textStyleProps = new TextStyle(textStyle).props;
+        let declarations = new TextStyle(textStyle).declarations;
 
         if (layer.fills.length) {
-            textStyleProps = textStyleProps.filter(prop => !(prop instanceof Color));
+            declarations = declarations.filter(declaration => !(declaration instanceof Color));
 
             if (this.hasGradient) {
-                textStyleProps.push(new (webkit(BgClip))(["text"]));
-                textStyleProps.push(new BgClip(["text"]));
-                textStyleProps.push(new TextFillColor("transparent"));
+                declarations.push(new (webkit(BgClip))(["text"]));
+                declarations.push(new BgClip(["text"]));
+                declarations.push(new TextFillColor("transparent"));
 
                 const bgImages = layer.fills.map(fill => Layer.fillToGradient(fill));
 
@@ -75,7 +75,7 @@ class Layer {
                     bgImages.push(new Color(textStyle.color).toGradient());
                 }
 
-                textStyleProps.push(new BgImage(bgImages));
+                declarations.push(new BgImage(bgImages));
             } else {
                 let blentColor = blendColors(layer.fills.map(fill => fill.color));
 
@@ -83,11 +83,11 @@ class Layer {
                     blentColor = blentColor.blend(textStyle.color);
                 }
 
-                textStyleProps.push(new FontColor(new Color(blentColor)));
+                declarations.push(new FontColor(new Color(blentColor)));
             }
         }
 
-        return textStyleProps;
+        return declarations;
     }
 
     get elementBorder() {
@@ -147,7 +147,7 @@ class Layer {
         }
     }
 
-    generateBorderProps() {
+    generateBorderDeclarations() {
         const {
             elementBorder: {
                 fill,
@@ -186,7 +186,7 @@ class Layer {
         }
     }
 
-    generateBlurProps() {
+    generateBlurDeclarations() {
         const { blur } = this.object;
         const filterFns = [{ fn: "blur", args: [new Length(blur.radius)] }];
 
@@ -203,79 +203,79 @@ class Layer {
         ];
     }
 
-    generateBackgroundProps() {
+    generateBackgroundDeclarations() {
         const { bgImages, elementBorder, fillColor, object: layer } = this;
-        const props = [];
+        const declarations = [];
 
         if (this.hasFill && this.hasBlendMode) {
-            props.push(new BgBlendMode(layer.fills.map(fill => fill.blendMode)));
+            declarations.push(new BgBlendMode(layer.fills.map(fill => fill.blendMode)));
         }
 
         if (bgImages) {
-            props.push(new BgImage(bgImages));
+            declarations.push(new BgImage(bgImages));
 
             if (layer.borderRadius && elementBorder && elementBorder.fill.type === "gradient") {
-                props.push(new BgOrigin(["border-box"]));
-                props.push(new BgClip([...Array(bgImages.length - 1).fill("content-box"), "border-box"]));
+                declarations.push(new BgOrigin(["border-box"]));
+                declarations.push(new BgClip([...Array(bgImages.length - 1).fill("content-box"), "border-box"]));
             }
         } else if (fillColor) {
-            props.push(new BgColor(fillColor));
+            declarations.push(new BgColor(fillColor));
         }
 
-        return props;
+        return declarations;
     }
 
     /* eslint-disable complexity */
-    collectProps() {
+    collectDeclarations() {
         const {
             elementBorder,
             object: layer
         } = this;
-        let props = [
+        let declarations = [
             new Width(new Length(layer.rect.width)),
             new Height(new Length(layer.rect.height))
         ];
 
         if (layer.exportable) {
-            props.push(new ObjectFit("contain"));
+            declarations.push(new ObjectFit("contain"));
         }
 
         if (layer.rotation) {
-            props.push(new Transform([{ fn: "rotate", args: [new Angle(-layer.rotation)] }]));
+            declarations.push(new Transform([{ fn: "rotate", args: [new Angle(-layer.rotation)] }]));
         }
 
         if (layer.opacity !== 1) {
-            props.push(new Opacity(new Scalar(layer.opacity)));
+            declarations.push(new Opacity(new Scalar(layer.opacity)));
         }
 
         if (layer.blendMode !== "normal") {
-            props.push(new MixBlendMode(layer.blendMode));
+            declarations.push(new MixBlendMode(layer.blendMode));
         }
 
         if (layer.borderRadius) {
             // TODO: different radii for each corner?
-            props.push(new BorderRadius(new Length(layer.borderRadius)));
+            declarations.push(new BorderRadius(new Length(layer.borderRadius)));
         }
 
         if (layer.blur && layer.blur.radius) {
-            props = props.concat(this.generateBlurProps());
+            declarations = declarations.concat(this.generateBlurDeclarations());
         }
 
         if (layer.shadows.length) {
-            props.push(new Shadow(layer.shadows, layer.type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX));
+            declarations.push(new Shadow(layer.shadows, layer.type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX));
         }
 
         if (elementBorder) {
-            props = props.concat(this.generateBorderProps());
+            declarations = declarations.concat(this.generateBorderDeclarations());
         }
 
-        props = props.concat(this.generateBackgroundProps());
+        declarations = declarations.concat(this.generateBackgroundDeclarations());
 
-        return props;
+        return declarations;
     }
 
     get style() {
-        return new RuleSet(selectorize(this.object.name), this.props);
+        return new RuleSet(selectorize(this.object.name), this.declarations);
     }
 }
 
