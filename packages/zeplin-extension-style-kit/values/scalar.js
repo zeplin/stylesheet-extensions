@@ -7,8 +7,10 @@ function round(number, precision) {
     return Number(formattedNumber);
 }
 
+const DEFAULT_PRECISION = 2;
+
 class Scalar {
-    constructor(value, precision = 2) {
+    constructor(value, precision = DEFAULT_PRECISION) {
         this.value = value;
         this.precision = precision;
     }

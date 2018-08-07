@@ -2,23 +2,28 @@ import { Color as ExtensionColor } from "@zeplin/extension-model";
 
 import Gradient from "./gradient";
 
+const MAX_RGB_VALUE = 255;
+const MAX_PERCENT = 100;
+const MAX_ANGLE = 360;
+const HEX_BASE = 16;
+
 const alphaFormatter = new Intl.NumberFormat("en-US", {
     useGrouping: false,
     maximumFractionDigits: 2
 });
 
 function toHex(num) {
-    let hexNum = Math.trunc(num + (num / 255));
-    hexNum = Math.max(0, Math.min(hexNum, 255));
+    let hexNum = Math.trunc(num + (num / MAX_RGB_VALUE));
+    hexNum = Math.max(0, Math.min(hexNum, MAX_RGB_VALUE));
 
-    return (hexNum < 16 ? "0" : "") + hexNum.toString(16);
+    return (hexNum < HEX_BASE ? "0" : "") + hexNum.toString(HEX_BASE);
 }
 
 function toHexString(color) {
     let hexCode = color.hexBase();
 
     if (color.a < 1) {
-        hexCode += toHex(color.a * 255);
+        hexCode += toHex(color.a * MAX_RGB_VALUE);
     }
 
     return `#${hexCode}`;
@@ -34,7 +39,7 @@ function toRGBAString(color) {
 
 function toHSLString(color) {
     const hslColor = color.toHSL();
-    const hsl = `${Math.round(hslColor.h * 360)}, ${Math.round(hslColor.s * 100)}%, ${Math.round(hslColor.l * 100)}%`;
+    const hsl = `${Math.round(hslColor.h * MAX_ANGLE)}, ${Math.round(hslColor.s * MAX_PERCENT)}%, ${Math.round(hslColor.l * MAX_PERCENT)}%`;
 
     return color.a < 1
         ? `hsla(${hsl}, ${alphaFormatter.format(color.a)})`
