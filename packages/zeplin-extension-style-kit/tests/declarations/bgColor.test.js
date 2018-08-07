@@ -21,9 +21,10 @@ test("background-color hsl value", () => {
 });
 
 test("variable as color value", () => {
-    const bgColor = new BgColor(Color.fromRGBA({ r: 13, g: 13, b: 13, a: 1 }));
+    const color = Color.fromRGBA({ r: 13, g: 13, b: 13, a: 1 });
+    const bgColor = new BgColor(color);
     const variables = {
-        "#0d0d0d": "var(--cod_gray)"
+        [color.valueOf()]: "var(--cod_gray)"
     };
 
     expect(bgColor.getValue({ colorFormat: "hex" }, variables)).toBe("var(--cod_gray)");

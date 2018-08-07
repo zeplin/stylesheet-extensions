@@ -48,7 +48,7 @@ test("equality check (unequal)", () => {
 test("style value uses variable", () => {
     const color = Color.fromRGBA({ r: 13, g: 13, b: 13 });
     const variables = {
-        "#0d0d0d": "var(--cod_gray)"
+        [color.valueOf()]: "var(--cod_gray)"
     };
 
     expect(color.toStyleValue({ colorFormat: "hex" }, variables)).toBe("var(--cod_gray)");

@@ -49,7 +49,7 @@ class ColorStop {
     }
 
     valueOf() {
-        const { object: { position, color: { r, g, b, a } } } = this;
+        const { object: { position, color: { r, g, b, a = 1 } } } = this;
 
         return `colorStop::p:${position}:r:${r}:g:${g}:b:${b}:a:${a}`;
     }
@@ -76,10 +76,10 @@ class Gradient {
         this.colorStops = this.object.colorStops.map(cs => new ColorStop(cs));
     }
 
-    static fromRGBA(rgba) {
+    static fromRGBA({ r, g, b, a = 1 }) {
         return new Gradient(
             new ExtensionGradient(
-                generateColorGradient(rgba),
+                generateColorGradient({ r, g, b, a }),
                 100, 100
             )
         );

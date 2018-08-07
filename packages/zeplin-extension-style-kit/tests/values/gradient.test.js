@@ -1,3 +1,4 @@
+import Color from "@root/values/color";
 import Gradient from "@root/values/gradient";
 
 import generateGradientObject from "@testHelpers/generateGradientObject";
@@ -211,9 +212,10 @@ test("gradient from rgba", () => {
 });
 
 test("gradient from rgba (uses variables)", () => {
-    const gradient = Gradient.fromRGBA({ r: 13, g: 13, b: 13 });
+    const rgba = { r: 13, g: 13, b: 13 };
+    const gradient = Gradient.fromRGBA(rgba);
     const variables = {
-        "#0d0d0d": "var(--cod_gray)"
+        [Color.fromRGBA(rgba).valueOf()]: "var(--cod_gray)"
     };
 
     expect(gradient.toStyleValue({ colorFormat: "hex" }, variables)).toBe("linear-gradient(to bottom, var(--cod_gray), var(--cod_gray))");
