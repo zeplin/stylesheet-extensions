@@ -3,6 +3,7 @@ import { Gradient as ExtensionGradient } from "@zeplin/extension-model";
 import Color from "./color";
 import Percent from "./percent";
 
+/* eslint-disable no-magic-numbers */
 function toCSSAngle(angle) {
     switch (angle) {
         case 0:
@@ -21,6 +22,7 @@ function toCSSAngle(angle) {
             return `${angle}deg`;
     }
 }
+/* eslint-enable no-magic-numbers */
 
 function generateColorGradient({ r, g, b, a }) {
     return {
@@ -80,7 +82,7 @@ class Gradient {
         return new Gradient(
             new ExtensionGradient(
                 generateColorGradient({ r, g, b, a }),
-                100, 100
+                100, 100 // eslint-disable-line no-magic-numbers
             )
         );
     }

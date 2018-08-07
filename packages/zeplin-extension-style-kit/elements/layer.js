@@ -23,7 +23,7 @@ import BorderWidth from "../declarations/borderWidth";
 import BorderStyle from "../declarations/borderStyle";
 import BorderImageSlice from "../declarations/borderImageSlice";
 import BackdropFilter from "../declarations/backdropFilter";
-import Filter from "../declarations/Filter";
+import Filter from "../declarations/filter";
 import FontColor from "../declarations/fontColor";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
@@ -100,7 +100,7 @@ class Layer {
         let bgImages;
 
         if (!this.hasFill) {
-            return;
+            return null;
         }
 
         if (this.hasGradient || this.hasBlendMode) {
@@ -138,13 +138,11 @@ class Layer {
     }
 
     get fillColor() {
-        if (!this.hasFill) {
-            return;
-        }
-
-        if (!this.hasGradient && !this.hasBlendMode) {
+        if (this.hasFill && !this.hasGradient && !this.hasBlendMode) {
             return new Color(blendColors(this.object.fills.map(fill => fill.color)));
         }
+
+        return null;
     }
 
     generateBorderDeclarations() {
