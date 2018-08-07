@@ -19,52 +19,63 @@
     "exec": "zem exec"
   },
   "dependencies": {
-    "zeplin-extension-style-kit": "^1.0.0",
-    "zem": "^0.2.0"
+    "zem": "^0.2.0",
+    "zeplin-extension-style-kit": "^1.0.0"
   },
   "zeplin": {
     "displayName": "Less",
     "projectTypes": [
       "web"
     ],
-    "options": [{
-      "name": "Color format",
-      "type": "picker",
-      "id": "colorFormat",
-      "options": [{
-          "name": "Default",
-          "value": "default"
-      }, {
-          "name": "HEX",
-          "value": "hex"
-      }, {
-          "name": "RGB",
-          "value": "rgb"
-      }, {
-          "name": "HSL",
-          "value": "hsl"
-      }],
-      "default": "default"
-    }, {
-      "name": "Dimensions",
-      "type": "switch",
-      "id": "showDimensions",
-      "default": true
-    }, {
-      "name": "Unitless line-height",
-      "type": "switch",
-      "id": "unitlessLineHeight",
-      "default": true
-    }, {
-      "name": "Text styles as mixins",
-      "type": "switch",
-      "id": "mixin",
-      "default": true
-    }, {
-      "name": "Default values",
-      "type": "switch",
-      "id": "showDefaultValues",
-      "default": true
-    }]
+    "options": [
+      {
+        "name": "Color format",
+        "type": "picker",
+        "id": "colorFormat",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "HEX",
+            "value": "hex"
+          },
+          {
+            "name": "RGB",
+            "value": "rgb"
+          },
+          {
+            "name": "HSL",
+            "value": "hsl"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "name": "Dimensions",
+        "type": "switch",
+        "id": "showDimensions",
+        "default": true
+      },
+      {
+        "name": "Unitless line-height",
+        "type": "switch",
+        "id": "unitlessLineHeight",
+        "default": true
+      },
+      {
+        "name": "Text styles as mixins",
+        "type": "switch",
+        "id": "mixin",
+        "default": true
+      },
+      {
+        "name": "Default values",
+        "type": "switch",
+        "id": "showDefaultValues",
+        "default": true
+      }
+    ]
   }
 }
