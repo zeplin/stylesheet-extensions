@@ -4,6 +4,7 @@
   "description": "Models and utilities to generate CSS-like style code in Zeplin extensions.",
   "main": "index.js",
   "scripts": {
+    "publish-pkg": "./scripts/publish.sh",
     "build": "babel ./ -d ./lib --ignore tests,scripts,package.json --copy-files",
     "test": "BABEL_ENV=test jest -c ./tests/jest.config.js",
     "clean": "rm -rf ./lib",

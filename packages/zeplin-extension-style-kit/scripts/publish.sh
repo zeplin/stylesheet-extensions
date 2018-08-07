@@ -16,6 +16,6 @@ rm -f ./package.json
 
 popd
 
-npm publish $PKG_PATH -- $(pwd)
+npm publish $PKG_PATH --access public
 
 popd
