@@ -23,7 +23,7 @@ import BorderWidth from "../declarations/borderWidth";
 import BorderStyle from "../declarations/borderStyle";
 import BorderImageSlice from "../declarations/borderImageSlice";
 import BackdropFilter from "../declarations/backdropFilter";
-import Filter from "../declarations/Filter";
+import Filter from "../declarations/filter";
 import FontColor from "../declarations/fontColor";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
