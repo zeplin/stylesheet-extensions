@@ -23,7 +23,7 @@
     "zeplin-extension-style-kit": "^1.0.0"
   },
   "zeplin": {
-    "displayName": "Less",
+    "displayName": "CSS",
     "projectTypes": [
       "web"
     ],
