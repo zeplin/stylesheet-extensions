@@ -1,86 +1,62 @@
 # Values
-Values represent CSS values used in properties. They are parametric models that can be constructed using the required parameters that define the value itself. For example, [`Length`](./values.md#length) needs a value (magnitude) and a unit. All the values have a common interface called `StyleValue`.
+
+Values represent CSS values used in properties. They are parametric models that can be constructed using the required parameters, e.g [`Length`](./values.md#length) requires a value (magnitude) and a unit. All values have a common interface called `StyleValue`.
 
 ## StyleValue
-Forms the base interface for all style values.
+
+Base interface for all style values.
 
 ### `valueOf()`: `string`
-This property returns the primitive value for the `StyleValue` instance.
+Returns the primitive value for the `StyleValue` instance.
 
 ### `equals(other: StyleValue)`: `boolean`
-Given an `other` value instance, this method determines if `other` equals to the self.
+Checks if `other` instance is equal to self.
 
 #### Parameters:
- - `other`: An instance conforming to `StyleValue` interface.
+- `other`: An instance conforming to `StyleValue`.
 
 ### `toStyleValue(params, variables)`: `string`
-This method serializes the instance to in CSS value format.
+Serializes to in CSS value format.
 
 #### Parameters:
- - `params`: An instance conforming to [`StyleParams`](./types.md#styleparams) interface. These parameters determines the how internal values are being interpreted when string output is generated. More details can be found in [`StyleParams`](./types.md#styleparams).
- - `variables`: An instance of [`VariableMap`](./types.md#variablemap). This map is used to replace literal values if there is a variable declared with the same value.
-
+- `params`: An instance conforming to [`StyleParams`](./types.md#styleparams). These parameters determine how internal values are being interpreted when string output is generated. See [`StyleParams`](./types.md#styleparams) to learn more.
+- `variables`: An instance of [`VariableMap`](./types.md#variablemap). This map is used to replace literal values if there is a variable declared with the same value.
 
 ## Angle
-### `constructor(value, unit = "deq")`: `Angle`
-Creates an angle value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/angle).
+
+### `constructor(value, unit = "deg")`: `Angle`
+Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/angle).
 
 #### Parameters:
- - `value`: A `number` that denotes the value of the angle.
- - `unit`: A `string` that denotes the unit of the angle (default: `deg`).
+- `value`: A `number` that represents the value.
+- `unit`: A `string` that represents the unit, `deg` (default) or `rad`.
 
 ### `equals(other: Angle)`: `boolean`
-Equality check.
+Checks if `other` instance is equal to self.
 
 ### `toStyleValue()`: `string`
-Returns the string representation of `Angle` value.
+Returns the string representation.
 
 ```js
 new Angle(13, "rad").toStyleValue() // "13rad"
 ```
 
 ## Color
+
 ### `constructor(colorObject)`: `Color`
-Creates color value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
+Creates an instance from an extension color instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
 #### Parameters:
- - `colorObject`: An instance of [`ExtensionModels.Color`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/color.md)
+- `colorObject`: An instance of [`ExtensionModels.Color`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/color.md).
 
 ### `equals(other)`: `boolean`
-Equality check.
+Checks if `other` instance is equal to self.
 
 ### `toGradient`(): [`Gradient`](./values.md#gradient)
-This method returns a `Gradient` object with two color stops whose color is equal to this value.
+Returns a `Gradient` instance with two color stops equal to self.
 
 ### `toStyleValue(params, variables)`: `string`
-Returns the string representation of `Color` value in the format specified with `params.colorFormat`.
-
-#### Parameters:
- - `params`: An instance conforming to [`ColorParams`](./types.md#colorparams) interface.
- - `variables`: An instance of [`VariableMap`](./types.md#variablemap).
-
-## Gradient
-### `constructor(gradientObject)`: `Color`
-Creates color value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient).
-
-#### Parameters:
- - `gradientObject`: An instance of [`ExtensionModels.Gradient`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/gradient.md)
-
-### `static fromRGBA(rgba)`: [`Gradient`](./values.md#gradient)
-This method returns a `Gradient` object with two color stops whose color has `rgba` value.
-
-#### Parameters:
- - `rgba`: An object with `r`, `g,` `b`, and properties. `{r, g, b}` values have [0, 255] interval where has `a` should be in [0, 1].
-
-### `equals(other: Gradient)`: `boolean`
-Equality check.
-
-### `toStyleValue(params, variables)`: `string`
-Returns the string representation of `Gradient` in which color values are represented in the format specified with `params.colorFormat`.
-
-#### Parameters:
- - `params`: An instance conforming to [`ColorParams`](./types.md#colorparams) interface.
- - `variables`: An instance of [`VariableMap`](./types.md#variablemap).
+Returns the string representation, in the format specified in `params.colorFormat`.
 
 ```js
 new Color(extensionColorWhite).toStyleValue({ colorFormat: "hex" }) // "#ffffff"
@@ -93,40 +69,70 @@ new Color(extensionColorWhite25).toStyleValue(
 ) // "var(--white-25pc)"
 ```
 
-## Length
-### `constructor(value, unit = "px")`: `Length`
-Creates a length value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
+#### Parameters:
+- `params`: An instance conforming to [`ColorParams`](./types.md#colorparams).
+- `variables`: An instance of [`VariableMap`](./types.md#variablemap).
+
+## Gradient
+
+### `constructor(gradientObject)`: `Color`
+Creates an instance from an extension gradient instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient).
 
 #### Parameters:
- - `value`: A `number` that denotes the value of the length.
- - `unit`: A `string` that denotes the unit of the length (default: `px`).
+ - `gradientObject`: An instance of [`ExtensionModels.Gradient`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/gradient.md).
+
+### `static fromRGBA(rgba)`: [`Gradient`](./values.md#gradient)
+Returns a `Gradient` instance with two color stops equal to `rgba`.
+
+#### Parameters:
+- `rgba`: An object with `r`, `g,` `b`, and `a` properties. `r`, `g`, `b` values should be between 0 and 255, where `a` should be between 0 and 1.
+
+### `equals(other: Gradient)`: `boolean`
+Checks if `other` instance is equal to self.
+
+### `toStyleValue(params, variables)`: `string`
+Returns the string representation, in which colors are in the format specified in `params.colorFormat`.
+
+#### Parameters:
+ - `params`: An instance conforming to [`ColorParams`](./types.md#colorparams).
+ - `variables`: An instance of [`VariableMap`](./types.md#variablemap).
+
+## Length
+
+### `constructor(value, unit = "px")`: `Length`
+Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
+
+#### Parameters:
+- `value`: A `number` that represents the value.
+- `unit`: A `string` that represents the unit, `px` by default.
 
 ### `equals(other)`: `boolean`
-Equality check.
+Checks if `other` instance is equal to self.
 
 ### `toStyleValue(params)`: `string`
-Returns the string representation of `Angle` value.
+Returns the string representation.
 
 #### Parameters:
- - `params`: An instance conforming to [`LengthParams`](./types.md#lengthparams) interface.
+- `params`: An instance conforming to [`LengthParams`](./types.md#lengthparams).
 
 ```js
-new Color(22, "px").toStyleValue({ densityDivisor: 1 }) // "22px"
-new Color(22, "px").toStyleValue({ densityDivisor: 2 }) // "11px"
+new Length(22, "px").toStyleValue({ densityDivisor: 1 }) // "22px"
+new Length(22, "px").toStyleValue({ densityDivisor: 2 }) // "11px"
 ```
 
 ## Percent
+
 ### `constructor(value)`: `Percent`
-Creates a length value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/percentage).
+Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/percentage).
 
 #### Parameters:
- - `value`: A `number` that denotes the value of the percentage. It should be in [0, 1] interval.
+- `value`: A `number` that represents the value, between 0 and 1.
 
 ### `equals(other)`: `boolean`
-Equality check.
+Checks if `other` instance is equal to self.
 
 ### `toStyleValue()`: `string`
-Returns the string representation of `Percent` value.
+Returns the string representation.
 
 ```js
 new Percent(0.22).toStyleValue() // "22%"
@@ -134,19 +140,20 @@ new Percent(0).toStyleValue() // "0"
 ```
 
 ## Scalar
+
 ### `constructor(value, unit = "px")`: `Scalar`
-Creates a length value. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/number).
+Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/number).
 
 #### Parameters:
- - `value`: A `number` that denotes the value of the length.
- - `unit`: A `string` that denotes the unit of the length (default: `px`).
+- `value`: A `number` that represents the value.
+- `unit`: A `string` that represents the unit, `px` by default.
 
 ### `equals(other)`: `boolean`
-Equality check.
+Checks if `other` instance is equal to self.
 
 ### `toStyleValue()`: `string`
-Returns the string representation of `Scalar` value.
+Returns the string representation.
 
 ```js
-new Color(22).toStyleValue({ densityDivisor: 1 }) // "22px"
+new Scalar(22).toStyleValue({ densityDivisor: 1 }) // "22px"
 ```

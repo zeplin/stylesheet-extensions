@@ -1,27 +1,25 @@
 ## RuleSet
 
-It represents property block and the selector identifying it.
+Rule sets represent a property block and the selector identifying it.
 
 ### `constructor(selector, declarations)`: `RuleSet`
-Creates a `RuleSet` object which is identifed by `selector` and contains `declarations` as style properties.
+Creates an instance identifed by `selector` and contains `declarations` as style properties.
 
 #### Parameters:
- - `selector`: `string`
- - `declarations`: Array of [`StyleDeclaration`](./declarations.md#styledeclaration).
+- `selector`: `string`
+- `declarations`: Array of [`StyleDeclaration`](./declarations.md#styledeclaration).
 
 ### `selector`: `string`
-Returns selector identifying the ruleset.
+Returns identifying selector.
 
 ### `addDeclaration(declaration)`: `void`
-Add `declaration` to the declarations list of ruleset.
+Adds a declaration to the array.
 
 #### Parameters:
- - `declaration`: `StyleDeclaration`
+ - `declaration`: [`StyleDeclaration`](./declarations.md#styledeclaration)
 
 ### `removeDeclaration(declaration)`: `void`
-Remove `declaration` from the declarations list of ruleset.
+Removes a declaration from the array.
 
 #### Parameters:
- - `declaration`: `StyleDeclaration`
-
-
+ - `declaration`: [`StyleDeclaration`](./declarations.md#styledeclaration)

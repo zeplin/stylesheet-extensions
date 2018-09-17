@@ -1,9 +1,10 @@
-# Zeplin Stylesheet Extensions
+# Zeplin Stylesheet Extensions 🖌
 
-This monorepo consists of stylesheet extensions and a utility that extracts style properties from design elements (layers, colors, text styles) exposeded to extensions by Zeplin:
- - [CSS](./packages/stylesheet-css)
- - [Less](packages/stylesheet-less)
- - [SCSS](packages/stylesheet-scss)
- - [Sass](packages/stylesheet-sass)
- - [Stylus](packages/stylesheet-stylus)
- - [zeplin-extension-style-kit](packages/zeplin-extension-style-kit)
+This monorepo consists of stylesheet extensions and a package that extracts CSS-like style properties from design elements (layers, colors, text styles) exposed to extensions by Zeplin:
+
+- [CSS extension](./packages/zeplin-css-extension)
+- [Less extension](./packages/zeplin-less-extension)
+- [SCSS extension](./packages/zeplin-scss-extension)
+- [Sass extension](./packages/zeplin-sass-extension)
+- [Stylus extension](./packages/zeplin-stylus-extension)
+- [Extension Style Kit](./packages/zeplin-extension-style-kit)

@@ -1,34 +1,40 @@
 # Common types
 
 ## StyleParams
-This includes all the possible parameters that can be used by any [values](./values.md) or [declarations](./declarations.md).
+
+Style parameters include all possible parameters that can be used by any [value](./values.md) or [declaration](./declarations.md).
 
 ### `densityDivisor`: `number`
-This number represents the pixel density assumed in the design data.
+Returns the pixel density of the design.
 
 ### `colorFormat`: `string`
-Format specifier for the color values. Possible options: "hex", "rgb", and "hsl".
+Returns the format specifier for color values, `hex`, `rgb`, and `hsl`.
 
-### `unitlessLineHeight: boolean
-It controls `line-height` property to be unitless or not.
+### `unitlessLineHeight`: `boolean`
+Returns `true` if the `line-height` property should be unitless.
 
 ## ColorParams
-This includes only `colorFormat` parameter. It's used when color related parameters are required.
+
+Color parameters only include `colorFormat`, used when only color related parameters are required.
 
 ## LengthParams
-This includes only `densityDivisor` parameter. It's used when parameters that affect length values are required.
+
+Length parameters only include `densityDivisor`, used when only parameters that affect length values are required.
 
 ## StyleFunction
-This represents style functions (e.g., `scaleX(0.7)`) with two properties:
+
+Style function represents functions, e.g. `scaleX(0.7)`.
 
 ### `fn`: `string`
-Name of the function.
+Returns the name of the function.
 
 ### `args`: [`Array<StyleValue>`](./values.md#stylevalue)
-Arguments to the style function.
+Returns the arguments of the function.
 
 ## VariableMap
-This is a specialized object structure whose keys are the values assigned to the variables and the values are variables' identifiers. For example:
+
+Variable map is a specialized object structure whose keys are the values assigned to the variables and the values are variables' identifiers.
+
 ```js
 const variableMap = {
     "#000000": "black",
