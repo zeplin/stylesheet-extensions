@@ -103,7 +103,7 @@ Equality check.
 Returns the string representation of the value.
 
 ```js
-new BgBlendMode(["darken", "luminosity"]).getValue()
+new BackgroundBlendMode(["darken", "luminosity"]).getValue()
 
 // returns => "darken, luminosity"
 ```
@@ -128,7 +128,7 @@ Equality check.
 Returns the string representation of the value.
 
 ```js
-new BgClip(["content-box"]).getValue()
+new BackgroundClip(["content-box"]).getValue()
 
 // returns => "content-box"
 ```
@@ -158,16 +158,16 @@ Returns the string representation of the value.
 
 ```js
 const white = new Color(...);
-new BgColor(white).getValue({ colorFormat: "hex" })
+new BackgroundColor(white).getValue({ colorFormat: "hex" })
 
 // returns => "#ffffff"
 
 const black = new Color(...);
-new BgColor(black).getValue({ colorFormat: "rgb" })
+new BackgroundColor(black).getValue({ colorFormat: "rgb" })
 
 // returns => "rgb(0, 0, 0)"
 
-new BgColor(black).getValue({ colorFormat: "rgb" }, variables)
+new BackgroundColor(black).getValue({ colorFormat: "rgb" }, variables)
 
 // returns => "var(--black)"
 ```
@@ -197,7 +197,7 @@ Returns the string representation of the value.
 
 ```js
 const gradient = new Gradient(...);
-new BgImage([gradient])).getValue({ colorFormat: "rgb" })
+new BackgroundImage([gradient])).getValue({ colorFormat: "rgb" })
 
 // returns => "linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 48%, rgb(180, 236, 81))"
 ```
@@ -222,7 +222,7 @@ Equality check.
 Returns the string representation of the value.
 
 ```js
-new BgClip(["content-box"]).getValue()
+new BackgroundClip(["content-box"]).getValue()
 
 // returns => "content-box"
 ```

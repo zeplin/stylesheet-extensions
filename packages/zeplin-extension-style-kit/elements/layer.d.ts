@@ -12,7 +12,7 @@ declare class Layer {
     hasGradient: boolean;
     hasFill: boolean;
 
-    bgImages: Array<BackgroundImage>;
+    backgroundImages: Array<BackgroundImage>;
     fillColor: Color;
 
     getLayerTextStyleDeclarations(textStyle: object): Array<StyleDeclaration>;

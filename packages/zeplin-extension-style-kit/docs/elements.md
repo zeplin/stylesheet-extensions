@@ -28,7 +28,7 @@ Layer element is created from extension layer data.
 ### `hasFill`: `boolean`
  Return `true` if the layer has a fill.
 
-### `bgImages`: [`Array<Gradient>`]()
+### `backgroundImages`: [`Array<Gradient>`]()
  This property returns the fills of a layer as [`Gradient`](./values.md#gradient) values.
 
 ### `fillColor`: [`Color`]()

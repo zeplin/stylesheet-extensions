@@ -1,12 +1,12 @@
 import { STYLE_PROPS } from "../constants";
 
-class BgOrigin {
+class BackgroundBlendMode {
     constructor(values) {
         this.values = values;
     }
 
     get name() {
-        return STYLE_PROPS.BACKGROUND_ORIGIN;
+        return STYLE_PROPS.BACKGROUND_BLEND_MODE;
     }
 
     equals(other) {
@@ -18,4 +18,4 @@ class BgOrigin {
     }
 }
 
-export default BgOrigin;
+export default BackgroundBlendMode;
