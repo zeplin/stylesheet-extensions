@@ -1,12 +1,12 @@
 import { STYLE_PROPS } from "../constants";
 
-class BgBlendMode {
+class BackgroundClip {
     constructor(values) {
         this.values = values;
     }
 
     get name() {
-        return STYLE_PROPS.BACKGROUND_BLEND_MODE;
+        return STYLE_PROPS.BACKGROUND_CLIP;
     }
 
     equals(other) {
@@ -18,4 +18,4 @@ class BgBlendMode {
     }
 }
 
-export default BgBlendMode;
+export default BackgroundClip;

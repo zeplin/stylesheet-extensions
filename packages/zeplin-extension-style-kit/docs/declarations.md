@@ -130,7 +130,7 @@ Checks if `other` instance is equal to self.
 Returns the string representation.
 
 ```js
-new BgClip(["content-box"]).getValue() // "content-box"
+new BackgroundClip(["content-box"]).getValue() // "content-box"
 ```
 
 ## BackgroundColor
@@ -217,7 +217,7 @@ Checks if `other` instance is equal to self.
 Returns the string representation.
 
 ```js
-new BgClip(["content-box"]).getValue() // "content-box"
+new BackgroundClip(["content-box"]).getValue() // "content-box"
 ```
 
 ## Border

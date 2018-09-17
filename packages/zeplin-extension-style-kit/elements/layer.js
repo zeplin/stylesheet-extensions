@@ -12,10 +12,11 @@ import ObjectFit from "../declarations/objectFit";
 import Transform from "../declarations/transform";
 import MixBlendMode from "../declarations/mixBlendMode";
 import BorderRadius from "../declarations/borderRadius";
-import BgBlendMode from "../declarations/bgBlendMode";
-import BgImage from "../declarations/bgImage";
-import BgColor from "../declarations/bgColor";
-import BgClip from "../declarations/bgClip";
+import BackgroundBlendMode from "../declarations/backgroundBlendMode";
+import BackgroundImage from "../declarations/backgroundImage";
+import BackgroundColor from "../declarations/backgroundColor";
+import BackgroundClip from "../declarations/backgroundClip";
+import BackgroundOrigin from "../declarations/backgroundOrigin";
 import TextFillColor from "../declarations/textFillColor";
 import TextStroke from "../declarations/textStroke";
 import BorderImageSource from "../declarations/borderImageSource";
@@ -32,7 +33,6 @@ import {
     selectorize,
     webkit
 } from "../utils";
-import BgOrigin from "../declarations/bgOrigin";
 
 class Layer {
     constructor(layerObject = {}) {
@@ -65,8 +65,8 @@ class Layer {
             declarations = declarations.filter(declaration => !(declaration instanceof Color));
 
             if (this.hasGradient) {
-                declarations.push(new (webkit(BgClip))(["text"]));
-                declarations.push(new BgClip(["text"]));
+                declarations.push(new (webkit(BackgroundClip))(["text"]));
+                declarations.push(new BackgroundClip(["text"]));
                 declarations.push(new TextFillColor("transparent"));
 
                 const bgImages = layer.fills.map(fill => Layer.fillToGradient(fill));
@@ -75,7 +75,7 @@ class Layer {
                     bgImages.push(new Color(textStyle.color).toGradient());
                 }
 
-                declarations.push(new BgImage(bgImages));
+                declarations.push(new BackgroundImage(bgImages));
             } else {
                 let blentColor = blendColors(layer.fills.map(fill => fill.color));
 
@@ -96,7 +96,7 @@ class Layer {
         return borders.length ? borders[borders.length - 1] : null;
     }
 
-    get bgImages() {
+    get backgroundImages() {
         let bgImages;
 
         if (!this.hasFill) {
@@ -202,22 +202,22 @@ class Layer {
     }
 
     generateBackgroundDeclarations() {
-        const { bgImages, elementBorder, fillColor, object: layer } = this;
+        const { backgroundImages, elementBorder, fillColor, object: layer } = this;
         const declarations = [];
 
         if (this.hasFill && this.hasBlendMode) {
-            declarations.push(new BgBlendMode(layer.fills.map(fill => fill.blendMode)));
+            declarations.push(new BackgroundBlendMode(layer.fills.map(fill => fill.blendMode)));
         }
 
-        if (bgImages) {
-            declarations.push(new BgImage(bgImages));
+        if (backgroundImages) {
+            declarations.push(new BackgroundImage(backgroundImages));
 
             if (layer.borderRadius && elementBorder && elementBorder.fill.type === "gradient") {
-                declarations.push(new BgOrigin(["border-box"]));
-                declarations.push(new BgClip([...Array(bgImages.length - 1).fill("content-box"), "border-box"]));
+                declarations.push(new BackgroundOrigin(["border-box"]));
+                declarations.push(new BackgroundClip([...Array(backgroundImages.length - 1).fill("content-box"), "border-box"]));
             }
         } else if (fillColor) {
-            declarations.push(new BgColor(fillColor));
+            declarations.push(new BackgroundColor(fillColor));
         }
 
         return declarations;

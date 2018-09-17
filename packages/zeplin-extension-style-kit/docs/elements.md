@@ -28,7 +28,7 @@ Returns `true` if the layer has a gradient fill.
 ### `hasFill`: `boolean`
 Returns `true` if the layer has a fill.
 
-### `bgImages`: [`Array<Gradient>`]()
+### `backgroundImages`: [`Array<Gradient>`]()
 Returns fills of the layer as [`Gradient`](./values.md#gradient) values.
 
 ### `fillColor`: [`Color`]()

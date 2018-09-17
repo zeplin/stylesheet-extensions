@@ -1,6 +1,6 @@
 import { STYLE_PROPS } from "../constants";
 
-class BgColor {
+class BackgroundColor {
     constructor(color) {
         this.color = color;
     }
@@ -18,4 +18,4 @@ class BgColor {
     }
 }
 
-export default BgColor;
+export default BackgroundColor;

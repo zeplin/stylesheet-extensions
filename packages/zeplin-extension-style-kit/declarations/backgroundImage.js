@@ -1,6 +1,6 @@
 import { STYLE_PROPS } from "../constants";
 
-class BgImage {
+class BackgroundImage {
     constructor(images) {
         this.images = images;
     }
@@ -21,4 +21,4 @@ class BgImage {
     }
 }
 
-export default BgImage;
+export default BackgroundImage;
