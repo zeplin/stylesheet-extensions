@@ -1,58 +1,55 @@
 # Elements
- Elements map design elements that Zeplin provides to the extension context such as layers and colors to the style properties. The logic needed to extract style properties are encapsulated by the elements and each element does now what properties it can extract and how it should be done.
 
- There are two types of elements:
- - [Layer](./elements.md#layer)
- - [TextStyle](./elements.md#textstyle)
+Elements map extension models (e.g. layers and colors) to their style properties. Currently, there are two elements:
+
+- [Layer](./elements.md#layer)
+- [TextStyle](./elements.md#textstyle)
 
 ## Layer
+
 ### `constructor(layerObject)`: `Layer`
-Layer element is created from extension layer data.
+Creates an instance from an extension layer instance.
 
 #### Parameters:
- - `layerObject`: An instance of [`ExtensionModels.Layer`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/layer.md)
-
+- `layerObject`: An instance of [`ExtensionModels.Layer`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/layer.md).
 
 ### `style`: [`RuleSet`](./ruleSet.md)
- Style properties that apply to the layer and a selector are represented by a [`RuleSet`](./ruleSet.md) object.
+Returns style properties of the layer and a selector, represented by a [`RuleSet`](./ruleSet.md) instance.
 
 ### `childrenStyle`: [`RuleSet`](./ruleSet.md)
- If a layer contains one or more elements, style properties of each child are also represented with a [`RuleSet`](./ruleSet.md) object.
+If the layer contains one or more elements, returns style properties of each child, represented by a [`RuleSet`](./ruleSet.md) instance.
 
 ### `hasBlendMode`: `boolean`
- Return `true` if the layer has a fill whose blend mode is other than normal.
+Returns `true` if the layer has a fill with a blend mode other than normal.
 
 ### `hasGradient`: `boolean`
- Return `true` if the layer has a gradient fill.
+Returns `true` if the layer has a gradient fill.
 
 ### `hasFill`: `boolean`
- Return `true` if the layer has a fill.
+Returns `true` if the layer has a fill.
 
 ### `bgImages`: [`Array<Gradient>`]()
- This property returns the fills of a layer as [`Gradient`](./values.md#gradient) values.
+Returns fills of the layer as [`Gradient`](./values.md#gradient) values.
 
 ### `fillColor`: [`Color`]()
- If a layer has multiple color fill and the blend mode is set to normal for each of them, this property returns the blent of them.
+If the layer has multiple color fills and the blend mode is set to normal for each, returns the blended color.
 
 ### `getLayerTextStyleDeclarations(textStyle)`: [`Array<StyleDeclaration>`](./declarations.md#styledeclaration)
-Any layer with color/gradient has effect on the style of the tex styles it contains. This method takes a [ExtensionModels.TextStyle](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md) instance and returns the list of its style properties taking into account the parent layer's fills.
+Layers with color or gradient fills affect its text styles. Returns an array of style properties from a [ExtensionModels.TextStyle](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md) instance, taking fills of the layer into account.
 
 #### Parameters:
- - `textStyle`: An instance of [`ExtensionModels.TextStyle`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md)
+- `textStyle`: An instance of [`ExtensionModels.TextStyle`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md).
 
-Returns:
+#### Returns:
 An array of [StyleDeclaration](./declarations.md#styleDeclaration).
 
-
 ## TextStyle
+
 ### `constructor(textStyleObject)`: `TextStyle`
-TextStyle element is created from extension text style data.
+Creates an instance from an extension text style instance.
 
 #### Parameters:
- - `textStyleObject`: An instance of [`ExtensionModels.TextStyle`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md)
-
- Returns:
- A text style style element.
+- `textStyleObject`: An instance of [`ExtensionModels.TextStyle`](https://github.com/zeplin/zeplin-extension-documentation/blob/master/model/textStyle.md).
 
 ### `style`: [`RuleSet`](./ruleSet.md)
- Style properties that apply to the text style and a selector are represented by [`RuleSet`](./ruleSet.md) object.
+Returns style properties of the text style and a selector, represented by a [`RuleSet`](./ruleSet.md) instance.
