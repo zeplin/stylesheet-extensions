@@ -65,7 +65,7 @@ class SCSS {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations, isMixin);
         const ruleSelector = isMixin ? selector.replace(/^\./, "@mixin ") : selector;
 
-        return `${ruleSelector}${isMixin ? "()" : ""} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
+        return `${ruleSelector} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
     }
 }
 
