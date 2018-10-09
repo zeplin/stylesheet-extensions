@@ -28,7 +28,9 @@ jobs:
         - run: lerna run build --scope=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
         - run:
             name: Publish extension
-            command: lerna run publish:zem --scope=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
+            command: |
+              echo "{\"token\": \"$ZEM_TOKEN\"}" >> ~/.zemrc
+              lerna run publish --scope=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
 
   publish_npm:
       docker:
@@ -52,6 +54,12 @@ workflows:
     jobs:
       # Run the test for all branches
       - test
+          filters:
+            # Ignore any commit on any branch
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
       - publish_npm:
           requires:
             - test
