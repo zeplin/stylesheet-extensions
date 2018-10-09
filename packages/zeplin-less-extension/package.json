@@ -1,7 +1,7 @@
 {
   "name": "zeplin-less-extension",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generates Less snippets from colors, text styles and layers.",
   "author": {
     "name": "Zeplin",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "zem": "^0.2.0",
-    "zeplin-extension-style-kit": "^1.0.0"
+    "zeplin-extension-style-kit": "^1.0.1"
   },
   "zeplin": {
     "displayName": "Less",
