@@ -7,10 +7,11 @@
     "start": "zem start",
     "build": "zem build",
     "clean": "zem clean",
-    "exec": "zem exec"
+    "exec": "zem exec",
+    "publish": "zem publish"
   },
   "dependencies": {
-    "zem": "^0.2.0",
+    "zem": "^0.3.1",
     "zeplin-extension-style-kit": "^1.0.1"
   },
   "author": {
