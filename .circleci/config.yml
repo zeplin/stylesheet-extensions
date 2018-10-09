@@ -53,7 +53,7 @@ workflows:
   build_test_and_deploy:
     jobs:
       # Run the test for all branches
-      - test
+      - test:
           filters:
             # Ignore any commit on any branch
             branches:
