@@ -55,9 +55,6 @@ workflows:
       # Run the test for all branches
       - test:
           filters:
-            # Ignore any commit on any branch
-            branches:
-              ignore: /.*/
             tags:
               only: /.*/
       - publish_npm:
