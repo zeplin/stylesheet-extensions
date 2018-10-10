@@ -30,18 +30,6 @@ test("variable as color value", () => {
     expect(fontColor.getValue({ colorFormat: "hex" }, variables)).toBe("var(--cod_gray)");
 });
 
-test("has default value", () => {
-    const fontColor = new FontColor(FontColor.DEFAULT_VALUE);
-
-    expect(fontColor.hasDefaultValue()).toBe(true);
-});
-
-test("not have default value", () => {
-    const fontColor = new FontColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));
-
-    expect(fontColor.hasDefaultValue()).toBe(false);
-});
-
 test("equality check", () => {
     const fontColor = new FontColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));
     const other = new FontColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));
