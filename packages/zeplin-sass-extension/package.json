@@ -1,5 +1,5 @@
 {
-  "name": "zeplin-sass-extension",
+  "name": "sass",
   "private": true,
   "version": "2.0.3",
   "description": "Generates Sass snippets from colors, text styles and layers.",

@@ -1,5 +1,5 @@
 {
-  "name": "zeplin-css-extension",
+  "name": "css",
   "private": true,
   "version": "2.0.4",
   "description": "Generates CSS snippets from colors, text styles and layers.",
