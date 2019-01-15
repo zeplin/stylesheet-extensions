@@ -1,5 +1,5 @@
 {
-  "name": "zeplin-scss-extension",
+  "name": "scss",
   "private": true,
   "version": "2.0.3",
   "description": "Generates SCSS snippets from colors, text styles and layers.",
