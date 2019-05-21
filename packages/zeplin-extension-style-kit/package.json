@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "publish-pkg": "./scripts/publish.sh",
-    "build": "babel ./ -d ./lib --ignore tests,scripts,package.json --copy-files",
+    "build": "babel ./ -d ./lib --ignore tests,scripts,node_modules,package.json --copy-files",
     "test": "BABEL_ENV=test jest -c ./tests/jest.config.js",
     "clean": "rm -rf ./lib",
     "lint": "eslint ."
