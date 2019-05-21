@@ -22,7 +22,7 @@
     "borders": [],
     "fills": [
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "normal",
             "fill": {
                 "r": 245,

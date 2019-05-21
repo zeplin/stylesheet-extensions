@@ -15,3 +15,7 @@ declare function webkit(DeclarationCls: StyleDeclaration): StyleDeclaration;
 declare function getDeclarationValue(value: StyleValue, variables: VariableMap, params: StyleParams): string;
 
 declare function getUniqueLayerTextStyles(layer: object): object[];
+
+declare function getResourceContainer(context: object): object;
+
+declare function getResources(container: object, type: string, useLinkedStyleguides: boolean, resourceKey: string): object[];

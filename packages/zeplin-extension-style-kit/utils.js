@@ -119,6 +119,38 @@ function getUniqueLayerTextStyles(layer) {
     return uniqueTextStyles;
 }
 
+function getResourceContainer(context) {
+    if (context.styleguide) {
+        return {
+            container: context.styleguide,
+            type: "styleguide"
+        };
+    }
+
+    return {
+        container: context.project,
+        type: "project"
+    };
+}
+
+function getLinkedResources(container, type, resourceKey) {
+    let resources = container[resourceKey];
+    let itContainer = type === "project" ? container.linkedStyleguide : container.parent;
+    while (itContainer) {
+        resources = [...resources, ...itContainer[resourceKey]];
+        itContainer = itContainer.parent;
+    }
+    return resources;
+}
+
+function getResources(container, type, useLinkedStyleguides, resourceKey) {
+    if (useLinkedStyleguides) {
+        return getLinkedResources(container, type, resourceKey);
+    }
+
+    return container[resourceKey];
+}
+
 export {
     blendColors,
     getDeclarationValue,
@@ -126,5 +158,7 @@ export {
     isHtmlTag,
     isDeclarationInherited,
     selectorize,
-    webkit
+    webkit,
+    getResources,
+    getResourceContainer
 };

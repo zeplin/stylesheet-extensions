@@ -23,21 +23,19 @@
         {
             "position": "center",
             "thickness": 3,
+            "fillType": "color",
+            "blendMode": "normal",
             "fill": {
-                "type": "color",
-                "blendMode": "normal",
-                "fill": {
-                    "r": 248,
-                    "g": 231,
-                    "b": 28,
-                    "a": 1
-                },
-                "color": {
-                    "r": 248,
-                    "g": 231,
-                    "b": 28,
-                    "a": 1
-                }
+                "r": 248,
+                "g": 231,
+                "b": 28,
+                "a": 1
+            },
+            "color": {
+                "r": 248,
+                "g": 231,
+                "b": 28,
+                "a": 1
             }
         }
     ],

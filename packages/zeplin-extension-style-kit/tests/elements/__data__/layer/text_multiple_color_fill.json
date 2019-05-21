@@ -22,7 +22,7 @@
     "borders": [],
     "fills": [
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "color-burn",
             "fill": {
                 "r": 248,
@@ -38,7 +38,7 @@
             }
         },
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "lighten",
             "fill": {
                 "r": 65,

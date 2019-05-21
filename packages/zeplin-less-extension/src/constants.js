@@ -1,4 +1,5 @@
 const OPTION_NAMES = {
+    USE_LINKED_STYLEGUIDES: "useLinkedStyleguides",
     COLOR_FORMAT: "colorFormat",
     SHOW_DEFAULT_VALUES: "showDefaultValues",
     SHOW_DIMENSIONS: "showDimensions",
