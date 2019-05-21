@@ -22,7 +22,7 @@
     "borders": [],
     "fills": [
         {
-            "type": "gradient",
+            "fillType": "gradient",
             "blendMode": "lighten",
             "fill": {
                 "type": "linear",
@@ -88,7 +88,7 @@
             }
         },
         {
-            "type": "gradient",
+            "fillType": "gradient",
             "blendMode": "multiply",
             "fill": {
                 "type": "linear",

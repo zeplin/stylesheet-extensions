@@ -23,27 +23,25 @@
         {
             "position": "inside",
             "thickness": 1,
+            "fillType": "color",
+            "blendMode": "normal",
             "fill": {
-                "type": "color",
-                "blendMode": "normal",
-                "fill": {
-                    "r": 151,
-                    "g": 151,
-                    "b": 151,
-                    "a": 1
-                },
-                "color": {
-                    "r": 151,
-                    "g": 151,
-                    "b": 151,
-                    "a": 1
-                }
+                "r": 151,
+                "g": 151,
+                "b": 151,
+                "a": 1
+            },
+            "color": {
+                "r": 151,
+                "g": 151,
+                "b": 151,
+                "a": 1
             }
         }
     ],
     "fills": [
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "exclusion",
             "fill": {
                 "r": 74,
@@ -59,7 +57,7 @@
             }
         },
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "difference",
             "fill": {
                 "r": 189,

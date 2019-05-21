@@ -23,67 +23,61 @@
         {
             "position": "inside",
             "thickness": 7,
+            "fillType": "color",
+            "blendMode": "normal",
             "fill": {
-                "type": "color",
-                "blendMode": "normal",
-                "fill": {
-                    "r": 151,
-                    "g": 151,
-                    "b": 151,
-                    "a": 1
-                },
-                "color": {
-                    "r": 151,
-                    "g": 151,
-                    "b": 151,
-                    "a": 1
-                }
+                "r": 151,
+                "g": 151,
+                "b": 151,
+                "a": 1
+            },
+            "color": {
+                "r": 151,
+                "g": 151,
+                "b": 151,
+                "a": 1
             }
         },
         {
             "position": "center",
             "thickness": 4,
+            "fillType": "color",
+            "blendMode": "normal",
             "fill": {
-                "type": "color",
-                "blendMode": "normal",
-                "fill": {
-                    "r": 235,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                },
-                "color": {
-                    "r": 235,
-                    "g": 0,
-                    "b": 0,
-                    "a": 1
-                }
+                "r": 235,
+                "g": 0,
+                "b": 0,
+                "a": 1
+            },
+            "color": {
+                "r": 235,
+                "g": 0,
+                "b": 0,
+                "a": 1
             }
         },
         {
             "position": "outside",
             "thickness": 4,
+            "fillType": "color",
+            "blendMode": "normal",
             "fill": {
-                "type": "color",
-                "blendMode": "normal",
-                "fill": {
-                    "r": 65,
-                    "g": 117,
-                    "b": 5,
-                    "a": 1
-                },
-                "color": {
-                    "r": 65,
-                    "g": 117,
-                    "b": 5,
-                    "a": 1
-                }
+                "r": 65,
+                "g": 117,
+                "b": 5,
+                "a": 1
+            },
+            "color": {
+                "r": 65,
+                "g": 117,
+                "b": 5,
+                "a": 1
             }
         }
     ],
     "fills": [
         {
-            "type": "color",
+            "fillType": "color",
             "blendMode": "normal",
             "fill": {
                 "r": 216,
