@@ -17,7 +17,7 @@ class Length {
     }
 
     toStyleValue({ densityDivisor }) {
-        return this.value === 0 ? "0" : `${new Scalar(this.value / densityDivisor, 1).toStyleValue()}${this.unit}`;
+        return this.value === 0 ? "0" : `${new Scalar(this.value / densityDivisor).toStyleValue()}${this.unit}`;
     }
 }
 
