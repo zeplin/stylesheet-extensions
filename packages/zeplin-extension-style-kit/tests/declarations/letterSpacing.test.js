@@ -10,10 +10,10 @@ test("property name", () => {
 
 test("letter-spacing value", () => {
     const params = { densityDivisor: 2 };
-    const size = 2;
-    const letterSpacing = new LetterSpacing(new Length(size, { unit: "px" }));
+    const value = 2;
+    const letterSpacing = new LetterSpacing(value);
 
-    expect(letterSpacing.getValue(params)).toBe(`${size / params.densityDivisor}px`);
+    expect(letterSpacing.getValue(params)).toBe(`${value / params.densityDivisor}px`);
 });
 
 test("has default value", () => {
@@ -23,27 +23,33 @@ test("has default value", () => {
 });
 
 test("not have default value", () => {
-    const letterSpacing = new LetterSpacing(new Length(13));
+    const letterSpacing = new LetterSpacing(13);
 
     expect(letterSpacing.hasDefaultValue()).toBe(false);
 });
 
 test("has decimal value", () => {
-    const letterSpacing = new LetterSpacing(new Length(0.01));
+    const params = { densityDivisor: 2 };
+    const value = 0.04;
+    const letterSpacing = new LetterSpacing(value);
 
-    expect(letterSpacing.hasDefaultValue()).toBe(false);
+    expect(letterSpacing.getValue(params)).toBe(`${value / params.densityDivisor}px`);
 });
 
 test("equality check", () => {
-    const letterSpacing = new LetterSpacing(new Length(10));
-    const other = new LetterSpacing(new Length(10));
+    const value = 10;
+    const letterSpacing = new LetterSpacing(value);
+    const other = new LetterSpacing(value);
 
     expect(letterSpacing.equals(other)).toBe(true);
 });
 
 test("equality check (unequal)", () => {
-    const letterSpacing = new LetterSpacing(new Length(10));
-    const other = new LetterSpacing(new Length(20));
+    const value = 10;
+    const letterSpacing = new LetterSpacing(value);
+
+    const otherValue = 20;
+    const other = new LetterSpacing(otherValue);
 
     expect(letterSpacing.equals(other)).toBe(false);
 });
