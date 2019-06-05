@@ -11,7 +11,7 @@ test("property name", () => {
 test("border radius value", () => {
     const params = { densityDivisor: 2 };
     const radius = 20;
-    const borderRadius = new BorderRadius(new Length(radius, "px"));
+    const borderRadius = new BorderRadius(new Length(radius, { unit: "px" }));
 
     expect(borderRadius.getValue(params)).toBe(`${radius / params.densityDivisor}px`);
 });

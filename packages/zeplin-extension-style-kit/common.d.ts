@@ -31,6 +31,11 @@ declare namespace zesk {
         densityDivisor: number;
     }
 
+    interface LengthOptions {
+        unit?: string;
+        precision?: number;
+    }
+
     interface StyleFunction {
         fn: string,
         args: Array<string | StyleValue>

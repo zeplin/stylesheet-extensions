@@ -11,7 +11,7 @@ test("property name", () => {
 test("letter-spacing value", () => {
     const params = { densityDivisor: 2 };
     const size = 2;
-    const letterSpacing = new LetterSpacing(new Length(size, "px"));
+    const letterSpacing = new LetterSpacing(new Length(size, { unit: "px" }));
 
     expect(letterSpacing.getValue(params)).toBe(`${size / params.densityDivisor}px`);
 });
@@ -24,6 +24,12 @@ test("has default value", () => {
 
 test("not have default value", () => {
     const letterSpacing = new LetterSpacing(new Length(13));
+
+    expect(letterSpacing.hasDefaultValue()).toBe(false);
+});
+
+test("has decimal value", () => {
+    const letterSpacing = new LetterSpacing(new Length(0.01));
 
     expect(letterSpacing.hasDefaultValue()).toBe(false);
 });

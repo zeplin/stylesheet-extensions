@@ -30,9 +30,7 @@ class TextStyle {
         declarations.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
         declarations.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
         declarations.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
-        declarations.push(new LetterSpacing(
-            font.letterSpacing ? new Length(font.letterSpacing) : LetterSpacing.DEFAULT_VALUE
-        ));
+        declarations.push(new LetterSpacing(font.letterSpacing || LetterSpacing.DEFAULT_VALUE));
 
         if ("textAlign" in font && font.textAlign) {
             declarations.push(new TextAlign(font.textAlign));

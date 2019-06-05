@@ -1,9 +1,10 @@
 import Scalar from "./scalar";
 
 class Length {
-    constructor(value, unit = "px") {
+    constructor(value, { unit = "px", precision = 1 } = {}) {
         this.value = value;
         this.unit = unit;
+        this.precision = precision;
     }
 
     valueOf() {
@@ -17,7 +18,7 @@ class Length {
     }
 
     toStyleValue({ densityDivisor }) {
-        return this.value === 0 ? "0" : `${new Scalar(this.value / densityDivisor).toStyleValue()}${this.unit}`;
+        return this.value === 0 ? "0" : `${new Scalar(this.value / densityDivisor, this.precision).toStyleValue()}${this.unit}`;
     }
 }
 
