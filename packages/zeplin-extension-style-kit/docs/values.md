@@ -116,8 +116,8 @@ Returns the string representation.
 - `params`: An instance conforming to [`LengthParams`](./types.md#lengthparams).
 
 ```js
-new Length(22, "px").toStyleValue({ densityDivisor: 1 }) // "22px"
-new Length(22, "px").toStyleValue({ densityDivisor: 2 }) // "11px"
+new Length(22, { unit: "px" }).toStyleValue({ densityDivisor: 1 }) // "22px"
+new Length(22, { unit: "px" }).toStyleValue({ densityDivisor: 2 }) // "11px"
 ```
 
 ## Percent

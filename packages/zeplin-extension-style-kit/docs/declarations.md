@@ -80,7 +80,7 @@ Returns the string representation.
 
 ```js
 new BackdropFilter([
-    { fn: "blur", args: [new Length(12, "px")] },
+    { fn: "blur", args: [new Length(12, { unit: "px" })] },
     { fn: "saturate", args: [new Percent(35)] }
 ]).getValue({ densityDivisor: 2 }) // "blur("6px") saturate(35%)"
 ```
@@ -249,7 +249,7 @@ Returns the string representation.
 ```js
 new Border({
     style: "solid",
-    width: new Length(2, "px"),
+    width: new Length(2, { unit: "px" }),
     color: black
 }).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "solid 1px #000000"
 ```
@@ -332,7 +332,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new BorderRadius(new Length(22, "px")).getValue({ densityDivisor: 2 }) // "11px"
+new BorderRadius(new Length(22, { unit: "px" })).getValue({ densityDivisor: 2 }) // "11px"
 ```
 
 ## BorderStyle
@@ -384,7 +384,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new BorderWidth(new Length(2, "px")).getValue({ densityDivisor: 1 }) // "2px"
+new BorderWidth(new Length(2, { unit: "px" })).getValue({ densityDivisor: 1 }) // "2px"
 ```
 
 ## FontColor
@@ -441,7 +441,7 @@ Returns the string representation.
 
 ```js
 new Filter([
-    { fn: "blur", args: [new Length(12, "px")] },
+    { fn: "blur", args: [new Length(12, { unit: "px" })] },
     { fn: "saturate", args: [new Percent(35)] }
 ]).getValue({ densityDivisor: 2 }) // "blur("6px") saturate(35%)"
 ```
@@ -471,7 +471,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new FontSize(new Length(12, "px")).getValue({ densityDivisor: 1 }) // "12px"
+new FontSize(new Length(12, { unit: "px" })).getValue({ densityDivisor: 1 }) // "12px"
 ```
 
 ## FontStretch
@@ -571,16 +571,16 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new Height(new Length(12, "px")).getValue({ densityDivisor: 2 }) // "6px"
+new Height(new Length(12, { unit: "px" })).getValue({ densityDivisor: 2 }) // "6px"
 ```
 
 ## LetterSpacing
 
-### `constructor(length)`: `LetterSpacing`
+### `constructor(value)`: `LetterSpacing`
 Creates `letter-spacing` property instance with `length`. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing).
 
 #### Parameters:
-- `length`: [`Length`](./values.md#length).
+- `value`: `number`
 
 ### name: string
 Returns `letter-spacing`.
@@ -599,16 +599,17 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new LetterSpacing(new Length(4, "px")).getValue({ densityDivisor: 2 }) // "2px"
+new LetterSpacing(4).getValue({ densityDivisor: 2 }) // "2px"
 ```
 
 ## LineHeight
 
-### `constructor(length)`: `LineHeight`
+### `constructor(value, fontSize)`: `LineHeight`
 Creates `line-height` property instance with `length`. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height).
 
 #### Parameters:
-- `length`: [`Length`](./values.md#length).
+- `value`: `number`
+- `fontSize`: `number`
 
 ### name: string
 Returns `line-height`.
@@ -627,7 +628,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new LineHeight(new Length(24, "px")).getValue({ densityDivisor: 2 }) // "12px"
+new LineHeight(24, 18).getValue({ densityDivisor: 2 }) // "12px"
 ```
 
 ## MixBlendMode
@@ -818,7 +819,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new TextStroke(new Length(3, "px"), black).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "1.5px #000000"
+new TextStroke(new Length(3, { unit: "px" }), black).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "1.5px #000000"
 ```
 
 ## Transform
@@ -873,5 +874,5 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new Width(new Length(120, "px")).getValue({ densityDivisor: 2 }) // "60px"
+new Width(new Length(120, { unit: "px" })).getValue({ densityDivisor: 2 }) // "60px"
 ```

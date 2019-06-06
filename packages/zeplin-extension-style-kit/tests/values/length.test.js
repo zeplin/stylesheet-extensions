@@ -13,13 +13,13 @@ test("decimal number precision is 1", () => {
 });
 
 test("length with specific unit", () => {
-    const length = new Length(3, "ch");
+    const length = new Length(3, { unit: "ch" });
 
     expect(length.toStyleValue({ densityDivisor: 1 })).toBe("3ch");
 });
 
 test("density divisor divides the value", () => {
-    const length = new Length(30, "px");
+    const length = new Length(30, { unit: "px" });
 
     expect(length.toStyleValue({ densityDivisor: 2 })).toBe("15px");
 });
@@ -39,7 +39,7 @@ test("equality check returns true if value and unit are equal", () => {
 
 test("equality check returns false if value does not match", () => {
     const length = new Length(13);
-    const other = new Length(13, "ch");
+    const other = new Length(13, { unit: "ch" });
 
     expect(length.equals(other)).toBe(false);
 });

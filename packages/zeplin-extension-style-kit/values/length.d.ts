@@ -1,7 +1,7 @@
-import { LengthParams } from "../common";
+import { LengthParams, LengthOptions } from "../common";
 
 declare class Length {
-    constructor(value: number, unit = "px");
+    constructor(value: number, options?: LengthOptions);
 
     equals(other: Length): boolean;
 

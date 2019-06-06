@@ -8,7 +8,7 @@ class LetterSpacing {
     }
 
     static get DEFAULT_VALUE() {
-        return new Length(0);
+        return 0;
     }
 
     get name() {
@@ -16,11 +16,11 @@ class LetterSpacing {
     }
 
     hasDefaultValue() {
-        return this.value.equals(LetterSpacing.DEFAULT_VALUE);
+        return this.value === LetterSpacing.DEFAULT_VALUE;
     }
 
     equals(other) {
-        return this.value.equals(other.value);
+        return this.value === other.value;
     }
 
     getValue(params, variables) {
@@ -28,7 +28,9 @@ class LetterSpacing {
             return "normal";
         }
 
-        return this.value.toStyleValue(params, variables);
+        const value = new Length(this.value, { precision: 2 });
+
+        return value.toStyleValue(params, variables);
     }
 }
 
