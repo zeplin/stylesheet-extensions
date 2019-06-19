@@ -76,6 +76,12 @@
         "type": "switch",
         "id": "showDefaultValues",
         "default": true
+      },
+      {
+        "name": "Display resources from linked and parent styleguides",
+        "type": "switch",
+        "id": "useLinkedStyleguides",
+        "default": true
       }
     ]
   }
