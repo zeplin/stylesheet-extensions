@@ -67,6 +67,10 @@ class Less {
 
         return `${ruleSelector}${isMixin ? "()" : ""} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
     }
+
+    atRule({ identifier, declarations }) {
+        return `@${identifier} {\n${declarations.map(p => this.declaration(p)).join("\n")}\n}`;
+    }
 }
 
 export default Less;

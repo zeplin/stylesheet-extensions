@@ -41,13 +41,25 @@ class CSS {
         });
     }
 
+    declaration(d) {
+        return `${INDENTATION}${d.name}${MIDFIX} ${d.getValue(this.params, this.variables)}${SUFFIX}`;
+    }
+
+    declarationsBlock(declarations) {
+        return `{\n${declarations.map(this.declaration, this).join("\n")}\n}`;
+    }
+
     variable(name, value) {
         return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
+        return `${selector} ${this.declarationsBlock(filteredDeclarations)}`;
+    }
+
+    atRule({ identifier, declarations }) {
+        return `@${identifier} ${this.declarationsBlock(declarations)}`;
     }
 }
 
