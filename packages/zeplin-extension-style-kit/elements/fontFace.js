@@ -44,16 +44,13 @@ class FontFace {
     collectDeclarations() {
         const { font } = this;
 
-        const declarations = [
+        return [
             new FontFamily(font.fontFamily),
-            new FontSrc(font.fontFace)
+            new FontSrc(font.fontFace),
+            new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE),
+            new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE),
+            new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE)
         ];
-
-        declarations.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
-        declarations.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
-        declarations.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
-
-        return declarations;
     }
 
     get style() {

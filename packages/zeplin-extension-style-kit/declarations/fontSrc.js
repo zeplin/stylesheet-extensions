@@ -1,5 +1,7 @@
 import { STYLE_PROPS } from "../constants";
 
+const INDENTATION = "  ";
+
 const FORMATS = [{
     format: "woff2",
     ext: "woff2"
@@ -37,10 +39,12 @@ class FontSrc {
             return FontSrc.DEFAULT_VALUE;
         }
 
+        const joiner = `,\n${INDENTATION.repeat(2)}`;
         const local = `local(${this.fontFace})`;
-        const external = FORMATS.map(({ ext, format }) => `url(/path/to/${this.fontFace}.${ext}) format("${format}")`).join(", ");
+        const external = FORMATS.map(({ ext, format }) => `url(/path/to/${this.fontFace}.${ext}) format("${format}")`)
+            .join(joiner);
 
-        return `${local}, ${external}`;
+        return `${local}${joiner}${external}`;
     }
 }
 

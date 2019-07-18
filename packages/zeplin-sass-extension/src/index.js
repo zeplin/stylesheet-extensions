@@ -64,7 +64,7 @@ function textStyles(context) {
     const sassGenerator = createGenerator(context, params);
     const { container, type } = getResourceContainer(context);
     const textStyles = getResources(container, type, params.useLinkedStyleguides, "textStyles");
-    const fontFaces = getFontFaces(allTextStyles);
+    const fontFaces = getFontFaces(textStyles);
 
     const fontFaceCode = fontFaces.map(ts => {
         const { style } = new FontFace(ts);

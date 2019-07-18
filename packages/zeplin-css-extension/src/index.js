@@ -62,7 +62,7 @@ function textStyles(context) {
     const cssGenerator = createGenerator(context, params);
     const { container, type } = getResourceContainer(context);
     const textStyles = getResources(container, type, params.useLinkedStyleguides, "textStyles");
-    const fontFaces = getFontFaces(allTextStyles);
+    const fontFaces = getFontFaces(textStyles);
 
     const fontFaceCode = fontFaces.map(ts => {
         const { style } = new FontFace(ts);
@@ -171,7 +171,7 @@ function styleguideTextStyles(context, textStyles) {
         const { style } = new TextStyle(t);
 
         return cssGenerator.ruleSet(style);
-    }).join("\n\n"),
+    }).join("\n\n");
 
     return {
         code: `${fontFaceCode}\n\n${textStyleCode}`,

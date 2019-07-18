@@ -63,23 +63,23 @@ function textStyles(context) {
     const params = getParams(context);
     const stylusGenerator = createGenerator(context, params);
     const { container, type } = getResourceContainer(context);
-    const allTextStyles = getResources(container, type, params.useLinkedStyleguides, "textStyles");
-    const allFontFaces = getFontFaces(allTextStyles);
+    const textStyles = getResources(container, type, params.useLinkedStyleguides, "textStyles");
+    const fontFaces = getFontFaces(textStyles);
 
-    const fontFaces = allFontFaces.map(ts => {
+    const fontFaceCode = fontFaces.map(ts => {
         const { style } = new FontFace(ts);
 
         return stylusGenerator.atRule(style);
     }).join("\n\n");
 
-    const textStyles = allTextStyles.map(t => {
+    const textStyleCode = textStyles.map(t => {
         const { style } = new TextStyle(t);
 
         return stylusGenerator.ruleSet(style, { mixin: params.useMixin });
     }).join("\n\n");
 
     return {
-        code: `${fontFaces}\n\n${textStyles}`,
+        code: `${fontFaceCode}\n\n${textStyleCode}`,
         language: LANG
     };
 }
