@@ -69,7 +69,9 @@ class Layer {
                 declarations.push(new BackgroundClip(["text"]));
                 declarations.push(new TextFillColor("transparent"));
 
-                const bgImages = layer.fills.map(fill => Layer.fillToGradient(fill, layer.rect.width, layer.rect.height));
+                const bgImages = layer.fills.map(fill =>
+                    Layer.fillToGradient(fill, layer.rect.width, layer.rect.height)
+                );
 
                 if (textStyle.color) {
                     bgImages.push(new Color(textStyle.color).toGradient());
@@ -104,12 +106,18 @@ class Layer {
         }
 
         if (this.hasGradient || this.hasBlendMode) {
-            bgImages = this.object.fills.map(fill => Layer.fillToGradient(fill, this.object.rect.width, this.object.rect.height));
+            bgImages = this.object.fills.map(fill =>
+                Layer.fillToGradient(fill, this.object.rect.width, this.object.rect.height)
+            );
         }
 
         if (this.elementBorder) {
             if (this.object.borderRadius && this.elementBorder.fill.type === "gradient") {
-                const borderFill = new Gradient(this.elementBorder.fill.gradient, this.object.rect.width, this.object.rect.height);
+                const borderFill = new Gradient(
+                    this.elementBorder.fill.gradient,
+                    this.object.rect.width,
+                    this.object.rect.height
+                );
 
                 if (bgImages) {
                     bgImages.push(borderFill);
