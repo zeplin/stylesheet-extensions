@@ -4,7 +4,7 @@ import Gradient from "@root/values/gradient";
 import generateGradientObject from "@testHelpers/generateGradientObject";
 
 test("linear gradient (hex)", () => {
-    const lg = new Gradient(generateGradientObject({ type: "linear" }));
+    const lg = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
 
     expect(lg.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffffff80, #00000080)");
 });
@@ -37,7 +37,7 @@ test("linear gradient with color stops at 0, 50%, 100%", () => {
             },
             position: 1
         }]
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffffff80, #ffff00 50%, #00000080)");
 });
@@ -46,14 +46,14 @@ test("linear gradient with 0°", () => {
     const g = new Gradient(generateGradientObject({
         type: "linear",
         from: {
-            x: 0.5,
+            x: 0,
             y: 1
         },
         to: {
-            x: 0.5,
+            x: 0,
             y: 0
         }
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to top, #ffffff80, #00000080)");
 });
@@ -63,13 +63,13 @@ test("linear gradient with 90°", () => {
         type: "linear",
         from: {
             x: 0,
-            y: 1
+            y: 0
         },
         to: {
-            x: 0.5,
-            y: 1
+            x: 1,
+            y: 0
         }
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to right, #ffffff80, #00000080)");
 });
@@ -85,7 +85,7 @@ test("linear gradient with 180°", () => {
             x: 0.5,
             y: 1
         }
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffffff80, #00000080)");
 });
@@ -94,14 +94,14 @@ test("linear gradient with 270°", () => {
     const g = new Gradient(generateGradientObject({
         type: "linear",
         from: {
-            x: 0.5,
+            x: 1,
             y: 1
         },
         to: {
             x: 0,
             y: 1
         }
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to left, #ffffff80, #00000080)");
 });
@@ -114,48 +114,48 @@ test("linear gradient with 135°", () => {
             y: 0
         },
         to: {
-            x: 0.5,
-            y: 0.5
+            x: 1,
+            y: 1
         }
-    }));
+    }), 100, 100);
 
     expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(135deg, #ffffff80, #00000080)");
 });
 
 test("radial gradient (hsl)", () => {
-    const rg = new Gradient(generateGradientObject({ type: "radial" }));
+    const rg = new Gradient(generateGradientObject({ type: "radial" }), 100, 100);
 
-    expect(rg.toStyleValue({ colorFormat: "hsl" })).toBe("radial-gradient(circle at 50% 0, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 0%, 0.5))");
+    expect(rg.toStyleValue({ colorFormat: "hsl" })).toBe("radial-gradient(circle at 50% 0, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 0%, 0.5) 89%)");
 });
 
 test("angular gradient (rgb)", () => {
-    const ag = new Gradient(generateGradientObject({ type: "angular" }));
+    const ag = new Gradient(generateGradientObject({ type: "angular" }), 100, 100);
 
-    expect(ag.toStyleValue({ colorFormat: "rgb" })).toBe("conic-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5))");
+    expect(ag.toStyleValue({ colorFormat: "rgb" })).toBe("conic-gradient(from 0.25turn, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5))");
 });
 
 test("invalid gradient type", () => {
-    const ag = new Gradient(generateGradientObject({ type: "fractal" }));
+    const ag = new Gradient(generateGradientObject({ type: "fractal" }), 100, 100);
 
     expect(ag.toStyleValue({ colorFormat: "rgb" })).toBe("");
 });
 
 test("equality check", () => {
-    const gradient = new Gradient(generateGradientObject({ type: "linear" }));
-    const other = new Gradient(generateGradientObject({ type: "linear" }));
+    const gradient = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
+    const other = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
 
     expect(gradient.equals(other)).toBe(true);
 });
 
 test("equality check (different types)", () => {
-    const gradient = new Gradient(generateGradientObject({ type: "linear" }));
-    const other = new Gradient(generateGradientObject({ type: "radial" }));
+    const gradient = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
+    const other = new Gradient(generateGradientObject({ type: "radial" }), 100, 100);
 
     expect(gradient.equals(other)).toBe(false);
 });
 
 test("equality check (different angles)", () => {
-    const gradient = new Gradient(generateGradientObject({ type: "linear" }));
+    const gradient = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
     const other = new Gradient(generateGradientObject({
         type: "radial",
         from: {
@@ -166,13 +166,13 @@ test("equality check (different angles)", () => {
             x: 0.5,
             y: 0
         }
-    }));
+    }), 100, 100);
 
     expect(gradient.equals(other)).toBe(false);
 });
 
 test("equality check (different color stops)", () => {
-    const gradient = new Gradient(generateGradientObject({ type: "linear" }));
+    const gradient = new Gradient(generateGradientObject({ type: "linear" }), 100, 100);
     const other = new Gradient(generateGradientObject({
         type: "linear",
         colorStops: [{
@@ -200,7 +200,7 @@ test("equality check (different color stops)", () => {
             },
             position: 1
         }]
-    }));
+    }), 100, 100);
 
     expect(gradient.equals(other)).toBe(false);
 });
