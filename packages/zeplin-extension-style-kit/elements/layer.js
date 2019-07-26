@@ -122,7 +122,7 @@ class Layer {
                 if (bgImages) {
                     bgImages.push(borderFill);
                 } else if (this.fillColor) {
-                    bgImages = [this.fillColor, borderFill];
+                    bgImages = [this.fillColor.toGradient(), borderFill];
                 } else {
                     /*
                      * Actually the background should be transparent if there are no fills,
