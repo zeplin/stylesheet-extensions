@@ -127,7 +127,7 @@ exports[`layer shape layer with gradient fill and gradient border 1`] = `
   border-width: 2px;
   border-image-source: linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
   border-image-slice: 1;
-  background-image: linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 48%, rgb(180, 236, 81)), linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
+  background-image: linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 50%, rgb(180, 236, 81)), linear-gradient(125deg, rgb(48, 35, 174), rgb(200, 109, 215));
   background-origin: border-box;
   background-clip: content-box, border-box;
 }"
