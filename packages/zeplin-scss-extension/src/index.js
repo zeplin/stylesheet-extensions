@@ -1,4 +1,5 @@
 import Layer from "zeplin-extension-style-kit/elements/layer";
+import FontFace from "zeplin-extension-style-kit/elements/fontFace";
 import TextStyle from "zeplin-extension-style-kit/elements/textStyle";
 import Color from "zeplin-extension-style-kit/values/color";
 import Mixin from "zeplin-extension-style-kit/declarations/mixin";
@@ -6,6 +7,7 @@ import RuleSet from "zeplin-extension-style-kit/ruleSet";
 import {
     isHtmlTag,
     getUniqueLayerTextStyles,
+    getFontFaces,
     selectorize,
     getResources,
     getResourceContainer
@@ -62,13 +64,22 @@ function textStyles(context) {
     const scssGenerator = createGenerator(context, params);
     const { container, type } = getResourceContainer(context);
     const textStyles = getResources(container, type, params.useLinkedStyleguides, "textStyles");
+    const fontFaces = getFontFaces(textStyles);
+
+    const fontFaceCode = fontFaces.map(ts => {
+        const { style } = new FontFace(ts);
+
+        return scssGenerator.atRule(style);
+    }).join("\n\n");
+
+    const textStyleCode = textStyles.map(t => {
+        const { style } = new TextStyle(t);
+
+        return scssGenerator.ruleSet(style, { mixin: params.useMixin });
+    }).join("\n\n");
 
     return {
-        code: textStyles.map(t => {
-            const { style } = new TextStyle(t);
-
-            return scssGenerator.ruleSet(style, { mixin: params.useMixin });
-        }).join("\n\n"),
+        code: `${fontFaceCode}\n\n${textStyleCode}`,
         language: LANG
     };
 }
@@ -166,16 +177,25 @@ function styleguideColors(context, colorsInProject) {
     };
 }
 
-function styleguideTextStyles(context, textStylesInStyleguide) {
+function styleguideTextStyles(context, textStyles) {
     const params = getParams(context);
     const scssGenerator = createGenerator(context, params);
+    const fontFaces = getFontFaces(textStyles);
+
+    const fontFaceCode = fontFaces.map(ts => {
+        const { style } = new FontFace(ts);
+
+        return scssGenerator.atRule(style);
+    }).join("\n\n");
+
+    const textStyleCode = textStyles.map(t => {
+        const { style } = new TextStyle(t);
+
+        return scssGenerator.ruleSet(style, { mixin: params.useMixin });
+    }).join("\n\n");
 
     return {
-        code: textStylesInStyleguide.map(t => {
-            const { style } = new TextStyle(t);
-
-            return scssGenerator.ruleSet(style, { mixin: params.useMixin });
-        }).join("\n\n"),
+        code: `${fontFaceCode}\n\n${textStyleCode}`,
         language: LANG
     };
 }

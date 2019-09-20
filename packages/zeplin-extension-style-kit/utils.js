@@ -1,4 +1,5 @@
 import cssEscape from "css.escape";
+import FontFace from "./elements/fontFace";
 
 const HTML_TAGS = [
     "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi",
@@ -119,6 +120,20 @@ function getUniqueLayerTextStyles(layer) {
     return uniqueTextStyles;
 }
 
+function getFontFaces(textStyles) {
+    const textStyleSet = [];
+
+    textStyles.forEach(textStyle => {
+        if (textStyleSet.find(ts => ts.fontFace === textStyle.fontFace)) {
+            return;
+        }
+
+        textStyleSet.push(textStyle);
+    });
+
+    return textStyleSet.sort(FontFace.comparator);
+}
+
 function getResourceContainer(context) {
     if (context.styleguide) {
         return {
@@ -155,6 +170,7 @@ export {
     blendColors,
     getDeclarationValue,
     getUniqueLayerTextStyles,
+    getFontFaces,
     isHtmlTag,
     isDeclarationInherited,
     selectorize,

@@ -1,6 +1,10 @@
-class RuleSet {
-    constructor(selector, declarations) {
-        this.selector = selector;
+const rules = Object.freeze({
+    FONT_FACE: "font-face"
+});
+
+class AtRule {
+    constructor(identifier, declarations) {
+        this.identifier = identifier;
         this.declarationMap = {};
 
         declarations.forEach(declaration => {
@@ -8,8 +12,12 @@ class RuleSet {
         });
     }
 
+    static get Rule() {
+        return rules;
+    }
+
     get declarations() {
-        return Object.keys(this.declarationMap).map(name => this.declarationMap[name]);
+        return Object.values(this.declarationMap);
     }
 
     hasProperty(property) {
@@ -25,4 +33,4 @@ class RuleSet {
     }
 }
 
-export default RuleSet;
+export default AtRule;
