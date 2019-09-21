@@ -1,7 +1,7 @@
 import { ColorParams, VariableMap } from "../common";
 
 declare class LinearColorStop {
-    constructor(colorStopObject: object, pFirst: number, pLast: number, pStart: number, pEnd: number);
+    constructor(colorStopObject: object);
 
     equals(other: LinearColorStop): boolean;
 

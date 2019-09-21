@@ -12,7 +12,8 @@ class LinearColorStop {
      * @param {number} pEnd End of the gradient line
      */
     // eslint-disable-next-line max-params
-    constructor(color, position) {
+    constructor(colorStopObject) {
+        const { color, position } = colorStopObject;
         this.color = color;
         this.position = position;
     }

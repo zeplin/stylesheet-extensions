@@ -35,9 +35,11 @@ class RadialGradient {
 
         const distanceRatio = gradientDistance / farthestDistance;
 
-        this.colorStops = colorStops.map(({ color, position }) =>
-            new LinearColorStop(color, position * distanceRatio)
-        );
+        this.colorStops = colorStops.map(({ color, position: p }) => {
+            // Convert the position coming from design tool to position on the actual gradient line
+            const position = p * distanceRatio;
+            return new LinearColorStop({ color, position });
+        });
     }
 
     valueOf() {

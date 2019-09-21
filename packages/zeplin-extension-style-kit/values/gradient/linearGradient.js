@@ -95,10 +95,10 @@ class LinearGradient {
             pEnd = (c3 - c1) / (m1 - m2);
         }
 
-        this.colorStops = colorStops.map(({ color, position }) => {
+        this.colorStops = colorStops.map(({ color, position: p }) => {
             // Convert the position coming from design tool to position on the actual gradient line
-            const pos = (position * (pLast - pFirst) + pFirst - pStart) / (pEnd - pStart);
-            return new LinearColorStop(color, pos);
+            const position = (p * (pLast - pFirst) + pFirst - pStart) / (pEnd - pStart);
+            return new LinearColorStop({ color, position });
         });
     }
 
