@@ -31,6 +31,8 @@ const GRADIENT_TYPE = Object.freeze({
     ANGULAR: "angular"
 });
 
+const FRAME_SIZE = 100;
+
 class Gradient {
     constructor(gradientObject, width, height) {
         const {
@@ -47,11 +49,11 @@ class Gradient {
                 this.gradient = new LinearGradient(colorStops, from, to, width, height);
                 break;
 
-            case "radial":
+            case GRADIENT_TYPE.RADIAL:
                 this.gradient = new RadialGradient(colorStops, from, to, width, height);
                 break;
 
-            case "angular":
+            case GRADIENT_TYPE.ANGULAR:
                 this.gradient = new ConicGradient(colorStops);
                 break;
 
@@ -62,11 +64,8 @@ class Gradient {
 
     static fromRGBA({ r, g, b, a = 1 }) {
         return new Gradient(
-            new ExtensionGradient(
-                generateColorGradient({ r, g, b, a }),
-                100, 100 // eslint-disable-line no-magic-numbers
-            ),
-            100, 100 // eslint-disable-line no-magic-numbers
+            new ExtensionGradient(generateColorGradient({ r, g, b, a }), FRAME_SIZE, FRAME_SIZE),
+            FRAME_SIZE, FRAME_SIZE
         );
     }
 

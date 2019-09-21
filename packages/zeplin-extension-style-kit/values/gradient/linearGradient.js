@@ -3,6 +3,10 @@ import LinearColorStop from "./linearColorStop";
 class LinearGradient {
     // eslint-disable-next-line max-params
     constructor(colorStops, from, to, width, height) {
+        /*
+         * Convert the relative `from` and `to` positions on a layer to absolute positions
+         * by multiplying them with the width and height of the layer
+         */
         const x1 = from.x * width;
         const y1 = from.y * height;
         const x2 = to.x * width;
@@ -47,39 +51,55 @@ class LinearGradient {
             let ye;
 
             if (m1 > 0) {
-                // if the slope is positive, starting point is top-left corner (0, 0)
-                // and ending point is bottom-right corner (w, h)
+                /*
+                 * If the slope is positive, starting point is top-left corner (0, 0)
+                 * and ending point is bottom-right corner (w, h)
+                 */
                 x0 = 0;
                 y0 = 0;
                 xe = width;
                 ye = height;
             } else {
-                // if the slope is negative, starting point is bottom-left corner (0, h)
-                // and ending point is top-right corner (w, 0)
+                /*
+                 * If the slope is negative, starting point is bottom-left corner (0, h)
+                 * and ending point is top-right corner (w, 0)
+                 */
                 x0 = 0;
                 y0 = height;
                 xe = width;
                 ye = 0;
             }
 
-            // c2 equation constant of the line crossing from starting point
-            // and perpendicular to the gradient line
+            /*
+             * `c2` equation constant of the line crossing from starting point
+             * and perpendicular to the gradient line
+             */
             const c2 = y0 - m2 * x0;
 
-            // x position of the intersection point of gradient line
-            // and the perpendecular line crossing from starting point
+            /*
+             * `x` position of the intersection point of gradient line
+             * and the perpendecular line crossing from starting point
+             */
             pStart = (c2 - c1) / (m1 - m2);
 
-            // c3 equation constant of the line crossing from starting point
-            // and perpendicular to the gradient line
+            /*
+             * `c3` equation constant of the line crossing from ending point
+             * and perpendicular to the gradient line
+             */
             const c3 = ye - m2 * xe;
 
-            // x position of the intersection point of gradient line
-            // and the perpendecular line crossing from ending point
+            /*
+             * `x` position of the intersection point of gradient line
+             * and the perpendecular line crossing from ending point
+             */
             pEnd = (c3 - c1) / (m1 - m2);
         }
 
-        this.colorStops = colorStops.map(cs => new LinearColorStop(cs, pFirst, pLast, pStart, pEnd));
+        this.colorStops = colorStops.map(({ color, position }) => {
+            // Convert the position coming from design tool to position on the actual gradient line
+            const pos = (position * (pLast - pFirst) + pFirst - pStart) / (pEnd - pStart);
+            return new LinearColorStop(color, pos);
+        });
     }
 
     valueOf() {

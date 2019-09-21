@@ -6,11 +6,16 @@ class RadialGradient {
     constructor(colorStops, from, to, width, height) {
         this.center = from;
 
+        /*
+         * Convert the relative `from` and `to` positions on a layer to absolute positions
+         * by multiplying them with the width and height of the layer
+         */
         const x1 = from.x * width;
         const y1 = from.y * height;
         const x2 = to.x * width;
         const y2 = to.y * height;
 
+        // The length of the gradient line between `from` (center) and `to` points
         const gradientDistance = Math.hypot(x1 - x2, y1 - y2);
 
         let farthestDistance = 0;
@@ -28,7 +33,11 @@ class RadialGradient {
             }
         });
 
-        this.colorStops = colorStops.map(cs => new LinearColorStop(cs, 0, gradientDistance, 0, farthestDistance));
+        const distanceRatio = gradientDistance / farthestDistance;
+
+        this.colorStops = colorStops.map(({ color, position }) =>
+            new LinearColorStop(color, position * distanceRatio)
+        );
     }
 
     valueOf() {

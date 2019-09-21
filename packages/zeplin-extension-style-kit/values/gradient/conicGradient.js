@@ -8,7 +8,6 @@ import AngularColorStop from "./angularColorStop";
 const CSS_ANGLE_DIFFERENCE = 0.25;
 
 class ConicGradient {
-    // eslint-disable-next-line max-params
     constructor(colorStops) {
         const sortedColorStops = [...colorStops].sort(({ position: a }, { position: b }) => a - b);
 
@@ -30,7 +29,7 @@ class ConicGradient {
     valueOf() {
         const { center, colorStops } = this;
 
-        return `radialGradient::cx:${center.x}:cy:${center.y}:${colorStops.map(cs => cs.valueOf()).join(":")}`;
+        return `conicGradient::cx:${center.x}:cy:${center.y}:${colorStops.map(cs => cs.valueOf()).join(":")}`;
     }
 
     equals(other) {
