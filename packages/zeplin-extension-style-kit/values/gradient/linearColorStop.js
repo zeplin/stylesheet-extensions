@@ -5,11 +5,7 @@ class LinearColorStop {
     /**
      * LinearColorStop constructor
      *
-     * @param {object} colorStopObject Color stop object, with color and relative position of the color stop in the range of [pFirst, pLast]
-     * @param {number} pFirst First color stop position
-     * @param {number} pLast Last color stop position
-     * @param {number} pStart Start of the gradient line
-     * @param {number} pEnd End of the gradient line
+     * @param {object} colorStopObject Color stop object, with color stop color and position
      */
     // eslint-disable-next-line max-params
     constructor(colorStopObject) {
