@@ -18,7 +18,7 @@ class Percent {
     toStyleValue() {
         const { value } = this;
 
-        return value > 0 ? `${Math.round(value * HUNDRED)}%` : "0";
+        return value !== 0 ? `${Math.round(value * HUNDRED)}%` : "0";
     }
 }
 

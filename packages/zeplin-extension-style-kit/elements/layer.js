@@ -41,8 +41,8 @@ class Layer {
         this.declarations = this.collectDeclarations();
     }
 
-    static fillToGradient(fill) {
-        return fill.type === "color" ? new Color(fill.color).toGradient() : new Gradient(fill.gradient);
+    static fillToGradient(fill, width, height) {
+        return fill.type === "color" ? new Color(fill.color).toGradient() : new Gradient(fill.gradient, width, height);
     }
 
     get hasBlendMode() {
@@ -69,7 +69,9 @@ class Layer {
                 declarations.push(new BackgroundClip(["text"]));
                 declarations.push(new TextFillColor("transparent"));
 
-                const bgImages = layer.fills.map(fill => Layer.fillToGradient(fill));
+                const bgImages = layer.fills.map(fill =>
+                    Layer.fillToGradient(fill, layer.rect.width, layer.rect.height)
+                );
 
                 if (textStyle.color) {
                     bgImages.push(new Color(textStyle.color).toGradient());
@@ -104,24 +106,30 @@ class Layer {
         }
 
         if (this.hasGradient || this.hasBlendMode) {
-            bgImages = this.object.fills.map(fill => Layer.fillToGradient(fill));
+            bgImages = this.object.fills.map(fill =>
+                Layer.fillToGradient(fill, this.object.rect.width, this.object.rect.height)
+            );
         }
 
         if (this.elementBorder) {
             if (this.object.borderRadius && this.elementBorder.fill.type === "gradient") {
-                const borderFill = new Gradient(this.elementBorder.fill.gradient);
+                const borderFill = new Gradient(
+                    this.elementBorder.fill.gradient,
+                    this.object.rect.width,
+                    this.object.rect.height
+                );
 
                 if (bgImages) {
                     bgImages.push(borderFill);
                 } else if (this.fillColor) {
-                    bgImages = [this.fillColor, borderFill];
+                    bgImages = [this.fillColor.toGradient(), borderFill];
                 } else {
                     /*
-                        * Actually the background should be transparent if there are no fills,
-                        * i.e. what's on the background of this layer should be shown.
-                        * But we have no way of knowing the background of parent layer,
-                        * and making it transparent will make fake-gradient-border background visible.
-                        */
+                     * Actually the background should be transparent if there are no fills,
+                     * i.e. what's on the background of this layer should be shown.
+                     * But we have no way of knowing the background of parent layer,
+                     * and making it transparent will make fake-gradient-border background visible.
+                     */
                     const white = Color.fromRGBA({
                         r: 255,
                         g: 255,
@@ -174,7 +182,7 @@ class Layer {
                 return [
                     new BorderStyle("solid"),
                     new BorderWidth(new Length(thickness)),
-                    new BorderImageSource(new Gradient(fill.gradient)),
+                    new BorderImageSource(new Gradient(fill.gradient, layer.rect.width, layer.rect.height)),
                     new BorderImageSlice(new Scalar(1))
                 ];
             }
