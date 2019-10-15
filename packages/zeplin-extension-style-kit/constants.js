@@ -4,6 +4,7 @@ const STYLE_PROPS = {
     FONT_WEIGHT: "font-weight",
     FONT_STYLE: "font-style",
     FONT_STRETCH: "font-stretch",
+    FONT_VARIATION_SETTINGS: "font-variation-settings",
     FONT_SRC: "src",
     LINE_HEIGHT: "line-height",
     LETTER_SPACING: "letter-spacing",

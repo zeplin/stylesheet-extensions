@@ -1,7 +1,7 @@
 import { STYLE_PROPS } from "../constants";
 
 class FontStyle {
-    constructor(value) {
+    constructor(value = FontStyle.DEFAULT_VALUE) {
         this.value = value;
     }
 

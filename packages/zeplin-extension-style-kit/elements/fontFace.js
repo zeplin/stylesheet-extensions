@@ -44,13 +44,22 @@ class FontFace {
     collectDeclarations() {
         const { font } = this;
 
-        return [
+        const variable = "fontVariationSettings" in font;
+
+        const declarations = [
             new FontFamily(font.fontFamily),
-            new FontSrc(font.fontFace),
-            new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE),
-            new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE),
-            new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE)
+            new FontSrc(font.fontFace, variable)
         ];
+
+        if (!variable) {
+            declarations.push(
+                new FontWeight(font.fontWeight),
+                new FontStyle(font.fontStyle),
+                new FontStretch(font.fontStretch)
+            );
+        }
+
+        return declarations;
     }
 
     get style() {

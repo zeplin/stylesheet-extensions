@@ -5,12 +5,24 @@ import FontSize from "../declarations/fontSize";
 import FontStyle from "../declarations/fontStyle";
 import FontStretch from "../declarations/fontStretch";
 import FontWeight from "../declarations/fontWeight";
+import FontVariationSettings from "../declarations/fontVariationSettings";
 import FontColor from "../declarations/fontColor";
 import TextAlign from "../declarations/textAlign";
 import LineHeight from "../declarations/lineHeight";
 import LetterSpacing from "../declarations/letterSpacing";
 import RuleSet from "../ruleSet";
 import { selectorize } from "../utils";
+
+// Optical sizing is a registered axis too, but its value is utilized in FontVariationSettings
+const REGISTERED_AXES = Object.freeze({
+    WEIGHT: "wght",
+    WIDTH: "wdth",
+    SLANT: "slnt",
+    ITALIC: "ital"
+});
+
+// Reference: https://drafts.csswg.org/css-fonts-4/#valdef-font-style-oblique-angle
+const DEFAULT_OBLIQUE_ANGLE = 14;
 
 class TextStyle {
     constructor(textStyleObject) {
@@ -19,16 +31,52 @@ class TextStyle {
         this.declarations = this.collectDeclarations();
     }
 
+    // eslint-disable-next-line complexity
     collectDeclarations() {
         const { font } = this;
-        let declarations = [
+
+        let fontWeight;
+        let fontStretch;
+        let fontStyle;
+        let fontVariationSettings;
+
+        if (font.fontVariationSettings) {
+            fontWeight = font.fontVariationSettings[REGISTERED_AXES.WEIGHT];
+            fontStretch = font.fontVariationSettings[REGISTERED_AXES.WIDTH];
+
+            if (REGISTERED_AXES.SLANT in font.fontVariationSettings) {
+                const angle = font.fontVariationSettings[REGISTERED_AXES.SLANT] === DEFAULT_OBLIQUE_ANGLE
+                    ? ""
+                    : ` ${font.fontVariationSettings[REGISTERED_AXES.SLANT]}deg`;
+
+                fontStyle = `oblique${angle}`;
+            } else if (font.fontVariationSettings[REGISTERED_AXES.ITALIC]) {
+                fontStyle = "italic";
+            }
+
+            const registeredAxisNames = Object.values(REGISTERED_AXES);
+            fontVariationSettings = Object.fromEntries(
+                Object.entries(font.fontVariationSettings)
+                    .filter(([axisName]) => !registeredAxisNames.includes(axisName))
+            );
+        } else {
+            fontWeight = font.fontWeight;
+            fontStretch = font.fontStretch;
+            fontStyle = font.fontStyle;
+        }
+
+        const declarations = [
             new FontFamily(font.fontFamily),
-            new FontSize(new Length(font.fontSize))
+            new FontSize(new Length(font.fontSize)),
+            new FontWeight(fontWeight),
+            new FontStretch(fontStretch),
+            new FontStyle(fontStyle)
         ];
 
-        declarations.push(new FontWeight(font.fontWeight || FontWeight.DEFAULT_VALUE));
-        declarations.push(new FontStyle(font.fontStyle || FontStyle.DEFAULT_VALUE));
-        declarations.push(new FontStretch(font.fontStretch || FontStretch.DEFAULT_VALUE));
+        if (fontVariationSettings) {
+            declarations.push(new FontVariationSettings(fontVariationSettings));
+        }
+
         declarations.push(new LineHeight(font.lineHeight || LineHeight.DEFAULT_VALUE, font.fontSize));
         declarations.push(new LetterSpacing(font.letterSpacing || LetterSpacing.DEFAULT_VALUE));
 
