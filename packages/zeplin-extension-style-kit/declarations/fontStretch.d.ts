@@ -1,5 +1,5 @@
 declare class FontStretch {
-    constructor(value: string);
+    constructor(value: string | number);
 
     name: string;
 

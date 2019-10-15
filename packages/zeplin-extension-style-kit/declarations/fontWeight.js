@@ -4,7 +4,7 @@ const WEIGHT_BOLD = 700;
 const WEIGHT_NORMAL = 400;
 
 class FontWeight {
-    constructor(value) {
+    constructor(value = FontWeight.DEFAULT_VALUE) {
         this.value = value;
     }
 
