@@ -21,8 +21,8 @@ Sample text style output:
   font-family: Roboto;
   font-size: 20px;
   font-weight: normal;
-  font-style: normal;
   font-stretch: normal;
+  font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
@@ -33,8 +33,8 @@ Sample text style output:
   font-family: Roboto;
   font-size: 20px;
   font-weight: normal;
-  font-style: normal;
   font-stretch: normal;
+  font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
