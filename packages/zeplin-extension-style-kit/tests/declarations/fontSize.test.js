@@ -11,7 +11,7 @@ test("property name", () => {
 test("font-size value", () => {
     const params = { densityDivisor: 2 };
     const size = 2;
-    const fontSize = new FontSize(new Length(size, { unit: "px" }));
+    const fontSize = new FontSize(new Length(size));
 
     expect(fontSize.getValue(params)).toBe(`${size / params.densityDivisor}px`);
 });

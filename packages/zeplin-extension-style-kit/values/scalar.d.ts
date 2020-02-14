@@ -1,5 +1,5 @@
 declare class Scalar {
-    constructor(value: number);
+    constructor(value: number, precision?: number);
 
     equals(other: Scalar): boolean;
 

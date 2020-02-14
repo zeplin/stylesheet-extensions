@@ -11,7 +11,7 @@
     "publish": "zem publish"
   },
   "dependencies": {
-    "zem": "^0.3.4",
+    "zem": "https://github.com/zeplin/zem/tarball/feature/spacing",
     "zeplin-extension-style-kit": "^1.2.0"
   },
   "author": {
@@ -81,6 +81,12 @@
         "name": "Display resources from linked and parent styleguides",
         "type": "switch",
         "id": "useLinkedStyleguides",
+        "default": true
+      },
+      {
+        "name": "Use “rem” unit",
+        "type": "switch",
+        "id": "useRemUnit",
         "default": true
       }
     ]

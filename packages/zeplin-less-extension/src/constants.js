@@ -4,7 +4,8 @@ const OPTION_NAMES = {
     SHOW_DEFAULT_VALUES: "showDefaultValues",
     SHOW_DIMENSIONS: "showDimensions",
     UNITLESS_LINE_HEIGHT: "unitlessLineHeight",
-    MIXIN: "mixin"
+    MIXIN: "mixin",
+    USE_REM_UNIT: "useRemUnit"
 };
 
 const LANG = "less";

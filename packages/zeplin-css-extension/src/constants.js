@@ -3,7 +3,8 @@ const OPTION_NAMES = {
     COLOR_FORMAT: "colorFormat",
     SHOW_DEFAULT_VALUES: "showDefaultValues",
     SHOW_DIMENSIONS: "showDimensions",
-    UNITLESS_LINE_HEIGHT: "unitlessLineHeight"
+    UNITLESS_LINE_HEIGHT: "unitlessLineHeight",
+    USE_REM_UNIT: "useRemUnit"
 };
 
 const LANG = "css";

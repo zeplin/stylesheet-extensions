@@ -1,9 +1,9 @@
 import Scalar from "./scalar";
 
+const remPrecisionAddition = 2;
 class Length {
-    constructor(value, { unit = "px", precision = 1 } = {}) {
+    constructor(value, { precision = 1 } = {}) {
         this.value = value;
-        this.unit = unit;
         this.precision = precision;
     }
 
@@ -14,11 +14,22 @@ class Length {
     }
 
     equals(other) {
-        return this.value === other.value && this.unit === other.unit;
+        return this.value === other.value;
     }
 
-    toStyleValue({ densityDivisor }) {
-        return this.value === 0 ? "0" : `${new Scalar(this.value / densityDivisor, this.precision).toStyleValue()}${this.unit}`;
+    toStyleValue({ densityDivisor, useRemUnit, rootFontSize }) {
+        if (this.value === 0) {
+            return "0";
+        }
+        const densityAwareValue = this.value / densityDivisor;
+        if (useRemUnit) {
+            return `${
+                new Scalar(
+                    densityAwareValue / rootFontSize,
+                    this.precision * remPrecisionAddition
+                ).toStyleValue()}rem`;
+        }
+        return `${new Scalar(densityAwareValue, this.precision).toStyleValue()}px`;
     }
 }
 

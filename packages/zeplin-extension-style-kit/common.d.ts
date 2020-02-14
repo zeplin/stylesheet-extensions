@@ -29,6 +29,8 @@ declare namespace zesk {
 
     interface LengthParams {
         densityDivisor: number;
+        useRemUnit: boolean;
+        rootFontSize: number;
     }
 
     interface LengthOptions {

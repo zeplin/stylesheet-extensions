@@ -10,6 +10,7 @@ import {
     getResources,
     getFontFaces
 } from "zeplin-extension-style-kit/utils";
+import Length from "zeplin-extension-style-kit/values/length";
 
 import CssGenerator from "./generator";
 import { COPYRIGHT, LANG, OPTION_NAMES } from "./constants";
@@ -27,7 +28,7 @@ function getVariableMap(containerColors, params) {
 }
 
 function createGenerator(context, params) {
-    const { container, type } = getResourceContainer(context)
+    const { container, type } = getResourceContainer(context);
     const containerColors = getResources(container, type, params.useLinkedStyleguides, "colors");
     return new CssGenerator(getVariableMap(containerColors, params), params);
 }
@@ -40,7 +41,9 @@ function getParams(context) {
         colorFormat: context.getOption(OPTION_NAMES.COLOR_FORMAT),
         showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
         showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
-        unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT)
+        unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT),
+        useRemUnit: container.useRemUnit && context.getOption(OPTION_NAMES.USE_REM_UNIT),
+        rootFontSize: container.rootFontSize
     };
 }
 
@@ -51,6 +54,24 @@ function colors(context) {
     const allColors = getResources(container, type, params.useLinkedStyleguides, "colors");
     const code = `:root {\n${allColors.map(c => `  ${cssGenerator.variable(c.name, new Color(c))}`).join("\n")}\n}`;
 
+    return {
+        code,
+        language: LANG
+    };
+}
+
+function spacing(context) {
+    const params = getParams(context);
+    const cssGenerator = createGenerator(context, params);
+    const { container, type } = getResourceContainer(context);
+    const spacingSections = getResources(container, type, params.useLinkedStyleguides, "spacingSections");
+    const spacingTokens = spacingSections.map(({ spacingTokens: items }) => items).flat();
+
+    const code = `:root {\n  ${
+        spacingTokens
+            .map(({ name, value }) => cssGenerator.variable(name, new Length(value)))
+            .join("\n  ")
+    }\n}`;
     return {
         code,
         language: LANG
@@ -145,6 +166,17 @@ function exportTextStyles(context) {
     };
 }
 
+function exportSpacing(context) {
+    const { code: spacingCode, language } = spacing(context);
+    const code = `${comment(context, COPYRIGHT)}\n\n${spacingCode}`;
+
+    return {
+        code,
+        filename: "spacing.css",
+        language
+    };
+}
+
 function styleguideColors(context, colorsInProject) {
     const params = getParams(context);
     const cssGenerator = createGenerator(context, params);
@@ -211,5 +243,7 @@ export default {
     styleguideColors,
     styleguideTextStyles,
     exportStyleguideColors,
-    exportStyleguideTextStyles
+    exportStyleguideTextStyles,
+    spacing,
+    exportSpacing
 };

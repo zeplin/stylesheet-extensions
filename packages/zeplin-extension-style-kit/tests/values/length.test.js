@@ -12,16 +12,16 @@ test("decimal number precision is 1", () => {
     expect(length.toStyleValue({ densityDivisor: 1 })).toBe("13.2px");
 });
 
-test("length with specific unit", () => {
-    const length = new Length(3, { unit: "ch" });
-
-    expect(length.toStyleValue({ densityDivisor: 1 })).toBe("3ch");
-});
-
 test("density divisor divides the value", () => {
-    const length = new Length(30, { unit: "px" });
+    const length = new Length(30);
 
     expect(length.toStyleValue({ densityDivisor: 2 })).toBe("15px");
+});
+
+test("calculates rem", () => {
+    const length = new Length(30);
+
+    expect(length.toStyleValue({ densityDivisor: 1, useRemUnit: true, rootFontSize: 15 })).toBe("2rem");
 });
 
 test("zero is unitless", () => {
@@ -35,11 +35,4 @@ test("equality check returns true if value and unit are equal", () => {
     const other = new Length(13);
 
     expect(length.equals(other)).toBe(true);
-});
-
-test("equality check returns false if value does not match", () => {
-    const length = new Length(13);
-    const other = new Length(13, { unit: "ch" });
-
-    expect(length.equals(other)).toBe(false);
 });

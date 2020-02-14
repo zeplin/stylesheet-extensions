@@ -5,7 +5,7 @@ import Percent from "@root/values/percent";
 
 test("property name", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
 
     expect(backdropFilter.name).toBe("backdrop-filter");
@@ -13,7 +13,7 @@ test("property name", () => {
 
 test("single filter", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
 
     expect(backdropFilter.getValue({ densityDivisor: 1 })).toBe("blur(13px)");
@@ -21,7 +21,7 @@ test("single filter", () => {
 
 test("multiple filters", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] },
+        { fn: "blur", args: [new Length(13)] },
         { fn: "saturate", args: [new Percent(1.3)] }
     ]);
 
@@ -30,10 +30,10 @@ test("multiple filters", () => {
 
 test("equality check", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
     const other = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
 
     expect(backdropFilter.equals(other)).toBe(true);
@@ -41,11 +41,11 @@ test("equality check", () => {
 
 test("equality check (multiple filters in same order)", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] },
+        { fn: "blur", args: [new Length(13)] },
         { fn: "saturate", args: [new Percent(1.3)] }
     ]);
     const other = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] },
+        { fn: "blur", args: [new Length(13)] },
         { fn: "saturate", args: [new Percent(1.3)] }
     ]);
 
@@ -54,11 +54,11 @@ test("equality check (multiple filters in same order)", () => {
 
 test("equality check (different filters)", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] },
+        { fn: "blur", args: [new Length(13)] },
         { fn: "saturate", args: [new Percent(1.3)] }
     ]);
     const other = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
 
     expect(backdropFilter.equals(other)).toBe(false);
@@ -66,12 +66,12 @@ test("equality check (different filters)", () => {
 
 test("equality check (same filters in differing order)", () => {
     const backdropFilter = new BackdropFilter([
-        { fn: "blur", args: [new Length(13, { unit: "px" })] },
+        { fn: "blur", args: [new Length(13)] },
         { fn: "saturate", args: [new Percent(1.3)] }
     ]);
     const other = new BackdropFilter([
         { fn: "saturate", args: [new Percent(1.3)] },
-        { fn: "blur", args: [new Length(13, { unit: "px" })] }
+        { fn: "blur", args: [new Length(13)] }
     ]);
 
     expect(backdropFilter.equals(other)).toBe(false);

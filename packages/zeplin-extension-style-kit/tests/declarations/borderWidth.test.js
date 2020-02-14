@@ -11,7 +11,7 @@ test("property name", () => {
 test("border-width value", () => {
     const params = { densityDivisor: 2 };
     const width = 2;
-    const borderWidth = new BorderWidth(new Length(width, { unit: "px" }));
+    const borderWidth = new BorderWidth(new Length(width));
 
     expect(borderWidth.getValue(params)).toBe(`${width / params.densityDivisor}px`);
 });

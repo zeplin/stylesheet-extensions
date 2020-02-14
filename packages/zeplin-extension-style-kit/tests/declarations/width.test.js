@@ -11,7 +11,7 @@ test("property name", () => {
 test("width value", () => {
     const params = { densityDivisor: 2 };
     const widthValue = 2;
-    const width = new Width(new Length(widthValue, { unit: "px" }));
+    const width = new Width(new Length(widthValue));
 
     expect(width.getValue(params)).toBe(`${widthValue / params.densityDivisor}px`);
 });

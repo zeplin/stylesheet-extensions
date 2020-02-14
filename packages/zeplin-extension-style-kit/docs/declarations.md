@@ -80,7 +80,7 @@ Returns the string representation.
 
 ```js
 new BackdropFilter([
-    { fn: "blur", args: [new Length(12, { unit: "px" })] },
+    { fn: "blur", args: [new Length(12)] },
     { fn: "saturate", args: [new Percent(35)] }
 ]).getValue({ densityDivisor: 2 }) // "blur("6px") saturate(35%)"
 ```
@@ -193,7 +193,7 @@ Returns the string representation.
 
 ```js
 const gradient = new Gradient(...);
-new BackgroundImage([gradient])).getValue({ colorFormat: "rgb" }) // "linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 48%, rgb(180, 236, 81))"
+new BackgroundImage([gradient]).getValue({ colorFormat: "rgb" }); // "linear-gradient(to right, rgb(48, 35, 174), rgb(83, 160, 253) 48%, rgb(180, 236, 81))"
 ```
 
 ## BackgroundOrigin
@@ -217,7 +217,7 @@ Checks if `other` instance is equal to self.
 Returns the string representation.
 
 ```js
-new BackgroundClip(["content-box"]).getValue() // "content-box"
+new BackgroundClip(["content-box"]).getValue(); // "content-box"
 ```
 
 ## Border
@@ -249,9 +249,9 @@ Returns the string representation.
 ```js
 new Border({
     style: "solid",
-    width: new Length(2, { unit: "px" }),
+    width: new Length(2),
     color: black
-}).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "solid 1px #000000"
+}).getValue({ densityDivisor: 2, colorFormat: "hex" }); // "solid 1px #000000"
 ```
 
 ## BorderImageSlice
@@ -332,7 +332,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new BorderRadius(new Length(22, { unit: "px" })).getValue({ densityDivisor: 2 }) // "11px"
+new BorderRadius(new Length(22)).getValue({ densityDivisor: 2 }); // "11px"
 ```
 
 ## BorderStyle
@@ -384,7 +384,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new BorderWidth(new Length(2, { unit: "px" })).getValue({ densityDivisor: 1 }) // "2px"
+new BorderWidth(new Length(2)).getValue({ densityDivisor: 1 }); // "2px"
 ```
 
 ## FontColor
@@ -441,7 +441,7 @@ Returns the string representation.
 
 ```js
 new Filter([
-    { fn: "blur", args: [new Length(12, { unit: "px" })] },
+    { fn: "blur", args: [new Length(12)] },
     { fn: "saturate", args: [new Percent(35)] }
 ]).getValue({ densityDivisor: 2 }) // "blur("6px") saturate(35%)"
 ```
@@ -471,7 +471,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new FontSize(new Length(12, { unit: "px" })).getValue({ densityDivisor: 1 }) // "12px"
+new FontSize(new Length(12)).getValue({ densityDivisor: 1 }) // "12px"
 ```
 
 ## FontStretch
@@ -571,7 +571,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new Height(new Length(12, { unit: "px" })).getValue({ densityDivisor: 2 }) // "6px"
+new Height(new Length(12)).getValue({ densityDivisor: 2 }) // "6px"
 ```
 
 ## LetterSpacing
@@ -819,7 +819,7 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new TextStroke(new Length(3, { unit: "px" }), black).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "1.5px #000000"
+new TextStroke(new Length(3), black).getValue({ densityDivisor: 2, colorFormat: "hex" }) // "1.5px #000000"
 ```
 
 ## Transform
@@ -874,5 +874,5 @@ Returns the string representation.
 - `variables`: A [`VariableMap`](./types.md#variablemap) instance.
 
 ```js
-new Width(new Length(120, { unit: "px" })).getValue({ densityDivisor: 2 }) // "60px"
+new Width(new Length(120)).getValue({ densityDivisor: 2 }) // "60px"
 ```

@@ -11,7 +11,7 @@ test("property name", () => {
 test("height value", () => {
     const params = { densityDivisor: 2 };
     const heightValue = 2;
-    const height = new Height(new Length(heightValue, { unit: "px" }));
+    const height = new Height(new Length(heightValue));
 
     expect(height.getValue(params)).toBe(`${heightValue / params.densityDivisor}px`);
 });

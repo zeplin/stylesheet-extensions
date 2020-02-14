@@ -19,7 +19,7 @@ Color parameters only include `colorFormat`, used when only color related parame
 
 ## LengthParams
 
-Length parameters only include `densityDivisor`, used when only parameters that affect length values are required.
+Length parameters include `densityDivisor`, `useRemUnit` and `rootFontSize`, used when only parameters that affect length values are required.
 
 ## StyleFunction
 
