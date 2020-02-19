@@ -25,14 +25,14 @@ const REGISTERED_AXES = Object.freeze({
 const DEFAULT_OBLIQUE_ANGLE = 14;
 
 class TextStyle {
-    constructor(textStyleObject) {
+    constructor(textStyleObject, params) {
         this.font = textStyleObject;
 
-        this.declarations = this.collectDeclarations();
+        this.declarations = this.collectDeclarations(params);
     }
 
     // eslint-disable-next-line complexity
-    collectDeclarations() {
+    collectDeclarations(params) {
         const { font } = this;
 
         let fontWeight;
@@ -67,7 +67,7 @@ class TextStyle {
 
         const declarations = [
             new FontFamily(font.fontFamily),
-            new FontSize(new Length(font.fontSize)),
+            new FontSize(new Length(font.fontSize, { canUseRemUnit: true })),
             new FontWeight(fontWeight),
             new FontStretch(fontStretch),
             new FontStyle(fontStyle)

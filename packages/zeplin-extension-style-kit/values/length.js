@@ -2,9 +2,10 @@ import Scalar from "./scalar";
 
 const remPrecisionAddition = 2;
 class Length {
-    constructor(value, { precision = 1 } = {}) {
+    constructor(value, { precision = 1, canUseRemUnit } = {}) {
         this.value = value;
         this.precision = precision;
+        this.canUseRemUnit = canUseRemUnit;
     }
 
     valueOf() {
@@ -22,11 +23,11 @@ class Length {
             return "0";
         }
         const densityAwareValue = this.value / densityDivisor;
-        if (useRemUnit) {
+        if (this.canUseRemUnit && useRemUnit) {
             return `${
                 new Scalar(
                     densityAwareValue / rootFontSize,
-                    this.precision * remPrecisionAddition
+                    this.precision + remPrecisionAddition
                 ).toStyleValue()}rem`;
         }
         return `${new Scalar(densityAwareValue, this.precision).toStyleValue()}px`;

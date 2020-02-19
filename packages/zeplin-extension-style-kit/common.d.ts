@@ -34,8 +34,8 @@ declare namespace zesk {
     }
 
     interface LengthOptions {
-        unit?: string;
         precision?: number;
+        canUseRemUnit?: boolean;
     }
 
     interface StyleFunction {

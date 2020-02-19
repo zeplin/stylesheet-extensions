@@ -31,7 +31,9 @@ class LineHeight {
         }
 
         const { unitlessLineHeight } = params;
-        const value = unitlessLineHeight ? new Scalar(this.lineHeight / this.fontSize) : new Length(this.lineHeight);
+        const value = unitlessLineHeight
+            ? new Scalar(this.lineHeight / this.fontSize)
+            : new Length(this.lineHeight, { canUseRemUnit: true });
 
         return value.toStyleValue(params, variables);
     }

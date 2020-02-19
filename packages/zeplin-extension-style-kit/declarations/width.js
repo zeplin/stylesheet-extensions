@@ -14,7 +14,7 @@ class Width {
     }
 
     getValue(params, variables) {
-        return this.value.toStyleValue(Object.assign({}, params, { useRemUnit: false }), variables);
+        return this.value.toStyleValue(params, variables);
     }
 }
 
