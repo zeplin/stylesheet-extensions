@@ -69,7 +69,7 @@ function spacing(context) {
 
     const code = `:root {\n  ${
         spacingTokens
-            .map(({ name, value }) => cssGenerator.variable(name, new Length(value)))
+            .map(({ name, value }) => cssGenerator.variable(name, new Length(value, { canUseRemUnit: true })))
             .join("\n  ")
     }\n}`;
     return {

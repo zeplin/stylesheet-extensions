@@ -96,7 +96,7 @@ function spacing(context) {
 
     return {
         code: spacingTokens
-            .map(({ name, value }) => cssGenerator.variable(name, new Length(value)))
+            .map(({ name, value }) => cssGenerator.variable(name, new Length(value, { canUseRemUnit: true })))
             .join("\n"),
         language: LANG
     };
