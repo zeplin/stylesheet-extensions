@@ -191,7 +191,7 @@ function exportSpacing(context) {
 
     return {
         code,
-        filename: "spacing.css",
+        filename: "spacing.less",
         language
     };
 }
