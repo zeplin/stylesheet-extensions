@@ -65,7 +65,9 @@ function spacing(context) {
     const cssGenerator = createGenerator(context, params);
     const { container, type } = getResourceContainer(context);
     const spacingSections = getResources(container, type, params.useLinkedStyleguides, "spacingSections");
-    const spacingTokens = spacingSections.map(({ spacingTokens: items }) => items).flat();
+    const spacingTokens = spacingSections
+        .map(({ spacingTokens: items }) => items)
+        .reduce((prev, current) => [ ...prev, ...current ]);
 
     const code = `:root {\n  ${
         spacingTokens

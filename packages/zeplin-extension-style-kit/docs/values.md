@@ -99,12 +99,14 @@ Returns the string representation, in which colors are in the format specified i
 
 ## Length
 
-### `constructor(value, unit = "px")`: `Length`
-Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
+### `constructor(value, options)`: `Length`
+Creates an instance with unit of `px`. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
 
 #### Parameters:
 - `value`: A `number` that represents the value.
-- `unit`: A `string` that represents the unit, `px` by default.
+- `options`: An optional `Object` that defines the configuration for styling.
+- `options.precison`: A `number` that represents the precision, `2` by default.
+- `options.canUseRemUnit`: A `boolean` that decides rem usage along with `lengthParams`, `false` by default.
 
 ### `equals(other)`: `boolean`
 Checks if `other` instance is equal to self.
@@ -118,6 +120,9 @@ Returns the string representation.
 ```js
 new Length(22).toStyleValue({ densityDivisor: 1 }); // "22px"
 new Length(22).toStyleValue({ densityDivisor: 2 }); // "11px"
+new Length(22, { canUseRemUnit: true }).toStyleValue({ densityDivisor: 1, useRemUnit: true, rootFontSize: 11 }); // "1rem"
+new Length(22, { canUseRemUnit: true }).toStyleValue({ densityDivisor: 1  }); // "22px" since `useRemUnit` is not true
+new Length(22).toStyleValue({ densityDivisor: 1, useRemUnit: true, rootFontSize: 11 }); // "22px" since `canUseRemUnit` is not true
 ```
 
 ## Percent
@@ -135,18 +140,18 @@ Checks if `other` instance is equal to self.
 Returns the string representation.
 
 ```js
-new Percent(0.22).toStyleValue() // "22%"
-new Percent(0).toStyleValue() // "0"
+new Percent(0.22).toStyleValue(); // "22%"
+new Percent(0).toStyleValue(); // "0"
 ```
 
 ## Scalar
 
-### `constructor(value, unit = "px")`: `Scalar`
+### `constructor(value, precison = 2)`: `Scalar`
 Creates an instance. See [related docs](https://developer.mozilla.org/en-US/docs/Web/CSS/number).
 
 #### Parameters:
 - `value`: A `number` that represents the value.
-- `unit`: A `string` that represents the unit, `px` by default.
+- `precison`: A `number` that represents the precision, `2` by default.
 
 ### `equals(other)`: `boolean`
 Checks if `other` instance is equal to self.
