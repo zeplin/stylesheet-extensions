@@ -34,7 +34,7 @@ function blendColors(colors) {
     return colors.reduce((blendedColor, color) => blendedColor.blend(color));
 }
 
-function escape(str) {
+function generateIdentifier(str) {
     let escapedStr = str.trim()
         .replace(/[^\s\w-]/g, "")
         .replace(/^(-?\d+)+/, "")
@@ -59,14 +59,14 @@ function selectorize(str) {
     }
 
     if (/^[#.]/.test(selectorizedStr)) {
-        const name = escape(selectorizedStr.substr(1));
+        const name = generateIdentifier(selectorizedStr.substr(1));
 
         if (name) {
             return selectorizedStr[0] + name;
         }
     }
 
-    selectorizedStr = escape(selectorizedStr);
+    selectorizedStr = generateIdentifier(selectorizedStr);
     return selectorizedStr && `.${selectorizedStr}`;
 }
 
@@ -174,6 +174,7 @@ export {
     isHtmlTag,
     isDeclarationInherited,
     selectorize,
+    generateIdentifier,
     webkit,
     getResources,
     getResourceContainer

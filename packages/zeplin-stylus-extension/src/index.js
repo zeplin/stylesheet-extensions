@@ -9,6 +9,7 @@ import {
     getUniqueLayerTextStyles,
     getFontFaces,
     selectorize,
+    generateIdentifier,
     getResources,
     getResourceContainer
 } from "zeplin-extension-style-kit/utils";
@@ -134,7 +135,7 @@ function layer(context, selectedLayer) {
                 }
             });
 
-            layerRuleSet.addDeclaration(new Mixin(selectorize(textStyleName).replace(/^\./, "")));
+            layerRuleSet.addDeclaration(new Mixin(generateIdentifier(textStyleName)));
         } else {
             declarations.forEach(d => layerRuleSet.addDeclaration(d));
         }

@@ -1,4 +1,4 @@
-import { isDeclarationInherited } from "zeplin-extension-style-kit/utils";
+import { isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const MIDFIX = ":";
@@ -50,7 +50,7 @@ class CSS {
     }
 
     variable(name, value) {
-        return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
+        return `${PREFIX}${generateIdentifier(name)}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {

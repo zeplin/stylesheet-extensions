@@ -1,5 +1,5 @@
 import Mixin from "zeplin-extension-style-kit/declarations/mixin";
-import { isDeclarationInherited, isHtmlTag } from "zeplin-extension-style-kit/utils";
+import { isDeclarationInherited, isHtmlTag, generateIdentifier } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "@";
 const MIDFIX = ":";
@@ -57,7 +57,7 @@ class Less {
     }
 
     variable(name, value) {
-        return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
+        return `${PREFIX}${generateIdentifier(name)}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {
