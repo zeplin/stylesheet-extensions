@@ -34,6 +34,8 @@ import {
     webkit
 } from "../utils";
 
+const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
+
 class Layer {
     constructor(layerObject = {}) {
         this.object = layerObject;
@@ -238,8 +240,8 @@ class Layer {
             object: layer
         } = this;
         let declarations = [
-            new Width(new Length(layer.rect.width)),
-            new Height(new Length(layer.rect.height))
+            new Width(new Length(layer.rect.width, { useRemUnit: useRemUnitForMeasurement })),
+            new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
 
         if (layer.exportable) {

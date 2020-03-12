@@ -27,15 +27,21 @@ declare namespace zesk {
         colorFormat: string;
     }
 
+    interface RemPreferences {
+        useForFontSizes: boolean;
+        useForMeasurements: boolean;
+        rootFontSize: number;
+    }
+
     interface LengthParams {
         densityDivisor: number;
-        useRemUnit: boolean;
+        remPreferences?: RemPreferences;
         rootFontSize: number;
     }
 
     interface LengthOptions {
         precision?: number;
-        canUseRemUnit?: boolean;
+        useRemUnit?: boolean | ((remPreferences: RemPreferences) => boolean);
     }
 
     interface StyleFunction {

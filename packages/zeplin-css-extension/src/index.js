@@ -42,8 +42,7 @@ function getParams(context) {
         showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
         showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
         unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT),
-        useRemUnit: container.useRemUnit && context.getOption(OPTION_NAMES.USE_REM_UNIT),
-        rootFontSize: container.rootFontSize
+        remPreferences: context.getOption(OPTION_NAMES.USE_REM_UNIT) && container.remPreferences
     };
 }
 
@@ -60,6 +59,7 @@ function colors(context) {
     };
 }
 
+const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 function spacing(context) {
     const params = getParams(context);
     const cssGenerator = createGenerator(context, params);
@@ -67,11 +67,12 @@ function spacing(context) {
     const spacingSections = getResources(container, type, params.useLinkedStyleguides, "spacingSections");
     const spacingTokens = spacingSections
         .map(({ spacingTokens: items }) => items)
-        .reduce((prev, current) => [ ...prev, ...current ]);
+        .reduce((prev, current) => [ ...prev, ...current ])
+        .filter(({name}, i, arr) => arr.findIndex((item) => item.name === name) === i);
 
     const code = `:root {\n  ${
         spacingTokens
-            .map(({ name, value }) => cssGenerator.variable(name, new Length(value, { canUseRemUnit: true })))
+            .map(({ name, value }) => cssGenerator.variable(name, new Length(value, { useRemUnit: useRemUnitForMeasurement })))
             .join("\n  ")
     }\n}`;
     return {

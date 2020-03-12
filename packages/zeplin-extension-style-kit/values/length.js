@@ -2,10 +2,15 @@ import Scalar from "./scalar";
 
 const remPrecisionAddition = 2;
 class Length {
-    constructor(value, { precision = 1, canUseRemUnit } = {}) {
+    constructor(value, { precision = 1, useRemUnit = false } = {}) {
         this.value = value;
         this.precision = precision;
-        this.canUseRemUnit = canUseRemUnit;
+        this.useRemUnit = remPreferences => {
+            if (!remPreferences || !remPreferences.rootFontSize) {
+                return false;
+            }
+            return useRemUnit instanceof Function ? useRemUnit(remPreferences) : useRemUnit;
+        };
     }
 
     valueOf() {
@@ -18,15 +23,15 @@ class Length {
         return this.value === other.value;
     }
 
-    toStyleValue({ densityDivisor, useRemUnit, rootFontSize }) {
+    toStyleValue({ densityDivisor, remPreferences }) {
         if (this.value === 0) {
             return "0";
         }
         const densityAwareValue = this.value / densityDivisor;
-        if (this.canUseRemUnit && useRemUnit) {
+        if (this.useRemUnit(remPreferences)) {
             return `${
                 new Scalar(
-                    densityAwareValue / rootFontSize,
+                    densityAwareValue / remPreferences.rootFontSize,
                     this.precision + remPrecisionAddition
                 ).toStyleValue()}rem`;
         }

@@ -1,4 +1,4 @@
-import { StyleDeclaration } from "../common";
+import { StyleDeclaration } from "./common";
 
 declare class RuleSet {
     constructor(selector: string, declarations: Array<StyleDeclaration>);

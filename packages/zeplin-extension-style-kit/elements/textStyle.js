@@ -24,15 +24,17 @@ const REGISTERED_AXES = Object.freeze({
 // Reference: https://drafts.csswg.org/css-fonts-4/#valdef-font-style-oblique-angle
 const DEFAULT_OBLIQUE_ANGLE = 14;
 
+const useRemUnitForFont = ({ useForFontSizes }) => useForFontSizes;
+
 class TextStyle {
-    constructor(textStyleObject, params) {
+    constructor(textStyleObject) {
         this.font = textStyleObject;
 
-        this.declarations = this.collectDeclarations(params);
+        this.declarations = this.collectDeclarations();
     }
 
     // eslint-disable-next-line complexity
-    collectDeclarations(params) {
+    collectDeclarations() {
         const { font } = this;
 
         let fontWeight;
@@ -67,7 +69,7 @@ class TextStyle {
 
         const declarations = [
             new FontFamily(font.fontFamily),
-            new FontSize(new Length(font.fontSize, { canUseRemUnit: true })),
+            new FontSize(new Length(font.fontSize, { useRemUnit: useRemUnitForFont })),
             new FontWeight(fontWeight),
             new FontStretch(fontStretch),
             new FontStyle(fontStyle)

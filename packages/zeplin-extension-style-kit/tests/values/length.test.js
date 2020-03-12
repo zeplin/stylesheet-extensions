@@ -13,15 +13,15 @@ test("decimal number precision is 1", () => {
 });
 
 test("density divisor divides the value", () => {
-    const length = new Length(30);
+    const length = new Length(30,);
 
     expect(length.toStyleValue({ densityDivisor: 2 })).toBe("15px");
 });
 
 test("calculates rem", () => {
-    const length = new Length(30);
+    const length = new Length(30, { useRemUnit: true });
 
-    expect(length.toStyleValue({ densityDivisor: 1, useRemUnit: true, rootFontSize: 15 })).toBe("2rem");
+    expect(length.toStyleValue({ densityDivisor: 1, remPreferences: { rootFontSize: 15 } })).toBe("2rem");
 });
 
 test("zero is unitless", () => {

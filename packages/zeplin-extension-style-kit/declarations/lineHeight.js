@@ -2,6 +2,8 @@ import { STYLE_PROPS } from "../constants";
 import Scalar from "../values/scalar";
 import Length from "../values/length";
 
+const useRemUnitForFont = ({ useForFontSizes }) => useForFontSizes;
+
 class LineHeight {
     constructor(lineHeight, fontSize) {
         this.lineHeight = lineHeight;
@@ -33,7 +35,7 @@ class LineHeight {
         const { unitlessLineHeight } = params;
         const value = unitlessLineHeight
             ? new Scalar(this.lineHeight / this.fontSize)
-            : new Length(this.lineHeight, { canUseRemUnit: true });
+            : new Length(this.lineHeight, { useRemUnit: useRemUnitForFont });
 
         return value.toStyleValue(params, variables);
     }
