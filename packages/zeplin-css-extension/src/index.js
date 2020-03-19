@@ -72,7 +72,10 @@ function spacing(context) {
 
     const code = `:root {\n  ${
         spacingTokens
-            .map(({ name, value }) => cssGenerator.variable(name, new Length(value, { useRemUnit: useRemUnitForMeasurement })))
+            .map(({ name, value }) => cssGenerator.variable(
+                name, 
+                new Length(value, { useRemUnit: useRemUnitForMeasurement, useDensityDivisor: false })),
+            )
             .join("\n  ")
     }\n}`;
     return {

@@ -107,6 +107,7 @@ Creates an instance with unit of `px`. See [related docs](https://developer.mozi
 - `options`: An optional `Object` that defines the configuration for styling.
 - `options.precison`: A `number` that represents the precision, `2` by default.
 - `options.useRemUnit`: A `boolean` that decides rem usage along with `lengthParams`. The value can be also a `function` that takes `remPreferences` as argument and decides the rem usage, `false` by default.
+- `options.useDensityDivisor`: A `boolean` that decides usage of along with `lengthParams`, `true` by default.
 
 ### `equals(other)`: `boolean`
 Checks if `other` instance is equal to self.
@@ -120,6 +121,7 @@ Returns the string representation.
 ```js
 new Length(22).toStyleValue({ densityDivisor: 1 }); // "22px"
 new Length(22).toStyleValue({ densityDivisor: 2 }); // "11px"
+new Length(22, { useDensityDivisor: false }).toStyleValue({ densityDivisor: 2 }); // "22px"
 new Length(22, { useRemUnit: true }).toStyleValue({ densityDivisor: 1, remPreferences: { rootFontSize: 11 }}); // "1rem"
 new Length(22, { useRemUnit: true }).toStyleValue({ densityDivisor: 1 }); // "22px" since `rootFontSize` is not set
 new Length(22, { useRemUnit: () => true }).toStyleValue({ densityDivisor: 1, remPreferences: { rootFontSize: 11 }}); // "1rem"

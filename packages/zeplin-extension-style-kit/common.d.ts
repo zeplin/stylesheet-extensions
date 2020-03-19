@@ -42,6 +42,7 @@ declare namespace zesk {
     interface LengthOptions {
         precision?: number;
         useRemUnit?: boolean | ((remPreferences: RemPreferences) => boolean);
+        useDensityDivisor?: boolean;
     }
 
     interface StyleFunction {

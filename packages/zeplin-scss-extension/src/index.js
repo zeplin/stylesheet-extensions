@@ -100,7 +100,10 @@ function spacing(context) {
 
     return {
         code: spacingTokens
-            .map(({ name, value }) => scssGenerator.variable(name, new Length(value, { useRemUnit: useRemUnitForMeasurement })))
+            .map(({ name, value }) => scssGenerator.variable(
+                name,
+                new Length(value, { useRemUnit: useRemUnitForMeasurement, useDensityDivisor: false })),
+            )
             .join("\n"),
         language: LANG
     };
