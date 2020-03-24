@@ -1,7 +1,7 @@
 import { isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
-const MIDFIX = ":";
+const SEPARATOR = ": ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
@@ -42,7 +42,7 @@ class CSS {
     }
 
     declaration(d) {
-        return `${INDENTATION}${d.name}${MIDFIX} ${d.getValue(this.params, this.variables)}${SUFFIX}`;
+        return `${INDENTATION}${d.name}${SEPARATOR}${d.getValue(this.params, this.variables)}${SUFFIX}`;
     }
 
     declarationsBlock(declarations) {
@@ -50,7 +50,7 @@ class CSS {
     }
 
     variable(name, value) {
-        return `${PREFIX}${generateIdentifier(name)}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
+        return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {

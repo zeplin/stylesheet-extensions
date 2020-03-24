@@ -18,4 +18,4 @@ declare function getUniqueLayerTextStyles(layer: object): object[];
 
 declare function getResourceContainer(context: object): object;
 
-declare function getResources(container: object, type: string, useLinkedStyleguides: boolean, resourceKey: string): object[];
+declare function getResources({ context: object, useLinkedStyleguides: boolean, key: string }): object[];

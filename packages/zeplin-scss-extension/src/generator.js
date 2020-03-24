@@ -2,7 +2,7 @@ import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import { isHtmlTag, isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
-const MIDFIX = ":";
+const SEPARATOR = ": ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
@@ -53,11 +53,11 @@ class SCSS {
             params = Object.assign({}, params, { showDefaultValues: false });
         }
 
-        return `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(params, this.variables)}${SUFFIX}`;
+        return `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(params, this.variables)}${SUFFIX}`;
     }
 
     variable(name, value) {
-        return `${PREFIX}${generateIdentifier(name)}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
+        return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {

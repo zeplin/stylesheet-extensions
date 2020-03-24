@@ -1,5 +1,6 @@
 import cssEscape from "css.escape";
 import FontFace from "./elements/fontFace";
+import { OPTION_NAMES } from "./constants";
 
 const HTML_TAGS = [
     "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi",
@@ -158,12 +159,26 @@ function getLinkedResources(container, type, resourceKey) {
     return resources;
 }
 
-function getResources(container, type, useLinkedStyleguides, resourceKey) {
+function getResources({ context, useLinkedStyleguides, key }) {
+    const { container, type } = getResourceContainer(context);
     if (useLinkedStyleguides) {
-        return getLinkedResources(container, type, resourceKey);
+        return getLinkedResources(container, type, key);
     }
 
-    return container[resourceKey];
+    return container[key];
+}
+
+function getParams(context) {
+    const { container } = getResourceContainer(context);
+    return {
+        densityDivisor: container.densityDivisor,
+        useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
+        colorFormat: context.getOption(OPTION_NAMES.COLOR_FORMAT),
+        showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
+        showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
+        unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT),
+        remPreferences: context.getOption(OPTION_NAMES.USE_REM_UNIT) && container.remPreferences
+    };
 }
 
 export {
@@ -177,5 +192,6 @@ export {
     generateIdentifier,
     webkit,
     getResources,
-    getResourceContainer
+    getResourceContainer,
+    getParams
 };

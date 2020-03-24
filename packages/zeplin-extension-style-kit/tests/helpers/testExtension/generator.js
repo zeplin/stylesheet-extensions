@@ -1,7 +1,7 @@
 import { isDeclarationInherited } from "@root/utils";
 
 const PREFIX = "--";
-const MIDFIX = ":";
+const SEPARATOR = ": ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
@@ -42,12 +42,12 @@ class TestGenerator {
     }
 
     variable(name, value) {
-        return `${PREFIX}${name}${MIDFIX} ${value.toStyleValue(this.params)}${SUFFIX}`;
+        return `${PREFIX}${name}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${MIDFIX} ${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
+        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
     }
 }
 

@@ -1,4 +1,4 @@
-import { StyleDeclaration } from "../common";
+import { StyleDeclaration } from "./common";
 
 declare class AtRule {
     constructor(identifier: string, declarations: Array<StyleDeclaration>);

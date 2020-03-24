@@ -2,7 +2,7 @@ import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import { isHtmlTag, isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
-const MIDFIX = " =";
+const SEPARATOR = " = ";
 const INDENTATION = "  ";
 
 class Stylus {
@@ -56,7 +56,7 @@ class Stylus {
     }
 
     variable(name, value) {
-        return `${PREFIX}${generateIdentifier(name)}${MIDFIX} ${value.toStyleValue(this.params)}`;
+        return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {
