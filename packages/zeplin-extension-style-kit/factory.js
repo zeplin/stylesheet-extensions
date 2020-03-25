@@ -1,11 +1,11 @@
 import {
-    getResourceContainer,
     getResources,
     getFontFaces,
     getUniqueLayerTextStyles,
     selectorize,
     isHtmlTag,
-    getParams
+    getParams,
+    generateIdentifier
 } from "./utils";
 import Color from "./values/color";
 import FontFace from "./elements/fontFace";
@@ -14,6 +14,10 @@ import Layer from "./elements/layer";
 import RuleSet from "./ruleSet";
 import Mixin from "./declarations/mixin";
 import Length from "./values/length";
+
+const hasSameName = (a, b) => generateIdentifier(a.name) === generateIdentifier(b.name);
+
+const isFirstItem = (color, i, array) => i === array.findIndex(searchedColor => hasSameName(color, searchedColor));
 
 const colorsFactory = ({
     language,
@@ -30,7 +34,8 @@ const colorsFactory = ({
     const allColors = isColorsFromParam
         ? colorsParam
         : getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "colors" });
-    const code = `${prefix}${allColors.map(c => generator.variable(c.name, new Color(c))).join(separator)}${suffix}`;
+    const uniqueColors = allColors.filter(isFirstItem);
+    const code = `${prefix}${uniqueColors.map(c => generator.variable(c.name, new Color(c))).join(separator)}${suffix}`;
 
     return {
         code,
@@ -55,7 +60,9 @@ const textStylesFactory = ({
     const textStyles = isTextStylesFromParam
         ? textStylesParam
         : getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "textStyles" });
-    const fontFaces = getFontFaces(textStyles);
+
+    const uniqueTextStyles = textStyles.filter(isFirstItem);
+    const fontFaces = getFontFaces(uniqueTextStyles);
 
     const fontFaceCode = fontFaces.map(ts => {
         const { style } = new FontFace(ts);
@@ -63,7 +70,7 @@ const textStylesFactory = ({
         return generator.atRule(style);
     }).join(fontFaceSeparator);
 
-    const textStyleCode = textStyles.map(t => {
+    const textStyleCode = uniqueTextStyles.map(t => {
         const { style } = new TextStyle(t);
 
         return generator.ruleSet(style);
@@ -92,7 +99,7 @@ const spacingFactory = ({
     const spacingTokens = spacingSections
         .map(({ spacingTokens: items }) => items)
         .reduce((prev, current) => [...prev, ...current])
-        .filter(({ name }, i, arr) => arr.findIndex(item => item.name === name) === i);
+        .filter(isFirstItem);
 
     const code = `${prefix}${
         spacingTokens
@@ -118,7 +125,6 @@ const layerFactory = ({
     const params = getParams(context);
     const { useMixin } = params;
     const generator = createGenerator(context, params);
-    const { container } = getResourceContainer(context);
 
     const l = new Layer(selectedLayer);
     const layerRuleSet = l.style;
@@ -126,7 +132,13 @@ const layerFactory = ({
     const { defaultTextStyle } = selectedLayer;
 
     if (selectedLayer.type === "text" && defaultTextStyle) {
-        const containerTextStyle = container.findTextStyleEqual(defaultTextStyle, params.useLinkedStyleguides);
+        const textStyles = getResources({
+            context,
+            useLinkedStyleguides: params.useLinkedStyleguides,
+            key: "textStyles"
+        }).filter(isFirstItem);
+        const containerTextStyle = textStyles.find(textStyle => textStyle.equals(defaultTextStyle));
+
         const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
         const textStyleName = containerTextStyle && containerTextStyle.name;
 
@@ -239,7 +251,8 @@ export const extensionFactory = ({
 
     const createGenerator = (context, params) => {
         const containerColors = getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "colors" });
-        return new Generator(getVariableMap(containerColors), params);
+        const uniqueColors = containerColors.filter(isFirstItem);
+        return new Generator(getVariableMap(uniqueColors), params);
     };
 
     const colors = colorsFactory({ language, createGenerator, options: colorsOptions });
