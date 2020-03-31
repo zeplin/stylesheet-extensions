@@ -89,7 +89,7 @@ const spacingFactory = ({
     createGenerator,
     options: {
         prefix = "",
-        separator = "\n\n",
+        separator = "\n",
         suffix = ""
     } = {}
 }) => context => {
