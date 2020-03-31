@@ -29,8 +29,8 @@ jobs:
         - run:
             name: Publish extension
             command: |
-              echo "{\"token\": \"$ZEM_TOKEN\"}" >> ~/.zemrc
-              lerna run publish --scope=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
+              extension_pkg_name=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
+              lerna run publish --scope=$extension_pkg_name
 
   publish_npm:
       docker:
@@ -74,6 +74,6 @@ workflows:
             # Ignore any commit on any branch
             branches:
               ignore: /.*/
-            # Run the job only on extension tags
+            # Run the job only on extension tags (ex: css@1.0.0, less@1.0.0, etc.)
             tags:
-              only: /zeplin-[\w]+-extension@[0-9]+(\.[0-9]+)*/
+              only: /(?:css|stylus|less|sass|scss)@[0-9]+(\.[0-9]+)*/
