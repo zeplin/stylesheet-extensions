@@ -2,6 +2,8 @@
 
 Generates CSS snippets from colors, text styles and layers. ⚛️📱
 
+## Output
+
 Sample colors output:
 ```css
 :root {
