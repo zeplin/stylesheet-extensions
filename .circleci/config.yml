@@ -6,11 +6,13 @@ jobs:
     steps:
       - checkout
       - run: sudo npm i -g lerna
+      # Combine package locks into one file for dependency cache
+      - run: find . -maxdepth 3 -name "package-lock.json" -exec echo {} \; | sort | xargs cat > combined-package-lock.txt
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "combined-package-lock.txt" }}
       - run: lerna bootstrap --hoist
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "combined-package-lock.txt" }}
           paths:
             - ./node_modules
       - run: lerna run lint
@@ -22,8 +24,10 @@ jobs:
       - image: zeplin/amazon-linux-ami:cci-node8
       steps:
         - checkout
+        # Combine package locks into one file for dependency cache
+        - run: find . -maxdepth 3 -name "package-lock.json" -exec echo {} \; | sort | xargs cat > combined-package-lock.txt
         - restore_cache:
-            key: dependency-cache-{{ checksum "package-lock.json" }}
+            key: dependency-cache-{{ checksum "combined-package-lock.txt" }}
         - run: lerna bootstrap --hoist
         - run: lerna run build --scope=$(echo $CIRCLE_TAG | cut -d'@' -f 1)
         - run:
@@ -37,8 +41,10 @@ jobs:
       - image: zeplin/amazon-linux-ami:cci-node8
       steps:
         - checkout
+        # Combine package locks into one file for dependency cache
+        - run: find . -maxdepth 3 -name "package-lock.json" -exec echo {} \; | sort | xargs cat > combined-package-lock.txt
         - restore_cache:
-            key: dependency-cache-{{ checksum "package-lock.json" }}
+            key: dependency-cache-{{ checksum "combined-package-lock.txt" }}
         - run: lerna bootstrap --hoist
         - run: lerna run build --scope=zeplin-extension-style-kit
         - run:
