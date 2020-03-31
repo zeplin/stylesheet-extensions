@@ -11,7 +11,7 @@
     "publish": "zem publish"
   },
   "dependencies": {
-    "zem": "git+ssh://git@github.com/zeplin/zem-private.git#develop",
+    "zem": "^1.0.1",
     "zeplin-extension-style-kit": "^1.2.0"
   },
   "author": {
