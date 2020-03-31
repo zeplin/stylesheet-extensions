@@ -13,7 +13,7 @@ test("decimal number precision is 1", () => {
 });
 
 test("density divisor divides the value", () => {
-    const length = new Length(30,);
+    const length = new Length(30);
 
     expect(length.toStyleValue({ densityDivisor: 2 })).toBe("15px");
 });
