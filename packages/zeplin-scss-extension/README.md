@@ -2,6 +2,7 @@
 
 Generates SCSS snippets from colors, text styles and layers. ⚛️📱
 
+## Output
 Sample colors output:
 ```scss
 $red: #ff0000;
