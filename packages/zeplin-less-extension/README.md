@@ -2,6 +2,7 @@
 
 Generates Less snippets from colors, text styles and layers. ⚛️📱
 
+## Output
 Sample colors output:
 ```less
 @red: #ff0000;
