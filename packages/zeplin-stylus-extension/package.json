@@ -1,7 +1,7 @@
 {
   "name": "stylus",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Generates Stylus snippets from colors, text styles and layers.",
   "scripts": {
     "start": "zem start",
