@@ -2,6 +2,7 @@
 
 Generates Sass snippets from colors, text styles and layers. ⚛️📱
 
+## Output
 Sample colors output:
 ```sass
 $blue: #0000ff
