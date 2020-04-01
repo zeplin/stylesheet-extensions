@@ -2,6 +2,7 @@
 
 Generates Stylus snippets from colors, text styles and layers. ⚛️📱
 
+## Output
 Sample colors output:
 ```stylus
 $red = #ff0000
