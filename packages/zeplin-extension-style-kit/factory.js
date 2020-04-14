@@ -73,7 +73,7 @@ const textStylesFactory = ({
     const textStyleCode = uniqueTextStyles.map(t => {
         const { style } = new TextStyle(t);
 
-        return generator.ruleSet(style);
+        return generator.ruleSet(style, { mixin: params.useMixin });
     }).join(textStyleSeparator);
 
     return {
