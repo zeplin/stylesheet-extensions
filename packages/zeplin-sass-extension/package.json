@@ -1,7 +1,7 @@
 {
   "name": "sass",
   "private": true,
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Generates Sass snippets from colors, text styles and layers.",
   "author": {
     "name": "Zeplin",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "zem": "^1.0.1",
-    "zeplin-extension-style-kit": "^2.0.0"
+    "zeplin-extension-style-kit": "^2.0.1"
   },
   "zeplin": {
     "displayName": "Sass",
