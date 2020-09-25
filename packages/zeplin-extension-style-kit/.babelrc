@@ -9,12 +9,12 @@
   "env": {
     "development": {
       "plugins": [
-        "@babel/transform-modules-commonjs"
+        "@babel/plugin-transform-modules-commonjs"
       ]
     },
     "test": {
       "plugins": [
-        "@babel/transform-modules-commonjs",
+        "@babel/plugin-transform-modules-commonjs",
         ["module-resolver", {
           "root": ["./"],
           "alias": {
