@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: zeplin/amazon-linux-ami:cci-node8
+      - image: zeplin/amazon-linux-ami:cci-node12
     steps:
       - checkout
       - run: sudo npm i -g lerna
@@ -21,7 +21,7 @@ jobs:
 
   publish_extension:
       docker:
-      - image: zeplin/amazon-linux-ami:cci-node8
+      - image: zeplin/amazon-linux-ami:cci-node12
       steps:
         - checkout
         # Combine package locks into one file for dependency cache
@@ -38,7 +38,7 @@ jobs:
 
   publish_npm:
       docker:
-      - image: zeplin/amazon-linux-ami:cci-node8
+      - image: zeplin/amazon-linux-ami:cci-node12
       steps:
         - checkout
         # Combine package locks into one file for dependency cache
