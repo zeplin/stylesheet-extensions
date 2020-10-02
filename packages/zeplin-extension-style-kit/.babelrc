@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
         "targets": {
           "browsers": ["chrome >= 45", "safari >= 9.1", "firefox >= 45"]
         }
@@ -9,12 +9,12 @@
   "env": {
     "development": {
       "plugins": [
-        "transform-es2015-modules-commonjs"
+        "@babel/plugin-transform-modules-commonjs"
       ]
     },
     "test": {
       "plugins": [
-        "transform-es2015-modules-commonjs",
+        "@babel/plugin-transform-modules-commonjs",
         ["module-resolver", {
           "root": ["./"],
           "alias": {
