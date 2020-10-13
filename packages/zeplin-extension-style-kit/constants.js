@@ -33,7 +33,9 @@ const STYLE_PROPS = {
     BACKDROP_FILTER: "backdrop-filter",
     FILTER: "filter",
     TEXT_FILL_COLOR: "text-fill-color",
-    FONT_COLOR: "color"
+    FONT_COLOR: "color",
+    MARGIN: "margin",
+    PADDING: "padding"
 };
 
 const OPTION_NAMES = {
@@ -43,7 +45,8 @@ const OPTION_NAMES = {
     SHOW_DIMENSIONS: "showDimensions",
     UNITLESS_LINE_HEIGHT: "unitlessLineHeight",
     MIXIN: "mixin",
-    USE_REM_UNIT: "useRemUnit"
+    USE_REM_UNIT: "useRemUnit",
+    USE_EXPERIMENTAL_LAYOUT: "useExperimentalLayout"
 };
 
 export { OPTION_NAMES, STYLE_PROPS };

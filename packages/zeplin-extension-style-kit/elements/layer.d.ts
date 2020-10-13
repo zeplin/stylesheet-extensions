@@ -3,7 +3,7 @@ import Color from "../values/color";
 import RuleSet from "../ruleSet";
 
 declare class Layer {
-    constructor(layerObject: object);
+    constructor(layerObject: object, params: { useExperimentalLayout: boolean });
 
     style: RuleSet;
     childrenStyles: Array<RuleSet>;

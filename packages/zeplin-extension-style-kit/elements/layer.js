@@ -26,6 +26,8 @@ import BorderImageSlice from "../declarations/borderImageSlice";
 import BackdropFilter from "../declarations/backdropFilter";
 import Filter from "../declarations/filter";
 import FontColor from "../declarations/fontColor";
+import Margin from "../declarations/margin";
+import Padding from "../declarations/padding";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
@@ -33,12 +35,14 @@ import {
     selectorize,
     webkit
 } from "../utils";
+import { BoundTreeNode } from "./boundTreeNode";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Layer {
-    constructor(layerObject = {}) {
+    constructor(layerObject = {}, params) {
         this.object = layerObject;
+        this.params = params;
 
         this.declarations = this.collectDeclarations();
     }
@@ -278,6 +282,18 @@ class Layer {
         }
 
         declarations = declarations.concat(this.generateBackgroundDeclarations());
+
+        const bound = BoundTreeNode.layerToBoundTreeNode(layer);
+
+        if (bound && this.params.useExperimentalLayout) {
+            const { margin, padding } = bound;
+            if (margin && !margin.equals(Margin.Zero)) {
+                declarations.push(margin);
+            }
+            if (padding && !padding.equals(Padding.Zero)) {
+                declarations.push(padding);
+            }
+        }
 
         return declarations;
     }

@@ -178,7 +178,8 @@ function getParams(context) {
         showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
         unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT),
         useMixin: context.getOption(OPTION_NAMES.MIXIN),
-        remPreferences: context.getOption(OPTION_NAMES.USE_REM_UNIT) && container.remPreferences
+        remPreferences: context.getOption(OPTION_NAMES.USE_REM_UNIT) && container.remPreferences,
+        useExperimentalLayout: context.getOption(OPTION_NAMES.USE_EXPERIMENTAL_LAYOUT)
     };
 }
 

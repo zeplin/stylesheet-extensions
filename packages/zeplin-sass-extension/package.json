@@ -88,6 +88,12 @@
         "type": "switch",
         "id": "useRemUnit",
         "default": true
+      },
+      {
+        "name": "Use experimental padding, margin estimation",
+        "type": "switch",
+        "id": "useExperimentalLayout",
+        "default": true
       }
     ]
   }
