@@ -27,7 +27,7 @@ class Extension {
     }
 
     layer(selectedLayer) {
-        const l = new Layer(selectedLayer, { useExperimentalLayout: false });
+        const l = new Layer(selectedLayer, { showPaddingMargin: false });
         const layerRuleSet = l.style;
         const childrenRuleSet = [];
         const { defaultTextStyle } = selectedLayer;

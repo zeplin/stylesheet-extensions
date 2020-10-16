@@ -90,9 +90,9 @@
         "default": true
       },
       {
-        "name": "Use experimental padding, margin estimation",
+        "name": "Show padding, margin estimations (experimental)",
         "type": "switch",
-        "id": "useExperimentalLayout",
+        "id": "showPaddingMargin",
         "default": true
       }
     ]

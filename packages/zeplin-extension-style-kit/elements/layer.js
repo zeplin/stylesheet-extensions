@@ -285,7 +285,7 @@ class Layer {
 
         const bound = BoundTreeNode.layerToBoundTreeNode(layer);
 
-        if (bound && this.params.useExperimentalLayout) {
+        if (bound && this.params.showPaddingMargin) {
             const { margin, padding } = bound;
             if (margin && !margin.equals(Margin.Zero)) {
                 declarations.push(margin);

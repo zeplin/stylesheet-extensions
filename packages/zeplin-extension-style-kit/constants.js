@@ -46,7 +46,7 @@ const OPTION_NAMES = {
     UNITLESS_LINE_HEIGHT: "unitlessLineHeight",
     MIXIN: "mixin",
     USE_REM_UNIT: "useRemUnit",
-    USE_EXPERIMENTAL_LAYOUT: "useExperimentalLayout"
+    SHOW_PADDING_MARGIN: "showPaddingMargin"
 };
 
 export { OPTION_NAMES, STYLE_PROPS };
