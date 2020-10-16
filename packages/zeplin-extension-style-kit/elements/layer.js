@@ -248,6 +248,18 @@ class Layer {
             new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
 
+        const bound = BoundTreeNode.layerToBoundTreeNode(layer);
+
+        if (bound && this.params.showPaddingMargin) {
+            const { margin, padding } = bound;
+            if (margin && !margin.equals(Margin.Zero)) {
+                declarations.push(margin);
+            }
+            if (padding && !padding.equals(Padding.Zero)) {
+                declarations.push(padding);
+            }
+        }
+
         if (layer.exportable) {
             declarations.push(new ObjectFit("contain"));
         }
@@ -282,18 +294,6 @@ class Layer {
         }
 
         declarations = declarations.concat(this.generateBackgroundDeclarations());
-
-        const bound = BoundTreeNode.layerToBoundTreeNode(layer);
-
-        if (bound && this.params.showPaddingMargin) {
-            const { margin, padding } = bound;
-            if (margin && !margin.equals(Margin.Zero)) {
-                declarations.push(margin);
-            }
-            if (padding && !padding.equals(Padding.Zero)) {
-                declarations.push(padding);
-            }
-        }
 
         return declarations;
     }
