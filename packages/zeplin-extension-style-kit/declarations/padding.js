@@ -1,15 +1,23 @@
 import { STYLE_PROPS } from "../constants";
-import Area from "../values/area";
+import Length from "../values/length";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Padding {
     static get Zero() {
-        return new Padding(new Area({ top: 0, right: 0, bottom: 0, left: 0 }, { useRemUnitForMeasurement }));
+        return new Padding(
+            Length.toFourDirectionLengths(
+                { top: 0, right: 0, bottom: 0, left: 0 },
+                { useRemUnitForMeasurement }
+            )
+        );
     }
 
-    constructor(length) {
-        this.value = length;
+    constructor({ top, right, bottom, left }) {
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
+        this.left = left;
     }
 
     get name() {
@@ -17,11 +25,11 @@ class Padding {
     }
 
     equals(other) {
-        return this.value.equals(other.value);
+        return Length.doFourDirectionLengthsEqual(this, other);
     }
 
-    getValue(params, variables) {
-        return this.value.toStyleValue(params, variables);
+    getValue(params) {
+        return Length.toStyleFourDirectionLengths(this, params);
     }
 }
 
