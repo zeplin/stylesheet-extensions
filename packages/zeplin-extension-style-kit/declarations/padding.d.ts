@@ -1,10 +1,10 @@
 import { VariableMap, LengthParams } from "../common";
-import Length from "../values/length";
+import Area from "../values/Area";
 
 declare class Padding {
     static get Zero(): Padding;
 
-    constructor(lengths: { top: Length, right: Length, bottom: Length, left: Length });
+    constructor(area: Area);
 
     name: string;
 

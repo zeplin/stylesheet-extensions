@@ -1,10 +1,10 @@
 import { VariableMap, LengthParams } from "../common";
-import Length from "../values/length";
+import Area from "../values/Area";
 
 declare class Margin {
     static get Zero(): Margin;
 
-    constructor(lengths: { top: Length, right: Length, bottom: Length, left: Length });
+    constructor(area: Area);
 
     name: string;
 

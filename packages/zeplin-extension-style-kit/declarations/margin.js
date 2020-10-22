@@ -1,23 +1,15 @@
 import { STYLE_PROPS } from "../constants";
-import Length from "../values/length";
+import Area from "../values/area";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Margin {
     static get Zero() {
-        return new Margin(
-            Length.toFourDirectionLengths(
-                { top: 0, right: 0, bottom: 0, left: 0 },
-                { useRemUnitForMeasurement }
-            )
-        );
+        return new Margin(new Area({ top: 0, right: 0, bottom: 0, left: 0 }, { useRemUnitForMeasurement }));
     }
 
-    constructor({ top, right, bottom, left }) {
-        this.top = top;
-        this.right = right;
-        this.bottom = bottom;
-        this.left = left;
+    constructor(area) {
+        this.value = area;
     }
 
     get name() {
@@ -25,11 +17,11 @@ class Margin {
     }
 
     equals(other) {
-        return Length.doFourDirectionLengthsEqual(this, other);
+        return this.value.equals(other.value);
     }
 
-    getValue(params) {
-        return Length.toStyleFourDirectionLengths(this, params);
+    getValue(params, variables) {
+        return this.value.toStyleValue(params, variables);
     }
 }
 
