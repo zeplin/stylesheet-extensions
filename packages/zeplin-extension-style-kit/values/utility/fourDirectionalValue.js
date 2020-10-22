@@ -1,15 +1,13 @@
-import Length from "./length";
-
-class Area {
-    constructor({ top, right, bottom, left }, options) {
-        this.top = new Length(top, options);
-        this.right = new Length(right, options);
-        this.bottom = new Length(bottom, options);
-        this.left = new Length(left, options);
+class FourDirectionalValue {
+    constructor({ top, right, bottom, left }) {
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
+        this.left = left;
     }
 
     valueOf() {
-        return `area::t:(${this.top.valueOf()}):r:(${this.right.valueOf()}):b:(${this.bottom.valueOf()}):l:(${this.left.valueOf()})`;
+        return `fourDirectionalValue::t:(${this.top.valueOf()}):r:(${this.right.valueOf()}):b:(${this.bottom.valueOf()}):l:(${this.left.valueOf()})`;
     }
 
     equals(other) {
@@ -36,4 +34,4 @@ class Area {
     }
 }
 
-export default Area;
+export default FourDirectionalValue;

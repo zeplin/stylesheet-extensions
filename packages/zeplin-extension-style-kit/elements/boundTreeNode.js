@@ -1,4 +1,4 @@
-import Area from "../values/area";
+import Area from "packages/zeplin-extension-style-kit/values/utility/area";
 import Margin from "../declarations/margin";
 import Padding from "../declarations/padding";
 
