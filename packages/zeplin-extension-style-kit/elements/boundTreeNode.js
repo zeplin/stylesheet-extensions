@@ -1,4 +1,4 @@
-import Area from "packages/zeplin-extension-style-kit/values/utility/area";
+import Length from "../values/length";
 import Margin from "../declarations/margin";
 import Padding from "../declarations/padding";
 
@@ -157,17 +157,24 @@ export class BoundTreeNode {
         if (this.children.length === 0) {
             return null;
         }
-        return new Padding(
-            new Area(
-                {
-                    left: Math.min(...this.children.map(({ xMin }) => xMin)) - this.xMin,
-                    right: this.xMax - Math.max(...this.children.map(({ xMax }) => xMax)),
-                    top: Math.min(...this.children.map(({ yMin }) => yMin)) - this.yMin,
-                    bottom: this.yMax - Math.max(...this.children.map(({ yMax }) => yMax))
-                },
+        return new Padding({
+            left: new Length(
+                Math.min(...this.children.map(({ xMin }) => xMin)) - this.xMin,
+                { useRemUnit: useRemUnitForMeasurement }
+            ),
+            right: new Length(
+                this.xMax - Math.max(...this.children.map(({ xMax }) => xMax)),
+                { useRemUnit: useRemUnitForMeasurement }
+            ),
+            top: new Length(
+                Math.min(...this.children.map(({ yMin }) => yMin)) - this.yMin,
+                { useRemUnit: useRemUnitForMeasurement }
+            ),
+            bottom: new Length(
+                this.yMax - Math.max(...this.children.map(({ yMax }) => yMax)),
                 { useRemUnit: useRemUnitForMeasurement }
             )
-        );
+        });
     }
 
     get margin() {
@@ -176,27 +183,35 @@ export class BoundTreeNode {
         }
         const parentPadding = this.parent.padding;
         return new Margin(
-            new Area(
-                {
-                    left: this.xMin - Math.max(
+            {
+                left: new Length(
+                    this.xMin - Math.max(
                         ...this.parent.children.map(({ xMax }) => xMax).filter(value => value <= this.xMin),
                         this.parent.xMin + parentPadding.value.left.value
                     ),
-                    right: Math.min(
+                    { useRemUnit: useRemUnitForMeasurement }
+                ),
+                right: new Length(
+                    Math.min(
                         ...this.parent.children.map(({ xMin }) => xMin).filter(value => value >= this.xMax),
                         this.parent.xMax - parentPadding.value.right.value
                     ) - this.xMax,
-                    top: this.yMin - Math.max(
+                    { useRemUnit: useRemUnitForMeasurement }
+                ),
+                top: new Length(
+                    this.yMin - Math.max(
                         ...this.parent.children.map(({ yMax }) => yMax).filter(value => value < this.yMin),
                         this.parent.yMin + parentPadding.value.top.value
                     ),
-                    bottom: Math.min(
+                    { useRemUnit: useRemUnitForMeasurement }
+                ),
+                bottom: new Length(
+                    Math.min(
                         ...this.parent.children.map(({ yMin }) => yMin).filter(value => value >= this.yMax),
                         this.parent.yMax - parentPadding.value.bottom.value
-                    ) - this.yMax
-                },
-                { useRemUnit: useRemUnitForMeasurement }
-            )
-        );
+                    ) - this.yMax,
+                    { useRemUnit: useRemUnitForMeasurement }
+                )
+            });
     }
 }
