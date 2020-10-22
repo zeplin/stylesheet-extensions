@@ -250,6 +250,8 @@ class Layer {
 
         const bound = Bound.layerToBound(layer);
 
+        console.log({ layer });
+
         if (bound && this.params.showPaddingMargin) {
             const { margin, padding } = bound;
             if (margin && !margin.equals(Margin.Zero)) {

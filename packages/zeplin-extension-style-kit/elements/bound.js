@@ -30,7 +30,13 @@ export class Bound {
     static layersToBounds(layers) {
         return layers.reduce(
             (bounds, child) => {
-                bounds.push(new Bound(child), ...Bound.layersToBounds(child.layers));
+                if (child.exportable) {
+                    bounds.push(new Bound(child));
+                } else if (child.type === "group") {
+                    bounds.push(...Bound.layersToBounds(child.layers));
+                } else {
+                    bounds.push(new Bound(child), ...Bound.layersToBounds(child.layers));
+                }
                 return bounds;
             },
             []
