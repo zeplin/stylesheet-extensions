@@ -4,11 +4,11 @@ import Padding from "../declarations/padding";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
-export class BoundTreeNode {
+export class Bound {
     constructor(layer) {
-        this.xMin = BoundTreeNode.getX(layer);
+        this.xMin = Bound.getX(layer);
         this.xMax = this.xMin + layer.rect.width;
-        this.yMin = BoundTreeNode.getY(layer);
+        this.yMin = Bound.getY(layer);
         this.yMax = this.yMin + layer.rect.height;
         this.children = [];
     }
@@ -17,30 +17,27 @@ export class BoundTreeNode {
         if (!parent) {
             return x;
         }
-        return BoundTreeNode.getX(parent) + x;
+        return Bound.getX(parent) + x;
     }
 
     static getY({ parent, rect: { y } }) {
         if (!parent) {
             return y;
         }
-        return BoundTreeNode.getY(parent) + y;
+        return Bound.getY(parent) + y;
     }
 
     static layersToBounds(layers) {
         return layers.reduce(
             (bounds, child) => {
-                bounds.push(...BoundTreeNode.layersToBounds(child.layers));
-                if (child.type !== "group") {
-                    bounds.push(new BoundTreeNode(child));
-                }
+                bounds.push(new Bound(child), ...Bound.layersToBounds(child.layers));
                 return bounds;
             },
             []
         );
     }
 
-    static layerToBoundTreeNode(layer) {
+    static layerToBound(layer) {
         const {
             version: {
                 layers,
@@ -51,11 +48,11 @@ export class BoundTreeNode {
             }
         } = layer;
 
-        const duplicatedBounds = BoundTreeNode.layersToBounds(layers);
+        const duplicatedBounds = Bound.layersToBounds(layers);
 
-        const bounds = new Map(duplicatedBounds.map(val => [val.getKey(), val]));
+        const boundMap = new Map(duplicatedBounds.map(val => [val.getKey(), val]));
 
-        const root = new BoundTreeNode({
+        const root = new Bound({
             rect: {
                 x: 0,
                 y: 0,
@@ -65,70 +62,30 @@ export class BoundTreeNode {
             layers: []
         });
 
-        if (bounds.get(root.getKey())) {
-            bounds.delete(root.getKey());
+        const bounds = Array.from(boundMap, ([_, bound]) => bound);
+
+        if (!boundMap.get(root.getKey())) {
+            boundMap.set(root.getKey(), root);
         }
 
-        bounds.forEach(bound => root.addToTree(bound));
+        boundMap.forEach(bound => bound.setParentFromBounds(bounds));
 
-        bounds.set(root.getKey(), root);
-
-        return bounds.get(new BoundTreeNode(layer).getKey());
+        return boundMap.get(new Bound(layer).getKey());
     }
 
-    addToTree(newBound) {
-        if (this.contains(newBound)) {
-            const parentCandidates = this.children.filter(item => item.contains(newBound));
-            const childCandidates = this.children.filter(item => newBound.contains(item));
-            const intersectedSiblings = this.children.filter(item => item.intersects(newBound));
+    setParentFromBounds(bounds) {
+        const parentCandidates = bounds.filter(bound => bound.contains(this) && this !== bound);
+        const [smallestParent, secondSmallestParent] = parentCandidates.sort((a, b) => a.area - b.area);
 
-            if (intersectedSiblings.length > childCandidates.length + parentCandidates.length) {
-                const intersectedGrandChildren = this.getIntersectedChildren(newBound).filter(
-                    item => item.parent !== this
-                );
-                intersectedGrandChildren.forEach(item => (item.parent = this));
-                this.children.push(...intersectedGrandChildren);
-            } else if (childCandidates.length > 0) {
-                this.children = this.children.filter(item => !newBound.contains(item));
-                childCandidates.forEach(item => (item.parent = newBound));
-                newBound.children = childCandidates;
-            }
-
-            if (parentCandidates.length === 1) {
-                parentCandidates[0].addToTree(newBound);
-            } else {
-                this.children.push(newBound);
-                newBound.parent = this;
-            }
+        // If there is one smallest parent
+        if (smallestParent && smallestParent.area !== (secondSmallestParent && secondSmallestParent.area)) {
+            this.parent = smallestParent;
+            smallestParent.children.push(this);
         }
-
-        return this;
     }
 
-    getIntersectedBounds(current) {
-        if (this.intersects(current)) {
-            return [
-                this,
-                ...this.children.reduce(
-                    (subResult, item) => {
-                        subResult.push(...item.getIntersectedBounds(current));
-                        return subResult;
-                    },
-                    []
-                )
-            ];
-        }
-        return [];
-    }
-
-    getIntersectedChildren(current) {
-        return this.children.reduce(
-            (subResult, item) => {
-                subResult.push(...item.getIntersectedBounds(current));
-                return subResult;
-            },
-            []
-        );
+    get area() {
+        return (this.xMax - this.xMin) * (this.yMax - this.yMin);
     }
 
     contains(current) {
@@ -137,15 +94,6 @@ export class BoundTreeNode {
             this.xMax >= current.xMax &&
             this.yMin <= current.yMin &&
             this.yMax >= current.yMax
-        );
-    }
-
-    intersects(current) {
-        return (
-            this.xMin < current.xMax &&
-            this.xMax > current.xMin &&
-            this.yMin < current.yMax &&
-            this.yMax > current.yMin
         );
     }
 
@@ -187,28 +135,28 @@ export class BoundTreeNode {
                 left: new Length(
                     this.xMin - Math.max(
                         ...this.parent.children.map(({ xMax }) => xMax).filter(value => value <= this.xMin),
-                        this.parent.xMin + parentPadding.value.left.value
+                        this.parent.xMin + parentPadding.left.value
                     ),
                     { useRemUnit: useRemUnitForMeasurement }
                 ),
                 right: new Length(
                     Math.min(
                         ...this.parent.children.map(({ xMin }) => xMin).filter(value => value >= this.xMax),
-                        this.parent.xMax - parentPadding.value.right.value
+                        this.parent.xMax - parentPadding.right.value
                     ) - this.xMax,
                     { useRemUnit: useRemUnitForMeasurement }
                 ),
                 top: new Length(
                     this.yMin - Math.max(
                         ...this.parent.children.map(({ yMax }) => yMax).filter(value => value < this.yMin),
-                        this.parent.yMin + parentPadding.value.top.value
+                        this.parent.yMin + parentPadding.top.value
                     ),
                     { useRemUnit: useRemUnitForMeasurement }
                 ),
                 bottom: new Length(
                     Math.min(
                         ...this.parent.children.map(({ yMin }) => yMin).filter(value => value >= this.yMax),
-                        this.parent.yMax - parentPadding.value.bottom.value
+                        this.parent.yMax - parentPadding.bottom.value
                     ) - this.yMax,
                     { useRemUnit: useRemUnitForMeasurement }
                 )

@@ -27,7 +27,7 @@ class Padding {
     }
 
     equals(other) {
-        return this.fourDirectionalValue.equals(other.value);
+        return this.fourDirectionalValue.equals(other.fourDirectionalValue);
     }
 
     getValue(params, variables) {

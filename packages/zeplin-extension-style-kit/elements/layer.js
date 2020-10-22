@@ -35,7 +35,7 @@ import {
     selectorize,
     webkit
 } from "../utils";
-import { BoundTreeNode } from "./boundTreeNode";
+import { Bound } from "./bound";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
@@ -248,7 +248,7 @@ class Layer {
             new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
 
-        const bound = BoundTreeNode.layerToBoundTreeNode(layer);
+        const bound = Bound.layerToBound(layer);
 
         if (bound && this.params.showPaddingMargin) {
             const { margin, padding } = bound;
