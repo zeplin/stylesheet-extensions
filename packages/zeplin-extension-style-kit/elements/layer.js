@@ -252,6 +252,7 @@ class Layer {
 
         if (bound && this.params.showPaddingMargin) {
             const { margin, padding } = bound;
+            console.log({ bound, margin, padding });
             if (margin && !margin.equals(Margin.Zero)) {
                 declarations.push(margin);
             }

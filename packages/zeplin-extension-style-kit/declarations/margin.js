@@ -23,7 +23,7 @@ class Margin {
     }
 
     get name() {
-        return STYLE_PROPS.PADDING;
+        return STYLE_PROPS.MARGIN;
     }
 
     equals(other) {
