@@ -32,7 +32,7 @@ export class Bound {
             (bounds, child) => {
                 if (child.exportable) {
                     bounds.push(new Bound(child));
-                } else if (child.type === "group") {
+                } else if (child.type === "group" && !child.componentName) {
                     bounds.push(...Bound.layersToBounds(child.layers));
                 } else {
                     bounds.push(new Bound(child), ...Bound.layersToBounds(child.layers));
