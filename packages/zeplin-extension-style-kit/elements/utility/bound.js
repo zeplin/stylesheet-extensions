@@ -1,30 +1,30 @@
-import Length from "../values/length";
-import Margin from "../declarations/margin";
-import Padding from "../declarations/padding";
+import Length from "../../values/length";
+import Margin from "../../declarations/margin";
+import Padding from "../../declarations/padding";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
+function getAbsoluteX({ parent, rect: { x } }) {
+    if (!parent) {
+        return x;
+    }
+    return getAbsoluteX(parent) + x;
+}
+
+function getAbsoluteY({ parent, rect: { y } }) {
+    if (!parent) {
+        return y;
+    }
+    return getAbsoluteY(parent) + y;
+}
+
 export class Bound {
     constructor(layer) {
-        this.xMin = Bound.getX(layer);
+        this.xMin = getAbsoluteX(layer);
         this.xMax = this.xMin + layer.rect.width;
-        this.yMin = Bound.getY(layer);
+        this.yMin = getAbsoluteY(layer);
         this.yMax = this.yMin + layer.rect.height;
         this.children = [];
-    }
-
-    static getX({ parent, rect: { x } }) {
-        if (!parent) {
-            return x;
-        }
-        return Bound.getX(parent) + x;
-    }
-
-    static getY({ parent, rect: { y } }) {
-        if (!parent) {
-            return y;
-        }
-        return Bound.getY(parent) + y;
     }
 
     static layersToBounds(layers) {
@@ -56,7 +56,7 @@ export class Bound {
 
         const duplicatedBounds = Bound.layersToBounds(layers);
 
-        const boundMap = new Map(duplicatedBounds.map(val => [val.getKey(), val]));
+        const boundMap = new Map(duplicatedBounds.map(val => [val.key, val]));
 
         const root = new Bound({
             rect: {
@@ -70,28 +70,33 @@ export class Bound {
 
         const bounds = Array.from(boundMap, ([_, bound]) => bound);
 
-        if (!boundMap.get(root.getKey())) {
-            boundMap.set(root.getKey(), root);
+        if (!boundMap.get(root.key)) {
+            boundMap.set(root.key, root);
         }
 
-        boundMap.forEach(bound => bound.setParentFromBounds(bounds));
+        boundMap.forEach(bound => {
+            const parent = bound.findParentFromBounds(bounds);
+            if (parent) {
+                bound.setParent(parent);
+            }
+        });
 
-        return boundMap.get(new Bound(layer).getKey());
+        return boundMap.get(new Bound(layer).key);
     }
 
-    setParentFromBounds(bounds) {
+    findParentFromBounds(bounds) {
         const parentCandidates = bounds.filter(bound => bound.contains(this) && this !== bound);
         const [smallestParent, secondSmallestParent] = parentCandidates.sort((a, b) => a.area - b.area);
 
-        // If there is one smallest parent
+        // If there is only one smallest parent
         if (smallestParent && smallestParent.area !== (secondSmallestParent && secondSmallestParent.area)) {
-            this.parent = smallestParent;
-            smallestParent.children.push(this);
+            return smallestParent;
         }
     }
 
-    get area() {
-        return (this.xMax - this.xMin) * (this.yMax - this.yMin);
+    setParent(parent) {
+        this.parent = parent;
+        parent.children.push(this);
     }
 
     contains(current) {
@@ -103,7 +108,11 @@ export class Bound {
         );
     }
 
-    getKey() {
+    get area() {
+        return (this.xMax - this.xMin) * (this.yMax - this.yMin);
+    }
+
+    get key() {
         return `${this.xMin}-${this.xMax}-${this.yMin}-${this.yMax}`;
     }
 

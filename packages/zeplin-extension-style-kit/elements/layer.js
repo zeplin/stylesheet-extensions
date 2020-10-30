@@ -35,7 +35,7 @@ import {
     selectorize,
     webkit
 } from "../utils";
-import { Bound } from "./bound";
+import { Bound } from "./utility/bound";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
@@ -252,7 +252,6 @@ class Layer {
 
         if (bound && this.params.showPaddingMargin) {
             const { margin, padding } = bound;
-            console.log({ bound, margin, padding });
             if (margin && !margin.equals(Margin.Zero)) {
                 declarations.push(margin);
             }
