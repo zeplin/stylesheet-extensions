@@ -248,10 +248,8 @@ class Layer {
             new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
 
-        const bound = Bound.layerToBound(layer);
-
-        if (bound && this.params.showPaddingMargin) {
-            const { margin, padding } = bound;
+        if (this.params.showPaddingMargin) {
+            const { margin, padding } = Bound.layerToBound(layer) || {};
             if (margin && !margin.equals(Margin.Zero)) {
                 declarations.push(margin);
             }
