@@ -26,6 +26,8 @@ import BorderImageSlice from "../declarations/borderImageSlice";
 import BackdropFilter from "../declarations/backdropFilter";
 import Filter from "../declarations/filter";
 import FontColor from "../declarations/fontColor";
+import Margin from "../declarations/margin";
+import Padding from "../declarations/padding";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
@@ -33,12 +35,14 @@ import {
     selectorize,
     webkit
 } from "../utils";
+import { Bound } from "./utility/bound";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Layer {
-    constructor(layerObject = {}) {
+    constructor(layerObject = {}, params) {
         this.object = layerObject;
+        this.params = params;
 
         this.declarations = this.collectDeclarations();
     }
@@ -243,6 +247,16 @@ class Layer {
             new Width(new Length(layer.rect.width, { useRemUnit: useRemUnitForMeasurement })),
             new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
+
+        if (this.params.showPaddingMargin) {
+            const { margin, padding } = Bound.layerToBound(layer) || {};
+            if (margin && !margin.equals(Margin.Zero)) {
+                declarations.push(margin);
+            }
+            if (padding && !padding.equals(Padding.Zero)) {
+                declarations.push(padding);
+            }
+        }
 
         if (layer.exportable) {
             declarations.push(new ObjectFit("contain"));

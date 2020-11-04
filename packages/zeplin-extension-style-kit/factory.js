@@ -126,7 +126,7 @@ const layerFactory = ({
     const { useMixin } = params;
     const generator = createGenerator(context, params);
 
-    const l = new Layer(selectedLayer);
+    const l = new Layer(selectedLayer, params);
     const layerRuleSet = l.style;
     const childrenRuleSet = [];
     const { defaultTextStyle } = selectedLayer;
