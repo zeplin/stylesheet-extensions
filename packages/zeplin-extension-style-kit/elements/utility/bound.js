@@ -29,13 +29,13 @@ export class Bound {
 
     static layersToBounds(layers) {
         return layers.reduce(
-            (bounds, child) => {
-                if (child.exportable) {
-                    bounds.push(new Bound(child));
-                } else if (child.type === "group" && !child.componentName) {
-                    bounds.push(...Bound.layersToBounds(child.layers));
+            (bounds, layer) => {
+                if (layer.exportable) {
+                    bounds.push(new Bound(layer));
+                } else if (layer.type !== "group" || layer.componentName || layer.fills) {
+                    bounds.push(new Bound(layer), ...Bound.layersToBounds(layer.layers));
                 } else {
-                    bounds.push(new Bound(child), ...Bound.layersToBounds(child.layers));
+                    bounds.push(...Bound.layersToBounds(layer.layers));
                 }
                 return bounds;
             },
