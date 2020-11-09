@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "zem": "^1.0.6",
-    "zeplin-extension-style-kit": "^2.0.1"
+    "zeplin-extension-style-kit": "^2.1.0"
   },
   "zeplin": {
     "displayName": "Less",
