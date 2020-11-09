@@ -84,4 +84,4 @@ workflows:
               ignore: /.*/
             # Run the job only on extension tags (ex: css@1.0.0, less@1.0.0, etc.)
             tags:
-              only: /(?:css|stylus|less|sass|scss)@[0-9]+(\.[0-9]+)*/
+              only: /(css|stylus|less|sass|scss)@[0-9]+(\.[0-9]+)*/
