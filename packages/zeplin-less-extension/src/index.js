@@ -1,11 +1,11 @@
-import { extensionFactory } from "zeplin-extension-style-kit/factory";
+import { createExtension } from "base-extension";
 
 import Generator from "./generator";
 import { COPYRIGHT } from "./constants";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
-export default extensionFactory({
+export default createExtension({
     language: "less",
     Generator,
     exportTextStylesOptions: {

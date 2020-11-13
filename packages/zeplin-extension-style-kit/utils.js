@@ -183,6 +183,12 @@ function getParams(context) {
     };
 }
 
+function getUniqueFirstItems(array, equalityFunction = (x, y) => x === y) {
+    return array.filter(
+        (item, i, arr) => i === arr.findIndex(searchedItem => equalityFunction(item, searchedItem))
+    );
+}
+
 export {
     blendColors,
     getDeclarationValue,
@@ -195,5 +201,6 @@ export {
     webkit,
     getResources,
     getResourceContainer,
-    getParams
+    getParams,
+    getUniqueFirstItems
 };
