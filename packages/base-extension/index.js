@@ -4,6 +4,7 @@ import { colorCodeGenerator } from "./codeGenerators/color";
 import { layerCodeGenerator } from "./codeGenerators/layer";
 import { spacingCodeGenerator } from "./codeGenerators/spacing";
 import { textStyleCodeGenerator } from "./codeGenerators/textStyle";
+import { componentCodeGenerator } from "./codeGenerators/component";
 
 const comment = (context, text) => `/* ${text} */`;
 
@@ -59,6 +60,7 @@ export const createExtension = ({
     textStylesOptions,
     spacingOptions,
     layerOptions,
+    componentOptions,
     exportColorsOptions,
     exportTextStylesOptions,
     exportSpacingOptions
@@ -84,6 +86,7 @@ export const createExtension = ({
         return new Generator(getVariableMap(uniqueColors), params);
     };
 
+    const component = componentCodeGenerator({ language, createGenerator, options: componentOptions });
     const colors = colorCodeGenerator({ language, createGenerator, options: colorsOptions });
     const textStyles = textStyleCodeGenerator({ language, createGenerator, options: textStylesOptions });
     const spacing = spacingCodeGenerator({ language, createGenerator, options: spacingOptions });
@@ -110,6 +113,7 @@ export const createExtension = ({
     });
 
     return {
+        component,
         colors,
         textStyles,
         spacing,

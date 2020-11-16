@@ -17,10 +17,14 @@ class SCSS {
     }
 
     filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
-        const { params: { showDefaultValues, showDimensions } } = this;
+        const { params: { showDefaultValues, showDimensions, showPaddingMargin } } = this;
 
         return childDeclarations.filter(declaration => {
             if (!showDimensions && (declaration.name === "width" || declaration.name === "height")) {
+                return false;
+            }
+
+            if (!showPaddingMargin && (declaration.name === "margin" || declaration.name === "padding")) {
                 return false;
             }
 
@@ -73,7 +77,7 @@ class SCSS {
         if (isMixin) {
             ruleSelector = selector.replace(/^\./, "@mixin ");
         } else {
-            ruleSelector = `${scope ? `${scope} ` : ""}${selector}`;
+            ruleSelector = scope ? `${scope} ${selector}` : selector;
         }
 
         return `${ruleSelector} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
