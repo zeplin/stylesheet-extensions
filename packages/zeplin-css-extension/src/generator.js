@@ -53,9 +53,15 @@ class CSS {
         return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
+    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "" } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} ${this.declarationsBlock(filteredDeclarations)}`;
+        const ruleSelector = `${scope ? `${scope} ` : ""}${selector}`;
+
+        if (!filteredDeclarations.length) {
+            return "";
+        }
+
+        return `${ruleSelector} ${this.declarationsBlock(filteredDeclarations)}`;
     }
 
     atRule({ identifier, declarations }) {

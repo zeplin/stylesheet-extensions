@@ -59,12 +59,24 @@ class Stylus {
         return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {
+    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "", mixin = false } = {}) {
         const isMixin = !isHtmlTag(selector) && mixin;
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations, isMixin);
         const ruleSelector = isMixin ? selector.replace(/^\./, "") : selector;
 
-        return `${ruleSelector}${isMixin ? "()" : ""}\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n`;
+        if (!filteredDeclarations.length) {
+            return "";
+        }
+
+        let ruleSelector;
+
+        if (isMixin) {
+            ruleSelector = `${selector.replace(/^\./, "")}()`;
+        } else {
+            ruleSelector = `${scope ? `${scope} ` : ""}${selector}`;
+        }
+
+        return `${ruleSelector}\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n`;
     }
 
     atRule({ identifier, declarations }) {
