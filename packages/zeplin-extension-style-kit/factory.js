@@ -137,7 +137,7 @@ const layerFactory = ({
             useLinkedStyleguides: params.useLinkedStyleguides,
             key: "textStyles"
         }).filter(isFirstItem);
-        const containerTextStyle = textStyles.find(textStyle => textStyle.equals(defaultTextStyle));
+        const containerTextStyle = textStyles.find(textStyle => defaultTextStyle.conforms(textStyle));
 
         const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
         const textStyleName = containerTextStyle && containerTextStyle.name;
