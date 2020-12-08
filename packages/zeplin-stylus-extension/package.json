@@ -8,7 +8,8 @@
     "build": "zem build",
     "clean": "zem clean",
     "exec": "zem exec",
-    "publish": "zem publish"
+    "publish": "zem publish",
+    "test": "zem test"
   },
   "dependencies": {
     "base-extension": "^1.0.0",
