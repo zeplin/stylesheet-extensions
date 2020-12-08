@@ -19,3 +19,5 @@ declare function getUniqueLayerTextStyles(layer: object): object[];
 declare function getResourceContainer(context: object): object;
 
 declare function getResources({ context: object, useLinkedStyleguides: boolean, key: string }): object[];
+
+declare function getUniqueFirstItems<T>(array: T[], equalityFunction: (arg1: T, arg2: T) => boolean): T[];
