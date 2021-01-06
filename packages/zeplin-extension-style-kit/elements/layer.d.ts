@@ -3,7 +3,7 @@ import Color from "../values/color";
 import RuleSet from "../ruleSet";
 
 declare class Layer {
-    constructor(layerObject: object, params: { showPaddingMargin: boolean });
+    constructor(layerObject: object);
 
     style: RuleSet;
     childrenStyles: Array<RuleSet>;

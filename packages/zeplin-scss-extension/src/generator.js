@@ -17,10 +17,14 @@ class SCSS {
     }
 
     filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
-        const { params: { showDefaultValues, showDimensions } } = this;
+        const { params: { showDefaultValues, showDimensions, showPaddingMargin } } = this;
 
         return childDeclarations.filter(declaration => {
             if (!showDimensions && (declaration.name === "width" || declaration.name === "height")) {
+                return false;
+            }
+
+            if (!showPaddingMargin && (declaration.name === "margin" || declaration.name === "padding")) {
                 return false;
             }
 
@@ -60,10 +64,21 @@ class SCSS {
         return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [], mixin = false } = {}) {
+    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "", mixin = false } = {}) {
         const isMixin = !isHtmlTag(selector) && mixin;
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations, isMixin);
-        const ruleSelector = isMixin ? selector.replace(/^\./, "@mixin ") : selector;
+
+        if (!filteredDeclarations.length) {
+            return "";
+        }
+
+        let ruleSelector;
+
+        if (isMixin) {
+            ruleSelector = selector.replace(/^\./, "@mixin ");
+        } else {
+            ruleSelector = scope ? `${scope} ${selector}` : selector;
+        }
 
         return `${ruleSelector} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
     }

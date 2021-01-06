@@ -40,9 +40,8 @@ import { Bound } from "./utility/bound";
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Layer {
-    constructor(layerObject = {}, params) {
+    constructor(layerObject = {}) {
         this.object = layerObject;
-        this.params = params;
 
         this.declarations = this.collectDeclarations();
     }
@@ -248,14 +247,12 @@ class Layer {
             new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
         ];
 
-        if (this.params.showPaddingMargin) {
-            const { margin, padding } = Bound.layerToBound(layer) || {};
-            if (margin && !margin.equals(Margin.Zero)) {
-                declarations.push(margin);
-            }
-            if (padding && !padding.equals(Padding.Zero)) {
-                declarations.push(padding);
-            }
+        const { margin, padding } = Bound.layerToBound(layer) || {};
+        if (margin && !margin.equals(Margin.Zero)) {
+            declarations.push(margin);
+        }
+        if (padding && !padding.equals(Padding.Zero)) {
+            declarations.push(padding);
         }
 
         if (layer.exportable) {

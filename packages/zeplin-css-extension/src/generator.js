@@ -16,10 +16,14 @@ class CSS {
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
-        const { params: { showDefaultValues, showDimensions } } = this;
+        const { params: { showDefaultValues, showDimensions, showPaddingMargin } } = this;
 
         return childDeclarations.filter(declaration => {
             if (!showDimensions && (declaration.name === "width" || declaration.name === "height")) {
+                return false;
+            }
+
+            if (!showPaddingMargin && (declaration.name === "margin" || declaration.name === "padding")) {
                 return false;
             }
 
@@ -53,9 +57,15 @@ class CSS {
         return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
+    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "" } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} ${this.declarationsBlock(filteredDeclarations)}`;
+        const ruleSelector = scope ? `${scope} ${selector}` : selector;
+
+        if (!filteredDeclarations.length) {
+            return "";
+        }
+
+        return `${ruleSelector} ${this.declarationsBlock(filteredDeclarations)}`;
     }
 
     atRule({ identifier, declarations }) {
