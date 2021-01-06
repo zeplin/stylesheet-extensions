@@ -1,6 +1,6 @@
 {
   "name": "base-extension",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Base extension implementation for Zeplin stylesheet extensions",
   "private": true,
   "main": "index.js",
@@ -14,7 +14,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "zeplin-extension-style-kit": "^2.1.2"
+    "zeplin-extension-style-kit": "^3.0.0"
   },
   "devDependencies": {
     "@zeplin/eslint-config": "^2.3.2",
