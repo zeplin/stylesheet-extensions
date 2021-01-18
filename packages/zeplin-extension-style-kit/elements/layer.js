@@ -243,15 +243,62 @@ class Layer {
         return declarations;
     }
 
+    shouldAddWidth() {
+        const {
+            object: {
+                parent,
+                layoutGrow,
+                layoutAlignment
+            }
+        } = this;
+        return !parent || !parent.layout || (
+            parent.layout.direction === "row"
+                ? layoutGrow === 0
+                : layoutAlignment !== "stretch"
+        );
+    }
+
+    shouldAddHeight() {
+        const {
+            object: {
+                parent,
+                layoutGrow,
+                layoutAlignment
+            }
+        } = this;
+        return !parent || !parent.layout || (
+            parent.layout.direction === "column"
+                ? layoutGrow === 0
+                : layoutAlignment !== "stretch"
+        );
+    }
+
+    addSizeToDeclaration(declarations) {
+        const {
+            object: {
+                rect: {
+                    width,
+                    height
+                }
+            }
+        } = this;
+
+        if (this.shouldAddWidth()) {
+            declarations.push(new Width(new Length(width, { useRemUnit: useRemUnitForMeasurement })));
+        }
+
+        if (this.shouldAddHeight()) {
+            declarations.push(new Height(new Length(height, { useRemUnit: useRemUnitForMeasurement })));
+        }
+    }
+
     addLayoutToDeclarations(declarations) {
         const {
             object: {
                 layout,
-                parent,
                 layoutAlignment,
                 layoutGrow
-            },
-            object: layer
+            }
         } = this;
 
         if (layoutAlignment && layoutAlignment !== "inherit") {
@@ -282,7 +329,16 @@ class Layer {
             }
             declarations.push(new Gap(new Length(gap)));
         }
+    }
 
+    addPaddingMargin(declarations) {
+        const {
+            object: {
+                layout,
+                parent
+            },
+            object: layer
+        } = this;
         const { margin, padding } = Bound.layerToBound(layer) || {};
 
         if (
@@ -312,12 +368,11 @@ class Layer {
             elementBorder,
             object: layer
         } = this;
-        let declarations = [
-            new Width(new Length(layer.rect.width, { useRemUnit: useRemUnitForMeasurement })),
-            new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
-        ];
+        let declarations = [];
 
+        this.addSizeToDeclaration(declarations);
         this.addLayoutToDeclarations(declarations);
+        this.addPaddingMargin(declarations);
 
         if (layer.exportable) {
             declarations.push(new ObjectFit("contain"));
