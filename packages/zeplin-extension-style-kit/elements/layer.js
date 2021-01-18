@@ -354,7 +354,6 @@ class Layer {
 
         declarations = declarations.concat(this.generateBackgroundDeclarations());
 
-        console.log(declarations);
         return declarations;
     }
 
