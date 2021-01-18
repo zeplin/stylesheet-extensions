@@ -1,4 +1,4 @@
-import { ColorParams, VariableMap } from "../common";
+import { ColorParams, VariableMap } from "../../common";
 
 declare class AngularColorStop {
     constructor(colorStopObject: object);

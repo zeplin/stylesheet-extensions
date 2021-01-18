@@ -35,7 +35,14 @@ const STYLE_PROPS = {
     TEXT_FILL_COLOR: "text-fill-color",
     FONT_COLOR: "color",
     MARGIN: "margin",
-    PADDING: "padding"
+    PADDING: "padding",
+    DISPLAY: "display",
+    FLEX_DIRECTION: "flex-direction",
+    FLEX_GROW: "flex-grow",
+    JUSTIFY_CONTENT: "justify-content",
+    ALIGN_ITEMS: "align-items",
+    ALIGN_SELF: "align-self",
+    GAP: "gap"
 };
 
 const OPTION_NAMES = {
