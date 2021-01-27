@@ -35,14 +35,6 @@ function getBooleanPropertyValue(propertyValue) {
     return ["yes", "true"].includes(valueLowercase);
 }
 
-function findPropertyDescriptorById(component, propertyId) {
-    return component.variant.propertyDescriptors.find(pd => pd.id === propertyId);
-}
-
-function findPropertyById(component, propertyId) {
-    return component.properties.find(property => property.id === propertyId);
-}
-
 function selectorizeComponentProperty(property) {
     const { name, value } = property;
     const booleanValue = getBooleanPropertyValue(value);
@@ -62,7 +54,7 @@ function filterComponentsByProperties(components, propertyFilter) {
     return components.filter(component => (
         propertyFilter.every(
             ({ propertyId, targetValue }) => {
-                const property = findPropertyById(component, propertyId);
+                const property = component.findPropertyById(propertyId);
 
                 return property && property.value === targetValue;
             }
@@ -75,11 +67,7 @@ function isDefaultPropertyValue(propertyValue) {
 }
 
 function findDefaultStateComponent(component) {
-    const stateProperty = component.properties.find(property => {
-        const pd = findPropertyDescriptorById(component, property.id);
-
-        return pd && isStateProperty(pd.name);
-    });
+    const stateProperty = component.properties.find(property => isStateProperty(property.name));
 
     if (!stateProperty) {
         return;
@@ -89,12 +77,10 @@ function findDefaultStateComponent(component) {
         return component;
     }
 
-    const propertyFilters = getPropertyFiltersForComponent(component).filter(pf => (
-        pf.propertyId !== stateProperty.id
-    ));
+    const propertyFilters = getPropertyFiltersForComponent(component).filter(pf => pf.propertyId !== stateProperty.id);
 
     return filterComponentsByProperties(component.variant.components, propertyFilters).find(c => {
-        const property = findPropertyById(c, stateProperty.id);
+        const property = c.findPropertyByName(stateProperty.name);
 
         return property && isDefaultPropertyValue(property.value);
     });
@@ -125,15 +111,11 @@ function fixVariantPropertyOrder(component) {
 }
 
 function getPropertyFiltersForComponent(component) {
-    return component.variant.propertyDescriptors.map(pd => {
-        const property = findPropertyById(component, pd.id);
-
-        return {
-            propertyId: pd.id,
-            propertyName: pd.name,
-            targetValue: property && property.value
-        };
-    }).filter(pf => !!pf.targetValue);
+    return component.variant.propertyDescriptors.map(pd => ({
+        propertyId: pd.id,
+        propertyName: pd.name,
+        targetValue: component.findPropertyById(pd.id).value
+    })).filter(Boolean);
 }
 
 export {
@@ -143,6 +125,5 @@ export {
     getPropertyFiltersForComponent,
     filterComponentsByProperties,
     selectorizeComponentProperty,
-    findPropertyDescriptorById,
     getDefaultPropertyFilters
 };
