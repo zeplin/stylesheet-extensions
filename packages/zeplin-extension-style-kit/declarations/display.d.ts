@@ -8,6 +8,8 @@ declare class Display {
     equals(other: Display): boolean;
 
     getValue(): string;
+
+    static flex(): Display;
 }
 
 export = Display;

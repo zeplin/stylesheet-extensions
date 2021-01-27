@@ -44,6 +44,27 @@ import AlignItems from "../declarations/alignItems";
 import AlignSelf from "../declarations/alignSelf";
 import FlexGrow from "../declarations/flexGrow";
 
+/**
+ * TODO: Due to a bug at macOS app, old clients cannot get the latest version of extension model.
+ * Use Layout.DIRECTION from "@zeplin/extension-model" when all macOS clients update to v3.12.
+ */
+const LAYOUT_DIRECTION = {
+    ROW: "row",
+    COLUMN: "column"
+};
+
+/**
+ * TODO: Due to a bug at macOS app, old clients cannot get the latest version of extension model.
+ * Use Layout.ALIGNMENT from "@zeplin/extension-model" when all macOS clients update to v3.12.
+ */
+const LAYOUT_ALIGNMENT = {
+    MIN: "min",
+    CENTER: "center",
+    MAX: "max",
+    STRETCH: "stretch",
+    INHERIT: "inherit"
+};
+
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 class Layer {
@@ -252,9 +273,9 @@ class Layer {
             }
         } = this;
         return !parent || !parent.layout || (
-            parent.layout.direction === "row"
+            parent.layout.direction === LAYOUT_DIRECTION.ROW
                 ? layoutGrow === 0
-                : layoutAlignment !== "stretch"
+                : layoutAlignment !== LAYOUT_ALIGNMENT.STRETCH
         );
     }
 
@@ -267,9 +288,9 @@ class Layer {
             }
         } = this;
         return !parent || !parent.layout || (
-            parent.layout.direction === "column"
+            parent.layout.direction === LAYOUT_DIRECTION.COLUMN
                 ? layoutGrow === 0
-                : layoutAlignment !== "stretch"
+                : layoutAlignment !== LAYOUT_ALIGNMENT.STRETCH
         );
     }
 
@@ -301,7 +322,7 @@ class Layer {
             }
         } = this;
 
-        if (layoutAlignment && layoutAlignment !== "inherit") {
+        if (layoutAlignment && layoutAlignment !== LAYOUT_ALIGNMENT.INHERIT) {
             declarations.push(new AlignSelf(layoutAlignment));
         }
 
@@ -318,7 +339,7 @@ class Layer {
             } = layout;
 
             declarations.push(
-                new Display("flex"),
+                Display.flex(),
                 new FlexDirection(direction),
             );
             if (distribution) {

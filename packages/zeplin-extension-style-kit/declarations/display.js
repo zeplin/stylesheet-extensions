@@ -16,6 +16,10 @@ class Display {
     getValue() {
         return this.value;
     }
+
+    static flex() {
+        return new Display("flex");
+    }
 }
 
 export default Display;
