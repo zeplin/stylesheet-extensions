@@ -1,3 +1,5 @@
+import { Layout } from "@zeplin/extension-model";
+
 import Angle from "../values/angle";
 import Color from "../values/color";
 import Gradient from "../values/gradient";
@@ -43,27 +45,6 @@ import JustifyContent from "../declarations/justifyContent";
 import AlignItems from "../declarations/alignItems";
 import AlignSelf from "../declarations/alignSelf";
 import FlexGrow from "../declarations/flexGrow";
-
-/**
- * TODO: Due to a bug at macOS app, old clients cannot get the latest version of extension model.
- * Use Layout.DIRECTION from "@zeplin/extension-model" when all macOS clients update to v3.12.
- */
-const LAYOUT_DIRECTION = {
-    ROW: "row",
-    COLUMN: "column"
-};
-
-/**
- * TODO: Due to a bug at macOS app, old clients cannot get the latest version of extension model.
- * Use Layout.ALIGNMENT from "@zeplin/extension-model" when all macOS clients update to v3.12.
- */
-const LAYOUT_ALIGNMENT = {
-    MIN: "min",
-    CENTER: "center",
-    MAX: "max",
-    STRETCH: "stretch",
-    INHERIT: "inherit"
-};
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
@@ -273,9 +254,9 @@ class Layer {
             }
         } = this;
         return !parent || !parent.layout || (
-            parent.layout.direction === LAYOUT_DIRECTION.ROW
+            parent.layout.direction === Layout.DIRECTION.ROW
                 ? layoutGrow === 0
-                : layoutAlignment !== LAYOUT_ALIGNMENT.STRETCH
+                : layoutAlignment !== Layout.ALIGNMENT.STRETCH
         );
     }
 
@@ -288,9 +269,9 @@ class Layer {
             }
         } = this;
         return !parent || !parent.layout || (
-            parent.layout.direction === LAYOUT_DIRECTION.COLUMN
+            parent.layout.direction === Layout.DIRECTION.COLUMN
                 ? layoutGrow === 0
-                : layoutAlignment !== LAYOUT_ALIGNMENT.STRETCH
+                : layoutAlignment !== Layout.ALIGNMENT.STRETCH
         );
     }
 
@@ -322,7 +303,7 @@ class Layer {
             }
         } = this;
 
-        if (layoutAlignment && layoutAlignment !== LAYOUT_ALIGNMENT.INHERIT) {
+        if (layoutAlignment && layoutAlignment !== Layout.ALIGNMENT.INHERIT) {
             declarations.push(new AlignSelf(layoutAlignment));
         }
 
