@@ -11,6 +11,24 @@ import {
     getUniqueFirstItems
 } from "zeplin-extension-style-kit/utils";
 
+function findBestConformTextStyle(textStyles, searched) {
+    let result = { textStyle: null, score: 0 };
+    for (const textStyle of textStyles) {
+        if (textStyle.sourceId && searched.sourceId && textStyle.sourceId === searched.sourceId) {
+            return textStyle;
+        }
+
+        const newScore = Object.values(textStyle).filter(value => value !== void 0).length;
+        if (searched.conforms(textStyle) && newScore > result.score) {
+            result = {
+                score: newScore,
+                textStyle
+            };
+        }
+    }
+    return result.textStyle;
+}
+
 export const layerCodeGenerator = ({
     language,
     createGenerator,
@@ -33,9 +51,7 @@ export const layerCodeGenerator = ({
             useLinkedStyleguides: params.useLinkedStyleguides,
             key: "textStyles"
         }), (textStyle, other) => generateIdentifier(textStyle.name) === generateIdentifier(other.name));
-        const containerTextStyle = textStyles.find(textStyle => (
-            defaultTextStyle.conforms ? defaultTextStyle.conforms(textStyle) : defaultTextStyle.equals(textStyle)
-        ));
+        const containerTextStyle = findBestConformTextStyle(textStyles, defaultTextStyle);
 
         const declarations = l.getLayerTextStyleDeclarations(defaultTextStyle);
         const textStyleName = containerTextStyle && containerTextStyle.name;
