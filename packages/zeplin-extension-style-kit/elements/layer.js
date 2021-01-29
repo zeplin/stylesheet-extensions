@@ -1,3 +1,5 @@
+import { Layout } from "@zeplin/extension-model";
+
 import Angle from "../values/angle";
 import Color from "../values/color";
 import Gradient from "../values/gradient";
@@ -28,6 +30,9 @@ import Filter from "../declarations/filter";
 import FontColor from "../declarations/fontColor";
 import Margin from "../declarations/margin";
 import Padding from "../declarations/padding";
+import Display from "../declarations/display";
+import FlexDirection from "../declarations/flexDirection";
+import Gap from "../declarations/gap";
 import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
@@ -36,6 +41,10 @@ import {
     webkit
 } from "../utils";
 import { Bound } from "./utility/bound";
+import JustifyContent from "../declarations/justifyContent";
+import AlignItems from "../declarations/alignItems";
+import AlignSelf from "../declarations/alignSelf";
+import FlexGrow from "../declarations/flexGrow";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
@@ -236,24 +245,136 @@ class Layer {
         return declarations;
     }
 
+    shouldAddWidth() {
+        const {
+            object: {
+                parent,
+                layoutGrow,
+                layoutAlignment
+            }
+        } = this;
+        return !parent || !parent.layout || (
+            parent.layout.direction === Layout.DIRECTION.ROW
+                ? layoutGrow === 0
+                : layoutAlignment !== Layout.ALIGNMENT.STRETCH
+        );
+    }
+
+    shouldAddHeight() {
+        const {
+            object: {
+                parent,
+                layoutGrow,
+                layoutAlignment
+            }
+        } = this;
+        return !parent || !parent.layout || (
+            parent.layout.direction === Layout.DIRECTION.COLUMN
+                ? layoutGrow === 0
+                : layoutAlignment !== Layout.ALIGNMENT.STRETCH
+        );
+    }
+
+    addSizeToDeclaration(declarations) {
+        const {
+            object: {
+                rect: {
+                    width,
+                    height
+                }
+            }
+        } = this;
+
+        if (this.shouldAddWidth()) {
+            declarations.push(new Width(new Length(width, { useRemUnit: useRemUnitForMeasurement })));
+        }
+
+        if (this.shouldAddHeight()) {
+            declarations.push(new Height(new Length(height, { useRemUnit: useRemUnitForMeasurement })));
+        }
+    }
+
+    addLayoutToDeclarations(declarations) {
+        const {
+            object: {
+                layout,
+                layoutAlignment,
+                layoutGrow
+            }
+        } = this;
+
+        if (layoutAlignment && layoutAlignment !== Layout.ALIGNMENT.INHERIT) {
+            declarations.push(new AlignSelf(layoutAlignment));
+        }
+
+        if (layoutGrow !== void 0) {
+            declarations.push(new FlexGrow(new Scalar(layoutGrow)));
+        }
+
+        if (layout) {
+            const {
+                direction,
+                distribution,
+                itemAlignment,
+                gap
+            } = layout;
+
+            declarations.push(
+                Display.flex(),
+                new FlexDirection(direction),
+            );
+            if (distribution) {
+                declarations.push(new JustifyContent(distribution));
+            }
+            if (itemAlignment) {
+                declarations.push(new AlignItems(itemAlignment));
+            }
+            declarations.push(new Gap(new Length(gap)));
+        }
+    }
+
+    addPaddingMargin(declarations) {
+        const {
+            object: {
+                layout,
+                parent
+            },
+            object: layer
+        } = this;
+        const { margin, padding } = Bound.layerToBound(layer) || {};
+
+        if (
+            (!parent || !parent.layout) &&
+            (margin && !margin.equals(Margin.Zero))
+        ) {
+            declarations.push(margin);
+        }
+
+        if (layout && layout.padding) {
+            declarations.push(
+                new Padding({
+                    top: new Length(layout.padding.top, { useRemUnit: useRemUnitForMeasurement }),
+                    right: new Length(layout.padding.right, { useRemUnit: useRemUnitForMeasurement }),
+                    bottom: new Length(layout.padding.bottom, { useRemUnit: useRemUnitForMeasurement }),
+                    left: new Length(layout.padding.left, { useRemUnit: useRemUnitForMeasurement })
+                })
+            );
+        } else if (padding && !padding.equals(Padding.Zero)) {
+            declarations.push(padding);
+        }
+    }
+
     /* eslint-disable complexity */
     collectDeclarations() {
         const {
             elementBorder,
             object: layer
         } = this;
-        let declarations = [
-            new Width(new Length(layer.rect.width, { useRemUnit: useRemUnitForMeasurement })),
-            new Height(new Length(layer.rect.height, { useRemUnit: useRemUnitForMeasurement }))
-        ];
+        let declarations = [];
 
-        const { margin, padding } = Bound.layerToBound(layer) || {};
-        if (margin && !margin.equals(Margin.Zero)) {
-            declarations.push(margin);
-        }
-        if (padding && !padding.equals(Padding.Zero)) {
-            declarations.push(padding);
-        }
+        this.addSizeToDeclaration(declarations);
+        this.addLayoutToDeclarations(declarations);
+        this.addPaddingMargin(declarations);
 
         if (layer.exportable) {
             declarations.push(new ObjectFit("contain"));
