@@ -1,7 +1,7 @@
 {
   "name": "css",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Generates CSS snippets from colors, text styles and layers.",
   "author": {
     "name": "Zeplin",
@@ -21,9 +21,9 @@
     "test": "zem test"
   },
   "dependencies": {
-    "base-extension": "^1.1.0",
+    "base-extension": "^1.2.0",
     "zem": "^1.0.6",
-    "zeplin-extension-style-kit": "^3.0.0"
+    "zeplin-extension-style-kit": "^3.1.0"
   },
   "zeplin": {
     "displayName": "CSS",
