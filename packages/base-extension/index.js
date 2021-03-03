@@ -1,9 +1,3 @@
-import {
-    getResources,
-    generateIdentifier,
-    getUniqueFirstItems,
-    getResourceContainer
-} from "zeplin-extension-style-kit/utils";
 import { colorCodeGenerator } from "./codeGenerators/color";
 import { layerCodeGenerator } from "./codeGenerators/layer";
 import { spacingCodeGenerator } from "./codeGenerators/spacing";

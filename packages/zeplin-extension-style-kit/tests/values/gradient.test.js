@@ -1,4 +1,3 @@
-import Color from "@root/values/color";
 import Gradient from "@root/values/gradient";
 
 import generateGradientObject from "@testHelpers/generateGradientObject";
