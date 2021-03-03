@@ -13,8 +13,8 @@ class FontColor {
         return this.value.equals(other.value);
     }
 
-    getValue(params, container, formatColorVariable) {
-        return this.value.toStyleValue(params, container, formatColorVariable);
+    getValue(params, getColorName) {
+        return this.value.toStyleValue(params, getColorName);
     }
 }
 

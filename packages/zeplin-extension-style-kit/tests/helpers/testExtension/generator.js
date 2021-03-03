@@ -1,5 +1,5 @@
 import { isDeclarationInherited } from "@root/utils";
-import { generateIdentifier } from "../../../utils";
+import { generateColorNameFinder, generateIdentifier } from "../../../utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -48,7 +48,19 @@ class TestGenerator {
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(this.params, this.container, this.formatColorVariable)}${SUFFIX}`).join("\n")}\n}`;
+        return `${selector} {\n${
+            filteredDeclarations.map(p => {
+                const value = p.getValue(
+                    this.params,
+                    generateColorNameFinder({
+                        container: this.container,
+                        useLinkedStyleguides: this.params.useLinkedStyleguides,
+                        formatVariableName: this.formatColorVariable
+                    })
+                );
+                return `${INDENTATION}${p.name}${SEPARATOR}${value}${SUFFIX}`;
+            }).join("\n")
+        }\n}`;
     }
 }
 

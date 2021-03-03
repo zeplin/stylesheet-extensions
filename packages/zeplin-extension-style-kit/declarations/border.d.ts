@@ -9,7 +9,7 @@ declare class Border {
 
     equals(other: Border): boolean;
 
-    getValue(params: ColorParams & LengthParams, container, formatColorVariable): string;
+    getValue(params: ColorParams & LengthParams, getColorName: (colorObject: object) => string): string;
 }
 
 export = Border;

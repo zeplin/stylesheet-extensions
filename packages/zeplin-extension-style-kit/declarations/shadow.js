@@ -17,20 +17,20 @@ class Shadow {
         this.type = type;
     }
 
-    static generateTextShadow(shadow, { densityDivisor, colorFormat }, container, formatColorVariable) {
+    static generateTextShadow(shadow, { densityDivisor, colorFormat }, getColorName) {
         return `${new Length(shadow.offsetX).toStyleValue({ densityDivisor })} ${
             new Length(shadow.offsetY).toStyleValue({ densityDivisor })} ${
             new Length(shadow.blurRadius).toStyleValue({ densityDivisor })} ${
-            new Color(shadow.color).toStyleValue({ colorFormat }, container, formatColorVariable)}`;
+            new Color(shadow.color).toStyleValue({ colorFormat }, getColorName)}`;
     }
 
-    static generateBoxShadow(shadow, { densityDivisor, colorFormat }, container, formatColorVariable) {
+    static generateBoxShadow(shadow, { densityDivisor, colorFormat }, getColorName) {
         return `${(shadow.type === "inner" ? "inset " : "") +
             new Length(shadow.offsetX).toStyleValue({ densityDivisor })} ${
             new Length(shadow.offsetY).toStyleValue({ densityDivisor })} ${
             new Length(shadow.blurRadius).toStyleValue({ densityDivisor })} ${
             new Length(shadow.spread).toStyleValue({ densityDivisor })} ${
-            new Color(shadow.color).toStyleValue({ colorFormat }, container, formatColorVariable)}`;
+            new Color(shadow.color).toStyleValue({ colorFormat }, getColorName)}`;
     }
 
     get name() {
@@ -45,14 +45,14 @@ class Shadow {
         );
     }
 
-    getValue(params, container, formatColorVariable) {
+    getValue(params, getColorName) {
         const { objects: shadows, type } = this;
 
         if (type === Shadow.TYPES.TEXT) {
-            return shadows.map(s => Shadow.generateTextShadow(s, params, container, formatColorVariable)).join(", ");
+            return shadows.map(s => Shadow.generateTextShadow(s, params, getColorName)).join(", ");
         }
 
-        return shadows.map(s => Shadow.generateBoxShadow(s, params, container, formatColorVariable)).join(", ");
+        return shadows.map(s => Shadow.generateBoxShadow(s, params, getColorName)).join(", ");
     }
 }
 

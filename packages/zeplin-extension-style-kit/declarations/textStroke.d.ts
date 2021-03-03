@@ -9,7 +9,7 @@ declare class TextStroke {
 
     equals(other: TextStroke): boolean;
 
-    getValue(params: ColorParams & LengthParams, container: object, formatColorVariable: (colorObject: object) => string): string;
+    getValue(params: ColorParams & LengthParams, getColorName: (colorObject: object) => string): string;
 }
 
 export = TextStroke;

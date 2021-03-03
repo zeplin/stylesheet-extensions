@@ -16,8 +16,8 @@ class BackgroundImage {
         );
     }
 
-    getValue(params, container, formatColorVariable) {
-        return this.images.map(img => img.toStyleValue(params, container, formatColorVariable)).join(", ");
+    getValue(params, getColorName) {
+        return this.images.map(img => img.toStyleValue(params, getColorName)).join(", ");
     }
 }
 

@@ -1,4 +1,4 @@
-import { isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
+import { isDeclarationInherited, generateIdentifier, generateColorNameFinder } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -46,7 +46,14 @@ class CSS {
     }
 
     declaration(d) {
-        const value = d.getValue(this.params, this.container, this.formatColorVariable);
+        const value = d.getValue(
+            this.params,
+            generateColorNameFinder({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                formatVariableName: this.formatColorVariable
+            })
+        );
         return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 

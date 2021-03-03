@@ -23,10 +23,10 @@ class BackdropFilter {
         );
     }
 
-    getValue(params, container, formatColorVariable) {
+    getValue(params, getColorName) {
         return this.filters.map(
             ({ fn, args }) => `${fn}(${
-                args.map(arg => arg.toStyleValue(params, container, formatColorVariable)).join(" ")
+                args.map(arg => arg.toStyleValue(params, getColorName)).join(" ")
             })`
         ).join(" ");
     }

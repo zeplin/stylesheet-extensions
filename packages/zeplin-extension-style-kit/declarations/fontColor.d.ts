@@ -10,7 +10,7 @@ declare class FontColor {
 
     equals(other: FontColor): boolean;
 
-    getValue(params: ColorParams, container: object, formatColorVariable: (colorObject: object) => string): string;
+    getValue(params: ColorParams, getColorName: (colorObject: object) => string): string;
 }
 
 export = FontColor;

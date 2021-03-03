@@ -1,5 +1,10 @@
 import Mixin from "zeplin-extension-style-kit/declarations/mixin";
-import { isHtmlTag, isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
+import {
+    isHtmlTag,
+    isDeclarationInherited,
+    generateIdentifier,
+    generateColorNameFinder
+} from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
 const SEPARATOR = ": ";
@@ -56,7 +61,14 @@ class Sass {
             params = Object.assign({}, params, { showDefaultValues: false });
         }
 
-        const value = p.getValue(params, this.container, this.formatColorVariable);
+        const value = p.getValue(
+            params,
+            generateColorNameFinder({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                formatVariableName: this.formatColorVariable
+            })
+        );
         return `${INDENTATION}${p.name}${SEPARATOR}${value}`;
     }
 

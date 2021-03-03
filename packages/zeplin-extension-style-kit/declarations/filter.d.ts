@@ -7,7 +7,7 @@ declare class Filter {
 
     equals(other: Filter): boolean;
 
-    getValue(params: StyleParams, container: object, formatColorVariable: (colorObject: object) => string): string;
+    getValue(params: StyleParams, getColorName: (colorObject: object) => string): string;
 }
 
 export = Filter;

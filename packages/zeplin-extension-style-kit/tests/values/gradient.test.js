@@ -215,10 +215,7 @@ test("gradient from rgba (uses variables)", () => {
     const rgba = { r: 13, g: 13, b: 13 };
     const gradient = Gradient.fromRGBA(rgba);
 
-    const container = {
-        findColorEqual: () => true
-    };
-    const formatColorVariable = () => "var(--cod_gray)";
+    const getColorName = () => "var(--cod_gray)";
 
-    expect(gradient.toStyleValue({ colorFormat: "hex" }, container, formatColorVariable)).toBe("linear-gradient(to bottom, var(--cod_gray), var(--cod_gray))");
+    expect(gradient.toStyleValue({ colorFormat: "hex" }, getColorName)).toBe("linear-gradient(to bottom, var(--cod_gray), var(--cod_gray))");
 });

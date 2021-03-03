@@ -8,7 +8,7 @@ declare namespace zesk {
         valueOf(): string;
         equals(other: StyleValue);
         // TODO: add @zeplin/extension-model types
-        toStyleValue(params: StyleParams, container: object, formatColorVariable: (colorObject: object) => string): string;
+        toStyleValue(params: StyleParams, getColorName: (colorObject: object) => string): string;
     }
 
     interface StyleDeclaration {
@@ -16,7 +16,7 @@ declare namespace zesk {
         hasDefaultValue?(): boolean;
         equals(other: StyleDeclaration): boolean;
         // TODO: add @zeplin/extension-model types
-        toStyleValue(params: StyleParams, container: object, formatColorVariable: (colorObject: object) => string): string;
+        toStyleValue(params: StyleParams, getColorName: (colorObject: object) => string): string;
     }
 
     interface AllParams {

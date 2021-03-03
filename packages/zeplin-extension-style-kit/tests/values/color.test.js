@@ -48,12 +48,9 @@ test("equality check (unequal)", () => {
 test("style value uses variable", () => {
     const color = Color.fromRGBA({ r: 13, g: 13, b: 13 });
 
-    const container = {
-        findColorEqual: () => true
-    };
-    const formatColorVariable = () => "var(--cod_gray)";
+    const getColorName = () => "var(--cod_gray)";
 
-    expect(color.toStyleValue({ colorFormat: "hex" }, container, formatColorVariable)).toBe("var(--cod_gray)");
+    expect(color.toStyleValue({ colorFormat: "hex" }, getColorName)).toBe("var(--cod_gray)");
 });
 
 test("gradient value", () => {

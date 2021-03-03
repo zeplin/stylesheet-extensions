@@ -18,10 +18,10 @@ class AngularColorStop {
         return this.position === other.position && this.color.equals(other.color);
     }
 
-    toStyleValue({ colorFormat }, container, formatColorVariable) {
+    toStyleValue({ colorFormat }, getColorName) {
         const { position, color } = this;
 
-        const stopColor = new Color(color).toStyleValue({ colorFormat }, container, formatColorVariable);
+        const stopColor = new Color(color).toStyleValue({ colorFormat }, getColorName);
 
         if (!position || position === 1) {
             return stopColor;

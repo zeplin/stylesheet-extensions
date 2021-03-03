@@ -93,13 +93,12 @@ class Color {
 
     toStyleValue(
         { colorFormat, useLinkedStyleguides },
-        container,
-        formatColorVariable = color => color.getFormattedName("kebab")
+        getColorName
     ) {
-        if (container) {
-            const matchedColor = container.findColorEqual(this.object, useLinkedStyleguides);
-            if (matchedColor) {
-                return formatColorVariable(matchedColor);
+        if (getColorName) {
+            const colorName = getColorName(this.object);
+            if (colorName) {
+                return colorName;
             }
         }
         return getColorStringByFormat(this.object, colorFormat);
