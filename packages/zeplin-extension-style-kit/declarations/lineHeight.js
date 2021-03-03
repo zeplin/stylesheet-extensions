@@ -27,7 +27,7 @@ class LineHeight {
         return this.lineHeight === LineHeight.DEFAULT_VALUE;
     }
 
-    getValue(params, variables) {
+    getValue(params) {
         if (this.hasDefaultValue()) {
             return this.lineHeight;
         }
@@ -37,7 +37,7 @@ class LineHeight {
             ? new Scalar(this.lineHeight / this.fontSize)
             : new Length(this.lineHeight, { useRemUnit: useRemUnitForFont });
 
-        return value.toStyleValue(params, variables);
+        return value.toStyleValue(params);
     }
 }
 

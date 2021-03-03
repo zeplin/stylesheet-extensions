@@ -1,16 +1,15 @@
-import { ColorParams, VariableMap, LengthParams } from "../common";
+import { ColorParams, LengthParams } from "../common";
 import Color from "../values/color";
-import Gradient from "../values/gradient";
 import Length from "../values/length";
 
 declare class Border {
-    constructor({ style: string, width: Length, color: Color });
+    constructor(values: { style: string, width: Length, color: Color });
 
     name: string;
 
     equals(other: Border): boolean;
 
-    getValue(params: ColorParams & LengthParams, variables: VariableMap): string;
+    getValue(params: ColorParams & LengthParams, container, formatColorVariable): string;
 }
 
 export = Border;

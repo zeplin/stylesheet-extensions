@@ -10,7 +10,7 @@ declare class Padding {
 
     equals(other: Padding): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = Padding;

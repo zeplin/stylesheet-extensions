@@ -17,7 +17,8 @@ declare class Color {
 
     toGradient(): Gradient;
 
-    toStyleValue(params: ColorParams, variables: VariableMap): string;
+    // TODO: add @zeplin/extension-model types
+    toStyleValue(params: ColorParams, container: object, formatColorVariable: (colorObject: object) => string): string;
 }
 
 export = Color;

@@ -1,4 +1,4 @@
-import { ColorParams, VariableMap } from "../../common";
+import { ColorParams } from "../../common";
 
 interface RGBA {
     r: number;
@@ -14,7 +14,8 @@ declare class Gradient {
 
     equals(other: Gradient): boolean;
 
-    toStyleValue(params: ColorParams, variables: VariableMap): string;
+    // TODO: add @zeplin/extension-model types
+    toStyleValue(params: ColorParams, container: object, formatColorVariable: (colorObject: object) => string): string;
 }
 
 export = Gradient;

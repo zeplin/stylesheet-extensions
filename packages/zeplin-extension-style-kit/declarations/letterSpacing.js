@@ -23,14 +23,14 @@ class LetterSpacing {
         return this.value === other.value;
     }
 
-    getValue(params, variables) {
+    getValue(params) {
         if (this.hasDefaultValue()) {
             return "normal";
         }
 
         const value = new Length(this.value, { precision: 2 });
 
-        return value.toStyleValue(params, variables);
+        return value.toStyleValue(params);
     }
 }
 

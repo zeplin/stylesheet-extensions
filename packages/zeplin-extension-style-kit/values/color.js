@@ -91,13 +91,17 @@ class Color {
         return Gradient.fromRGBA({ r, g, b, a });
     }
 
-    toStyleValue({ colorFormat }, variables) {
-        const value = this.valueOf();
-
-        if (variables && value in variables) {
-            return variables[value];
+    toStyleValue(
+        { colorFormat, useLinkedStyleguides },
+        container,
+        formatColorVariable = color => color.getFormattedName("kebab")
+    ) {
+        if (container) {
+            const matchedColor = container.findColorEqual(this.object, useLinkedStyleguides);
+            if (matchedColor) {
+                return formatColorVariable(matchedColor);
+            }
         }
-
         return getColorStringByFormat(this.object, colorFormat);
     }
 }

@@ -1,4 +1,4 @@
-import { VariableMap, LengthParams } from "../common";
+import { LengthParams } from "../common";
 import Length from "../values/length";
 
 declare class LetterSpacing {
@@ -10,7 +10,7 @@ declare class LetterSpacing {
 
     equals(other: LetterSpacing): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = LetterSpacing;

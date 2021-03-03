@@ -1,4 +1,3 @@
-import { VariableMap, StyleParams } from "../common";
 import Scalar from "../values/scalar";
 
 declare class Opacity {
@@ -8,7 +7,7 @@ declare class Opacity {
 
     equals(other: Opacity): boolean;
 
-    getValue(params: StyleParams, variables: VariableMap): string;
+    getValue(): string;
 }
 
 export = Opacity;

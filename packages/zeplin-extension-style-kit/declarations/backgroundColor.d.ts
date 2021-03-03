@@ -1,4 +1,4 @@
-import { ColorParams, VariableMap } from "../common";
+import { ColorParams } from "../common";
 import Color from "../values/color";
 
 declare class BackgroundColor {
@@ -8,7 +8,7 @@ declare class BackgroundColor {
 
     equals(other: BackgroundColor): boolean;
 
-    getValue(params: ColorParams, variables: VariableMap): string;
+    getValue(params: ColorParams, container: object, formatVariable: (colorObject: object) => string): string;
 }
 
 export = BackgroundColor;

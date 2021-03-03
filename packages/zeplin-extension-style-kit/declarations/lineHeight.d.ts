@@ -1,4 +1,4 @@
-import { VariableMap, LengthParams } from "../common";
+import { LengthParams } from "../common";
 
 declare class LineHeight {
     constructor(lineHeight: number, fontSize: number);
@@ -9,7 +9,7 @@ declare class LineHeight {
 
     equals(other: LineHeight): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = LineHeight;

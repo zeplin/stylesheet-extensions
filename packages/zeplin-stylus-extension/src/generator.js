@@ -6,13 +6,13 @@ const SEPARATOR = " = ";
 const INDENTATION = "  ";
 
 class Stylus {
-    constructor(variables, params) {
-        this.variables = variables;
+    constructor(container, params) {
         this.params = params;
+        this.container = container;
+    }
 
-        Object.keys(variables).forEach(vName => {
-            this.variables[vName] = `${PREFIX}${variables[vName]}`;
-        });
+    formatColorVariable(color) {
+        return `${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))}`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
@@ -56,7 +56,8 @@ class Stylus {
             params = Object.assign({}, params, { showDefaultValues: false });
         }
 
-        return `${INDENTATION}${p.name} ${p.getValue(params, this.variables)}`;
+        const value = p.getValue(params, this.container, this.formatColorVariable);
+        return `${INDENTATION}${p.name} ${value}`;
     }
 
     variable(name, value) {

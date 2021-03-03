@@ -1,4 +1,4 @@
-import { VariableMap, LengthParams } from "../common";
+import { LengthParams } from "../common";
 import Length from "../values/length";
 
 declare class BorderRadius {
@@ -8,7 +8,7 @@ declare class BorderRadius {
 
     equals(other: BorderRadius): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = BorderRadius;

@@ -7,11 +7,11 @@ import { getUniqueLayerTextStyles, selectorize } from "@root/utils";
 import Generator from "./generator";
 
 class Extension {
-    constructor(params, variables = {}) {
+    constructor(params, container = { findColorEqual: () => void 0 }) {
         this.params = params;
-        this.variables = variables;
+        this.container = container;
 
-        this.generator = new Generator(this.variables, this.params);
+        this.generator = new Generator(this.container, this.params);
     }
 
     styleguideColors(colors) {

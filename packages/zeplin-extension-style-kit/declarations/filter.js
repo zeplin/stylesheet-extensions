@@ -23,8 +23,8 @@ class Filter {
         );
     }
 
-    getValue(params, variables) {
-        return this.filters.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, variables)).join(" ")})`).join(" ");
+    getValue(params, container, formatColorVariable) {
+        return this.filters.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, container, formatColorVariable)).join(" ")})`).join(" ");
     }
 }
 

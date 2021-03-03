@@ -13,8 +13,8 @@ class BorderImageSource {
         return this.source.equals(other.source);
     }
 
-    getValue(params, variables) {
-        return this.source.toStyleValue(params, variables);
+    getValue(params, container, formatColorVariable) {
+        return this.source.toStyleValue(params, container, formatColorVariable);
     }
 }
 

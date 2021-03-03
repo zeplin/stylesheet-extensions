@@ -21,12 +21,12 @@ class FontSize {
         return this.value.equals(other.value);
     }
 
-    getValue(params, variables) {
+    getValue(params) {
         if (this.hasDefaultValue()) {
             return FontSize.DEFAULT_VALUE;
         }
 
-        return this.value.toStyleValue(params, variables);
+        return this.value.toStyleValue(params);
     }
 }
 

@@ -6,13 +6,13 @@ const SUFFIX = ";";
 const INDENTATION = "  ";
 
 class CSS {
-    constructor(variables, params) {
-        this.variables = variables;
+    constructor(container, params) {
         this.params = params;
+        this.container = container;
+    }
 
-        Object.keys(variables).forEach(vName => {
-            this.variables[vName] = `var(${PREFIX}${variables[vName]})`;
-        });
+    formatColorVariable(color) {
+        return `var(${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
@@ -46,7 +46,8 @@ class CSS {
     }
 
     declaration(d) {
-        return `${INDENTATION}${d.name}${SEPARATOR}${d.getValue(this.params, this.variables)}${SUFFIX}`;
+        const value = d.getValue(this.params, this.container, this.formatColorVariable);
+        return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 
     declarationsBlock(declarations) {

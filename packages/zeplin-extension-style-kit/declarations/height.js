@@ -13,8 +13,8 @@ class Height {
         return this.value.equals(other.value);
     }
 
-    getValue(params, variables) {
-        return this.value.toStyleValue(params, variables);
+    getValue(params) {
+        return this.value.toStyleValue(params);
     }
 }
 

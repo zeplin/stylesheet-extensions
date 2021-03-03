@@ -10,7 +10,7 @@ declare class FontSize {
 
     equals(other: FontSize): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = FontSize;

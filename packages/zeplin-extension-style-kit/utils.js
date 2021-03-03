@@ -91,20 +91,6 @@ function webkit(Declaration) {
     };
 }
 
-function getDeclarationValue(value, variables, params) {
-    const styleValue = value.toStyleValue(params);
-
-    if (!variables) {
-        return styleValue;
-    }
-
-    const varName = Object.keys(variables).find(
-        name => styleValue === variables[name].toStyleValue(params)
-    );
-
-    return varName ? varName : styleValue;
-}
-
 function getUniqueLayerTextStyles(layer) {
     const uniqueTextStyles = [];
 
@@ -191,7 +177,6 @@ function getUniqueFirstItems(array, equalityFunction = (x, y) => x === y) {
 
 export {
     blendColors,
-    getDeclarationValue,
     getUniqueLayerTextStyles,
     getFontFaces,
     isHtmlTag,

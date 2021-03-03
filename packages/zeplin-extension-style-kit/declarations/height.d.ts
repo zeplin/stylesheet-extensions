@@ -8,7 +8,7 @@ declare class Height {
 
     equals(other: Height): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = Height;

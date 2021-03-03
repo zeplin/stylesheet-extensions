@@ -1,4 +1,5 @@
 import { isDeclarationInherited } from "@root/utils";
+import { generateIdentifier } from "../../../utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -6,13 +7,13 @@ const SUFFIX = ";";
 const INDENTATION = "  ";
 
 class TestGenerator {
-    constructor(variables, params) {
-        this.variables = variables;
+    constructor(container, params) {
         this.params = params;
+        this.container = container;
+    }
 
-        Object.keys(variables).forEach(vName => {
-            this.variables[vName] = `var(${PREFIX}${variables[vName]})`;
-        });
+    formatColorVariable(color) {
+        return `var(${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
@@ -47,7 +48,7 @@ class TestGenerator {
 
     ruleSet({ selector, declarations }, { parentDeclarations = [] } = {}) {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
-        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(this.params, this.variables)}${SUFFIX}`).join("\n")}\n}`;
+        return `${selector} {\n${filteredDeclarations.map(p => `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(this.params, this.container, this.formatColorVariable)}${SUFFIX}`).join("\n")}\n}`;
     }
 }
 

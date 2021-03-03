@@ -30,8 +30,8 @@ class Margin {
         return this.fourDirectionalValue.equals(other.fourDirectionalValue);
     }
 
-    getValue(params, variables) {
-        return this.fourDirectionalValue.toStyleValue(params, variables);
+    getValue(params) {
+        return this.fourDirectionalValue.toStyleValue(params);
     }
 }
 

@@ -79,11 +79,11 @@ class Gradient {
         return this.type === other.type && this.gradient.equals(other.gradient);
     }
 
-    toStyleValue({ colorFormat }, variables) {
+    toStyleValue({ colorFormat }, container, formatColorVariable) {
         const { gradient } = this;
 
         if (gradient) {
-            return gradient.toStyleValue({ colorFormat }, variables);
+            return gradient.toStyleValue({ colorFormat }, container, formatColorVariable);
         }
 
         return "";

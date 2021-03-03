@@ -1,4 +1,4 @@
-import { ColorParams, VariableMap, LengthParams } from "../common";
+import { ColorParams, LengthParams } from "../common";
 import Color from "../values/color";
 import Gradient from "../values/gradient";
 import Length from "../values/length";
@@ -10,7 +10,7 @@ declare class Shadow {
 
     equals(other: Shadow): boolean;
 
-    getValue(params: ColorParams & LengthParams, variables: VariableMap): string;
+    getValue(params: ColorParams & LengthParams, container: object, formatColorVariable: (colorObject: object) => string): string;
 }
 
 export = Shadow;

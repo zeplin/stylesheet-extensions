@@ -8,7 +8,7 @@ declare class Width {
 
     equals(other: Width): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = Width;
