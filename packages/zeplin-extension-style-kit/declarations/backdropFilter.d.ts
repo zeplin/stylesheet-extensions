@@ -7,7 +7,7 @@ declare class BackdropFilter {
 
     equals(other: BackdropFilter): boolean;
 
-    getValue(params: StyleParams, getColorName: (colorObject: object) => string): string;
+    getValue(params: StyleParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = BackdropFilter;

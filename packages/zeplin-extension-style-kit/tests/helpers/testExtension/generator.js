@@ -1,5 +1,5 @@
 import { isDeclarationInherited } from "@root/utils";
-import { generateColorNameFinder, generateIdentifier } from "../../../utils";
+import { generateColorNameResolver, generateIdentifier } from "../../../utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -52,7 +52,7 @@ class TestGenerator {
             filteredDeclarations.map(p => {
                 const value = p.getValue(
                     this.params,
-                    generateColorNameFinder({
+                    generateColorNameResolver({
                         container: this.container,
                         useLinkedStyleguides: this.params.useLinkedStyleguides,
                         formatVariableName: this.formatColorVariable

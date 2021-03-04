@@ -135,10 +135,10 @@ class LinearGradient {
         }
     }
 
-    toStyleValue({ colorFormat }, getColorName) {
+    toStyleValue({ colorFormat }, colorNameResolver) {
         const { angle, colorStops } = this;
 
-        const colorStopStyle = colorStops.map(cs => cs.toStyleValue({ colorFormat }, getColorName)).join(", ");
+        const colorStopStyle = colorStops.map(cs => cs.toStyleValue({ colorFormat }, colorNameResolver)).join(", ");
 
         return `linear-gradient(${this.toCSSAngle(angle)}, ${colorStopStyle})`;
     }

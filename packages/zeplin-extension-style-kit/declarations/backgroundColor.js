@@ -13,8 +13,8 @@ class BackgroundColor {
         return this.color.equals(other.color);
     }
 
-    getValue(params, getColorName) {
-        return this.color.toStyleValue(params, getColorName);
+    getValue(params, colorNameResolver) {
+        return this.color.toStyleValue(params, colorNameResolver);
     }
 }
 

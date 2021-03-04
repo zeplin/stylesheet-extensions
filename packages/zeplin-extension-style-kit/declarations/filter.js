@@ -23,9 +23,9 @@ class Filter {
         );
     }
 
-    getValue(params, getColorName) {
+    getValue(params, colorNameResolver) {
         return this.filters.map(
-            ({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, getColorName)).join(" ")})`
+            ({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, colorNameResolver)).join(" ")})`
         ).join(" ");
     }
 }

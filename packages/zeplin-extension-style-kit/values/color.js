@@ -93,10 +93,10 @@ class Color {
 
     toStyleValue(
         { colorFormat, useLinkedStyleguides },
-        getColorName
+        colorNameResolver
     ) {
-        if (getColorName) {
-            const colorName = getColorName(this.object);
+        if (colorNameResolver) {
+            const colorName = colorNameResolver(this.object);
             if (colorName) {
                 return colorName;
             }

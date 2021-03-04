@@ -17,10 +17,10 @@ class Border {
         return other.style === style && other.width.equals(width) && other.color.equals(color);
     }
 
-    getValue(params, getColorName) {
+    getValue(params, colorNameResolver) {
         const { style, width, color } = this;
 
-        return `${style} ${width.toStyleValue(params)} ${color.toStyleValue(params, getColorName)}`;
+        return `${style} ${width.toStyleValue(params)} ${color.toStyleValue(params, colorNameResolver)}`;
     }
 }
 

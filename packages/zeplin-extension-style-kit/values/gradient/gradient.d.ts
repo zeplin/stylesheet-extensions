@@ -15,7 +15,7 @@ declare class Gradient {
     equals(other: Gradient): boolean;
 
     // TODO: add @zeplin/extension-model types
-    toStyleValue(params: ColorParams, getColorName: (colorObject: object) => string): string;
+    toStyleValue(params: ColorParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = Gradient;

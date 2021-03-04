@@ -26,4 +26,4 @@ interface GenerateColorNameFinderParams {
     formatVariableName: (color: object) => string | undefined;
 }
 
-declare function generateColorNameFinder(params: GenerateColorNameFinderParams): (color: object) => string | undefined;
+declare function generateColorNameResolver(params: GenerateColorNameFinderParams): (color: object) => string | undefined;

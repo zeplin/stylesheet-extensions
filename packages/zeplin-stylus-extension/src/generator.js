@@ -3,7 +3,7 @@ import {
     isHtmlTag,
     isDeclarationInherited,
     generateIdentifier,
-    generateColorNameFinder
+    generateColorNameResolver
 } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
@@ -63,7 +63,7 @@ class Stylus {
 
         const value = p.getValue(
             params,
-            generateColorNameFinder({
+            generateColorNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
                 formatVariableName: this.formatColorVariable

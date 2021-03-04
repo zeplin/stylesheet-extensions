@@ -8,7 +8,7 @@ declare class BorderImageSource {
 
     equals(other: BorderImageSource): boolean;
 
-    getValue(params: ColorParams, getColorName: (colorObject: object) => string): string;
+    getValue(params: ColorParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = BorderImageSource;

@@ -24,9 +24,9 @@ test("variable as color value", () => {
     const color = Color.fromRGBA({ r: 13, g: 13, b: 13, a: 1 });
     const backgroundColor = new BackgroundColor(color);
 
-    const getColorName = () => "var(--cod_gray)";
+    const colorNameResolver = () => "var(--cod_gray)";
 
-    expect(backgroundColor.getValue({ colorFormat: "hex" }, getColorName)).toBe("var(--cod_gray)");
+    expect(backgroundColor.getValue({ colorFormat: "hex" }, colorNameResolver)).toBe("var(--cod_gray)");
 });
 
 test("equality check", () => {

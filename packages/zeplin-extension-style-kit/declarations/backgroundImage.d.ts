@@ -8,7 +8,7 @@ declare class BackgroundImage {
 
     equals(other: BackgroundImage): boolean;
 
-    getValue(params: ColorParams, container: object, formatVariable: (colorObject: object) => string): string;
+    getValue(params: ColorParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = BackgroundImage;

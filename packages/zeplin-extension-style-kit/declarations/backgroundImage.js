@@ -16,8 +16,8 @@ class BackgroundImage {
         );
     }
 
-    getValue(params, getColorName) {
-        return this.images.map(img => img.toStyleValue(params, getColorName)).join(", ");
+    getValue(params, colorNameResolver) {
+        return this.images.map(img => img.toStyleValue(params, colorNameResolver)).join(", ");
     }
 }
 

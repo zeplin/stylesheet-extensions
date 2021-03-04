@@ -175,7 +175,7 @@ function getUniqueFirstItems(array, equalityFunction = (x, y) => x === y) {
     );
 }
 
-function generateColorNameFinder({ container, useLinkedStyleguides, formatVariableName }) {
+function generateColorNameResolver({ container, useLinkedStyleguides, formatVariableName }) {
     return color => {
         const matchedColor = container.findColorEqual(color, useLinkedStyleguides);
         if (matchedColor) {
@@ -197,5 +197,5 @@ export {
     getResourceContainer,
     getParams,
     getUniqueFirstItems,
-    generateColorNameFinder
+    generateColorNameResolver
 };

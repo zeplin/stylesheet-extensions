@@ -57,10 +57,10 @@ class RadialGradient {
         );
     }
 
-    toStyleValue({ colorFormat }, getColorName) {
+    toStyleValue({ colorFormat }, colorNameResolver) {
         const { center, colorStops } = this;
 
-        const colorStopStyle = colorStops.map(cs => cs.toStyleValue({ colorFormat }, getColorName)).join(", ");
+        const colorStopStyle = colorStops.map(cs => cs.toStyleValue({ colorFormat }, colorNameResolver)).join(", ");
 
         return `radial-gradient(circle at ${new Percent(center.x).toStyleValue()} ${new Percent(center.y).toStyleValue()}, ${colorStopStyle})`;
     }
