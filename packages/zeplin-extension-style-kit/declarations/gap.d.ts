@@ -8,7 +8,7 @@ declare class Gap {
 
     equals(other: Gap): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = Gap;

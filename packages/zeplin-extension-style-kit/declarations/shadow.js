@@ -17,20 +17,20 @@ class Shadow {
         this.type = type;
     }
 
-    static generateTextShadow(shadow, { densityDivisor, colorFormat }, variables) {
-        return `${new Length(shadow.offsetX).toStyleValue({ densityDivisor }, variables)} ${
-            new Length(shadow.offsetY).toStyleValue({ densityDivisor }, variables)} ${
-            new Length(shadow.blurRadius).toStyleValue({ densityDivisor }, variables)} ${
-            new Color(shadow.color).toStyleValue({ colorFormat }, variables)}`;
+    static generateTextShadow(shadow, { densityDivisor, colorFormat }, colorNameResolver) {
+        return `${new Length(shadow.offsetX).toStyleValue({ densityDivisor })} ${
+            new Length(shadow.offsetY).toStyleValue({ densityDivisor })} ${
+            new Length(shadow.blurRadius).toStyleValue({ densityDivisor })} ${
+            new Color(shadow.color).toStyleValue({ colorFormat }, colorNameResolver)}`;
     }
 
-    static generateBoxShadow(shadow, { densityDivisor, colorFormat }, variables) {
+    static generateBoxShadow(shadow, { densityDivisor, colorFormat }, colorNameResolver) {
         return `${(shadow.type === "inner" ? "inset " : "") +
-            new Length(shadow.offsetX).toStyleValue({ densityDivisor }, variables)} ${
-            new Length(shadow.offsetY).toStyleValue({ densityDivisor }, variables)} ${
-            new Length(shadow.blurRadius).toStyleValue({ densityDivisor }, variables)} ${
-            new Length(shadow.spread).toStyleValue({ densityDivisor }, variables)} ${
-            new Color(shadow.color).toStyleValue({ colorFormat }, variables)}`;
+            new Length(shadow.offsetX).toStyleValue({ densityDivisor })} ${
+            new Length(shadow.offsetY).toStyleValue({ densityDivisor })} ${
+            new Length(shadow.blurRadius).toStyleValue({ densityDivisor })} ${
+            new Length(shadow.spread).toStyleValue({ densityDivisor })} ${
+            new Color(shadow.color).toStyleValue({ colorFormat }, colorNameResolver)}`;
     }
 
     get name() {
@@ -45,14 +45,14 @@ class Shadow {
         );
     }
 
-    getValue(params, variables) {
+    getValue(params, colorNameResolver) {
         const { objects: shadows, type } = this;
 
         if (type === Shadow.TYPES.TEXT) {
-            return shadows.map(s => Shadow.generateTextShadow(s, params, variables)).join(", ");
+            return shadows.map(s => Shadow.generateTextShadow(s, params, colorNameResolver)).join(", ");
         }
 
-        return shadows.map(s => Shadow.generateBoxShadow(s, params, variables)).join(", ");
+        return shadows.map(s => Shadow.generateBoxShadow(s, params, colorNameResolver)).join(", ");
     }
 }
 

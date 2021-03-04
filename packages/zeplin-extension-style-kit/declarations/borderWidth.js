@@ -13,8 +13,8 @@ class BorderWidth {
         return this.width.equals(other.width);
     }
 
-    getValue(params, variables) {
-        return this.width.toStyleValue(params, variables);
+    getValue(params) {
+        return this.width.toStyleValue(params);
     }
 }
 

@@ -23,8 +23,12 @@ class BackdropFilter {
         );
     }
 
-    getValue(params) {
-        return this.filters.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params)).join(" ")})`).join(" ");
+    getValue(params, colorNameResolver) {
+        return this.filters.map(
+            ({ fn, args }) => `${fn}(${
+                args.map(arg => arg.toStyleValue(params, colorNameResolver)).join(" ")
+            })`
+        ).join(" ");
     }
 }
 

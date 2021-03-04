@@ -14,10 +14,10 @@ class TextStroke {
         return this.length.equals(other.length) && this.color.equals(other.color);
     }
 
-    getValue(params, variables) {
+    getValue(params, colorNameResolver) {
         const { color, length } = this;
 
-        return `${length.toStyleValue(params, variables)} ${color.toStyleValue(params, variables)}`;
+        return `${length.toStyleValue(params)} ${color.toStyleValue(params, colorNameResolver)}`;
     }
 }
 

@@ -23,11 +23,9 @@ test("background-color hsl value", () => {
 test("variable as color value", () => {
     const color = Color.fromRGBA({ r: 13, g: 13, b: 13, a: 1 });
     const fontColor = new FontColor(color);
-    const variables = {
-        [color.valueOf()]: "var(--cod_gray)"
-    };
+    const colorNameResolver = () => "var(--cod_gray)";
 
-    expect(fontColor.getValue({ colorFormat: "hex" }, variables)).toBe("var(--cod_gray)");
+    expect(fontColor.getValue({ colorFormat: "hex" }, colorNameResolver)).toBe("var(--cod_gray)");
 });
 
 test("equality check", () => {

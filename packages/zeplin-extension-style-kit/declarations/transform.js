@@ -23,8 +23,12 @@ class Transform {
         );
     }
 
-    getValue(params, variables) {
-        return this.transforms.map(({ fn, args }) => `${fn}(${args.map(arg => arg.toStyleValue(params, variables)).join(" ")})`).join(" ");
+    getValue(params, colorNameResolver) {
+        return this.transforms.map(
+            ({ fn, args }) => `${fn}(${
+                args.map(arg => arg.toStyleValue(params, colorNameResolver)).join(" ")
+            })`
+        ).join(" ");
     }
 }
 

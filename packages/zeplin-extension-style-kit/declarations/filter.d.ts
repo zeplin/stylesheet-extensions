@@ -1,4 +1,4 @@
-import { StyleFunction, StyleParams, VariableMap } from "../common";
+import { StyleFunction, StyleParams } from "../common";
 
 declare class Filter {
     constructor(filters: Array<StyleFunction>);
@@ -7,7 +7,7 @@ declare class Filter {
 
     equals(other: Filter): boolean;
 
-    getValue(params: StyleParams, variables: VariableMap): string;
+    getValue(params: StyleParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = Filter;

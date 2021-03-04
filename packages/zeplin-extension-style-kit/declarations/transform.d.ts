@@ -7,7 +7,7 @@ declare class Transform {
 
     equals(other: Transform): boolean;
 
-    getValue(params: StyleParams, variables: VariableMap): string;
+    getValue(params: StyleParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = Transform;

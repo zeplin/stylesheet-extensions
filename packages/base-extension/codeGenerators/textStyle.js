@@ -5,12 +5,13 @@ import {
     getResources,
     getFontFaces,
     getParams,
-    getUniqueFirstItems
+    getUniqueFirstItems,
+    getResourceContainer
 } from "zeplin-extension-style-kit/utils";
 
 export const textStyleCodeGenerator = ({
     language,
-    createGenerator,
+    Generator,
     options: {
         prefix = "",
         separator = "\n\n",
@@ -21,7 +22,8 @@ export const textStyleCodeGenerator = ({
     isTextStylesFromParam
 }) => (context, textStylesParam) => {
     const params = getParams(context);
-    const generator = createGenerator(context, params);
+    const { container } = getResourceContainer(context);
+    const generator = new Generator(container, params);
     const textStyles = isTextStylesFromParam
         ? textStylesParam
         : getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "textStyles" });

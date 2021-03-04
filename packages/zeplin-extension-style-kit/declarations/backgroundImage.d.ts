@@ -1,4 +1,4 @@
-import { ColorParams, VariableMap } from "../common";
+import { ColorParams } from "../common";
 import Gradient from "../values/gradient";
 
 declare class BackgroundImage {
@@ -8,7 +8,7 @@ declare class BackgroundImage {
 
     equals(other: BackgroundImage): boolean;
 
-    getValue(params: ColorParams, variables: VariableMap): string;
+    getValue(params: ColorParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = BackgroundImage;

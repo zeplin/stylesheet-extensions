@@ -3,13 +3,13 @@ import {
     getResources,
     getParams,
     generateIdentifier,
-    getUniqueFirstItems
+    getUniqueFirstItems, getResourceContainer
 } from "zeplin-extension-style-kit/utils";
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
 export const spacingCodeGenerator = ({
     language,
-    createGenerator,
+    Generator,
     options: {
         prefix = "",
         separator = "\n",
@@ -17,7 +17,9 @@ export const spacingCodeGenerator = ({
     } = {}
 }) => context => {
     const params = getParams(context);
-    const cssGenerator = createGenerator(context, params);
+    const { container } = getResourceContainer(context);
+    const generator = new Generator(container, params);
+
     const spacingSections = getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "spacingSections" });
     const spacingTokens = getUniqueFirstItems(
         spacingSections.map(({ spacingTokens: items }) => items).reduce((prev, current) => [...prev, ...current]),
@@ -26,7 +28,7 @@ export const spacingCodeGenerator = ({
 
     const code = `${prefix}${
         spacingTokens
-            .map(({ name, value }) => cssGenerator.variable(
+            .map(({ name, value }) => generator.variable(
                 name,
                 new Length(value, { useRemUnit: useRemUnitForMeasurement, useDensityDivisor: false })),
             )

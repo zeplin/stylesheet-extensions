@@ -2,13 +2,12 @@ import Color from "zeplin-extension-style-kit/values/color";
 import {
     getResources,
     getParams,
-    generateIdentifier,
-    getUniqueFirstItems
+    getResourceContainer
 } from "zeplin-extension-style-kit/utils";
 
 export const colorCodeGenerator = ({
     language,
-    createGenerator,
+    Generator,
     options: {
         prefix = "",
         separator = "\n",
@@ -17,14 +16,14 @@ export const colorCodeGenerator = ({
     isColorsFromParam
 }) => (context, colorsParam) => {
     const params = getParams(context);
-    const generator = createGenerator(context, params);
+    const { container } = getResourceContainer(context);
+    const generator = new Generator(container, params);
+
     const allColors = isColorsFromParam
         ? colorsParam
         : getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "colors" });
-    const uniqueColors = getUniqueFirstItems(allColors,
-        (color, other) => generateIdentifier(color.name) === generateIdentifier(other.name)
-    );
-    const code = `${prefix}${uniqueColors.map(c => generator.variable(c.name, new Color(c))).join(separator)}${suffix}`;
+
+    const code = `${prefix}${allColors.map(c => generator.variable(c.getFormattedName("kebab"), new Color(c))).join(separator)}${suffix}`;
 
     return {
         code,

@@ -8,7 +8,7 @@ Object {
   --blue: #0000ff;
   --yellow: #ffff00;
   --black: #000000;
-  --black50: rgba(0, 0, 0, 0.5);
+  --black-50: rgba(0, 0, 0, 0.5);
   --white: #ffffff;
 }",
   "language": "css",
@@ -41,7 +41,7 @@ Object {
   --blue: #0000ff;
   --yellow: #ffff00;
   --black: #000000;
-  --black50: rgba(0, 0, 0, 0.5);
+  --black-50: rgba(0, 0, 0, 0.5);
   --white: #ffffff;
 }",
   "filename": "colors.css",
@@ -134,7 +134,7 @@ Object {
   width: 6.25rem;
   height: 6.25rem;
   margin: 1.25rem 4.375rem 4.375rem 0;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), var(--black50));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), var(--black-50));
 }",
   "language": "css",
 }
@@ -146,7 +146,7 @@ Object {
   width: 6.25rem;
   height: 6.25rem;
   margin: 4.375rem 1.25rem 1.25rem 3.125rem;
-  box-shadow: 0 2px 4px 6px var(--black50);
+  box-shadow: 0 2px 4px 6px var(--black-50);
 }",
   "language": "css",
 }

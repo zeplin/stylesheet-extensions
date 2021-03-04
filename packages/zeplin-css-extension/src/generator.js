@@ -1,4 +1,4 @@
-import { isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
+import { isDeclarationInherited, generateIdentifier, generateColorNameResolver } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -6,13 +6,13 @@ const SUFFIX = ";";
 const INDENTATION = "  ";
 
 class CSS {
-    constructor(variables, params) {
-        this.variables = variables;
+    constructor(container, params) {
         this.params = params;
+        this.container = container;
+    }
 
-        Object.keys(variables).forEach(vName => {
-            this.variables[vName] = `var(${PREFIX}${variables[vName]})`;
-        });
+    formatColorVariable(color) {
+        return `var(${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
@@ -46,7 +46,15 @@ class CSS {
     }
 
     declaration(d) {
-        return `${INDENTATION}${d.name}${SEPARATOR}${d.getValue(this.params, this.variables)}${SUFFIX}`;
+        const value = d.getValue(
+            this.params,
+            generateColorNameResolver({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                formatVariableName: this.formatColorVariable
+            })
+        );
+        return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 
     declarationsBlock(declarations) {

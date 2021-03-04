@@ -8,7 +8,7 @@ import {
     isHtmlTag,
     getParams,
     generateIdentifier,
-    getUniqueFirstItems
+    getUniqueFirstItems, getResourceContainer
 } from "zeplin-extension-style-kit/utils";
 
 function findBestConformTextStyle(textStyles, searched) {
@@ -31,14 +31,15 @@ function findBestConformTextStyle(textStyles, searched) {
 
 export const layerCodeGenerator = ({
     language,
-    createGenerator,
+    Generator,
     options: {
         separator = "\n\n"
     } = {}
 }) => (context, selectedLayer) => {
     const params = getParams(context);
     const { useMixin } = params;
-    const generator = createGenerator(context, params);
+    const { container } = getResourceContainer(context);
+    const generator = new Generator(container, params);
 
     const l = new Layer(selectedLayer, params);
     const layerRuleSet = l.style;

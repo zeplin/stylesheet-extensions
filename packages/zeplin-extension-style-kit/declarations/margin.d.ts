@@ -1,4 +1,4 @@
-import { VariableMap, LengthParams } from "../common";
+import { LengthParams } from "../common";
 import Length from "../values/length";
 
 declare class Margin {
@@ -10,7 +10,7 @@ declare class Margin {
 
     equals(other: Margin): boolean;
 
-    getValue(params: LengthParams, variables: VariableMap): string;
+    getValue(params: LengthParams): string;
 }
 
 export = Margin;

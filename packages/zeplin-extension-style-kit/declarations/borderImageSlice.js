@@ -13,8 +13,8 @@ class BorderImageSlice {
         return this.value.equals(other.value);
     }
 
-    getValue(params, variables) {
-        return this.value.toStyleValue(params, variables);
+    getValue() {
+        return this.value.toStyleValue();
     }
 }
 

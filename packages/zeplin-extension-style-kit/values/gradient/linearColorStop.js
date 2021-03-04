@@ -24,10 +24,10 @@ class LinearColorStop {
         return this.position === other.position && this.color.equals(other.color);
     }
 
-    toStyleValue({ colorFormat }, variables) {
+    toStyleValue({ colorFormat }, colorNameResolver) {
         const { position, color } = this;
 
-        const stopColor = new Color(color).toStyleValue({ colorFormat }, variables);
+        const stopColor = new Color(color).toStyleValue({ colorFormat }, colorNameResolver);
 
         if (!position || position === 1) {
             return stopColor;

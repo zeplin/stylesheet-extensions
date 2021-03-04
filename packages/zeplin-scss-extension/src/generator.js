@@ -1,5 +1,10 @@
 import Mixin from "zeplin-extension-style-kit/declarations/mixin";
-import { isHtmlTag, isDeclarationInherited, generateIdentifier } from "zeplin-extension-style-kit/utils";
+import {
+    isHtmlTag,
+    isDeclarationInherited,
+    generateIdentifier,
+    generateColorNameResolver
+} from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
 const SEPARATOR = ": ";
@@ -7,13 +12,13 @@ const SUFFIX = ";";
 const INDENTATION = "  ";
 
 class SCSS {
-    constructor(variables, params) {
-        this.variables = variables;
+    constructor(container, params) {
         this.params = params;
+        this.container = container;
+    }
 
-        Object.keys(variables).forEach(vName => {
-            this.variables[vName] = `${PREFIX}${variables[vName]}`;
-        });
+    formatColorVariable(color) {
+        return `${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))}`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
@@ -57,7 +62,15 @@ class SCSS {
             params = Object.assign({}, params, { showDefaultValues: false });
         }
 
-        return `${INDENTATION}${p.name}${SEPARATOR}${p.getValue(params, this.variables)}${SUFFIX}`;
+        const value = p.getValue(
+            params,
+            generateColorNameResolver({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                formatVariableName: this.formatColorVariable
+            })
+        );
+        return `${INDENTATION}${p.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 
     variable(name, value) {

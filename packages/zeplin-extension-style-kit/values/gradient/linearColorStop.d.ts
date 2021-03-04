@@ -1,11 +1,12 @@
-import { ColorParams, VariableMap } from "../common";
+import { ColorParams } from "../../common";
 
 declare class LinearColorStop {
     constructor(colorStopObject: object);
 
     equals(other: LinearColorStop): boolean;
 
-    toStyleValue(params: ColorParams, variables: VariableMap): string;
+    // TODO: add @zeplin/extension-model types
+    toStyleValue(params: ColorParams, colorNameResolver: (colorObject: object) => string): string;
 }
 
 export = LinearColorStop;
