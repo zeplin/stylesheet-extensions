@@ -1,7 +1,7 @@
 {
   "name": "stylus",
   "private": true,
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Generates Stylus snippets from colors, text styles and layers.",
   "scripts": {
     "start": "zem start",
@@ -12,9 +12,9 @@
     "test": "zem test"
   },
   "dependencies": {
-    "base-extension": "^2.0.0",
+    "base-extension": "^2.0.1",
     "zem": "^1.3.0",
-    "zeplin-extension-style-kit": "^4.0.0"
+    "zeplin-extension-style-kit": "^4.0.1"
   },
   "author": {
     "name": "Zeplin",
