@@ -12,7 +12,12 @@ class CSS {
     }
 
     formatColorVariable(color) {
-        return `var(${PREFIX}${generateIdentifier(color.getFormattedName("kebab"))})`;
+        const colorName = (
+            color.getFormattedName
+                ? color.getFormattedName("kebab")
+                : color.name
+        );
+        return `var(${PREFIX}${generateIdentifier(colorName)})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
