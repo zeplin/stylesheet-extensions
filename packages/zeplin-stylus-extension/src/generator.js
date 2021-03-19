@@ -2,8 +2,8 @@ import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import {
     isHtmlTag,
     isDeclarationInherited,
-    generateIdentifier,
-    generateColorNameResolver
+    generateColorNameResolver,
+    generateVariableName
 } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "$";
@@ -17,12 +17,7 @@ class Stylus {
     }
 
     formatColorVariable(color) {
-        const colorName = (
-            color.getFormattedName
-                ? color.getFormattedName("kebab")
-                : color.name
-        );
-        return `${PREFIX}${generateIdentifier(colorName)}`;
+        return `${PREFIX}${generateVariableName(color.originalName || color.name, this.params.variableNameFormat)}`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
@@ -78,7 +73,8 @@ class Stylus {
     }
 
     variable(name, value) {
-        return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}`;
+        const generatedName = generateVariableName(name, this.params.variableNameFormat);
+        return `${PREFIX}${generatedName}${SEPARATOR}${value.toStyleValue(this.params)}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "", mixin = false } = {}) {

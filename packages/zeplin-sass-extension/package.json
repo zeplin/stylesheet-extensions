@@ -56,6 +56,39 @@
         "default": "default"
       },
       {
+        "name": "Variable name format",
+        "type": "picker",
+        "id": "variableNameFormat",
+        "submenu": true,
+        "options": [
+          {
+            "name": "kebab-case",
+            "value": "kebab"
+          },
+          {
+            "name": "snake_case",
+            "value": "snake"
+          },
+          {
+            "name": "camelCase",
+            "value": "camel"
+          },
+          {
+            "name": "PascalCase",
+            "value": "pascal"
+          },
+          {
+            "name": "CONSTANT_CASE",
+            "value": "constant"
+          },
+          {
+            "name": "Use original",
+            "value": "none"
+          }
+        ],
+        "default": "kebab"
+      },
+      {
         "name": "Dimensions",
         "type": "switch",
         "id": "showDimensions",

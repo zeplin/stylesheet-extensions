@@ -27,3 +27,5 @@ interface GenerateColorNameFinderParams {
 }
 
 declare function generateColorNameResolver(params: GenerateColorNameFinderParams): (color: object) => string | undefined;
+
+declare function generateVariableName(value: string, namingScheme: "kebab" | "snake" | "constant" | "camel" | "pascal" | "none"): string;

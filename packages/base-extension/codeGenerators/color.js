@@ -23,14 +23,11 @@ export const colorCodeGenerator = ({
         ? colorsParam
         : getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "colors" });
 
-    const code = `${prefix}${allColors.map(color => {
-        const colorName = (
-            color.getFormattedName
-                ? color.getFormattedName("kebab")
-                : color.name
-        );
-        return generator.variable(colorName, new Color(color));
-    }).join(separator)}${suffix}`;
+    const colorsCode = allColors.map(
+        color => generator.variable(color.originalName || color.name, new Color(color))
+    ).join(separator);
+
+    const code = `${prefix}${colorsCode}${suffix}`;
 
     return {
         code,
