@@ -67,7 +67,7 @@ class Less {
             generateColorNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
-                formatVariableName: this.formatColorVariable
+                formatVariableName: color => this.formatColorVariable(color)
             })
         );
         return `${INDENTATION}${p.name}${SEPARATOR}${value}${SUFFIX}`;

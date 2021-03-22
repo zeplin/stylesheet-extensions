@@ -55,7 +55,7 @@ class CSS {
             generateColorNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
-                formatVariableName: this.formatColorVariable
+                formatVariableName: color => this.formatColorVariable(color)
             })
         );
         return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
