@@ -34,6 +34,49 @@ function isDeclarationInherited(declaration) {
 function blendColors(colors) {
     return colors.reduce((blendedColor, color) => blendedColor.blend(color));
 }
+function lowercaseFirst(s) {
+    return s.charAt(0).toLowerCase() + s.substring(1);
+}
+
+function uppercaseFirst(s) {
+    return s.charAt(0).toUpperCase() + s.substring(1);
+}
+
+function joinTokens(components, namingScheme) {
+    switch (namingScheme) {
+        case "constant":
+            return components.map(val => val.toUpperCase()).join("_");
+        case "snake":
+            return components.join("_");
+        case "pascal":
+            return components.map(uppercaseFirst).join("");
+        case "camel":
+            return lowercaseFirst(components.map(uppercaseFirst).join(""));
+        default:
+        case "kebab":
+            return components.join("-");
+    }
+}
+
+function tokensForString(str) {
+    var tokenizer = /\d+|[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+/g;
+
+    var matchResult = str.match(tokenizer);
+    if (!matchResult) {
+        return ["invalid", "name"];
+    }
+
+    return matchResult.map(function (token) {
+        return token.toLowerCase();
+    });
+}
+
+function generateVariableName(name, namingScheme) {
+    if (namingScheme === "none") {
+        return name.replace(/[^\w-]/g, "");
+    }
+    return joinTokens(tokensForString(name), namingScheme);
+}
 
 function generateIdentifier(str) {
     let escapedStr = str.trim()
@@ -160,6 +203,7 @@ function getParams(context) {
         densityDivisor: container.densityDivisor,
         useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
         colorFormat: context.getOption(OPTION_NAMES.COLOR_FORMAT),
+        variableNameFormat: context.getOption(OPTION_NAMES.VARIABLE_NAME_FORMAT),
         showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
         showDefaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES),
         unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT),
@@ -192,6 +236,7 @@ export {
     isDeclarationInherited,
     selectorize,
     generateIdentifier,
+    generateVariableName,
     webkit,
     getResources,
     getResourceContainer,

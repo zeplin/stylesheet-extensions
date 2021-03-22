@@ -1,4 +1,8 @@
-import { isDeclarationInherited, generateIdentifier, generateColorNameResolver } from "zeplin-extension-style-kit/utils";
+import {
+    isDeclarationInherited,
+    generateColorNameResolver,
+    generateVariableName
+} from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -12,12 +16,7 @@ class CSS {
     }
 
     formatColorVariable(color) {
-        const colorName = (
-            color.getFormattedName
-                ? color.getFormattedName("kebab")
-                : color.name
-        );
-        return `var(${PREFIX}${generateIdentifier(colorName)})`;
+        return `var(${PREFIX}${generateVariableName(color.originalName || color.name, this.params.variableNameFormat)})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
@@ -56,7 +55,7 @@ class CSS {
             generateColorNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
-                formatVariableName: this.formatColorVariable
+                formatVariableName: color => this.formatColorVariable(color)
             })
         );
         return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
@@ -67,7 +66,8 @@ class CSS {
     }
 
     variable(name, value) {
-        return `${PREFIX}${generateIdentifier(name)}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
+        const generatedName = generateVariableName(name, this.params.variableNameFormat);
+        return `${PREFIX}${generatedName}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "" } = {}) {
