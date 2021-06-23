@@ -311,7 +311,7 @@ class Layer {
             declarations.push(new FlexGrow(new Scalar(layoutGrow)));
         }
 
-        if (layout) {
+        if (layout && layout.direction) {
             const {
                 direction,
                 distribution,
@@ -329,7 +329,9 @@ class Layer {
             if (itemAlignment) {
                 declarations.push(new AlignItems(itemAlignment));
             }
-            declarations.push(new Gap(new Length(gap)));
+            if (gap > 0) {
+                declarations.push(new Gap(new Length(gap)));
+            }
         }
     }
 
