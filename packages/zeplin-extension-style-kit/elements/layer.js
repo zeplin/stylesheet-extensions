@@ -180,7 +180,7 @@ class Layer {
         }
 
         if (borders.length === 1) {
-            return borders[borders.length - 1];
+            return borders[0];
         }
 
         return borders.reduce(this.blendBorders);
