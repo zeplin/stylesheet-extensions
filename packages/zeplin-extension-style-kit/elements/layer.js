@@ -1,4 +1,4 @@
-import { Layout } from "@zeplin/extension-model";
+import { Layout, Fill } from "@zeplin/extension-model";
 
 import Angle from "../values/angle";
 import Color from "../values/color";
@@ -48,6 +48,13 @@ import FlexGrow from "../declarations/flexGrow";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
 
+const borderPositionShadowTypeMapper = {
+    inside: "inner",
+    outside: "outer"
+};
+
+const TWO = 2;
+
 class Layer {
     constructor(layerObject = {}) {
         this.object = layerObject;
@@ -56,7 +63,9 @@ class Layer {
     }
 
     static fillToGradient(fill, width, height) {
-        return fill.type === "color" ? new Color(fill.color).toGradient() : new Gradient(fill.gradient, width, height);
+        return fill.type === Fill.TYPE.COLOR
+            ? new Color(fill.color).toGradient()
+            : new Gradient(fill.gradient, width, height);
     }
 
     get hasBlendMode() {
@@ -64,7 +73,7 @@ class Layer {
     }
 
     get hasGradient() {
-        return this.object.fills.some(f => f.type === "gradient");
+        return this.object.fills.some(f => f.type === Fill.TYPE.GRADIENT);
     }
 
     get hasFill() {
@@ -106,10 +115,75 @@ class Layer {
         return declarations;
     }
 
+    blendBorders(accumulator, current) {
+        if (accumulator.fill.type === Fill.TYPE.COLOR && current.fill.type === Fill.TYPE.COLOR) {
+            return {
+                position: accumulator.position,
+                thickness: accumulator.thickness,
+                fill: {
+                    type: Fill.TYPE.COLOR,
+                    color: current.fill.color.blend(accumulator.fill.color)
+                }
+            };
+        }
+
+        if (accumulator.fill.type === Fill.TYPE.GRADIENT) {
+            return {
+                position: accumulator.position,
+                thickness: accumulator.thickness,
+                fill: Object.assign(
+                    {},
+                    accumulator.fill,
+                    {
+                        gradient: Object.assign(
+                            {},
+                            accumulator.fill.gradient,
+                            {
+                                colorStops: accumulator.fill.gradient.colorStops.map(({ position, color }) => ({
+                                    position,
+                                    color: current.fill.color.blend(color)
+                                }))
+                            }
+                        )
+                    }
+                )
+            };
+        }
+
+        return {
+            position: accumulator.position,
+            thickness: accumulator.thickness,
+            fill: Object.assign(
+                {},
+                current.fill,
+                {
+                    gradient: Object.assign(
+                        {},
+                        current.fill.gradient,
+                        {
+                            colorStops: current.fill.gradient.colorStops.map(({ position, color }) => ({
+                                position,
+                                color: color.blend(accumulator.fill.color)
+                            }))
+                        }
+                    )
+                }
+            )
+        };
+    }
+
     get elementBorder() {
         const { object: { borders } } = this;
 
-        return borders.length ? borders[borders.length - 1] : null;
+        if (!this.shouldDrawBorder()) {
+            return null;
+        }
+
+        if (borders.length === 1) {
+            return borders[0];
+        }
+
+        return borders.reduce(this.blendBorders);
     }
 
     get backgroundImages() {
@@ -126,7 +200,7 @@ class Layer {
         }
 
         if (this.elementBorder) {
-            if (this.object.borderRadius && this.elementBorder.fill.type === "gradient") {
+            if (this.object.borderRadius && this.elementBorder.fill.type === Fill.TYPE.GRADIENT) {
                 const borderFill = new Gradient(
                     this.elementBorder.fill.gradient,
                     this.object.rect.width,
@@ -167,7 +241,29 @@ class Layer {
         return null;
     }
 
+    shouldDrawBorder() {
+        const {
+            object: {
+                borders
+            }
+        } = this;
+
+        const gradientCount = borders.filter(({ fill }) => fill.type === Fill.TYPE.GRADIENT).length;
+
+        if (gradientCount > 1 || borders.length === 0) {
+            return false;
+        }
+
+        const [{ position, thickness }] = borders;
+
+        return borders.every(border => border.position === position && border.thickness === thickness);
+    }
+
     generateBorderDeclarations() {
+        if (!this.shouldDrawBorder()) {
+            return [];
+        }
+
         const {
             elementBorder: {
                 fill,
@@ -176,14 +272,14 @@ class Layer {
             object: layer
         } = this;
 
-        if (layer.type === "text" && fill.type === "color") {
+        if (layer.type === "text" && fill.type === Fill.TYPE.COLOR) {
             return [
                 new (webkit(TextStroke))(new Length(thickness), new Color(fill.color))
             ];
         }
 
         switch (fill.type) {
-            case "color":
+            case Fill.TYPE.COLOR:
                 return [
                     new Border({
                         style: "solid",
@@ -192,7 +288,7 @@ class Layer {
                     })
                 ];
 
-            case "gradient": {
+            case Fill.TYPE.GRADIENT: {
                 return [
                     new BorderStyle("solid"),
                     new BorderWidth(new Length(thickness)),
@@ -204,6 +300,90 @@ class Layer {
             default:
                 return [];
         }
+    }
+
+    shouldDrawShadowFromBorder() {
+        const {
+            object: {
+                borders
+            }
+        } = this;
+
+        return !this.shouldDrawBorder() &&
+            borders.length > 1 &&
+            borders.every(({ fill }) => fill.type === Fill.TYPE.COLOR);
+    }
+
+    shadowOffset() {
+        const {
+            object: {
+                borders
+            }
+        } = this;
+        const maxThickness = Math.max(...borders.map(({ thickness }) => thickness));
+
+        switch (borders[0].position) {
+            case "outside":
+                return maxThickness;
+            case "center":
+                return maxThickness / TWO;
+            case "inside":
+            default:
+                return 0;
+        }
+    }
+
+    generateShadowDeclarations() {
+        const {
+            object: {
+                borders,
+                shadows,
+                type
+            }
+        } = this;
+
+        const shouldDraw = this.shouldDrawShadowFromBorder();
+
+        if (!shouldDraw && shadows.length) {
+            return [new Shadow(shadows, type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX)];
+        }
+
+        if (!shouldDraw && shadows.length === 0) {
+            return [];
+        }
+
+        const bordersWithoutCenter = borders.flatMap(border => (
+            border.position === "center"
+                ? [
+                    Object.assign({}, border, { thickness: border.thickness / TWO, position: "inside" }),
+                    Object.assign({}, border, { thickness: border.thickness / TWO, position: "outside" })
+                ] : border
+        ));
+
+        const borderShadows = bordersWithoutCenter.reverse().map(({ fill: { color }, thickness, position }) => ({
+            type: borderPositionShadowTypeMapper[position],
+            color,
+            offsetY: 0,
+            offsetX: 0,
+            blurRadius: 0,
+            spread: thickness
+        }));
+
+        const offset = this.shadowOffset();
+
+        return [
+            new Shadow(
+                [
+                    ...borderShadows,
+                    ...shadows.map(shadow => Object.assign(
+                        {},
+                        shadow,
+                        { spread: shadow.spread + offset }
+                    ))
+                ],
+                type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX
+            )
+        ];
     }
 
     generateBlurDeclarations() {
@@ -234,7 +414,7 @@ class Layer {
         if (backgroundImages) {
             declarations.push(new BackgroundImage(backgroundImages));
 
-            if (layer.borderRadius && elementBorder && elementBorder.fill.type === "gradient") {
+            if (layer.borderRadius && elementBorder && elementBorder.fill.type === Fill.TYPE.GRADIENT) {
                 declarations.push(new BackgroundOrigin(["border-box"]));
                 declarations.push(new BackgroundClip([...Array(backgroundImages.length - 1).fill("content-box"), "border-box"]));
             }
@@ -369,7 +549,6 @@ class Layer {
     /* eslint-disable complexity */
     collectDeclarations() {
         const {
-            elementBorder,
             object: layer
         } = this;
         let declarations = [];
@@ -403,13 +582,9 @@ class Layer {
             declarations = declarations.concat(this.generateBlurDeclarations());
         }
 
-        if (layer.shadows.length) {
-            declarations.push(new Shadow(layer.shadows, layer.type === "text" ? Shadow.TYPES.TEXT : Shadow.TYPES.BOX));
-        }
+        declarations = declarations.concat(this.generateShadowDeclarations());
 
-        if (elementBorder) {
-            declarations = declarations.concat(this.generateBorderDeclarations());
-        }
+        declarations = declarations.concat(this.generateBorderDeclarations());
 
         declarations = declarations.concat(this.generateBackgroundDeclarations());
 
