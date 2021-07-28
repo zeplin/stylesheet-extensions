@@ -19,11 +19,24 @@ function toHex(num) {
     return (hexNum < HEX_BASE ? "0" : "") + hexNum.toString(HEX_BASE);
 }
 
+function canBeShortHex(color) {
+    const { r, g, b, a } = color.toHex();
+    return r[0] === r[1] && g[0] === g[1] && b[0] === b[1] && a[0] === a[1];
+}
+
+function longHexToShort(hex) {
+    return hex.split("").filter((_, i) => i % 2 === 0).join("");
+}
+
 function toHexString(color) {
     let hexCode = color.hexBase();
 
     if (color.a < 1) {
         hexCode += toHex(color.a * MAX_RGB_VALUE);
+    }
+
+    if (canBeShortHex(color)) {
+        hexCode = longHexToShort(hexCode);
     }
 
     return `#${hexCode}`;
