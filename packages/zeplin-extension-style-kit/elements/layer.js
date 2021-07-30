@@ -37,7 +37,6 @@ import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
     blendColors,
-    isHtmlTag,
     selectorize,
     webkit
 } from "../utils";
