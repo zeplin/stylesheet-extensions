@@ -37,6 +37,7 @@ import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
     blendColors,
+    isHtmlTag,
     selectorize,
     webkit
 } from "../utils";
@@ -591,8 +592,29 @@ class Layer {
         return declarations;
     }
 
+    get name() {
+        const {
+            object: {
+                type,
+                exportable,
+                name
+            }
+        } = this;
+
+        const layerName = selectorize(name);
+
+        if (exportable) {
+            const className = layerName ? layerName.replace(/^(\w)/, ".$1") : "";
+            return `img${className}`;
+        }
+
+        const defaultTag = type === "text" ? "span" : "div";
+
+        return layerName || defaultTag;
+    }
+
     get style() {
-        return new RuleSet(selectorize(this.object.name), this.declarations);
+        return new RuleSet(this.name, this.declarations);
     }
 }
 
