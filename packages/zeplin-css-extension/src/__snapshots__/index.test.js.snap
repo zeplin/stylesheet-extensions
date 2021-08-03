@@ -51,7 +51,7 @@ Object {
 
 exports[`Layer \`Exportable layer\` should generate code snippet 1`] = `
 Object {
-  "code": ".Exportable-layer {
+  "code": "img.Exportable-layer {
   width: 6.25rem;
   height: 6.25rem;
   margin: 1.25rem 1.25rem 0 3.125rem;
