@@ -2,13 +2,13 @@
 
 exports[`Colors should generate code snippet 1`] = `
 Object {
-  "code": "@red: #ff0000;
-@green: #00ff00;
-@blue: #0000ff;
-@yellow: #ffff00;
-@black: #000000;
+  "code": "@red: #f00;
+@green: #0f0;
+@blue: #00f;
+@yellow: #ff0;
+@black: #000;
 @black-50: rgba(0, 0, 0, 0.5);
-@white: #ffffff;",
+@white: #fff;",
   "language": "less",
 }
 `;
@@ -33,13 +33,13 @@ Object {
  * limitations under the License.
  */
 
-@red: #ff0000;
-@green: #00ff00;
-@blue: #0000ff;
-@yellow: #ffff00;
-@black: #000000;
+@red: #f00;
+@green: #0f0;
+@blue: #00f;
+@yellow: #ff0;
+@black: #000;
 @black-50: rgba(0, 0, 0, 0.5);
-@white: #ffffff;",
+@white: #fff;",
   "filename": "colors.less",
   "language": "less",
 }
@@ -66,7 +66,7 @@ Object {
   margin: 1.25rem 0.188rem 0 1.25rem;
   -webkit-filter: blur(10px);
   filter: blur(10px);
-  background-color: #00ffff;
+  background-color: #0ff;
 }",
   "language": "less",
 }

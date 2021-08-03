@@ -11,7 +11,7 @@ test("property name", () => {
 test("background-image gradient value", () => {
     const borderImageSource = new BorderImageSource(Gradient.fromRGBA({ r: 255, g: 0, b: 0 }));
 
-    expect(borderImageSource.getValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ff0000, #ff0000)");
+    expect(borderImageSource.getValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #f00, #f00)");
 });
 
 test("equality check", () => {
