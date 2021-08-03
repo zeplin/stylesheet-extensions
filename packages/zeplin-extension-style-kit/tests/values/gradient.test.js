@@ -38,7 +38,7 @@ test("linear gradient with color stops at 0, 50%, 100%", () => {
         }]
     }), 100, 100);
 
-    expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffffff80, #ffff00 50%, #00000080)");
+    expect(g.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffffff80, #ff0 50%, #00000080)");
 });
 
 test("linear gradient with 0°", () => {
@@ -207,7 +207,7 @@ test("equality check (different color stops)", () => {
 test("gradient from rgba", () => {
     const gradient = Gradient.fromRGBA({ r: 255, g: 255, b: 0 });
 
-    expect(gradient.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ffff00, #ffff00)");
+    expect(gradient.toStyleValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ff0, #ff0)");
 });
 
 test("gradient from rgba (uses variables)", () => {

@@ -11,7 +11,7 @@ test("property name", () => {
 test("background-image gradient value", () => {
     const backgroundImage = new BackgroundImage([Gradient.fromRGBA({ r: 255, g: 0, b: 0 })]);
 
-    expect(backgroundImage.getValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #ff0000, #ff0000)");
+    expect(backgroundImage.getValue({ colorFormat: "hex" })).toBe("linear-gradient(to bottom, #f00, #f00)");
 });
 
 test("background-image multiple values", () => {
@@ -21,7 +21,7 @@ test("background-image multiple values", () => {
     ]);
 
     expect(backgroundImage.getValue({ colorFormat: "hex" }))
-        .toBe("linear-gradient(to bottom, #ff0000, #ff0000), linear-gradient(to bottom, #ffff00, #ffff00)");
+        .toBe("linear-gradient(to bottom, #f00, #f00), linear-gradient(to bottom, #ff0, #ff0)");
 });
 
 test("equality check", () => {

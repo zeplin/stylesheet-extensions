@@ -11,7 +11,7 @@ test("property name", () => {
 test("background-color rgb value", () => {
     const fontColor = new FontColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));
 
-    expect(fontColor.getValue({ colorFormat: "hex" })).toBe("#ffff00");
+    expect(fontColor.getValue({ colorFormat: "hex" })).toBe("#ff0");
 });
 
 test("background-color hsl value", () => {
