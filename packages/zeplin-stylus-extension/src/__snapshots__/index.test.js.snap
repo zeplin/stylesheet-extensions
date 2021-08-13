@@ -193,7 +193,7 @@ Object {
   color $black
 
 
-.Text-layer-with-multiple-styles .text-style-2
+.Text-layer-with-multiple-styles .Sample-text-style-with-color
   font-family SFProText
   font-size 1.25rem
   font-weight normal

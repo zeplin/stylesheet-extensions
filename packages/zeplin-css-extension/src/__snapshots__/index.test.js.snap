@@ -197,7 +197,7 @@ Object {
   font-weight: 500;
 }
 
-.Text-layer-with-multiple-styles .text-style-2 {
+.Text-layer-with-multiple-styles .Sample-text-style-with-color {
   color: var(--red);
 }",
   "language": "css",
