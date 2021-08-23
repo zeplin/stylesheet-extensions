@@ -1,6 +1,6 @@
 {
   "name": "base-extension",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Base extension implementation for Zeplin stylesheet extensions",
   "private": true,
   "main": "index.js",
