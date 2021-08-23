@@ -71,12 +71,17 @@ export const layerCodeGenerator = ({
             declarations.forEach(d => layerRuleSet.addDeclaration(d));
         }
 
+        let nameCount = 0;
+
         getUniqueLayerTextStyles(selectedLayer).filter(
             textStyle => !defaultTextStyle.equals(textStyle)
-        ).forEach((textStyle, idx) => {
+        ).forEach(textStyle => {
+            const font = container.findTextStyleEqual(textStyle, params.useLinkedStyleguides);
+            const name = font ? font.name : `text-style-${++nameCount}`;
+
             childrenRuleSet.push(
                 new RuleSet(
-                    `${selectorize(selectedLayer.name)} ${selectorize(`text-style-${idx + 1}`)}`,
+                    `${selectorize(selectedLayer.name)} ${selectorize(name)}`,
                     l.getLayerTextStyleDeclarations(textStyle)
                 )
             );
