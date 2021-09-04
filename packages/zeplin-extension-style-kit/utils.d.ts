@@ -2,6 +2,8 @@ import { StyleDeclaration } from "./common";
 
 declare function isHtmlTag(str: string): boolean;
 
+declare function isTextRelatedTag(str: string): boolean;
+
 declare function isDeclarationInherited(propName: string): boolean;
 
 declare function blendColors(colors: object[]): object;
