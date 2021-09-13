@@ -2,23 +2,26 @@ import cssEscape from "css.escape";
 import FontFace from "./elements/fontFace";
 import { OPTION_NAMES } from "./constants";
 
+const TEXT_RELATED_TAGS = [
+    "a", "abbr", "address", "article", "aside", "b", "bdi", "bdo", "blockquote", "button", "caption", "cite", "code",
+    "data", "dd", "del", "details", "dfn", "dialog", "div", "dt", "em", "figcaption", "footer", "h1", "h2", "h3", "h4",
+    "h5", "h6", "header", "i", "input", "ins", "kbd", "label", "legend", "li", "link", "main", "mark", "meter", "nav",
+    "option", "output", "p", "pre", "q", "rp", "rt", "ruby", "s", "samp", "section", "slot", "small", "span", "strong",
+    "sub", "summary", "sup", "td", "textarea", "th", "time", "u", "var"
+];
+
 const HTML_TAGS = [
-    "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi",
-    "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code",
-    "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog",
-    "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer",
-    "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr",
-    "html", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend",
-    "li", "link", "main", "map", "mark", "math", "menu", "menuitem", "meta", "meter",
-    "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param",
-    "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script",
-    "section", "select", "slot", "small", "source", "source", "span", "strong", "style",
-    "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea",
-    "tfoot", "th", "thead", "time", "title", "tr", "track", "u", "ul", "var", "video", "wbr"
+    ...TEXT_RELATED_TAGS,
+    "audio", "body", "canvas", "datalist", "dl", "embed", "fieldset", "figure", "form", "iframe", "noscript", "ol",
+    "optgroup", "progress", "select", "table", "tbody", "tfoot", "thead", "tr", "ul"
 ];
 
 function isHtmlTag(str) {
     return HTML_TAGS.includes(str.toLowerCase());
+}
+
+function isTextRelatedTag(str) {
+    return TEXT_RELATED_TAGS.includes(str.toLowerCase());
 }
 
 const NOT_INHERITED_PROPS = [
@@ -233,6 +236,7 @@ export {
     getUniqueLayerTextStyles,
     getFontFaces,
     isHtmlTag,
+    isTextRelatedTag,
     isDeclarationInherited,
     selectorize,
     generateIdentifier,

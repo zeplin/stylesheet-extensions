@@ -37,6 +37,8 @@ import TextStyle from "./textStyle";
 import RuleSet from "../ruleSet";
 import {
     blendColors,
+    isHtmlTag,
+    isTextRelatedTag,
     selectorize,
     webkit
 } from "../utils";
@@ -607,9 +609,14 @@ class Layer {
             return `img${className}`;
         }
 
-        const defaultTag = type === "text" ? "span" : "div";
+        if (type !== "text") {
+            return layerName || "div";
+        }
 
-        return layerName || defaultTag;
+        if (isHtmlTag(layerName) && !isTextRelatedTag(layerName)) {
+            return `.${layerName}`;
+        }
+        return layerName || "span";
     }
 
     get style() {
