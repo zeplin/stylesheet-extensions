@@ -16,6 +16,7 @@ import rectRotated from "./__data__/layer/rect_rotated";
 import rectBlentColorFill from "./__data__/layer/rect_blent_color_fill";
 import rectMultipleShadow from "./__data__/layer/rect_multiple_shadow";
 import rectMultipleBorder from "./__data__/layer/rect_multiple_border";
+import rectIndividualBorder from "./__data__/layer/rect_individual_border";
 import rectBorderRadius from "./__data__/layer/rect_border_radius";
 import rectGradientBorder from "./__data__/layer/rect_gradient_border";
 import rectGradientFillGradientBorder from "./__data__/layer/rect_gradient_fill_gradient_border";
@@ -97,6 +98,10 @@ describe("layer", () => {
 
     test("shape layer with multiple border", () => {
         expect(extension.layer(getLayer(rectMultipleBorder))).toMatchSnapshot();
+    });
+
+    test("shape layer with individual border", () => {
+        expect(extension.layer(getLayer(rectIndividualBorder))).toMatchSnapshot();
     });
 
     test("shape layer with border radius", () => {

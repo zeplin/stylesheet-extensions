@@ -133,6 +133,16 @@ exports[`layer shape layer with gradient fill and gradient border 1`] = `
 }"
 `;
 
+exports[`layer shape layer with individual border 1`] = `
+".rect-individual-border {
+  width: 69px;
+  height: 49.5px;
+  border-right: solid 2px rgb(151, 151, 151);
+  border-left: solid 2px rgb(151, 151, 151);
+  background-color: rgb(216, 216, 216);
+}"
+`;
+
 exports[`layer shape layer with multiple border 1`] = `
 ".rect-multiple-border {
   width: 69px;
