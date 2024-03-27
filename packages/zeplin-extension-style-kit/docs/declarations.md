@@ -229,9 +229,10 @@ Creates `border` property instance with `color`. See [related docs](https://deve
 - `style`: `string`, denotes the border style ("solid", "dashed", etc.).
 - `width`: [`Length`](./values.md#length).
 - `color`: [`Color`](./values.md#color).
+- `side`: `string`, denotes the individual border side, `top`, `right`, `bottom`, or `left`.
 
 ### name: string
-Returns `border`.
+Returns `border` or individual borders (`border-top`, `border-left`, etc.) based on `side`.
 
 ### `equals(other)`: `boolean`
 Checks if `other` instance is equal to self.

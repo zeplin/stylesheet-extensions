@@ -122,6 +122,7 @@ class Layer {
             return {
                 position: accumulator.position,
                 thickness: accumulator.thickness,
+                individualThickness: accumulator.individualThickness,
                 fill: {
                     type: Fill.TYPE.COLOR,
                     color: current.fill.color.blend(accumulator.fill.color)
@@ -133,6 +134,7 @@ class Layer {
             return {
                 position: accumulator.position,
                 thickness: accumulator.thickness,
+                individualThickness: accumulator.individualThickness,
                 fill: Object.assign(
                     {},
                     accumulator.fill,
@@ -155,6 +157,7 @@ class Layer {
         return {
             position: accumulator.position,
             thickness: accumulator.thickness,
+            individualThickness: accumulator.individualThickness,
             fill: Object.assign(
                 {},
                 current.fill,
@@ -256,7 +259,19 @@ class Layer {
             return false;
         }
 
-        const [{ position, thickness }] = borders;
+        const [{ position, thickness, individualThickness }] = borders;
+
+        if (individualThickness) {
+            return borders.every(border =>
+                border.position === position &&
+                border.thickness === thickness &&
+                border.individualThickness &&
+                border.individualThickness.top === individualThickness.top &&
+                border.individualThickness.right === individualThickness.right &&
+                border.individualThickness.bottom === individualThickness.bottom &&
+                border.individualThickness.left === individualThickness.left
+            );
+        }
 
         return borders.every(border => border.position === position && border.thickness === thickness);
     }
@@ -269,7 +284,8 @@ class Layer {
         const {
             elementBorder: {
                 fill,
-                thickness
+                thickness,
+                individualThickness
             },
             object: layer
         } = this;
@@ -281,7 +297,18 @@ class Layer {
         }
 
         switch (fill.type) {
-            case Fill.TYPE.COLOR:
+            case Fill.TYPE.COLOR: {
+                if (individualThickness) {
+                    return Object.entries(individualThickness)
+                        .filter(([, sideWidth]) => sideWidth > 0)
+                        .map(([side, sideWidth]) => new Border({
+                            style: "solid",
+                            width: new Length(sideWidth),
+                            color: new Color(fill.color),
+                            side
+                        }));
+                }
+
                 return [
                     new Border({
                         style: "solid",
@@ -289,8 +316,12 @@ class Layer {
                         color: new Color(fill.color)
                     })
                 ];
-
+            }
             case Fill.TYPE.GRADIENT: {
+                if (individualThickness) {
+                    return [];
+                }
+
                 return [
                     new BorderStyle("solid"),
                     new BorderWidth(new Length(thickness)),

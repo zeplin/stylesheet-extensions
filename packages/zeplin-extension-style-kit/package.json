@@ -38,7 +38,7 @@
     "jest": "^26.4.2"
   },
   "dependencies": {
-    "@zeplin/extension-model": "^2.10.1",
+    "@zeplin/extension-model": "^2.16.0",
     "css.escape": "^1.5.1"
   }
 }

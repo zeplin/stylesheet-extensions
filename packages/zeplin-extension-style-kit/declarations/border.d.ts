@@ -3,7 +3,7 @@ import Color from "../values/color";
 import Length from "../values/length";
 
 declare class Border {
-    constructor(values: { style: string, width: Length, color: Color });
+    constructor(values: { style: string, width: Length, color: Color, side: string });
 
     name: string;
 
