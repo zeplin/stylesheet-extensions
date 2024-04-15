@@ -53,7 +53,7 @@ jobs:
             name: Publish zeplin-extension-style-kit to NPM
             command: |
               echo "@zeplin:registry=https://registry.npmjs.org/" >> ~/.npmrc
-              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN_EXTENSIONS" >> ~/.npmrc
               lerna run publish-pkg --scope=zeplin-extension-style-kit
 
 workflows:
