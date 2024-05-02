@@ -1,0 +1,40 @@
+name: Publish zeplin-extension-style-kit to NPM
+
+on:
+  push:
+    tags:
+      - 'zeplin-extension-style-kit@*'
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.14.0'
+        registry-url: 'https://registry.npmjs.org/'
+
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      id: npm-cache # Use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Target Package
+      run: npm run build --workspace=zeplin-extension-style-kit
+
+    - name: Publish zeplin-extension-style-kit to NPM
+      run: |
+        echo "@zeplin:registry=https://registry.npmjs.org/" >> ~/.npmrc
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_EXTENSIONS }}" >> ~/.npmrc
+        npm run publish-pkg --workspace=zeplin-extension-style-kit
