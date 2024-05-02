@@ -534,7 +534,7 @@ class Layer {
 
             declarations.push(
                 Display.flex(),
-                new FlexDirection(direction),
+                new FlexDirection(direction)
             );
             if (distribution) {
                 declarations.push(new JustifyContent(distribution));

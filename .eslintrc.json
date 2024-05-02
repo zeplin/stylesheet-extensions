@@ -1,18 +1,19 @@
-module.exports = {
-    env: {
+{
+    "env": {
         "jest": true
     },
-    extends: "@zeplin/eslint-config",
+    "extends": "@zeplin/eslint-config",
     "globals": {
         "Intl": true,
         "CSS": true
     },
-    rules: {
+    "rules": {
         "no-var": "off",
         "new-cap": "off",
         "valid-jsdoc": "off",
         "prefer-template": "error",
         "class-methods-use-this": "off",
         "no-magic-numbers": ["warn", { "ignore": [-1, 0, 1, 2, 90, 180, 270, 360] }]
-    }
+    },
+    "ignorePatterns": ["packages/zeplin-extension-style-kit/lib/**"]
 }
