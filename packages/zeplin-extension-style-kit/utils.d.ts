@@ -31,3 +31,20 @@ interface GenerateColorNameFinderParams {
 declare function generateColorNameResolver(params: GenerateColorNameFinderParams): (color: object) => string | undefined;
 
 declare function generateVariableName(value: string, namingScheme: "kebab" | "snake" | "constant" | "camel" | "pascal" | "none"): string;
+
+interface GenerateLinkedColorVariableNameFinderParams {
+    context: object;
+    useLinkedStyleguides: boolean;
+    colorFormat: string;
+    formatVariableName: (color: object, params: object | undefined) => string | undefined;
+}
+
+declare function generateLinkedColorVariableNameResolver(
+    params: GenerateLinkedColorVariableNameFinderParams
+): (color: object, shouldDisplayDefaultValue: boolean) => string | undefined;
+
+declare function generateColorDetailsByModeName(
+    variableCollections: object[]
+): { [modeName: key]: object[] } | undefined
+
+declare function getColorStringByFormat(color: object, colorFormat: string): string;

@@ -231,6 +231,199 @@ function generateColorNameResolver({ container, useLinkedStyleguides, formatVari
     };
 }
 
+function generateLinkedColorVariableNameResolver({ container, useLinkedStyleguides, colorFormat, formatVariableName }) {
+    return (color, shouldDisplayDefaultValue) => {
+        const matchedColor = container.findLinkedColorVariableEqual(color, useLinkedStyleguides);
+        if (matchedColor) {
+            return formatVariableName(matchedColor, {
+                defaultColorStringByFormat: shouldDisplayDefaultValue && getColorStringByFormat(color, colorFormat)
+            });
+        }
+    };
+}
+
+function getVariableBySourceId(variableCollections) {
+    return variableCollections
+        .flatMap(({ groups, remote }) => groups
+            .flatMap(({ variables }) => variables
+                .flatMap(variable => {
+                    variable.remote = remote;
+
+                    return variable
+                })))
+        .reduce((acc, variable) => {
+            acc[variable.sourceId] = variable;
+
+            return acc;
+        }, {});
+}
+
+function getModeByModeId(variableCollections) {
+    return variableCollections
+        .flatMap(({ modes }) => modes
+            .flatMap(mode => mode))
+        .reduce((acc, mode) => {
+            acc[mode.id] = mode;
+
+            return acc;
+        }, {})
+}
+
+function getColorDetailsFromVariableValue(variableValue, variableBySourceId, modeByModeId) {
+    if (variableValue.type === "color" && variableValue.color) {
+        return { colorValue: variableValue.color, isRemote: false };
+    }
+
+    if (!variableValue.variableSourceId) {
+        return;
+    }
+
+    const modeName = modeByModeId[variableValue.modeId];
+    const nestedVariable = variableBySourceId[variableValue.variableSourceId];
+    if (!nestedVariable) {
+        return;
+    }
+
+    let colorValue;
+    let fallbackColorValue;
+    for (const value of nestedVariable.values) {
+        const nestedValueModeName = modeByModeId[value.modeId];
+        // TODO: There might be a need to format mode names before comparing them.
+        if (nestedValueModeName.name === modeName.name) {
+            ({ colorValue } = getColorDetailsFromVariableValue(value, variableBySourceId, modeByModeId));
+        } else if (!fallbackColorValue) {
+            ({ colorValue: fallbackColorValue } = getColorDetailsFromVariableValue(
+                value, variableBySourceId, modeByModeId
+            ));
+        }
+    }
+
+    return { colorValue: colorValue || fallbackColorValue, isRemote: nestedVariable.remote };
+}
+
+function generateColorDetailsByModeName(variableCollections) {
+    if (!variableCollections) {
+        return;
+    }
+
+    const colorDetailsByModeName = {};
+    const variableBySourceId = getVariableBySourceId(variableCollections);
+    const modeByModeId = getModeByModeId(variableCollections);
+
+    for (const variableCollection of variableCollections) {
+        if (variableCollection.remote) {
+            continue;
+        }
+
+        for (const group of variableCollection.groups) {
+            for (const variable of group.variables) {
+                for (const value of variable.values) {
+                    const { colorValue, isRemote } = getColorDetailsFromVariableValue(
+                        value, variableBySourceId, modeByModeId
+                    );
+
+                    const colorObject = value.generateColorObject(variable, colorValue);
+                    if (!colorObject) {
+                        continue;
+                    }
+
+                    const mode = modeByModeId[value.modeId];
+                    if (colorDetailsByModeName[mode.name]) {
+                        colorDetailsByModeName[mode.name].push({
+                            color: colorObject, shouldDisplayDefaultValue: isRemote
+                        });
+                    } else {
+                        colorDetailsByModeName[mode.name] = [{
+                            color: colorObject, shouldDisplayDefaultValue: isRemote
+                        }];
+                    }
+                }
+            }
+        }
+    }
+
+    return colorDetailsByModeName;
+}
+
+// Color related
+
+const MAX_RGB_VALUE = 255;
+const MAX_PERCENT = 100;
+const MAX_ANGLE = 360;
+const HEX_BASE = 16;
+
+const alphaFormatter = new Intl.NumberFormat("en-US", {
+    useGrouping: false,
+    maximumFractionDigits: 2
+});
+
+function toHex(num) {
+    let hexNum = Math.trunc(num + (num / MAX_RGB_VALUE));
+    hexNum = Math.max(0, Math.min(hexNum, MAX_RGB_VALUE));
+
+    return (hexNum < HEX_BASE ? "0" : "") + hexNum.toString(HEX_BASE);
+}
+
+function canBeShortHex(color) {
+    const { r, g, b, a } = color.toHex();
+    return r[0] === r[1] && g[0] === g[1] && b[0] === b[1] && a[0] === a[1];
+}
+
+function longHexToShort(hex) {
+    return hex.split("").filter((_, i) => i % 2 === 0).join("");
+}
+
+function toHexString(color) {
+    let hexCode = color.hexBase();
+
+    if (color.a < 1) {
+        hexCode += toHex(color.a * MAX_RGB_VALUE);
+    }
+
+    if (canBeShortHex(color)) {
+        hexCode = longHexToShort(hexCode);
+    }
+
+    return `#${hexCode}`;
+}
+
+function toRGBAString(color) {
+    const rgb = `${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)}`;
+
+    return color.a < 1
+        ? `rgba(${rgb}, ${alphaFormatter.format(color.a)})`
+        : `rgb(${rgb})`;
+}
+
+function toHSLString(color) {
+    const hslColor = color.toHSL();
+    const hsl = `${Math.round(hslColor.h * MAX_ANGLE)}, ${Math.round(hslColor.s * MAX_PERCENT)}%, ${Math.round(hslColor.l * MAX_PERCENT)}%`;
+
+    return color.a < 1
+        ? `hsla(${hsl}, ${alphaFormatter.format(color.a)})`
+        : `hsl(${hsl})`;
+}
+
+function getColorStringByFormat(color, colorFormat) {
+    if (!("r" in color && "g" in color && "b" in color && "a" in color)) {
+        return "";
+    }
+
+    switch (colorFormat) {
+        case "hex":
+            return toHexString(color);
+
+        case "rgb":
+            return toRGBAString(color);
+
+        case "hsl":
+            return toHSLString(color);
+
+        default:
+            return color.a < 1 ? toRGBAString(color) : toHexString(color);
+    }
+}
+
 export {
     blendColors,
     getUniqueLayerTextStyles,
@@ -246,5 +439,8 @@ export {
     getResourceContainer,
     getParams,
     getUniqueFirstItems,
-    generateColorNameResolver
+    generateColorNameResolver,
+    generateLinkedColorVariableNameResolver,
+    generateColorDetailsByModeName,
+    getColorStringByFormat
 };
