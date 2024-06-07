@@ -120,5 +120,120 @@
                 }
             ]
         }
+    ],
+    "variableCollections": [
+        {
+            "name": "Theme",
+            "description": "All theme related variables",
+            "modes": [
+                {
+                    "id": "537",
+                    "name": "Light"
+                },
+                {
+                    "id": "539",
+                    "name": "Dark"
+                }
+            ],
+            "groups": [
+                {
+                    "name": "Colors",
+                    "description": "",
+                    "variables": [
+                        {
+                            "name": "Primary",
+                            "sourceId": "123",
+                            "values": [
+                                {
+                                    "modeId": "537",
+                                    "type": "color",
+                                    "color": {
+                                        "r": 255,
+                                        "g": 0,
+                                        "b": 0,
+                                        "a": 1
+                                    }
+                                },
+                                {
+                                    "modeId": "539",
+                                    "type": "color",
+                                    "color": {
+                                        "r": 255,
+                                        "g": 255,
+                                        "b": 255,
+                                        "a": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Primary label",
+                            "sourceId": "124",
+                            "values": [
+                                {
+                                    "modeId": "537",
+                                    "type": "variable",
+                                    "variableSourceId": "123"
+                                },
+                                {
+                                    "modeId": "539",
+                                    "type": "variable",
+                                    "variableSourceId": "123"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Brand Colors",
+                    "description": "",
+                    "parent": "1",
+                    "variables": [
+                        {
+                            "name": "Karl",
+                            "sourceId": "223",
+                            "values": [
+                                {
+                                    "modeId": "537",
+                                    "type": "color",
+                                    "color": {
+                                        "r": 255,
+                                        "g": 0,
+                                        "b": 0,
+                                        "a": 1
+                                    }
+                                },
+                                {
+                                    "modeId": "539",
+                                    "type": "color",
+                                    "color": {
+                                        "r": 255,
+                                        "g": 255,
+                                        "b": 255,
+                                        "a": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Sirtalis",
+                            "sourceId": "224",
+                            "values": [
+                                {
+                                    "modeId": "537",
+                                    "type": "variable",
+                                    "variableSourceId": "223"
+                                },
+                                {
+                                    "modeId": "539",
+                                    "type": "variable",
+                                    "variableSourceId": "124"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     ]
 }
