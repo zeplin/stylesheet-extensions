@@ -249,7 +249,7 @@ function getVariableBySourceId(variableCollections) {
                 .flatMap(variable => {
                     variable.remote = remote;
 
-                    return variable
+                    return variable;
                 })))
         .reduce((acc, variable) => {
             acc[variable.sourceId] = variable;
@@ -266,7 +266,7 @@ function getModeByModeId(variableCollections) {
             acc[mode.id] = mode;
 
             return acc;
-        }, {})
+        }, {});
 }
 
 function getColorDetailsFromVariableValue(variableValue, variableBySourceId, modeByModeId) {
@@ -301,6 +301,28 @@ function getColorDetailsFromVariableValue(variableValue, variableBySourceId, mod
     return { colorValue: colorValue || fallbackColorValue, isRemote: nestedVariable.remote };
 }
 
+function setColorObjectsForVariable(variable, variableBySourceId, modeByModeId, colorDetailsByModeName) {
+    for (const value of variable.values) {
+        const { colorValue, isRemote } = getColorDetailsFromVariableValue(
+            value, variableBySourceId, modeByModeId
+        );
+
+        const colorObject = value.generateColorObject(variable, colorValue);
+        if (colorObject) {
+            const mode = modeByModeId[value.modeId];
+            if (colorDetailsByModeName[mode.name]) {
+                colorDetailsByModeName[mode.name].push({
+                    color: colorObject, shouldDisplayDefaultValue: isRemote
+                });
+            } else {
+                colorDetailsByModeName[mode.name] = [{
+                    color: colorObject, shouldDisplayDefaultValue: isRemote
+                }];
+            }
+        }
+    }
+}
+
 function generateColorDetailsByModeName(variableCollections) {
     if (!variableCollections) {
         return;
@@ -311,32 +333,10 @@ function generateColorDetailsByModeName(variableCollections) {
     const modeByModeId = getModeByModeId(variableCollections);
 
     for (const variableCollection of variableCollections) {
-        if (variableCollection.remote) {
-            continue;
-        }
-
-        for (const group of variableCollection.groups) {
-            for (const variable of group.variables) {
-                for (const value of variable.values) {
-                    const { colorValue, isRemote } = getColorDetailsFromVariableValue(
-                        value, variableBySourceId, modeByModeId
-                    );
-
-                    const colorObject = value.generateColorObject(variable, colorValue);
-                    if (!colorObject) {
-                        continue;
-                    }
-
-                    const mode = modeByModeId[value.modeId];
-                    if (colorDetailsByModeName[mode.name]) {
-                        colorDetailsByModeName[mode.name].push({
-                            color: colorObject, shouldDisplayDefaultValue: isRemote
-                        });
-                    } else {
-                        colorDetailsByModeName[mode.name] = [{
-                            color: colorObject, shouldDisplayDefaultValue: isRemote
-                        }];
-                    }
+        if (!variableCollection.remote) {
+            for (const group of variableCollection.groups) {
+                for (const variable of group.variables) {
+                    setColorObjectsForVariable(variable, variableBySourceId, modeByModeId, colorDetailsByModeName);
                 }
             }
         }

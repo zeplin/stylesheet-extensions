@@ -43,12 +43,11 @@ export const colorCodeGenerator = ({
     const colorDetailsByModeName = generateColorDetailsByModeName(variableCollections);
 
     let colorVariablesCode = "";
-    for (const [modeName, colorDetails] of Object.entries(colorDetailsByModeName ?? {})) {
-
+    for (const [modeName, colorDetails] of Object.entries(colorDetailsByModeName || {})) {
         let variables = [];
         let colorSectionName;
         for (const { color, shouldDisplayDefaultValue } of colorDetails) {
-            const adjustedColorSectionName = color.originalName.replace(/\/[^\/]*$/, "").replace(/\//g, " / ");
+            const adjustedColorSectionName = color.originalName.replace(/\/[^/]*$/, "").replace(/\//g, " / ");
 
             if (colorSectionName !== adjustedColorSectionName) {
                 variables.push(
@@ -71,7 +70,6 @@ export const colorCodeGenerator = ({
 
         colorVariablesCode += `${MODE_SEPARATOR}${prefixForMode}${variableName}${variableSuffix}`;
     }
-
 
     const code = `${prefix}${colorsCode}${suffix}${colorVariablesCode}`;
 
