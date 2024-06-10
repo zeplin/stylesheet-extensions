@@ -1,3 +1,21 @@
 {
-  "private": true
+  "name": "stylesheet-extensions",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "start:css": "npm run start --workspace=css",
+    "start:less": "npm run start --workspace=less",
+    "start:sass": "npm run start --workspace=sass",
+    "start:scss": "npm run start --workspace=scss",
+    "start:stylus": "npm run start --workspace=stylus"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
+  }
 }

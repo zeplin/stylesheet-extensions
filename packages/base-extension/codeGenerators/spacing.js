@@ -30,7 +30,7 @@ export const spacingCodeGenerator = ({
         spacingTokens
             .map(({ name, value }) => generator.variable(
                 name,
-                new Length(value, { useRemUnit: useRemUnitForMeasurement, useDensityDivisor: false })),
+                new Length(value, { useRemUnit: useRemUnitForMeasurement, useDensityDivisor: false }))
             )
             .join(separator)
     }${suffix}`;

@@ -1,0 +1,44 @@
+name: Publish Extension
+
+on:
+  push:
+    tags:
+      - 'css@*'
+      - 'stylus@*'
+      - 'less@*'
+      - 'sass@*'
+      - 'scss@*'
+
+jobs:
+  publish-extension:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        id: npm-cache # Use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Target Package
+        run: npm run build --workspace=$(echo $GITHUB_REF_NAME | cut -d'@' -f 1)
+
+      - name: Publish Extension
+        run: |
+          extension_pkg_name=$(echo $GITHUB_REF_NAME | cut -d'@' -f 1)
+          npm run publish --workspace=$extension_pkg_name
