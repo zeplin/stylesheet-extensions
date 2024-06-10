@@ -9,7 +9,7 @@ interface RGBA {
 }
 
 declare class Color {
-    constructor(colorObject: object);
+    constructor(colorObject: object, shouldDisplayDefaultValue: boolean);
 
     static fromRGBA(rgba: RGBA): Color;
 

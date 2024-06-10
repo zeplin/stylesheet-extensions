@@ -5,7 +5,7 @@ import { COPYRIGHT } from "./constants";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
-const INDENTATION =  "  ";
+const INDENTATION = "  ";
 
 export default createExtension({
     language: "css",
@@ -13,7 +13,10 @@ export default createExtension({
     colorsOptions: {
         prefix: `:root {\n${INDENTATION}`,
         separator: `\n${INDENTATION}`,
-        suffix: "\n}"
+        suffix: "\n}",
+        variablePrefix: `.modeName {\n${INDENTATION}`,
+        variableSeparator: `\n${INDENTATION}`,
+        variableSuffix: "\n}"
     },
     spacingOptions: {
         prefix: `:root {\n${INDENTATION}`,

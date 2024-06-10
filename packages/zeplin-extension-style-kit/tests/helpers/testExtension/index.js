@@ -14,6 +14,7 @@ class Extension {
         this.generator = new Generator(this.container, this.params);
     }
 
+    // TODO: Consider extending tests for colors and color variables.
     styleguideColors(colors) {
         return colors.map(c => this.generator.variable(c.name, new Color(c))).join("\n");
     }

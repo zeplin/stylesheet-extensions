@@ -1,11 +1,13 @@
 import {
     isDeclarationInherited,
     generateColorNameResolver,
+    generateLinkedColorVariableNameResolver,
     generateVariableName
 } from "zeplin-extension-style-kit/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
+const DEFAULT_VALUE_SEPARATOR = ", ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
@@ -15,8 +17,15 @@ class CSS {
         this.container = container;
     }
 
-    formatColorVariable(color) {
-        return `var(${PREFIX}${generateVariableName(color.originalName || color.name, this.params.variableNameFormat)})`;
+    formatColorVariable(color, options) {
+        let defaultColorValue = "";
+        if (options && options.defaultColorStringByFormat) {
+            defaultColorValue = `${DEFAULT_VALUE_SEPARATOR}${options.defaultColorStringByFormat}`;
+        }
+
+        return `var(${PREFIX}${generateVariableName(
+            color.originalName || color.name, this.params.variableNameFormat
+        )}${defaultColorValue})`;
     }
 
     filterDeclarations(childDeclarations, parentDeclarations) {
@@ -55,7 +64,7 @@ class CSS {
             generateColorNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
-                formatVariableName: color => this.formatColorVariable(color)
+                formatVariableName: (color, options) => this.formatColorVariable(color, options)
             })
         );
         return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
@@ -67,7 +76,20 @@ class CSS {
 
     variable(name, value) {
         const generatedName = generateVariableName(name, this.params.variableNameFormat);
-        return `${PREFIX}${generatedName}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
+
+        let colorNameResolver;
+        if (value.object && value.object.linkedVariableSourceId) {
+            colorNameResolver = generateLinkedColorVariableNameResolver({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                colorFormat: this.params.colorFormat,
+                formatVariableName: (color, options) => this.formatColorVariable(color, options)
+            });
+        }
+
+        const variableValue = value.toStyleValue(this.params, colorNameResolver);
+
+        return `${PREFIX}${generatedName}${SEPARATOR}${variableValue}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "" } = {}) {

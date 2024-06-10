@@ -3,6 +3,7 @@ import {
     isHtmlTag,
     isDeclarationInherited,
     generateColorNameResolver,
+    generateLinkedColorVariableNameResolver,
     generateVariableName
 } from "zeplin-extension-style-kit/utils";
 
@@ -75,7 +76,20 @@ class SCSS {
 
     variable(name, value) {
         const generatedName = generateVariableName(name, this.params.variableNameFormat);
-        return `${PREFIX}${generatedName}${SEPARATOR}${value.toStyleValue(this.params)}${SUFFIX}`;
+
+        let colorNameResolver;
+        if (value.object && value.object.linkedVariableSourceId) {
+            colorNameResolver = generateLinkedColorVariableNameResolver({
+                container: this.container,
+                useLinkedStyleguides: this.params.useLinkedStyleguides,
+                colorFormat: this.params.colorFormat,
+                formatVariableName: color => this.formatColorVariable(color)
+            });
+        }
+
+        const variableValue = value.toStyleValue(this.params, colorNameResolver);
+
+        return `${PREFIX}${generatedName}${SEPARATOR}${variableValue}${SUFFIX}`;
     }
 
     ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "", mixin = false } = {}) {

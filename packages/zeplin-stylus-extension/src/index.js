@@ -5,9 +5,16 @@ import { COPYRIGHT } from "./constants";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
+const INDENTATION = "  ";
+
 export default createExtension({
     language: "stylus",
     Generator,
+    colorsOptions: {
+        variablePrefix: `.modeName \n${INDENTATION}`,
+        variableSeparator: `\n${INDENTATION}`,
+        variableSuffix: "\n"
+    },
     exportTextStylesOptions: {
         prefix: exportPrefix
     },
