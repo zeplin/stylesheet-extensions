@@ -8,8 +8,8 @@ import {
 } from "zeplin-extension-style-kit/utils";
 
 const MODE_SEPARATOR = "\n\n";
-const COMMENT_STARTS = "/* ";
-const COMMENT_ENDS = " */";
+const COMMENT_START = "/* ";
+const COMMENT_END = " */";
 
 export const colorCodeGenerator = ({
     language,
@@ -54,7 +54,7 @@ export const colorCodeGenerator = ({
                     `${colorSectionName
                         ? variableSeparator
                         : ""
-                    }${COMMENT_STARTS}${adjustedColorSectionName}${COMMENT_ENDS}`
+                    }${COMMENT_START}${adjustedColorSectionName}${COMMENT_END}`
                 );
 
                 colorSectionName = adjustedColorSectionName;

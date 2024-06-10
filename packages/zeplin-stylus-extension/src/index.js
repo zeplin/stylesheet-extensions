@@ -5,7 +5,7 @@ import { COPYRIGHT } from "./constants";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
-const INDENTATION =  "  ";
+const INDENTATION = "  ";
 
 export default createExtension({
     language: "stylus",
