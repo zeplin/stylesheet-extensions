@@ -42,3 +42,5 @@ jobs:
         run: |
           extension_pkg_name=$(echo $GITHUB_REF_NAME | cut -d'@' -f 1)
           npm run publish --workspace=$extension_pkg_name
+        env:
+          ZEM_ACCESS_TOKEN: ${{ secrets.ZEM_ACCESS_TOKEN }}

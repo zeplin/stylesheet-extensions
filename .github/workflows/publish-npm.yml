@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: '16.14.0'
           registry-url: 'https://registry.npmjs.org/'
+          scope: '@zeplin'
 
       - name: Cache Dependencies
         uses: actions/cache@v3
@@ -36,6 +37,7 @@ jobs:
 
       - name: Publish zeplin-extension-style-kit to NPM
         run: |
-          echo "@zeplin:registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_EXTENSIONS }}" >> ~/.npmrc
           npm run publish-pkg --workspace=zeplin-extension-style-kit
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_EXTENSIONS }}
+
