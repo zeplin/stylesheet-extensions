@@ -185,7 +185,10 @@ function getLinkedResources(container, type, resourceKey) {
     let resources = container[resourceKey];
     let itContainer = type === "project" ? container.linkedStyleguide : container.parent;
     while (itContainer) {
-        resources = [...resources, ...itContainer[resourceKey]];
+        if (itContainer[resourceKey]) {
+            resources = [...resources, ...itContainer[resourceKey]];
+        }
+
         itContainer = itContainer.parent;
     }
     return resources;
