@@ -1,8 +1,12 @@
 /* eslint-env node */
 
-const path = require("path");
+import path from "path";
+import { fileURLToPath } from "url";
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
     testURL: "http://localhost",
     displayName: "unit",
     rootDir: path.resolve(__dirname, ".."),
@@ -10,6 +14,12 @@ module.exports = {
         "<rootDir>/**/*.test.{js,ts}",
         "!<rootDir>/src/**/*.d.ts"
     ],
+    extensionsToTreatAsEsm: [".ts"],
+    transform: {
+        "^.+\\.(t|j)sx?$": ["@babel/preset-env", {
+            useESModules: true
+        }]
+    },
     moduleDirectories: ["node_modules"],
     moduleFileExtensions: ["js", "ts", "json"],
     transform: {
