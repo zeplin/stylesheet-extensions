@@ -1,4 +1,4 @@
-import Gradient from "@root/values/gradient";
+import { Gradient } from "@root/values/gradient";
 
 import generateGradientObject from "@testHelpers/generateGradientObject";
 

@@ -1,4 +1,4 @@
-import TextAlign from "@root/declarations/textAlign";
+import { TextAlign } from "@root/declarations/textAlign";
 
 test("property name", () => {
     const textAlign = new TextAlign("left");

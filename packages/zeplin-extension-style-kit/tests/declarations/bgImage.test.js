@@ -1,6 +1,6 @@
-import BackgroundImage from "@root/declarations/backgroundImage";
+import { BackgroundImage } from "@root/declarations/backgroundImage";
 
-import Gradient from "@root/values/gradient";
+import { Gradient } from "@root/values/gradient";
 
 test("property name", () => {
     const backgroundImage = new BackgroundImage([Gradient.fromRGBA({ r: 255, g: 0, b: 0 })]);

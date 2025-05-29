@@ -1,7 +1,7 @@
-import TextStroke from "@root/declarations/textStroke";
+import { TextStroke } from "@root/declarations/textStroke";
 
-import Color from "@root/values/color";
-import Length from "@root/values/length";
+import { Color } from "@root/values/color";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const textStroke = new TextStroke({

@@ -1,6 +1,6 @@
-import BorderImageSource from "@root/declarations/borderImageSource";
+import { BorderImageSource } from "@root/declarations/borderImageSource";
 
-import Gradient from "@root/values/gradient";
+import { Gradient } from "@root/values/gradient";
 
 test("property name", () => {
     const borderImageSource = new BorderImageSource(Gradient.fromRGBA({ r: 255, g: 0, b: 0 }));

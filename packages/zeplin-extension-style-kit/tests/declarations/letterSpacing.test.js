@@ -1,6 +1,6 @@
-import LetterSpacing from "@root/declarations/letterSpacing";
+import { LetterSpacing } from "@root/declarations/letterSpacing";
 
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const letterSpacing = new LetterSpacing(new Length(1));

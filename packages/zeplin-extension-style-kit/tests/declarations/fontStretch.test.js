@@ -1,4 +1,4 @@
-import FontStretch from "@root/declarations/fontStretch";
+import { FontStretch } from "@root/declarations/fontStretch";
 
 test("property name", () => {
     const fontStretch = new FontStretch("condensed");

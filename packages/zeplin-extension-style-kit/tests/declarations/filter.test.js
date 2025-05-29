@@ -1,7 +1,7 @@
-import Filter from "@root/declarations/filter";
+import { Filter } from "@root/declarations/filter";
 
-import Length from "@root/values/length";
-import Percent from "@root/values/percent";
+import { Length } from "@root/values/length";
+import { Percent } from "@root/values/percent";
 
 test("property name", () => {
     const filter = new Filter([

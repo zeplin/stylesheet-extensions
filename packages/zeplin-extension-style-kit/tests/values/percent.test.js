@@ -1,4 +1,4 @@
-import Percent from "@root/values/percent";
+import { Percent } from "@root/values/percent";
 
 test("zero is 0 without percent symbol", () => {
     const pc = new Percent(0);

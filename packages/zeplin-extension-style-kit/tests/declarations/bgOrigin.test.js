@@ -1,4 +1,4 @@
-import BackgroundOrigin from "@root/declarations/backgroundOrigin";
+import { BackgroundOrigin } from "@root/declarations/backgroundOrigin";
 
 test("property name", () => {
     const origin = new BackgroundOrigin(["border-box"]);

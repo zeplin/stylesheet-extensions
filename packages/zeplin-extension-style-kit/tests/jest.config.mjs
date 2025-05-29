@@ -1,13 +1,13 @@
-/* eslint-env node */
+import { ESM_TS_TRANSFORM_PATTERN } from 'ts-jest'
 
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
 export default {
-    testURL: "http://localhost",
     displayName: "unit",
     rootDir: path.resolve(__dirname, ".."),
     testMatch: [
@@ -15,18 +15,17 @@ export default {
         "!<rootDir>/src/**/*.d.ts"
     ],
     extensionsToTreatAsEsm: [".ts"],
-    transform: {
-        "^.+\\.(t|j)sx?$": ["@babel/preset-env", {
-            useESModules: true
-        }]
-    },
     moduleDirectories: ["node_modules"],
-    moduleFileExtensions: ["js", "ts", "json"],
     transform: {
-        "^.+\\.tsx?$": ["ts-jest", {
+        [ESM_TS_TRANSFORM_PATTERN]: ["ts-jest", {
             tsconfig: "<rootDir>/tsconfig.json",
+            useESM: true,
             babelConfig: true
         }]
+    },
+    moduleNameMapper: {
+        '^@root/(.*)$': '<rootDir>/src/$1',
+        '@testHelpers/(.*)$': '<rootDir>/tests/helpers/$1',
     },
     collectCoverageFrom: [
         "src/**/*.{js,ts}",

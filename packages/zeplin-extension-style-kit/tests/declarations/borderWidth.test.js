@@ -1,6 +1,6 @@
-import BorderWidth from "@root/declarations/borderWidth";
+import { BorderWidth } from "@root/declarations/borderWidth";
 
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const borderWidth = new BorderWidth(new Length(1));

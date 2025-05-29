@@ -1,6 +1,6 @@
-import Width from "@root/declarations/width";
+import { Width } from "@root/declarations/width";
 
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const width = new Width(new Length(1));

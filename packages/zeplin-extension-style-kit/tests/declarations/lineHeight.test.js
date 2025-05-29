@@ -1,7 +1,7 @@
-import LineHeight from "@root/declarations/lineHeight";
+import { LineHeight } from "@root/declarations/lineHeight";
 
-import Length from "@root/values/length";
-import Scalar from "@root/values/scalar";
+import { Length } from "@root/values/length";
+import { Scalar } from "@root/values/scalar";
 
 test("property name", () => {
     const lineHeight = new LineHeight(new Length(1));

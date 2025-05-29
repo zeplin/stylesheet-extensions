@@ -1,4 +1,4 @@
-import BackgroundBlendMode from "@root/declarations/backgroundBlendMode";
+import { BackgroundBlendMode } from "@root/declarations/backgroundBlendMode";
 
 test("property name", () => {
     const backdropFilter = new BackgroundBlendMode(["lighten"]);

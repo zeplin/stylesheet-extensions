@@ -1,181 +1,181 @@
 {
-    "type": "shape",
-    "name": "rect-gradient-fill-gradient-border",
-    "exportable": false,
-    "rotation": 0,
-    "opacity": 1,
-    "blendMode": "normal",
-    "borderRadius": 10,
-    "absoluteRect": {
-        "x": 267,
-        "y": 343,
-        "width": 138,
-        "height": 99
-    },
-    "rect": {
-        "y": 343,
-        "x": 267,
-        "width": 138,
-        "height": 99
-    },
-    "content": "",
-    "borders": [
-        {
-            "position": "inside",
-            "thickness": 4,
-            "fillType": "gradient",
-            "blendMode": "normal",
-            "fill": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0
-                },
-                "to": {
-                    "x": 1,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 200,
-                            "g": 109,
-                            "b": 215,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
+  "type": "shape",
+  "name": "rect-gradient-fill-gradient-border",
+  "exportable": false,
+  "rotation": 0,
+  "opacity": 1,
+  "blendMode": "normal",
+  "borderRadius": 10,
+  "absoluteRect": {
+    "x": 267,
+    "y": 343,
+    "width": 138,
+    "height": 99
+  },
+  "rect": {
+    "y": 343,
+    "x": 267,
+    "width": 138,
+    "height": 99
+  },
+  "content": "",
+  "borders": [
+    {
+      "position": "inside",
+      "thickness": 4,
+      "fillType": "gradient",
+      "blendMode": "normal",
+      "fill": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0
+        },
+        "to": {
+          "x": 1,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
             },
-            "gradient": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0
-                },
-                "to": {
-                    "x": 1,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 200,
-                            "g": 109,
-                            "b": 215,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
-            }
-        }
-    ],
-    "fills": [
-        {
-            "fillType": "gradient",
-            "blendMode": "normal",
-            "fill": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0.5
-                },
-                "to": {
-                    "x": 1,
-                    "y": 0.5
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 83,
-                            "g": 160,
-                            "b": 253,
-                            "a": 1
-                        },
-                        "position": 0.5
-                    },
-                    {
-                        "color": {
-                            "r": 180,
-                            "g": 236,
-                            "b": 81,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 200,
+              "g": 109,
+              "b": 215,
+              "a": 1
             },
-            "gradient": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0.5
-                },
-                "to": {
-                    "x": 1,
-                    "y": 0.5
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 83,
-                            "g": 160,
-                            "b": 253,
-                            "a": 1
-                        },
-                        "position": 0.5
-                    },
-                    {
-                        "color": {
-                            "r": 180,
-                            "g": 236,
-                            "b": 81,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
-            }
-        }
-    ],
-    "shadows": [],
-    "textStyles": [],
-    "assets": []
+            "position": 1
+          }
+        ]
+      },
+      "gradient": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0
+        },
+        "to": {
+          "x": 1,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 200,
+              "g": 109,
+              "b": 215,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      }
+    }
+  ],
+  "fills": [
+    {
+      "fillType": "gradient",
+      "blendMode": "normal",
+      "fill": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0.5
+        },
+        "to": {
+          "x": 1,
+          "y": 0.5
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 83,
+              "g": 160,
+              "b": 253,
+              "a": 1
+            },
+            "position": 0.5
+          },
+          {
+            "color": {
+              "r": 180,
+              "g": 236,
+              "b": 81,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      },
+      "gradient": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0.5
+        },
+        "to": {
+          "x": 1,
+          "y": 0.5
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 83,
+              "g": 160,
+              "b": 253,
+              "a": 1
+            },
+            "position": 0.5
+          },
+          {
+            "color": {
+              "r": 180,
+              "g": 236,
+              "b": 81,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      }
+    }
+  ],
+  "shadows": [],
+  "textStyles": [],
+  "assets": []
 }

@@ -1,5 +1,4 @@
-import { isDeclarationInherited } from "@root/utils";
-import { generateColorNameResolver, generateIdentifier } from "../../../utils";
+import { generateColorNameResolver, generateIdentifier, isDeclarationInherited } from "@root/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";

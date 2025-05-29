@@ -1,4 +1,4 @@
-import Scalar from "@root/values/scalar";
+import { Scalar } from "@root/values/scalar";
 
 test("integer value returns the exact value", () => {
     const scalar = new Scalar(13);

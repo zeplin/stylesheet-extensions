@@ -1,6 +1,6 @@
-import BackgroundColor from "@root/declarations/backgroundColor";
+import { BackgroundColor } from "@root/declarations/backgroundColor";
 
-import Color from "@root/values/color";
+import { Color } from "@root/values/color";
 
 test("property name", () => {
     const clip = new BackgroundColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));

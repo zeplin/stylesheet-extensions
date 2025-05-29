@@ -1,177 +1,177 @@
 {
-    "type": "text",
-    "name": "Gradient fill blent",
-    "exportable": false,
-    "rotation": 0,
-    "opacity": 1,
-    "blendMode": "normal",
-    "borderRadius": 0,
-    "absoluteRect": {
-        "x": 24,
-        "y": 179,
-        "width": 209,
-        "height": 20
-    },
-    "rect": {
-        "y": 179,
-        "x": 24,
-        "width": 209,
-        "height": 20
-    },
-    "content": "Gradient fill blent",
-    "borders": [],
-    "fills": [
-        {
-            "fillType": "gradient",
-            "blendMode": "lighten",
-            "fill": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0
-                },
-                "to": {
-                    "x": 1,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 200,
-                            "g": 109,
-                            "b": 215,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
-            },
-            "gradient": {
-                "type": "linear",
-                "from": {
-                    "x": 0,
-                    "y": 0
-                },
-                "to": {
-                    "x": 1,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 48,
-                            "g": 35,
-                            "b": 174,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 200,
-                            "g": 109,
-                            "b": 215,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
-            }
+  "type": "text",
+  "name": "Gradient fill blent",
+  "exportable": false,
+  "rotation": 0,
+  "opacity": 1,
+  "blendMode": "normal",
+  "borderRadius": 0,
+  "absoluteRect": {
+    "x": 24,
+    "y": 179,
+    "width": 209,
+    "height": 20
+  },
+  "rect": {
+    "y": 179,
+    "x": 24,
+    "width": 209,
+    "height": 20
+  },
+  "content": "Gradient fill blent",
+  "borders": [],
+  "fills": [
+    {
+      "fillType": "gradient",
+      "blendMode": "lighten",
+      "fill": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0
         },
-        {
-            "fillType": "gradient",
-            "blendMode": "multiply",
-            "fill": {
-                "type": "linear",
-                "from": {
-                    "x": 0.5,
-                    "y": 0
-                },
-                "to": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 250,
-                            "g": 217,
-                            "b": 97,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 247,
-                            "g": 107,
-                            "b": 28,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
+        "to": {
+          "x": 1,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
             },
-            "gradient": {
-                "type": "linear",
-                "from": {
-                    "x": 0.5,
-                    "y": 0
-                },
-                "to": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "colorStops": [
-                    {
-                        "color": {
-                            "r": 250,
-                            "g": 217,
-                            "b": 97,
-                            "a": 1
-                        },
-                        "position": 0
-                    },
-                    {
-                        "color": {
-                            "r": 247,
-                            "g": 107,
-                            "b": 28,
-                            "a": 1
-                        },
-                        "position": 1
-                    }
-                ]
-            }
-        }
-    ],
-    "shadows": [],
-    "textStyles": [
-        {
-            "range": {
-                "location": 0,
-                "length": 19
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 200,
+              "g": 109,
+              "b": 215,
+              "a": 1
             },
-            "style": {
-                "fontFace": "Consolas",
-                "fontSize": 20,
-                "fontWeight": 400,
-                "fontStyle": "normal",
-                "fontFamily": "Consolas",
-                "fontStretch": "normal",
-                "letterSpacing": 0,
-                "weightText": "regular"
-            }
-        }
-    ],
-    "assets": []
+            "position": 1
+          }
+        ]
+      },
+      "gradient": {
+        "type": "linear",
+        "from": {
+          "x": 0,
+          "y": 0
+        },
+        "to": {
+          "x": 1,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 48,
+              "g": 35,
+              "b": 174,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 200,
+              "g": 109,
+              "b": 215,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      }
+    },
+    {
+      "fillType": "gradient",
+      "blendMode": "multiply",
+      "fill": {
+        "type": "linear",
+        "from": {
+          "x": 0.5,
+          "y": 0
+        },
+        "to": {
+          "x": 0.5,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 250,
+              "g": 217,
+              "b": 97,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 247,
+              "g": 107,
+              "b": 28,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      },
+      "gradient": {
+        "type": "linear",
+        "from": {
+          "x": 0.5,
+          "y": 0
+        },
+        "to": {
+          "x": 0.5,
+          "y": 1
+        },
+        "colorStops": [
+          {
+            "color": {
+              "r": 250,
+              "g": 217,
+              "b": 97,
+              "a": 1
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "r": 247,
+              "g": 107,
+              "b": 28,
+              "a": 1
+            },
+            "position": 1
+          }
+        ]
+      }
+    }
+  ],
+  "shadows": [],
+  "textStyles": [
+    {
+      "range": {
+        "location": 0,
+        "length": 19
+      },
+      "style": {
+        "fontFace": "Consolas",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fontFamily": "Consolas",
+        "fontStretch": "normal",
+        "letterSpacing": 0,
+        "weightText": "regular"
+      }
+    }
+  ],
+  "assets": []
 }

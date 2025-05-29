@@ -1,6 +1,5 @@
-import Height from "@root/declarations/height";
-
-import Length from "@root/values/length";
+import { Height } from "@root/declarations/height";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const height = new Height(new Length(1));

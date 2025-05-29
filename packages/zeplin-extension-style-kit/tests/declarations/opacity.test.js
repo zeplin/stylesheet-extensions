@@ -1,6 +1,6 @@
-import Opacity from "@root/declarations/opacity";
+import { Opacity } from "@root/declarations/opacity";
 
-import Scalar from "@root/values/scalar";
+import { Scalar } from "@root/values/scalar";
 
 test("property name", () => {
     const opacity = new Opacity(new Scalar(0.33));

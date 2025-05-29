@@ -1,4 +1,4 @@
-import Angle from "@root/values/angle";
+import { Angle } from "@root/values/angle";
 
 test("default unit is deg", () => {
     const angle = new Angle(13);

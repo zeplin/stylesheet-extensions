@@ -1,6 +1,6 @@
-import FontColor from "@root/declarations/fontColor";
+import { FontColor } from "@root/declarations/fontColor";
 
-import Color from "@root/values/color";
+import { Color } from "@root/values/color";
 
 test("property name", () => {
     const clip = new FontColor(Color.fromRGBA({ r: 255, g: 255, b: 0, a: 1 }));

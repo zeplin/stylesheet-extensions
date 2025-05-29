@@ -1,4 +1,4 @@
-import TextFillColor from "@root/declarations/textFillColor";
+import { TextFillColor } from "@root/declarations/textFillColor";
 
 test("property name", () => {
     const textFillColor = new TextFillColor("transparent");

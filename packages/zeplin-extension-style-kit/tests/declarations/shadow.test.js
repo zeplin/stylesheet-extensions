@@ -1,9 +1,9 @@
-import Shadow from "@root/declarations/shadow";
+import { Shadow } from "@root/declarations/shadow";
 
 import generateShadowObject from "@testHelpers/generateShadowObject";
 
-import Color from "@root/values/color";
-import Length from "@root/values/length";
+import { Color } from "@root/values/color";
+import { Length } from "@root/values/length";
 
 test("property name (text)", () => {
     const shadow = new Shadow([generateShadowObject()], Shadow.TYPES.TEXT);

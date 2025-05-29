@@ -1,4 +1,4 @@
-import MixBlendMode from "@root/declarations/mixBlendMode";
+import { MixBlendMode } from "@root/declarations/mixBlendMode";
 
 test("property name", () => {
     const clip = new MixBlendMode("multiply");

@@ -1,4 +1,4 @@
-import BorderStyle from "@root/declarations/borderStyle";
+import { BorderStyle } from "@root/declarations/borderStyle";
 
 test("property name", () => {
     const borderStyle = new BorderStyle("dashed");

@@ -1,93 +1,93 @@
 {
-    "type": "shape",
-    "name": "rect-individual-border",
-    "exportable": false,
-    "rotation": 0,
-    "opacity": 1,
-    "blendMode": "normal",
-    "borderRadius": 0,
-    "absoluteRect": {
-        "x": 260,
-        "y": 196,
-        "width": 138,
-        "height": 99
+  "type": "shape",
+  "name": "rect-individual-border",
+  "exportable": false,
+  "rotation": 0,
+  "opacity": 1,
+  "blendMode": "normal",
+  "borderRadius": 0,
+  "absoluteRect": {
+    "x": 260,
+    "y": 196,
+    "width": 138,
+    "height": 99
+  },
+  "rect": {
+    "y": 196,
+    "x": 260,
+    "width": 138,
+    "height": 99
+  },
+  "content": "",
+  "borders": [
+    {
+      "position": "inside",
+      "thickness": 4,
+      "individualThickness": {
+        "top": 0,
+        "right": 4,
+        "bottom": 0,
+        "left": 4
+      },
+      "fillType": "color",
+      "blendMode": "normal",
+      "fill": {
+        "r": 151,
+        "g": 151,
+        "b": 151,
+        "a": 1
+      },
+      "color": {
+        "r": 151,
+        "g": 151,
+        "b": 151,
+        "a": 1
+      }
     },
-    "rect": {
-        "y": 196,
-        "x": 260,
-        "width": 138,
-        "height": 99
-    },
-    "content": "",
-    "borders": [
-        {
-            "position": "inside",
-            "thickness": 4,
-            "individualThickness": {
-                "top": 0,
-                "right": 4,
-                "bottom": 0,
-                "left": 4
-            },
-            "fillType": "color",
-            "blendMode": "normal",
-            "fill": {
-                "r": 151,
-                "g": 151,
-                "b": 151,
-                "a": 1
-            },
-            "color": {
-                "r": 151,
-                "g": 151,
-                "b": 151,
-                "a": 1
-            }
-        },
-        {
-            "position": "inside",
-            "thickness": 4,
-            "individualThickness": {
-                "top": 0,
-                "right": 4,
-                "bottom": 0,
-                "left": 4
-            },
-            "fillType": "color",
-            "blendMode": "normal",
-            "fill": {
-                "r": 151,
-                "g": 151,
-                "b": 151,
-                "a": 1
-            },
-            "color": {
-                "r": 151,
-                "g": 151,
-                "b": 151,
-                "a": 1
-            }
-        }
-    ],
-    "fills": [
-        {
-            "fillType": "color",
-            "blendMode": "normal",
-            "fill": {
-                "r": 216,
-                "g": 216,
-                "b": 216,
-                "a": 1
-            },
-            "color": {
-                "r": 216,
-                "g": 216,
-                "b": 216,
-                "a": 1
-            }
-        }
-    ],
-    "shadows": [],
-    "textStyles": [],
-    "assets": []
+    {
+      "position": "inside",
+      "thickness": 4,
+      "individualThickness": {
+        "top": 0,
+        "right": 4,
+        "bottom": 0,
+        "left": 4
+      },
+      "fillType": "color",
+      "blendMode": "normal",
+      "fill": {
+        "r": 151,
+        "g": 151,
+        "b": 151,
+        "a": 1
+      },
+      "color": {
+        "r": 151,
+        "g": 151,
+        "b": 151,
+        "a": 1
+      }
+    }
+  ],
+  "fills": [
+    {
+      "fillType": "color",
+      "blendMode": "normal",
+      "fill": {
+        "r": 216,
+        "g": 216,
+        "b": 216,
+        "a": 1
+      },
+      "color": {
+        "r": 216,
+        "g": 216,
+        "b": 216,
+        "a": 1
+      }
+    }
+  ],
+  "shadows": [],
+  "textStyles": [],
+  "assets": []
 }

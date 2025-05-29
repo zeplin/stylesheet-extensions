@@ -1,4 +1,4 @@
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("default unit is px", () => {
     const length = new Length(13);

@@ -1,4 +1,4 @@
-import FontFamily from "@root/declarations/fontFamily";
+import { FontFamily } from "@root/declarations/fontFamily";
 
 test("property name", () => {
     const fontFamily = new FontFamily("Helvetica");

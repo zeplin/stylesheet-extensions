@@ -1,4 +1,4 @@
-import FontWeight from "@root/declarations/fontWeight";
+import { FontWeight } from "@root/declarations/fontWeight";
 
 test("property name", () => {
     const fontWeight = new FontWeight(300);

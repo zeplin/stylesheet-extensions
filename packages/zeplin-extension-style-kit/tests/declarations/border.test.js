@@ -1,7 +1,6 @@
-import Border from "@root/declarations/border";
-
-import Color from "@root/values/color";
-import Length from "@root/values/length";
+import { Border } from "@root/declarations/border";
+import { Color } from "@root/values/color";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const border = new Border({

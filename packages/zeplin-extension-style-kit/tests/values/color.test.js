@@ -1,5 +1,5 @@
-import Color from "@root/values/color";
-import Gradient from "@root/values/gradient";
+import { Color } from "@root/values/color";
+import { Gradient } from "@root/values/gradient";
 
 test("rgb representation (opacity: 1)", () => {
     const color = Color.fromRGBA({ r: 13, g: 13, b: 13 });

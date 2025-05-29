@@ -1,6 +1,6 @@
-import BorderRadius from "@root/declarations/borderRadius";
+import { BorderRadius } from "@root/declarations/borderRadius";
 
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const borderRadius = new BorderRadius(new Length(1));

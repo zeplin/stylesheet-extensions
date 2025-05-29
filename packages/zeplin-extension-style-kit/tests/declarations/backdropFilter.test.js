@@ -1,7 +1,6 @@
-import BackdropFilter from "@root/declarations/backdropFilter";
-
-import Length from "@root/values/length";
-import Percent from "@root/values/percent";
+import { BackdropFilter } from "../../src/declarations/backdropFilter";
+import { Length } from "../../src/values/length";
+import { Percent } from "../../src/values/percent";
 
 test("property name", () => {
     const backdropFilter = new BackdropFilter([

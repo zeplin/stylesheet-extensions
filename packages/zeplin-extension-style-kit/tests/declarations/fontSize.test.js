@@ -1,6 +1,6 @@
-import FontSize from "@root/declarations/fontSize";
+import { FontSize } from "@root/declarations/fontSize";
 
-import Length from "@root/values/length";
+import { Length } from "@root/values/length";
 
 test("property name", () => {
     const fontSize = new FontSize(new Length(1));

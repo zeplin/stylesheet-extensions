@@ -1,4 +1,4 @@
-import ObjectFit from "@root/declarations/objectFit";
+import { ObjectFit } from "@root/declarations/objectFit";
 
 test("property name", () => {
     const clip = new ObjectFit("cover");

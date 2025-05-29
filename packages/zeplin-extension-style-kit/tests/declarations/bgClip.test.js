@@ -1,4 +1,4 @@
-import BackgroundClip from "@root/declarations/backgroundClip";
+import { BackgroundClip } from "@root/declarations/backgroundClip";
 
 test("property name", () => {
     const clip = new BackgroundClip(["border-box"]);

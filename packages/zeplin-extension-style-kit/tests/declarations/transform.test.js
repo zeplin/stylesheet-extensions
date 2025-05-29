@@ -1,7 +1,7 @@
-import Transform from "@root/declarations/transform";
+import { Transform } from "@root/declarations/transform";
 
-import Length from "@root/values/length";
-import Scalar from "@root/values/scalar";
+import { Length } from "@root/values/length";
+import { Scalar } from "@root/values/scalar";
 
 test("property name", () => {
     const transform = new Transform([

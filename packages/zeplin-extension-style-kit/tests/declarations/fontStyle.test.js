@@ -1,4 +1,4 @@
-import FontStyle from "@root/declarations/fontStyle";
+import { FontStyle } from "@root/declarations/fontStyle";
 
 test("property name", () => {
     const fontStyle = new FontStyle("italic");

@@ -1,6 +1,6 @@
-import BorderImageSlice from "@root/declarations/borderImageSlice";
+import { BorderImageSlice } from "@root/declarations/borderImageSlice";
 
-import Percent from "@root/values/percent";
+import { Percent } from "@root/values/percent";
 
 test("property name", () => {
     const bis = new BorderImageSlice(new Percent(0.33));
