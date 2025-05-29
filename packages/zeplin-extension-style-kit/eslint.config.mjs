@@ -19,5 +19,5 @@ export default defineConfig([
             "@typescript-eslint/no-explicit-any": "off"
         }
     }, {
-        ignores: ["eslint.config.mjs", "**/tests/**/*", "**/lib/**/*"]
+        ignores: ["eslint.config.mjs", "**/tests/**/*", "**/dist/**/*"]
     }]);

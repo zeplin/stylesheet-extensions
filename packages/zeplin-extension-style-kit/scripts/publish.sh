@@ -2,7 +2,7 @@
 set -e
 
 BASEDIR=$(cd "$(dirname $(dirname "$BASH_SOURCE"))" && pwd)
-BUILDDIR=$BASEDIR/lib
+BUILDDIR=$BASEDIR/dist
 
 pushd $BASEDIR
 

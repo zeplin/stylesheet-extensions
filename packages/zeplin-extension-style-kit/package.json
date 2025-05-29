@@ -2,18 +2,18 @@
   "name": "zeplin-extension-style-kit",
   "version": "4.4.1",
   "description": "Models and utilities to generate CSS-like style code in Zeplin extensions.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "typesVersions": {
     "*": {
-      "*": ["lib/*"]
+      "*": ["dist/*"]
     }
   },
   "scripts": {
@@ -21,9 +21,9 @@
     "prebuild": "npm run clean",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts\" --ignore \"**/*.test.ts\" --source-maps",
+    "build:js": "babel src --out-dir dist --extensions \".ts\" --ignore \"**/*.test.ts\" --source-maps",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" BABEL_ENV=test jest -c ./tests/jest.config.mjs",
-    "clean": "rm -rf ./lib",
+    "clean": "rm -rf ./dist",
     "lint": "eslint .",
     "type-check": "tsc --noEmit"
   },
