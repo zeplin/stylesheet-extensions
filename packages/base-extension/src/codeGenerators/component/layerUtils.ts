@@ -1,11 +1,12 @@
-import Layer from "zeplin-extension-style-kit/elements/layer";
-import RuleSet from "zeplin-extension-style-kit/ruleSet";
+import { Generator, Layer, RuleSet } from "zeplin-extension-style-kit";
+import { Layer as ExtensionLayer, Version } from "@zeplin/extension-model";
+import { LayerStyleMap } from "./layerStyleMap";
 
-function getLayerSignature(layer) {
+function getLayerSignature(layer: ExtensionLayer): string {
     return `${layer.rect.width}:${layer.rect.height}:${layer.rect.x}:${layer.rect.y}:${layer.name}:${layer.type}:${layer.content}`;
 }
 
-function generateLayerStyle(layer) {
+function generateLayerStyle(layer: ExtensionLayer): RuleSet {
     const layerElement = new Layer(layer);
     const ruleSet = layerElement.style;
 
@@ -20,11 +21,11 @@ function generateLayerStyle(layer) {
     return ruleSet;
 }
 
-function flatLayers(layers) {
+function flatLayers(layers: ExtensionLayer[] = []): ExtensionLayer[] {
     return layers.flatMap(layer => (layer.exportable ? [layer] : [layer].concat(flatLayers(layer.layers))));
 }
 
-function groupComponentLayersBySignature(componentVersions) {
+function groupComponentLayersBySignature(componentVersions: Version[] = []): { signature: string, layers: ExtensionLayer[] }[] {
     const [pivotLayers, ...otherVersions] = componentVersions.map(({ layers }) => flatLayers(layers));
 
     return pivotLayers.map(layer => {
@@ -49,7 +50,7 @@ function groupComponentLayersBySignature(componentVersions) {
     }).filter(group => group.layers.length === componentVersions.length);
 }
 
-function getCommonRuleset(layers) {
+function getCommonRuleset(layers: ExtensionLayer[] = []): RuleSet | undefined {
     const layerStyles = layers.filter(l => l.inspectable).map(l => generateLayerStyle(l));
     const [pivot, ...rest] = layerStyles;
 
@@ -66,7 +67,7 @@ function getCommonRuleset(layers) {
     return new RuleSet(pivot.selector, commonDeclarations);
 }
 
-function generateCodeForLayers(generator, layers, classNames, layerStyleMap) {
+function generateCodeForLayers(generator: Generator, layers: ExtensionLayer[], classNames: string[], layerStyleMap: LayerStyleMap | undefined): string[] {
     return layers.filter(layer => layer.inspectable).flatMap(layer => {
         const ruleSet = generateLayerStyle(layer);
         const layerSignature = getLayerSignature(layer);
@@ -83,7 +84,7 @@ function generateCodeForLayers(generator, layers, classNames, layerStyleMap) {
             codeBlock,
             ...generateCodeForLayers(
                 generator,
-                layer.layers,
+                (layer.layers || []),
                 classNames,
                 layerStyleMap
             )

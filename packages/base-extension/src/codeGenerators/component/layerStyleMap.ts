@@ -1,23 +1,28 @@
-import RuleSet from "zeplin-extension-style-kit/ruleSet";
+import { RuleSet } from "zeplin-extension-style-kit";
+
+export type SubsetGenerator = (list: string[]) => string[][];
 
 export class LayerStyleMap {
-    constructor(subsetGenerator) {
+    private readonly subsetGenerator: SubsetGenerator;
+    private readonly styleMap: Map<string, Record<string, RuleSet>>;
+
+    constructor(subsetGenerator: SubsetGenerator) {
         this.subsetGenerator = subsetGenerator;
         this.styleMap = new Map();
     }
 
-    getKey(classNames) {
+    getKey(classNames: string[]): string {
         return [...classNames].sort().join(":");
     }
 
-    mergeRuleSets(first, second) {
+    mergeRuleSets(first: RuleSet, second: RuleSet): RuleSet {
         return new RuleSet(
             first.selector,
             [...first.declarations].concat(second.declarations)
         );
     }
 
-    mergeLayerStyles(layerStyleMap, other) {
+    mergeLayerStyles(layerStyleMap: Record<string, RuleSet>, other: Record<string, RuleSet>): Record<string, RuleSet> {
         const merged = Object.assign({}, layerStyleMap);
 
         for (const [signature, otherRuleSet] of Object.entries(other)) {
@@ -29,7 +34,7 @@ export class LayerStyleMap {
         return merged;
     }
 
-    addStyles(classNames, layerStyles) {
+    addStyles(classNames: string[], layerStyles: Record<string, RuleSet>) {
         const key = this.getKey(classNames);
 
         let styles = this.styleMap.get(key);
@@ -43,12 +48,12 @@ export class LayerStyleMap {
         this.styleMap.set(key, styles);
     }
 
-    getStyles(classNames) {
+    getStyles(classNames: string[]): Record<string, RuleSet> {
         const key = this.getKey(classNames);
         return this.styleMap.get(key) || {};
     }
 
-    getParentDeclarations(classNames, signature) {
+    getParentDeclarations(classNames: string[], signature: string) {
         const classNameCombinations = this.subsetGenerator(classNames);
         let mergedRuleSet;
 

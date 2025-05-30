@@ -1,28 +1,38 @@
-import Layer from "zeplin-extension-style-kit/elements/layer";
-import RuleSet from "zeplin-extension-style-kit/ruleSet";
-import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import {
+    CodeGenerator,
+    CodeOutput,
+    Layer,
+    RuleSet,
+    Mixin,
     getResources,
     getUniqueLayerTextStyles,
     selectorize,
     isHtmlTag,
     getParams,
-    getResourceContainer
-} from "zeplin-extension-style-kit/utils";
+    getResourceContainer, ContextParams
+} from "zeplin-extension-style-kit";
+import {
+    Layer as ExtensionLayer,
+    TextStyle as ExtensionTextStyle,
+    Context,
+    Project,
+    Styleguide
+} from "@zeplin/extension-model";
 
-function findBestConformTextStyle(searchedTextStyle, context, params) {
-    const { container } = getResourceContainer(context);
-    if (container.findBestConformingTextStyle) {
-        return container.findBestConformingTextStyle(searchedTextStyle, params.useLinkedStyleguides);
+function findBestConformTextStyle(searchedTextStyle: ExtensionTextStyle, context: Context, params: ContextParams) {
+    const { container, type } = getResourceContainer(context);
+    const barrel = type === "styleguide" ? container as Styleguide : container as Project;
+    if (barrel.findBestConformingTextStyle) {
+        return barrel.findBestConformingTextStyle(searchedTextStyle, params.useLinkedStyleguides);
     }
 
     // Fallback for backwards compatibility
     const textStyles = getResources({
         context,
         useLinkedStyleguides: params.useLinkedStyleguides,
-        key: "textStyles"
+        resourceFn: barrel => barrel.textStyles,
     });
-    let result = { textStyle: null, score: 0 };
+    let result: { textStyle: ExtensionTextStyle | null, score: number } = { textStyle: null, score: 0 };
     for (const textStyle of textStyles) {
         if (textStyle.sourceId && searchedTextStyle.sourceId && textStyle.sourceId === searchedTextStyle.sourceId) {
             return textStyle;
@@ -39,7 +49,7 @@ function findBestConformTextStyle(searchedTextStyle, context, params) {
     return result.textStyle;
 }
 
-function getTextStyleDeclarations(textStyle, layer, context, params) {
+function getTextStyleDeclarations(textStyle: ExtensionTextStyle, layer: Layer, context: Context, params: ContextParams) {
     const matchedTextStyle = findBestConformTextStyle(textStyle, context, params);
     const declarations = layer.getLayerTextStyleDeclarations(textStyle);
 
@@ -54,20 +64,23 @@ function getTextStyleDeclarations(textStyle, layer, context, params) {
     return declarations;
 }
 
-export const layerCodeGenerator = ({
-    language,
-    Generator,
-    options: {
-        separator = "\n\n"
-    } = {}
-}) => (context, selectedLayer) => {
+export const layerCodeGenerator: CodeGenerator = (generatorParams) =>
+    (context: Context, selectedLayer: ExtensionLayer): CodeOutput => {
+        const {
+            language,
+            Generator,
+            options: {
+                separator = "\n"
+            }
+        } = generatorParams;
+
     const params = getParams(context);
     const { container } = getResourceContainer(context);
     const generator = new Generator(container, params);
 
-    const l = new Layer(selectedLayer, params);
+    const l = new Layer(selectedLayer);
     const layerRuleSet = l.style;
-    const childrenRuleSet = [];
+    const childrenRuleSet: RuleSet[] = [];
     const { defaultTextStyle } = selectedLayer;
 
     if (selectedLayer.type === "text" && defaultTextStyle) {

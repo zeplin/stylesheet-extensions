@@ -1,26 +1,35 @@
-import Length from "zeplin-extension-style-kit/values/length";
 import {
-    getResources,
-    getParams,
+    CodeGenerator,
     generateIdentifier,
-    getUniqueFirstItems, getResourceContainer
-} from "zeplin-extension-style-kit/utils";
-const useRemUnitForMeasurement = ({ useForMeasurements }) => useForMeasurements;
+    getParams,
+    getResourceContainer,
+    getResources,
+    getUniqueFirstItems,
+    Length,
+    RemPreferences
+} from "zeplin-extension-style-kit";
 
-export const spacingCodeGenerator = ({
-    language,
-    Generator,
-    options: {
-        prefix = "",
-        separator = "\n",
-        suffix = ""
-    } = {}
-}) => context => {
+const useRemUnitForMeasurement = ({ useForMeasurements }: RemPreferences) => useForMeasurements;
+
+export const spacingCodeGenerator: CodeGenerator = (generatorParams) => context => {
+    const {
+        language,
+        Generator,
+        options: {
+            prefix = "",
+            separator = "\n",
+            suffix = ""
+        } = {}
+    } = generatorParams;
     const params = getParams(context);
     const { container } = getResourceContainer(context);
     const generator = new Generator(container, params);
 
-    const spacingSections = getResources({ context, useLinkedStyleguides: params.useLinkedStyleguides, key: "spacingSections" });
+    const spacingSections = getResources({
+        context,
+        useLinkedStyleguides: params.useLinkedStyleguides,
+        resourceFn: barrel => barrel.spacingSections,
+    });
     const spacingTokens = getUniqueFirstItems(
         spacingSections.map(({ spacingTokens: items }) => items).reduce((prev, current) => [...prev, ...current]),
         (token, other) => generateIdentifier(token.name) === generateIdentifier(other.name)

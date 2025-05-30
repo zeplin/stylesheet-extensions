@@ -1,29 +1,43 @@
 import { selectorize } from "zeplin-extension-style-kit/utils";
 import { LayerStyleMap } from "./layerStyleMap";
-import { generateCodeForLayers, groupComponentLayersBySignature, getCommonRuleset } from "./layerUtils";
+import { generateCodeForLayers, getCommonRuleset, groupComponentLayersBySignature } from "./layerUtils.js";
 import {
-    findDefaultStateComponent,
-    getPropertyFiltersForComponent,
     filterComponentsByProperties,
-    selectorizeComponentProperty,
-    getDefaultPropertyFilters
-} from "./componentUtils";
+    findDefaultStateComponent,
+    getDefaultPropertyFilters,
+    getPropertyFiltersForComponent, PropertyFilter,
+    selectorizeComponentProperty
+} from "./componentUtils.js";
+import { Component } from "@zeplin/extension-model";
+import { Generator, RuleSet } from "zeplin-extension-style-kit";
+
+export type ComponentCodeGeneratorOptions = {
+    generator: Generator;
+    language: string,
+    lineSeparator: string
+};
 
 export class ComponentCodeGenerator {
-    constructor(generator, options) {
-        this.generator = generator;
+    private readonly generator: Generator;
+    private readonly language: string;
+    private readonly lineSeparator: string;
+    private readonly styleMap: LayerStyleMap;
+
+    constructor(options: ComponentCodeGeneratorOptions) {
+        this.generator = options.generator;
         this.language = options.language;
         this.lineSeparator = options.lineSeparator;
+        this.styleMap = new LayerStyleMap(array => this.generateSelectiveSubsets(array, true));
     }
 
-    generateSelectiveSubsets(array, proper = false) {
+    generateSelectiveSubsets<T>(array: T[], proper = false): T[][] {
         const { length } = array;
 
         if (length === 0) {
             return [];
         }
 
-        const subsets = [[]];
+        const subsets: T[][] = [[]];
 
         if (length === 1 && proper) {
             return subsets;
@@ -39,15 +53,15 @@ export class ComponentCodeGenerator {
         return subsets;
     }
 
-    getClassNamesForPropertyFilters(propertyFilters) {
+    getClassNamesForPropertyFilters(propertyFilters: PropertyFilter[]): string[] {
         return propertyFilters.map(
             pf => selectorizeComponentProperty({ value: pf.targetValue, name: pf.propertyName })
         ).filter(Boolean);
     }
 
-    generateCommonStylesForComponents(components) {
+    generateCommonStylesForComponents(components: Component[]): Record<string, RuleSet> {
         const commonLayerGroups = groupComponentLayersBySignature(components.map(c => c.latestVersion));
-        const commonStyles = {};
+        const commonStyles: Record<string, RuleSet> = {};
 
         for (const { signature, layers } of commonLayerGroups) {
             const style = getCommonRuleset(layers);
@@ -60,7 +74,7 @@ export class ComponentCodeGenerator {
         return commonStyles;
     }
 
-    getPropertyFilterCombinations(component) {
+    getPropertyFilterCombinations(component: Component) {
         const filterCombinations = [];
         const propertyFilters = getPropertyFiltersForComponent(component);
         const defaultPropertyFilters = getDefaultPropertyFilters(component);
@@ -76,35 +90,35 @@ export class ComponentCodeGenerator {
         return filterCombinations;
     }
 
-    collectCommonStyles(component) {
+    collectCommonStyles(component: Component): {
+        commonBlocks: IterableIterator<string[]>,
+        styleMap: LayerStyleMap
+    } {
         const { variant } = component;
-        const styleMap = new LayerStyleMap(array => this.generateSelectiveSubsets(array, true));
         const commonBlocksMap = new Map();
 
-        if (!variant) {
-            return;
-        }
+        if (variant) {
+            for (const filterCombination of this.getPropertyFilterCombinations(component)) {
+                const filteredComponents = filterComponentsByProperties(variant.components, filterCombination);
 
-        for (const filterCombination of this.getPropertyFilterCombinations(component)) {
-            const filteredComponents = filterComponentsByProperties(variant.components, filterCombination);
+                if (filteredComponents.length > 0) {
+                    const styles = this.generateCommonStylesForComponents(filteredComponents);
+                    const classNames = this.getClassNamesForPropertyFilters(filterCombination);
 
-            if (filteredComponents.length > 0) {
-                const styles = this.generateCommonStylesForComponents(filteredComponents);
-                const classNames = this.getClassNamesForPropertyFilters(filterCombination);
-
-                styleMap.addStyles(classNames, styles);
-                commonBlocksMap.set(classNames.join(""), classNames);
+                    this.styleMap.addStyles(classNames, styles);
+                    commonBlocksMap.set(classNames.join(""), classNames);
+                }
             }
         }
 
         return {
             commonBlocks: commonBlocksMap.values(),
-            styleMap
+            styleMap: this.styleMap
         };
     }
 
-    generateCodeForVariantComponent(component) {
-        const globalClassName = selectorize(component.variant.name);
+    generateCodeForVariantComponent(component: Component) {
+        const globalClassName = selectorize(component.variant!.name);
         const { commonBlocks, styleMap } = this.collectCommonStyles(component);
         const codeBlocks = [];
 
@@ -126,7 +140,7 @@ export class ComponentCodeGenerator {
         return codeBlocks;
     }
 
-    generateCodeForSingleComponent(component) {
+    generateCodeForSingleComponent(component: Component) {
         const globalClassName = selectorize(component.name);
         const classNames = [globalClassName];
 
@@ -136,10 +150,10 @@ export class ComponentCodeGenerator {
             classNames.push(...this.getClassNamesForPropertyFilters(propertyFilters));
         }
 
-        return generateCodeForLayers(this.generator, component.latestVersion.layers, classNames, this.styleMap);
+        return generateCodeForLayers(this.generator, component.latestVersion.layers || [], classNames, this.styleMap);
     }
 
-    generate(component) {
+    generate(component: Component) {
         let codeBlocks;
 
         if (component.variant) {
