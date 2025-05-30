@@ -58,3 +58,16 @@ export interface StyleFunction {
 }
 
 export type ColorNameResolver = (colorObject: Color, shouldDisplayDefaultValue?: boolean) => string;
+
+export interface ContextParams {
+    densityDivisor: number;
+    useLinkedStyleguides: boolean;
+    colorFormat: ColorFormat;
+    variableNameFormat: NamingScheme;
+    showDimensions: boolean;
+    showDefaultValues: boolean;
+    unitlessLineHeight: boolean;
+    useMixin: boolean;
+    remPreferences: RemPreferences | undefined;
+    showPaddingMargin: boolean;
+}

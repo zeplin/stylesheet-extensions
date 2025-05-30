@@ -2,8 +2,6 @@
   "name": "zeplin-extension-style-kit",
   "version": "4.4.1",
   "description": "Models and utilities to generate CSS-like style code in Zeplin extensions.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
@@ -61,7 +59,7 @@
     "typescript-eslint": "^8.32.1"
   },
   "dependencies": {
-    "@zeplin/extension-model": "^1.0.15",
+    "@zeplin/extension-model": "1.0.20",
     "css.escape": "^1.5.1"
   }
 }

@@ -1,4 +1,4 @@
-import { ColorFormat, NamingScheme, RemPreferences, StyleDeclaration } from "./common";
+import { ColorFormat, NamingScheme, ContextParams, StyleDeclaration } from "./common";
 import { Barrel, Color, Context, TextStyle, Layer, Styleguide, Project, VariableCollection, Variable, VariableMode, VariableValue } from "@zeplin/extension-model";
 import { FontFace } from "./elements/fontFace";
 import { OPTION_NAMES } from "./constants";
@@ -221,18 +221,18 @@ type ArrayBarrelKeys = NonNullable<{
 
 type BarrelKey = Exclude<ArrayBarrelKeys, "linkedStyleguide" | "parent">;
 
-function getLinkedResources<K extends BarrelKey>
+function getLinkedResources<T extends Barrel[BarrelKey]>
     ({ context, resourceFn }: {
-        resourceFn: (b: Barrel) => NonNullable<Barrel[K]>;
+        resourceFn: (b: Barrel) => T;
         context: Context;
-    }): NonNullable<Barrel[K]> {
+    }): T {
     const { container, type } = getResourceContainer(context);
-    let resources: NonNullable<Barrel[K]> = resourceFn(container);
+    let resources = resourceFn(container);
     let parentBarrel = type === "project" ? container.linkedStyleguide : container.parent;
     while (parentBarrel) {
         const linkedResources = resourceFn(parentBarrel);
         if (linkedResources) {
-            resources = [...resources, ...linkedResources] as NonNullable<Barrel[K]>;
+            resources = [...resources, ...linkedResources] as T;
         }
 
         parentBarrel = parentBarrel.parent;
@@ -240,11 +240,11 @@ function getLinkedResources<K extends BarrelKey>
     return resources;
 }
 
-function getResources<K extends BarrelKey>({ context, useLinkedStyleguides, resourceFn }: {
-    resourceFn: (b: Barrel) => NonNullable<Barrel[K]>;
+function getResources<T extends Barrel[BarrelKey]>({ context, useLinkedStyleguides, resourceFn }: {
+    resourceFn: (b: Barrel) => T;
     context: Context;
     useLinkedStyleguides: boolean;
-}): NonNullable<Barrel[K]> {
+}): T {
     if (useLinkedStyleguides) {
         return getLinkedResources({
             context,
@@ -256,18 +256,7 @@ function getResources<K extends BarrelKey>({ context, useLinkedStyleguides, reso
     return resourceFn(container);
 }
 
-function getParams(context: Context): {
-    densityDivisor: number;
-    useLinkedStyleguides: boolean;
-    colorFormat: ColorFormat;
-    variableNameFormat: NamingScheme;
-    showDimensions: boolean;
-    showDefaultValues: boolean;
-    unitlessLineHeight: boolean;
-    useMixin: boolean;
-    remPreferences: RemPreferences | undefined;
-    showPaddingMargin: boolean;
-} {
+function getParams(context: Context): ContextParams {
     const { container } = getResourceContainer(context);
     return {
         densityDivisor: container.densityDivisor,
@@ -436,7 +425,9 @@ function getColorDetailsFromVariableValue(
     return { colorValue: colorValue || fallbackColorValue, isRemote: nestedVariable.remote };
 }
 
-function setColorObjectsForVariable(variable: Variable, variableBySourceId: Record<string, VariableWithRemote>, modeByModeId: Record<string, VariableMode>, colorDetailsByModeName: Record<string, { color: Color; shouldDisplayDefaultValue: boolean }[]>) {
+type ColorDetailsByModeName = Record<string, { color: Color; shouldDisplayDefaultValue: boolean }[]>;
+
+function setColorObjectsForVariable(variable: Variable, variableBySourceId: Record<string, VariableWithRemote>, modeByModeId: Record<string, VariableMode>, colorDetailsByModeName: ColorDetailsByModeName) {
     for (const value of variable.values) {
         const { colorValue, isRemote } = getColorDetailsFromVariableValue(
             value, variableBySourceId, modeByModeId
@@ -461,12 +452,12 @@ function setColorObjectsForVariable(variable: Variable, variableBySourceId: Reco
     }
 }
 
-function generateColorDetailsByModeName(variableCollections: VariableCollection[]) {
+function generateColorDetailsByModeName(variableCollections: VariableCollection[]): ColorDetailsByModeName | undefined {
     if (!variableCollections) {
         return;
     }
 
-    const colorDetailsByModeName = {};
+    const colorDetailsByModeName: ColorDetailsByModeName = {};
     const variableBySourceId = getVariableBySourceId(variableCollections);
     const modeByModeId = getModeByModeId(variableCollections);
 

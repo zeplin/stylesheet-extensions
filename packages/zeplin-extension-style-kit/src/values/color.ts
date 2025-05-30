@@ -1,6 +1,6 @@
 import { Color as ExtensionColor } from "@zeplin/extension-model";
 import { getColorStringByFormat } from "../utils";
-import { Gradient } from "./gradient";
+import { Gradient } from "./gradient/index";
 import { ColorParams, StyleValue } from "../common";
 
 export interface RGBAColor {
