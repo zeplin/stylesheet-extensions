@@ -1,7 +1,7 @@
-import { ColorFormat, NamingScheme, ContextParams, StyleDeclaration } from "./common";
+import { ColorFormat, NamingScheme, ContextParams, StyleDeclaration } from "./common.js";
 import { Barrel, Color, Context, TextStyle, Layer, Styleguide, Project, VariableCollection, Variable, VariableMode, VariableValue } from "@zeplin/extension-model";
-import { FontFace } from "./elements/fontFace";
-import { OPTION_NAMES } from "./constants";
+import { FontFace } from "./elements/fontFace.js";
+import { OPTION_NAMES } from "./constants.js";
 import cssEscape from "css.escape";
 
 const TEXT_RELATED_TAGS = new Set([
@@ -415,7 +415,7 @@ function getColorDetailsFromVariableValue(
     for (const value of nestedVariable.values) {
         const nestedValueModeName = modeByModeId[value.modeId];
         // TODO: There might be a need to format mode names before comparing them.
-        if (nestedValueModeName.name === modeName.name) {
+        if (nestedValueModeName && nestedValueModeName.name === modeName.name) {
             colorValue = getColorDetailsFromVariableValue(value, variableBySourceId, modeByModeId)?.colorValue;
         } else if (!fallbackColorValue) {
             fallbackColorValue = getColorDetailsFromVariableValue(value, variableBySourceId, modeByModeId)?.colorValue;

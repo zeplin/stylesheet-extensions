@@ -1,7 +1,7 @@
-import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common";
-import { STYLE_PROPS } from "../constants";
-import { Color } from "../values";
-import { Length } from "../values";
+import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
+import { Color } from "../values/index.js";
+import { Length } from "../values/index.js";
 
 export class TextStroke implements StyleDeclaration {
     private length: Length;

@@ -1,5 +1,5 @@
-import { LengthOptions, LengthParams, RemPreferences, StyleValue } from "../common";
-import { Scalar } from "./scalar";
+import { LengthOptions, LengthParams, RemPreferences, StyleValue } from "../common.js";
+import { Scalar } from "./scalar.js";
 
 const remPrecisionAddition = 2;
 

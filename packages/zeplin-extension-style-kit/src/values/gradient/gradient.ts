@@ -1,8 +1,8 @@
-import { ColorNameResolver, ColorParams, StyleValue } from "../../common";
+import { ColorNameResolver, ColorParams, StyleValue } from "../../common.js";
 import { Gradient as ExtensionGradient } from "@zeplin/extension-model";
-import { LinearGradient } from "./linearGradient";
-import { RadialGradient } from "./radialGradient";
-import { ConicGradient } from "./conicGradient";
+import { LinearGradient } from "./linearGradient.js";
+import { RadialGradient } from "./radialGradient.js";
+import { ConicGradient } from "./conicGradient.js";
 
 export interface RGBAColor {
     r: number;

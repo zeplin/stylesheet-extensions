@@ -1,4 +1,4 @@
-import { StyleValue } from "../common";
+import { StyleValue } from "../common.js";
 
 function round(number: number, precision: number): number {
     const formattedNumber = Number(number).toLocaleString("en-US", {

@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { Scalar, Length } from "../values";
-import { AllParams, LengthParams, RemPreferences, StyleDeclaration } from "../common";
+import { STYLE_PROPS } from "../constants.js";
+import { Scalar, Length } from "../values/index.js";
+import { AllParams, LengthParams, RemPreferences, StyleDeclaration } from "../common.js";
 
 const useRemUnitForFont = ({ useForFontSizes }: RemPreferences): boolean => useForFontSizes;
 

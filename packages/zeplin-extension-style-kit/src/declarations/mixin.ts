@@ -1,4 +1,4 @@
-import { StyleDeclaration } from "../common";
+import { StyleDeclaration } from "../common.js";
 
 export class Mixin implements StyleDeclaration {
     id: string;

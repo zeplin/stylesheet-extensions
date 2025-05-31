@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { Scalar } from "../values";
-import { StyleDeclaration } from "../common";
+import { STYLE_PROPS } from "../constants.js";
+import { Scalar } from "../values/index.js";
+import { StyleDeclaration } from "../common.js";
 
 interface FontAxes {
     [key: string]: number | Scalar;

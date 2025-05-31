@@ -1,6 +1,6 @@
-import { ColorNameResolver, ColorParams, StyleValue } from "../../common";
-import { Angle } from "../angle";
-import { Color } from "../color";
+import { ColorNameResolver, ColorParams, StyleValue } from "../../common.js";
+import { Angle } from "../angle.js";
+import { Color } from "../color.js";
 import { Color as ExtensionColor, ColorStop } from "@zeplin/extension-model";
 
 export class AngularColorStop implements StyleValue {

@@ -5,54 +5,54 @@ import {
     Border as ExtensionBorder,
     Layout as ExtensionLayout
 } from "@zeplin/extension-model";
-import { Angle } from "../values/angle";
-import { Color } from "../values/color";
-import { Gradient } from "../values/gradient";
-import { Length } from "../values/length";
-import { Scalar } from "../values/scalar";
-import { Border, BorderSide } from "../declarations/border";
-import { Shadow } from "../declarations/shadow";
-import { Opacity } from "../declarations/opacity";
-import { Width } from "../declarations/width";
-import { Height } from "../declarations/height";
-import { ObjectFit } from "../declarations/objectFit";
-import { Transform } from "../declarations/transform";
-import { MixBlendMode, BlendModeValue } from "../declarations/mixBlendMode";
-import { BorderRadius } from "../declarations/borderRadius";
-import { BackgroundBlendMode, BlendMode } from "../declarations/backgroundBlendMode";
-import { BackgroundImage } from "../declarations/backgroundImage";
-import { BackgroundColor } from "../declarations/backgroundColor";
-import { BackgroundClip } from "../declarations/backgroundClip";
-import { BackgroundOrigin } from "../declarations/backgroundOrigin";
-import { TextFillColor } from "../declarations/textFillColor";
-import { TextStroke } from "../declarations/textStroke";
-import { BorderImageSource } from "../declarations/borderImageSource";
-import { BorderWidth } from "../declarations/borderWidth";
-import { BorderStyle } from "../declarations/borderStyle";
-import { BorderImageSlice } from "../declarations/borderImageSlice";
-import { BackdropFilter } from "../declarations/backdropFilter";
-import { Filter } from "../declarations/filter";
-import { FontColor } from "../declarations/fontColor";
-import { Margin } from "../declarations/margin";
-import { Padding } from "../declarations/padding";
-import { Display } from "../declarations/display";
-import { FlexDirection } from "../declarations/flexDirection";
-import { Gap } from "../declarations/gap";
-import { TextStyle } from "./textStyle";
-import { RuleSet } from "../ruleSet";
+import { Angle } from "../values/angle.js";
+import { Color } from "../values/color.js";
+import { Gradient } from "../values/gradient/index.js";
+import { Length } from "../values/length.js";
+import { Scalar } from "../values/scalar.js";
+import { Border, BorderSide } from "../declarations/border.js";
+import { Shadow } from "../declarations/shadow.js";
+import { Opacity } from "../declarations/opacity.js";
+import { Width } from "../declarations/width.js";
+import { Height } from "../declarations/height.js";
+import { ObjectFit } from "../declarations/objectFit.js";
+import { Transform } from "../declarations/transform.js";
+import { MixBlendMode, BlendModeValue } from "../declarations/mixBlendMode.js";
+import { BorderRadius } from "../declarations/borderRadius.js";
+import { BackgroundBlendMode, BlendMode } from "../declarations/backgroundBlendMode.js";
+import { BackgroundImage } from "../declarations/backgroundImage.js";
+import { BackgroundColor } from "../declarations/backgroundColor.js";
+import { BackgroundClip } from "../declarations/backgroundClip.js";
+import { BackgroundOrigin } from "../declarations/backgroundOrigin.js";
+import { TextFillColor } from "../declarations/textFillColor.js";
+import { TextStroke } from "../declarations/textStroke.js";
+import { BorderImageSource } from "../declarations/borderImageSource.js";
+import { BorderWidth } from "../declarations/borderWidth.js";
+import { BorderStyle } from "../declarations/borderStyle.js";
+import { BorderImageSlice } from "../declarations/borderImageSlice.js";
+import { BackdropFilter } from "../declarations/backdropFilter.js";
+import { Filter } from "../declarations/filter.js";
+import { FontColor } from "../declarations/fontColor.js";
+import { Margin } from "../declarations/margin.js";
+import { Padding } from "../declarations/padding.js";
+import { Display } from "../declarations/display.js";
+import { FlexDirection } from "../declarations/flexDirection.js";
+import { Gap } from "../declarations/gap.js";
+import { TextStyle } from "./textStyle.js";
+import { RuleSet } from "../ruleSet.js";
 import {
     blendColors,
     isHtmlTag,
     isTextRelatedTag,
     selectorize,
     webkit
-} from "../utils";
-import { Bound } from "./utility/bound";
-import { JustifyContent } from "../declarations/justifyContent";
-import { AlignItems, AlignItemsValue } from "../declarations/alignItems";
-import { AlignSelf, AlignSelfValue } from "../declarations/alignSelf";
-import { FlexGrow } from "../declarations/flexGrow";
-import { StyleDeclaration } from "../common";
+} from "../utils.js";
+import { Bound } from "./utility/bound.js";
+import { JustifyContent } from "../declarations/justifyContent.js";
+import { AlignItems, AlignItemsValue } from "../declarations/alignItems.js";
+import { AlignSelf, AlignSelfValue } from "../declarations/alignSelf.js";
+import { FlexGrow } from "../declarations/flexGrow.js";
+import { StyleDeclaration } from "../common.js";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }: {
     useForMeasurements: boolean

@@ -1,4 +1,4 @@
-export { TextStyle } from "./textStyle";
-export { Layer } from "./layer";
-export { FontFace} from "./fontFace";
-export * from "./utility";
+export { TextStyle } from "./textStyle.js";
+export { Layer } from "./layer.js";
+export { FontFace } from "./fontFace.js";
+export * from "./utility/index.js";

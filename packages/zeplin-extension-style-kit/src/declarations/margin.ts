@@ -1,7 +1,7 @@
-import { LengthParams, RemPreferences, StyleDeclaration } from "../common";
-import { STYLE_PROPS } from "../constants";
-import { Length } from "../values/length";
-import { FourDirectionalValue } from "../values/utility/fourDirectionalValue";
+import { LengthParams, RemPreferences, StyleDeclaration } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
+import { Length } from "../values/length.js";
+import { FourDirectionalValue } from "../values/utility/fourDirectionalValue.js";
 
 const useRemUnit = ({ useForMeasurements }: RemPreferences): boolean => useForMeasurements;
 

@@ -1,6 +1,6 @@
 import { ColorStop } from "@zeplin/extension-model";
-import { ColorNameResolver, ColorParams, StyleValue } from "../../common";
-import { LinearColorStop } from "./linearColorStop";
+import { ColorNameResolver, ColorParams, StyleValue } from "../../common.js";
+import { LinearColorStop } from "./linearColorStop.js";
 
 interface Point {
     x: number;

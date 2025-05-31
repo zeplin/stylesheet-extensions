@@ -1,5 +1,5 @@
-import { StyleDeclaration } from "../common";
-import { STYLE_PROPS } from "../constants";
+import { StyleDeclaration } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
 
 const WEIGHT_BOLD = 700;
 const WEIGHT_NORMAL = 400;

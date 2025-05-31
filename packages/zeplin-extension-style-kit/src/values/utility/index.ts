@@ -1,1 +1,1 @@
-export { FourDirectionalValue } from "./fourDirectionalValue";
+export { FourDirectionalValue } from "./fourDirectionalValue.js";

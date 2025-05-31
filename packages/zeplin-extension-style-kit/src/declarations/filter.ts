@@ -1,5 +1,5 @@
-import { ColorNameResolver, StyleDeclaration, StyleFunction, StyleParams } from "../common";
-import { STYLE_PROPS } from "../constants";
+import { ColorNameResolver, StyleDeclaration, StyleFunction, StyleParams } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
 
 export class Filter implements StyleDeclaration {
     private filters: StyleFunction[];

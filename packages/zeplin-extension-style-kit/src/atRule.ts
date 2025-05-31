@@ -1,4 +1,4 @@
-import { StyleDeclaration } from "./common";
+import { StyleDeclaration } from "./common.js";
 
 const rules = Object.freeze({
     FONT_FACE: "font-face"

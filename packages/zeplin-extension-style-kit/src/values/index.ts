@@ -1,7 +1,7 @@
-export { Angle } from "./angle";
-export { Color } from "./color";
-export { Length } from "./length";
-export { Percent } from "./percent";
-export { Scalar } from "./scalar";
-export * as gradient from "./gradient/index";
-export * as utility from "./utility/index";
+export { Angle } from "./angle.js";
+export { Color } from "./color.js";
+export { Length } from "./length.js";
+export { Percent } from "./percent.js";
+export { Scalar } from "./scalar.js";
+export * as gradient from "./gradient/index.js";
+export * as utility from "./utility/index.js";

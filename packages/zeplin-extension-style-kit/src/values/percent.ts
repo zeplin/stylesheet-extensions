@@ -1,4 +1,4 @@
-import { StyleValue } from "../common";
+import { StyleValue } from "../common.js";
 
 const HUNDRED = 100;
 

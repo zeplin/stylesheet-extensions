@@ -1,5 +1,5 @@
-import { Length } from "../../values/length";
-import { Margin, Padding } from "../../declarations/index";
+import { Length } from "../../values/length.js";
+import { Margin, Padding } from "../../declarations/index.js";
 import { Layer as ExtensionLayer } from "@zeplin/extension-model";
 
 interface BoundsOptions {

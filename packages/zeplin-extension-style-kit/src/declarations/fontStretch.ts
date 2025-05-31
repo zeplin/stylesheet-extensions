@@ -1,5 +1,5 @@
-import { STYLE_PROPS } from "../constants";
-import { StyleDeclaration } from "../common";
+import { STYLE_PROPS } from "../constants.js";
+import { StyleDeclaration } from "../common.js";
 
 export type StretchKeyword =
     | "ultra-condensed"

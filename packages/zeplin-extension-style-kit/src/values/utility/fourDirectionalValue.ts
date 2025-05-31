@@ -1,4 +1,4 @@
-import { StyleParams, StyleValue } from "../../common";
+import { StyleParams, StyleValue } from "../../common.js";
 
 interface FourDirectionalValueOptions<T> {
     top: T;

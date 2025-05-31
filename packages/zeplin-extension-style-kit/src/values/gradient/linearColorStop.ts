@@ -1,7 +1,7 @@
-import { ColorNameResolver, ColorParams, StyleValue } from "../../common";
+import { ColorNameResolver, ColorParams, StyleValue } from "../../common.js";
 import { Color as ExtensionColor, ColorStop } from "@zeplin/extension-model";
-import { Color } from "../color";
-import { Percent } from "../percent";
+import { Color } from "../color.js";
+import { Percent } from "../percent.js";
 
 export class LinearColorStop implements StyleValue {
     color: ExtensionColor;

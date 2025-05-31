@@ -1,7 +1,7 @@
-import { Angle } from "../angle";
-import { AngularColorStop } from "./angularColorStop";
+import { Angle } from "../angle.js";
+import { AngularColorStop } from "./angularColorStop.js";
 import { ColorStop } from "@zeplin/extension-model";
-import { ColorNameResolver, ColorParams, StyleValue } from "../../common";
+import { ColorNameResolver, ColorParams, StyleValue } from "../../common.js";
 
 /**
  * In math and design tools 0deg corresponds to the angle in east

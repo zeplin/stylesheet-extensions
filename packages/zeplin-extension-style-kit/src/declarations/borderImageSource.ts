@@ -1,6 +1,6 @@
-import { Gradient } from "../values/gradient";
-import { STYLE_PROPS } from "../constants";
-import { StyleDeclaration } from "../common";
+import { Gradient } from "../values/gradient/index.js";
+import { STYLE_PROPS } from "../constants.js";
+import { StyleDeclaration } from "../common.js";
 
 export class BorderImageSource implements StyleDeclaration {
     private source: Gradient;

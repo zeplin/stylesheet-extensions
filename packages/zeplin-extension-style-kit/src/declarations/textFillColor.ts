@@ -1,6 +1,6 @@
-import { webkit } from "../utils";
-import { STYLE_PROPS } from "../constants";
-import { StyleDeclaration } from "../common";
+import { webkit } from "../utils.js";
+import { STYLE_PROPS } from "../constants.js";
+import { StyleDeclaration } from "../common.js";
 
 class TextFillColor implements StyleDeclaration {
     private value: string;

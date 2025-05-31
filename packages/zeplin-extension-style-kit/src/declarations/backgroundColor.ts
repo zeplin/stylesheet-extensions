@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { Color } from "../values";
-import { ColorNameResolver, ColorParams, StyleDeclaration } from "../common";
+import { STYLE_PROPS } from "../constants.js";
+import { Color } from "../values/index.js";
+import { ColorNameResolver, ColorParams, StyleDeclaration } from "../common.js";
 
 export class BackgroundColor implements StyleDeclaration {
     private color: Color;

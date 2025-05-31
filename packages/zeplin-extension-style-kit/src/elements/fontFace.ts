@@ -1,10 +1,10 @@
-import { FontFamily } from "../declarations/fontFamily";
-import { FontStyle, FontStyleValue } from "../declarations/fontStyle";
-import { FontStretch, StretchKeyword } from "../declarations/fontStretch";
-import { FontWeight } from "../declarations/fontWeight";
-import { AtRule } from "../atRule";
-import { FontSrc } from "../declarations/fontSrc";
-import { StyleDeclaration } from "../common";
+import { FontFamily } from "../declarations/fontFamily.js";
+import { FontStyle, FontStyleValue } from "../declarations/fontStyle.js";
+import { FontStretch, StretchKeyword } from "../declarations/fontStretch.js";
+import { FontWeight } from "../declarations/fontWeight.js";
+import { AtRule } from "../atRule.js";
+import { FontSrc } from "../declarations/fontSrc.js";
+import { StyleDeclaration } from "../common.js";
 import { TextStyle } from "@zeplin/extension-model";
 
 const FONT_STYLE_PRECEDENCE: Record<string, number> = {
@@ -51,7 +51,7 @@ export class FontFace {
     private collectDeclarations(): StyleDeclaration[] {
         const { font } = this;
 
-        const variable = "fontVariationSettings" in font;
+        const variable = !!font.fontVariationSettings;
 
         const declarations: StyleDeclaration[] = [
             new FontFamily(font.fontFamily),

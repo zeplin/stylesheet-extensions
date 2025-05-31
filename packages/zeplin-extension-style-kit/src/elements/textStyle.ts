@@ -1,18 +1,18 @@
-import { Length } from "../values/length";
-import { Color } from "../values/color";
-import { FontFamily } from "../declarations/fontFamily";
-import { FontSize } from "../declarations/fontSize";
-import { FontStyle, FontStyleValue } from "../declarations/fontStyle";
-import { FontStretch, StretchKeyword } from "../declarations/fontStretch";
-import { FontWeight } from "../declarations/fontWeight";
-import { FontVariationSettings } from "../declarations/fontVariationSettings";
-import { FontColor } from "../declarations/fontColor";
-import { TextAlign } from "../declarations/textAlign";
-import { LineHeight } from "../declarations/lineHeight";
-import { LetterSpacing } from "../declarations/letterSpacing";
-import { RuleSet } from "../ruleSet";
-import { selectorize } from "../utils";
-import { StyleDeclaration } from "../common";
+import { Length } from "../values/length.js";
+import { Color } from "../values/color.js";
+import { FontFamily } from "../declarations/fontFamily.js";
+import { FontSize } from "../declarations/fontSize.js";
+import { FontStyle, FontStyleValue } from "../declarations/fontStyle.js";
+import { FontStretch, StretchKeyword } from "../declarations/fontStretch.js";
+import { FontWeight } from "../declarations/fontWeight.js";
+import { FontVariationSettings } from "../declarations/fontVariationSettings.js";
+import { FontColor } from "../declarations/fontColor.js";
+import { TextAlign } from "../declarations/textAlign.js";
+import { LineHeight } from "../declarations/lineHeight.js";
+import { LetterSpacing } from "../declarations/letterSpacing.js";
+import { RuleSet } from "../ruleSet.js";
+import { selectorize } from "../utils.js";
+import { StyleDeclaration } from "../common.js";
 import { TextStyle as ExtensionTextStyle } from "@zeplin/extension-model";
 
 // Reference: https://drafts.csswg.org/css-fonts-4/#valdef-font-style-oblique-angle

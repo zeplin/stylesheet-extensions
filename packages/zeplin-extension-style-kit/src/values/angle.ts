@@ -1,5 +1,5 @@
-import { StyleValue } from "../common";
-import { Scalar } from "./scalar";
+import { StyleValue } from "../common.js";
+import { Scalar } from "./scalar.js";
 
 type AngleUnit = "deg" | "rad" | "grad" | "turn";
 

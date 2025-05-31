@@ -1,6 +1,6 @@
-import { LengthParams, StyleDeclaration } from "../common";
-import { STYLE_PROPS } from "../constants";
-import { Length } from "../values";
+import { LengthParams, StyleDeclaration } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
+import { Length } from "../values/index.js";
 
 export class Height implements StyleDeclaration {
     private value: Length;

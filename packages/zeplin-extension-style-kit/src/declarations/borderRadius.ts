@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { StyleDeclaration } from "../common";
-import { Length } from "../values";
+import { STYLE_PROPS } from "../constants.js";
+import { StyleDeclaration } from "../common.js";
+import { Length } from "../values/index.js";
 
 export class BorderRadius implements StyleDeclaration {
     private value: Length;

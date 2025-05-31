@@ -1,8 +1,8 @@
-import { Length } from "../values/length";
-import { STYLE_PROPS } from "../constants";
-import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common";
+import { Length } from "../values/length.js";
+import { STYLE_PROPS } from "../constants.js";
+import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common.js";
 import { Color as ExtensionColor } from "@zeplin/extension-model";
-import { Color } from "../values";
+import { Color } from "../values/index.js";
 
 interface ShadowObject {
     offsetX: number;

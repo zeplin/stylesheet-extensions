@@ -1,5 +1,5 @@
-import { STYLE_PROPS } from "../constants";
-import { Percent } from "../values";
+import { STYLE_PROPS } from "../constants.js";
+import { Percent } from "../values/index.js";
 
 export class Opacity {
     private value: Percent;

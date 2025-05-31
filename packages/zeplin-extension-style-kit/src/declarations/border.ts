@@ -1,7 +1,7 @@
-import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common";
-import { STYLE_PROPS } from "../constants";
-import { Length } from "../values";
-import { Color } from "../values/color";
+import { ColorNameResolver, ColorParams, LengthParams, StyleDeclaration } from "../common.js";
+import { STYLE_PROPS } from "../constants.js";
+import { Length } from "../values/index.js";
+import { Color } from "../values/color.js";
 
 export type BorderSide = "top" | "right" | "bottom" | "left" | "all";
 export type BorderStyle =

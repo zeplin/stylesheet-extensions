@@ -1,1 +1,1 @@
-export { Bound } from "./bound";
+export { Bound } from "./bound.js";

@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { LengthParams, StyleDeclaration } from "../common";
-import { Length } from "../values";
+import { STYLE_PROPS } from "../constants.js";
+import { LengthParams, StyleDeclaration } from "../common.js";
+import { Length } from "../values/index.js";
 
 export class BorderWidth implements StyleDeclaration {
     private width: Length;

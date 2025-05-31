@@ -1,6 +1,6 @@
-import { STYLE_PROPS } from "../constants";
-import { StyleDeclaration } from "../common";
-import { Scalar } from "../values";
+import { STYLE_PROPS } from "../constants.js";
+import { StyleDeclaration } from "../common.js";
+import { Scalar } from "../values/index.js";
 
 export class FlexGrow implements StyleDeclaration {
     private value: Scalar;

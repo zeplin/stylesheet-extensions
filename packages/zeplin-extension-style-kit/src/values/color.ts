@@ -1,7 +1,7 @@
 import { Color as ExtensionColor } from "@zeplin/extension-model";
-import { getColorStringByFormat } from "../utils";
-import { Gradient } from "./gradient/index";
-import { ColorParams, StyleValue } from "../common";
+import { getColorStringByFormat } from "../utils.js";
+import { Gradient } from "./gradient/index.js";
+import { ColorParams, StyleValue } from "../common.js";
 
 export interface RGBAColor {
     r: number;

@@ -1,5 +1,5 @@
-import { STYLE_PROPS } from "../constants";
-import { ColorNameResolver, StyleDeclaration, StyleParams, StyleValue } from "../common";
+import { STYLE_PROPS } from "../constants.js";
+import { ColorNameResolver, StyleDeclaration, StyleParams, StyleValue } from "../common.js";
 
 export class BackgroundImage implements StyleDeclaration {
     private images: StyleValue[];
