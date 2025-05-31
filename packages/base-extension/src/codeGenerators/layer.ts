@@ -71,7 +71,7 @@ export const layerCodeGenerator: CodeGenerator = (generatorParams) =>
             Generator,
             options: {
                 separator = "\n"
-            }
+            } = {}
         } = generatorParams;
 
     const params = getParams(context);

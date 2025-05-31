@@ -38,7 +38,7 @@ export const colorCodeGenerator: CodeGenerator<ColorCodeGeneratorParams> = (gene
                 variablePrefix = "",
                 variableSeparator = "\n",
                 variableSuffix = ""
-            },
+            } = {},
             isColorsFromParam
         } = generatorParams;
 
