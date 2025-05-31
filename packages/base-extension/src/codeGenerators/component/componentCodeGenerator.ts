@@ -1,5 +1,6 @@
-import { selectorize } from "zeplin-extension-style-kit/utils";
-import { LayerStyleMap } from "./layerStyleMap";
+import { Component } from "@zeplin/extension-model";
+import { Generator, RuleSet, selectorize } from "zeplin-extension-style-kit";
+import { LayerStyleMap } from "./layerStyleMap.js";
 import { generateCodeForLayers, getCommonRuleset, groupComponentLayersBySignature } from "./layerUtils.js";
 import {
     filterComponentsByProperties,
@@ -8,8 +9,6 @@ import {
     getPropertyFiltersForComponent, PropertyFilter,
     selectorizeComponentProperty
 } from "./componentUtils.js";
-import { Component } from "@zeplin/extension-model";
-import { Generator, RuleSet } from "zeplin-extension-style-kit";
 
 export type ComponentCodeGeneratorOptions = {
     generator: Generator;

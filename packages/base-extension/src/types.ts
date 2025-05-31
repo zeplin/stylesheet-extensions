@@ -3,8 +3,8 @@ import {
     CodeGeneratorParams,
     GeneratorFunction
 } from "zeplin-extension-style-kit";
-import { ColorCodeGeneratorOptions } from "./codeGenerators/color";
-import { TextStyleCodeGeneratorOptions } from "./codeGenerators/textStyle";
+import { ColorCodeGeneratorOptions } from "./codeGenerators/color.js";
+import { TextStyleCodeGeneratorOptions } from "./codeGenerators/textStyle.js";
 import { Context } from "@zeplin/extension-model";
 
 export type ExtensionCreatorParams = Omit<CodeGeneratorParams, "options"> & {

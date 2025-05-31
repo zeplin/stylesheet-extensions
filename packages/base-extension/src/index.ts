@@ -1,11 +1,11 @@
-import { colorCodeGenerator } from "./codeGenerators/color";
-import { layerCodeGenerator } from "./codeGenerators/layer";
-import { spacingCodeGenerator } from "./codeGenerators/spacing";
-import { textStyleCodeGenerator } from "./codeGenerators/textStyle";
-import { componentCodeGenerator } from "./codeGenerators/component";
+import { colorCodeGenerator } from "./codeGenerators/color.js";
+import { layerCodeGenerator } from "./codeGenerators/layer.js";
+import { spacingCodeGenerator } from "./codeGenerators/spacing.js";
+import { textStyleCodeGenerator } from "./codeGenerators/textStyle.js";
+import { componentCodeGenerator } from "./codeGenerators/component/index.js";
 import { Context } from "@zeplin/extension-model";
 import { CodeGenerator } from "zeplin-extension-style-kit";
-import { ExportCodeGeneratorParams, ExtensionCreator } from "./types";
+import { ExportCodeGeneratorParams, ExtensionCreator } from "./types.js";
 
 const comment = (_: Context, text: string) => `/* ${text} */`;
 

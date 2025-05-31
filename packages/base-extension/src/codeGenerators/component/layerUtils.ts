@@ -1,6 +1,6 @@
 import { Generator, Layer, RuleSet } from "zeplin-extension-style-kit";
 import { Layer as ExtensionLayer, Version } from "@zeplin/extension-model";
-import { LayerStyleMap } from "./layerStyleMap";
+import { LayerStyleMap } from "./layerStyleMap.js";
 
 function getLayerSignature(layer: ExtensionLayer): string {
     return `${layer.rect.width}:${layer.rect.height}:${layer.rect.x}:${layer.rect.y}:${layer.name}:${layer.type}:${layer.content}`;

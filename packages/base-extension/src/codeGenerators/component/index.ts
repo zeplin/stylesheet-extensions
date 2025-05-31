@@ -6,8 +6,8 @@ import {
     getParams,
     getResourceContainer
 } from "zeplin-extension-style-kit";
-import { ComponentCodeGenerator } from "./componentCodeGenerator";
-import { fixVariantPropertyOrder } from "./componentUtils";
+import { ComponentCodeGenerator } from "./componentCodeGenerator.js";
+import { fixVariantPropertyOrder } from "./componentUtils.js";
 
 export const componentCodeGenerator: CodeGenerator = (params: CodeGeneratorParams) => {
     const {
