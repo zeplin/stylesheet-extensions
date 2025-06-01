@@ -1,7 +1,7 @@
 import { createExtension } from "base-extension";
 
-import Generator from "./generator";
-import { COPYRIGHT } from "./constants";
+import { CSSGenerator } from "./generator.js";
+import { COPYRIGHT } from "./constants.js";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
@@ -9,7 +9,7 @@ const INDENTATION = "  ";
 
 export default createExtension({
     language: "css",
-    Generator,
+    Generator: CSSGenerator,
     colorsOptions: {
         prefix: `:root {\n${INDENTATION}`,
         separator: `\n${INDENTATION}`,

@@ -1,5 +1,5 @@
-import extension from "./index";
-import { context, version, screens, components } from "./fixtures";
+import extension from "./index.js";
+import { context, version, screens, components } from "./fixtures/index.js";
 
 
 describe("Colors", () => {

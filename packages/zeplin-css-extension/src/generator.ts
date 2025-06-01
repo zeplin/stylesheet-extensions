@@ -1,9 +1,18 @@
+import { Barrel, Color as ExtensionColor } from "@zeplin/extension-model";
 import {
-    isDeclarationInherited,
+    AtRule,
+    Color,
+    ContextParams,
     generateColorNameResolver,
     generateLinkedColorVariableNameResolver,
-    generateVariableName
-} from "zeplin-extension-style-kit/utils";
+    generateVariableName,
+    Generator,
+    isDeclarationInherited,
+    RuleSet,
+    RuleSetOptions,
+    StyleDeclaration,
+    StyleValue,
+} from "zeplin-extension-style-kit";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -11,24 +20,27 @@ const DEFAULT_VALUE_SEPARATOR = ", ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
-class CSS {
-    constructor(container, params) {
+export class CSSGenerator implements Generator {
+    private readonly container: Barrel;
+    private readonly params: ContextParams;
+
+    constructor(container: Barrel, params: ContextParams) {
         this.params = params;
         this.container = container;
     }
 
-    formatColorVariable(color, options) {
+    formatColorVariable(color: ExtensionColor, options: { defaultColorStringByFormat?: string } = {}): string {
         let defaultColorValue = "";
         if (options && options.defaultColorStringByFormat) {
             defaultColorValue = `${DEFAULT_VALUE_SEPARATOR}${options.defaultColorStringByFormat}`;
         }
 
         return `var(${PREFIX}${generateVariableName(
-            color.originalName || color.name, this.params.variableNameFormat
+            color.originalName || color.name!, this.params.variableNameFormat
         )}${defaultColorValue})`;
     }
 
-    filterDeclarations(childDeclarations, parentDeclarations) {
+    filterDeclarations(childDeclarations: StyleDeclaration[], parentDeclarations: StyleDeclaration[]) {
         const { params: { showDefaultValues, showDimensions, showPaddingMargin } } = this;
 
         return childDeclarations.filter(declaration => {
@@ -58,7 +70,7 @@ class CSS {
         });
     }
 
-    declaration(d) {
+    declaration(d: StyleDeclaration): string {
         const value = d.getValue(
             this.params,
             generateColorNameResolver({
@@ -70,15 +82,15 @@ class CSS {
         return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 
-    declarationsBlock(declarations) {
+    declarationsBlock(declarations: StyleDeclaration[] = []): string {
         return `{\n${declarations.map(this.declaration, this).join("\n")}\n}`;
     }
 
-    variable(name, value) {
+    variable(name: string, value: StyleValue): string {
         const generatedName = generateVariableName(name, this.params.variableNameFormat);
 
         let colorNameResolver;
-        if (value.object && value.object.linkedVariableSourceId) {
+        if (value instanceof Color && value.object && value.object.linkedVariableSourceId) {
             colorNameResolver = generateLinkedColorVariableNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
@@ -92,7 +104,7 @@ class CSS {
         return `${PREFIX}${generatedName}${SEPARATOR}${variableValue}${SUFFIX}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "" } = {}) {
+    ruleSet({ selector, declarations }: RuleSet, { parentDeclarations = [], scope = "" }: RuleSetOptions = {}): string {
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations);
         const ruleSelector = scope ? `${scope} ${selector}` : selector;
 
@@ -103,9 +115,7 @@ class CSS {
         return `${ruleSelector} ${this.declarationsBlock(filteredDeclarations)}`;
     }
 
-    atRule({ identifier, declarations }) {
+    atRule({ identifier, declarations }: AtRule): string {
         return `@${identifier} ${this.declarationsBlock(declarations)}`;
     }
 }
-
-export default CSS;
