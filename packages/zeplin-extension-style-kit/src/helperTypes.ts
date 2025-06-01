@@ -1,4 +1,4 @@
-import { Barrel, Color, Context } from "@zeplin/extension-model";
+import { Barrel, Color, Extension } from "@zeplin/extension-model";
 import { ContextParams, StyleDeclaration, StyleValue } from "./common.js";
 import { AtRule } from "./atRule.js";
 import { RuleSet } from "./ruleSet.js";
@@ -21,24 +21,23 @@ export interface Generator {
     atRule: (atRule: AtRule) => string;
 }
 
-export type CodeGeneratorOptions = {
+export type ExtensionMethodOptions = {
     prefix?: string;
     separator?: string;
     suffix?: string;
 };
 
-export type CodeGeneratorParams = {
+export type ExtensionMethodCreatorParams = {
     language: string;
     Generator: GeneratorClass;
-    options?: CodeGeneratorOptions
+    options?: ExtensionMethodOptions
 };
 
-export type CodeOutput = {
-    code: string;
-    language: string;
-};
+export type ExtensionMethodName = keyof Extension;
 
-export type GeneratorFunction = (context: Context, ...params: any[]) => CodeOutput;
+export type ExtensionMethod<T extends ExtensionMethodName> = NonNullable<Extension[T]>;
 
-export type CodeGenerator<T = CodeGeneratorParams> = (params: T) => GeneratorFunction;
+export type ExtensionMethodCreator<T extends ExtensionMethodName, K = ExtensionMethodCreatorParams> = (params: K) => NonNullable<ExtensionMethod<T>>;
+
+export type ExtensionMethodReturnType<T extends ExtensionMethodName> = ReturnType<ExtensionMethod<T>>;
 

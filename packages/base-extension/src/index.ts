@@ -1,23 +1,23 @@
-import { colorCodeGenerator } from "./codeGenerators/color.js";
-import { layerCodeGenerator } from "./codeGenerators/layer.js";
-import { spacingCodeGenerator } from "./codeGenerators/spacing.js";
-import { textStyleCodeGenerator } from "./codeGenerators/textStyle.js";
-import { componentCodeGenerator } from "./codeGenerators/component/index.js";
+import { createColorsExtensionMethod } from "./codeGenerators/color.js";
+import { createLayerExtensionMethod } from "./codeGenerators/layer.js";
+import { createSpacingExtensionMethod } from "./codeGenerators/spacing.js";
+import { createTextStylesExtenionMethod } from "./codeGenerators/textStyle.js";
+import { createComponentExtensionMethod } from "./codeGenerators/component/index.js";
 import { Context } from "@zeplin/extension-model";
-import { CodeGenerator } from "zeplin-extension-style-kit";
-import { ExportCodeGeneratorParams, ExtensionCreator } from "./types.js";
+import { ExtensionMethodCreator, ExtensionMethodReturnType } from "zeplin-extension-style-kit";
+import { ExportExtensionMethodCreatorParams, ExtensionCreator } from "./types.js";
 
 const comment = (_: Context, text: string) => `/* ${text} */`;
 
-const exportColorsGenerator: CodeGenerator<ExportCodeGeneratorParams> = (
+const exportColorsExtensionMethod: ExtensionMethodCreator<"exportColors", ExportExtensionMethodCreatorParams> = (
     {
-        generatorFunction,
+        baseMethod,
         options: {
             prefix = "",
             suffix = ""
         } = {}
-    }) => (context, colorsParam) => {
-    const { code, language } = generatorFunction(context, colorsParam);
+    }) => (context: Context): ExtensionMethodReturnType<"exportColors"> => {
+    const { code, language } = baseMethod(context);
     return {
         code: `${prefix}${code}${suffix}`,
         filename: `colors.${language}`,
@@ -25,15 +25,15 @@ const exportColorsGenerator: CodeGenerator<ExportCodeGeneratorParams> = (
     };
 };
 
-const exportTextStylesGenerator: CodeGenerator<ExportCodeGeneratorParams> = (
+const exportTextStylesExtensionMethod: ExtensionMethodCreator<"exportTextStyles", ExportExtensionMethodCreatorParams> = (
     {
-        generatorFunction,
+        baseMethod,
         options: {
             prefix = "",
             suffix = ""
         } = {}
-    }) => (context, textStylesParam) => {
-    const { code, language } = generatorFunction(context, textStylesParam);
+    }) => (context: Context): ExtensionMethodReturnType<"exportTextStyles"> => {
+    const { code, language } = baseMethod(context);
     return {
         code: `${prefix}${code}${suffix}`,
         filename: `fonts.${language}`,
@@ -41,15 +41,15 @@ const exportTextStylesGenerator: CodeGenerator<ExportCodeGeneratorParams> = (
     };
 };
 
-const exportSpacingGenerator: CodeGenerator<ExportCodeGeneratorParams> = (
+const createExportSpacingExtensionMethod: ExtensionMethodCreator<"exportSpacing", ExportExtensionMethodCreatorParams> = (
     {
-        generatorFunction,
+        baseMethod,
         options: {
             prefix = "",
             suffix = ""
         } = {}
-    }) => context => {
-    const { code, language } = generatorFunction(context);
+    }) => (context): ExtensionMethodReturnType<"exportSpacing"> => {
+    const { code, language } = baseMethod(context);
     return {
         code: `${prefix}${code}${suffix}`,
         filename: `spacing.${language}`,
@@ -70,45 +70,43 @@ export const createExtension: ExtensionCreator = (
         exportTextStylesOptions,
         exportSpacingOptions
     }) => {
-    const component = componentCodeGenerator({ language, Generator, options: componentOptions });
-    const colors = colorCodeGenerator({ language, Generator, options: colorsOptions });
-    const textStyles = textStyleCodeGenerator({ language, Generator, options: textStylesOptions });
-    const spacing = spacingCodeGenerator({ language, Generator, options: spacingOptions });
-    const layer = layerCodeGenerator({ language, Generator, options: layerOptions });
+    const component = createComponentExtensionMethod({ language, Generator, options: componentOptions });
+    const colors = createColorsExtensionMethod({ language, Generator, options: colorsOptions });
+    const textStyles = createTextStylesExtenionMethod({ language, Generator, options: textStylesOptions });
+    const spacing = createSpacingExtensionMethod({ language, Generator, options: spacingOptions });
+    const layer = createLayerExtensionMethod({ language, Generator, options: layerOptions });
 
-    const exportColors = exportColorsGenerator({
-        generatorFunction: colors,
+    const exportColors = exportColorsExtensionMethod({
+        baseMethod: colors,
         options: exportColorsOptions
     });
-    const exportTextStyles = exportTextStylesGenerator({
-        generatorFunction: textStyles,
+    const exportTextStyles = exportTextStylesExtensionMethod({
+        baseMethod: textStyles,
         options: exportTextStylesOptions
     });
-    const exportSpacing = exportSpacingGenerator({
-        generatorFunction: spacing,
+    const exportSpacing = createExportSpacingExtensionMethod({
+        baseMethod: spacing,
         options: exportSpacingOptions
     });
 
-    const styleguideColors = colorCodeGenerator({
+    const styleguideColors = createColorsExtensionMethod({
         language,
         Generator,
-        options: colorsOptions,
-        isColorsFromParam: true
+        options: colorsOptions
     });
-    const styleguideTextStyles = textStyleCodeGenerator({
+    const styleguideTextStyles = createTextStylesExtenionMethod({
         language,
         Generator,
-        options: textStylesOptions,
-        isTextStylesFromParam: true
+        options: textStylesOptions
     });
 
-    const exportStyleguideColors = exportColorsGenerator({
-        generatorFunction: styleguideColors,
+    const exportStyleguideColors = exportColorsExtensionMethod({
+        baseMethod: styleguideColors,
         options: exportColorsOptions
     });
 
-    const exportStyleguideTextStyles = exportTextStylesGenerator({
-        generatorFunction: styleguideTextStyles,
+    const exportStyleguideTextStyles = exportTextStylesExtensionMethod({
+        baseMethod: styleguideTextStyles,
         options: exportTextStylesOptions
     });
 

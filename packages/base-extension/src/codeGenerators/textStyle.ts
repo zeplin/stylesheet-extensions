@@ -1,22 +1,19 @@
+import { Context } from "@zeplin/extension-model";
 import {
-    Context,
-    TextStyle as ExtenstionTextStyle,
-} from "@zeplin/extension-model";
-import {
-    CodeGenerator,
-    CodeGeneratorOptions,
-    CodeGeneratorParams,
+    ExtensionMethodCreator,
+    ExtensionMethodCreatorParams,
+    ExtensionMethodOptions, ExtensionMethodReturnType,
     FontFace,
-    TextStyle,
     generateIdentifier,
     getFontFaces,
     getParams,
     getResourceContainer,
     getResources,
     getUniqueFirstItems,
+    TextStyle,
 } from "zeplin-extension-style-kit";
 
-export type TextStyleCodeGeneratorOptions = CodeGeneratorOptions & {
+export type TextStyleExtensionMethodOptions = ExtensionMethodOptions & {
     prefix?: string,
     separator?: string,
     fontFaceSeparator?: string,
@@ -24,13 +21,14 @@ export type TextStyleCodeGeneratorOptions = CodeGeneratorOptions & {
     suffix?: string
 };
 
-export type TextStyleCodeGeneratorParams = CodeGeneratorParams & {
-    options?: TextStyleCodeGeneratorOptions,
-    isTextStylesFromParam?: boolean;
+export type TextStyleExtensionMethodParams = ExtensionMethodCreatorParams & {
+    options?: TextStyleExtensionMethodOptions
 };
 
-export const textStyleCodeGenerator: CodeGenerator<TextStyleCodeGeneratorParams> = (generatorParams: TextStyleCodeGeneratorParams) =>
-    (context: Context, textStylesParam: ExtenstionTextStyle[]) => {
+type MethodName = "textStyles";
+
+export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, TextStyleExtensionMethodParams> = (generatorParams: TextStyleExtensionMethodParams) =>
+    (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
             language,
             Generator,
@@ -40,20 +38,17 @@ export const textStyleCodeGenerator: CodeGenerator<TextStyleCodeGeneratorParams>
                 fontFaceSeparator = "\n\n",
                 textStyleSeparator = "\n\n",
                 suffix = ""
-            } = {},
-            isTextStylesFromParam
+            } = {}
         } = generatorParams;
 
         const params = getParams(context);
         const { container } = getResourceContainer(context);
         const generator = new Generator(container, params);
-        const textStyles = isTextStylesFromParam
-            ? textStylesParam
-            : getResources({
-                context,
-                useLinkedStyleguides: params.useLinkedStyleguides,
-                resourceFn: barrel => barrel.textStyles
-            });
+        const textStyles = getResources({
+            context,
+            useLinkedStyleguides: params.useLinkedStyleguides,
+            resourceFn: barrel => barrel.textStyles
+        });
 
         const uniqueTextStyles = getUniqueFirstItems(textStyles,
             (textStyle, other) => generateIdentifier(textStyle.name) === generateIdentifier(other.name));

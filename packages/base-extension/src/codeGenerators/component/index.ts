@@ -1,15 +1,17 @@
 import { Component, Context, Version } from "@zeplin/extension-model";
 import {
-    CodeGenerator,
-    CodeGeneratorParams,
-    CodeOutput,
+    ExtensionMethodCreator,
+    ExtensionMethodCreatorParams,
+    ExtensionMethodReturnType,
     getParams,
     getResourceContainer
 } from "zeplin-extension-style-kit";
 import { ComponentCodeGenerator } from "./componentCodeGenerator.js";
 import { fixVariantPropertyOrder } from "./componentUtils.js";
 
-export const componentCodeGenerator: CodeGenerator = (params: CodeGeneratorParams) => {
+type MethodName = "component";
+
+export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> = (params: ExtensionMethodCreatorParams) => {
     const {
         language,
         Generator,
@@ -18,7 +20,7 @@ export const componentCodeGenerator: CodeGenerator = (params: CodeGeneratorParam
         } = {}
     } = params;
 
-    return (context: Context, _: Version, component: Component): CodeOutput => {
+    return (context: Context, _: Version, component: Component): ExtensionMethodReturnType<MethodName> => {
         const params = getParams(context);
 
         const { container } = getResourceContainer(context);

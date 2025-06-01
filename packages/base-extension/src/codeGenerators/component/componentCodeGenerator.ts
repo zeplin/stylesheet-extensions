@@ -59,7 +59,7 @@ export class ComponentCodeGenerator {
     }
 
     generateCommonStylesForComponents(components: Component[]): Record<string, RuleSet> {
-        const commonLayerGroups = groupComponentLayersBySignature(components.map(c => c.latestVersion));
+        const commonLayerGroups = groupComponentLayersBySignature(components.map(c => c.latestVersion!));
         const commonStyles: Record<string, RuleSet> = {};
 
         for (const { signature, layers } of commonLayerGroups) {
@@ -149,7 +149,7 @@ export class ComponentCodeGenerator {
             classNames.push(...this.getClassNamesForPropertyFilters(propertyFilters));
         }
 
-        return generateCodeForLayers(this.generator, component.latestVersion.layers || [], classNames, this.styleMap);
+        return generateCodeForLayers(this.generator, component.latestVersion?.layers || [], classNames, this.styleMap);
     }
 
     generate(component: Component) {

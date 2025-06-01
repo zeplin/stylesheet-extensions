@@ -1,22 +1,22 @@
 import {
-    CodeGenerator,
-    CodeOutput,
-    Layer,
-    RuleSet,
-    Mixin,
+    ContextParams,
+    ExtensionMethodCreator, ExtensionMethodReturnType,
+    getParams,
+    getResourceContainer,
     getResources,
     getUniqueLayerTextStyles,
-    selectorize,
     isHtmlTag,
-    getParams,
-    getResourceContainer, ContextParams
+    Layer,
+    Mixin,
+    RuleSet,
+    selectorize
 } from "zeplin-extension-style-kit";
 import {
-    Layer as ExtensionLayer,
-    TextStyle as ExtensionTextStyle,
     Context,
+    Layer as ExtensionLayer,
     Project,
-    Styleguide
+    Styleguide,
+    TextStyle as ExtensionTextStyle
 } from "@zeplin/extension-model";
 
 function findBestConformTextStyle(searchedTextStyle: ExtensionTextStyle, context: Context, params: ContextParams) {
@@ -64,8 +64,10 @@ function getTextStyleDeclarations(textStyle: ExtensionTextStyle, layer: Layer, c
     return declarations;
 }
 
-export const layerCodeGenerator: CodeGenerator = (generatorParams) =>
-    (context: Context, selectedLayer: ExtensionLayer): CodeOutput => {
+type MethodName = "layer";
+
+export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams) =>
+    (context: Context, selectedLayer: ExtensionLayer): ExtensionMethodReturnType<MethodName> => {
         const {
             language,
             Generator,
@@ -74,42 +76,42 @@ export const layerCodeGenerator: CodeGenerator = (generatorParams) =>
             } = {}
         } = generatorParams;
 
-    const params = getParams(context);
-    const { container } = getResourceContainer(context);
-    const generator = new Generator(container, params);
+        const params = getParams(context);
+        const { container } = getResourceContainer(context);
+        const generator = new Generator(container, params);
 
-    const l = new Layer(selectedLayer);
-    const layerRuleSet = l.style;
-    const childrenRuleSet: RuleSet[] = [];
-    const { defaultTextStyle } = selectedLayer;
+        const l = new Layer(selectedLayer);
+        const layerRuleSet = l.style;
+        const childrenRuleSet: RuleSet[] = [];
+        const { defaultTextStyle } = selectedLayer;
 
-    if (selectedLayer.type === "text" && defaultTextStyle) {
-        const declarations = getTextStyleDeclarations(defaultTextStyle, l, context, params);
-        declarations.forEach(d => layerRuleSet.addDeclaration(d));
-        let nameCount = 0;
+        if (selectedLayer.type === "text" && defaultTextStyle) {
+            const declarations = getTextStyleDeclarations(defaultTextStyle, l, context, params);
+            declarations.forEach(d => layerRuleSet.addDeclaration(d));
+            let nameCount = 0;
 
-        getUniqueLayerTextStyles(selectedLayer).filter(
-            textStyle => !defaultTextStyle.equals(textStyle)
-        ).forEach(textStyle => {
-            const font = findBestConformTextStyle(textStyle, context, params);
-            const name = font ? font.name : `text-style-${++nameCount}`;
+            getUniqueLayerTextStyles(selectedLayer).filter(
+                textStyle => !defaultTextStyle.equals(textStyle)
+            ).forEach(textStyle => {
+                const font = findBestConformTextStyle(textStyle, context, params);
+                const name = font ? font.name : `text-style-${++nameCount}`;
 
-            childrenRuleSet.push(
-                new RuleSet(
-                    `${selectorize(selectedLayer.name)} ${selectorize(name)}`,
-                    getTextStyleDeclarations(textStyle, l, context, params)
-                )
-            );
-        });
-    }
+                childrenRuleSet.push(
+                    new RuleSet(
+                        `${selectorize(selectedLayer.name)} ${selectorize(name)}`,
+                        getTextStyleDeclarations(textStyle, l, context, params)
+                    )
+                );
+            });
+        }
 
-    const layerStyle = generator.ruleSet(layerRuleSet);
-    const childrenStyles = childrenRuleSet.map(
-        s => generator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
-    );
+        const layerStyle = generator.ruleSet(layerRuleSet);
+        const childrenStyles = childrenRuleSet.map(
+            s => generator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
+        );
 
-    return {
-        code: [layerStyle, ...childrenStyles].join(separator),
-        language
+        return {
+            code: [layerStyle, ...childrenStyles].join(separator),
+            language
+        };
     };
-};

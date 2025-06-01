@@ -1,9 +1,10 @@
-import { Color as ExtensionColor, Context, VariableCollection } from "@zeplin/extension-model";
+import { Context, VariableCollection } from "@zeplin/extension-model";
 import {
-    CodeGenerator,
-    CodeGeneratorOptions,
-    CodeGeneratorParams, CodeOutput,
     Color,
+    ExtensionMethodCreator,
+    ExtensionMethodCreatorParams,
+    ExtensionMethodOptions,
+    ExtensionMethodReturnType,
     generateColorDetailsByModeName,
     generateIdentifier,
     getParams,
@@ -15,19 +16,20 @@ const MODE_SEPARATOR = "\n\n";
 const COMMENT_START = "/* ";
 const COMMENT_END = " */";
 
-export type ColorCodeGeneratorOptions = CodeGeneratorOptions & {
+export type ColorExtensionMethodOptions = ExtensionMethodOptions & {
     variablePrefix?: string,
     variableSeparator?: string,
     variableSuffix?: string
 };
 
-export type ColorCodeGeneratorParams = CodeGeneratorParams & {
-    options?: ColorCodeGeneratorOptions,
-    isColorsFromParam?: boolean;
+export type ColorCodeGeneratorParams = ExtensionMethodCreatorParams & {
+    options?: ColorExtensionMethodOptions
 }
 
-export const colorCodeGenerator: CodeGenerator<ColorCodeGeneratorParams> = (generatorParams: ColorCodeGeneratorParams) =>
-    (context: Context, colorsParam: ExtensionColor[]): CodeOutput => {
+type MethodName = "colors";
+
+export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams: ColorCodeGeneratorParams) =>
+    (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
             language,
             Generator,
@@ -38,21 +40,18 @@ export const colorCodeGenerator: CodeGenerator<ColorCodeGeneratorParams> = (gene
                 variablePrefix = "",
                 variableSeparator = "\n",
                 variableSuffix = ""
-            } = {},
-            isColorsFromParam
+            } = {}
         } = generatorParams;
 
         const params = getParams(context);
         const { container } = getResourceContainer(context);
         const generator = new Generator(container, params);
 
-        const allColors = isColorsFromParam
-            ? colorsParam
-            : getResources({
-                context,
-                useLinkedStyleguides: params.useLinkedStyleguides,
-                resourceFn: barrel => barrel.colors
-            });
+        const allColors = getResources({
+            context,
+            useLinkedStyleguides: params.useLinkedStyleguides,
+            resourceFn: barrel => barrel.colors
+        });
 
         const colorsCode = allColors.filter(color => !color.isVariable).map(
             color => generator.variable((color.originalName || color.name)!, new Color(color))
