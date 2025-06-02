@@ -1,4 +1,4 @@
-import { ESM_TS_TRANSFORM_PATTERN } from 'ts-jest'
+import { ESM_TS_TRANSFORM_PATTERN } from "ts-jest";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -24,8 +24,8 @@ export default {
         }]
     },
     moduleNameMapper: {
-        '^@root/(.*)$': '<rootDir>/src/$1',
-        '@testHelpers/(.*)$': '<rootDir>/tests/helpers/$1',
+        "^@root/(.*)$": "<rootDir>/src/$1",
+        "@testHelpers/(.*)$": "<rootDir>/tests/helpers/$1",
     },
     collectCoverageFrom: [
         "src/**/*.{js,ts}",

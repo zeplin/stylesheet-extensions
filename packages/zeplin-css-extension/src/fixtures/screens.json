@@ -12,6 +12,10 @@
   {
     "name": "Screen with 3 tags",
     "description": "",
-    "tags": ["First tag", "Second tag", "Third tag"]
+    "tags": [
+      "First tag",
+      "Second tag",
+      "Third tag"
+    ]
   }
 ]

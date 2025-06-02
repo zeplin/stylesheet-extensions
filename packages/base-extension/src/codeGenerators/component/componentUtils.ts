@@ -1,7 +1,7 @@
 import { generateIdentifier, selectorize as zeskSelectorize } from "zeplin-extension-style-kit";
 import { Component } from "@zeplin/extension-model";
 
-const PSEUDO_CLASSNAME_MAP : Record<string, string>= {
+const PSEUDO_CLASSNAME_MAP: Record<string, string> = {
     active: "active",
     pressed: "active",
     hover: "hover",

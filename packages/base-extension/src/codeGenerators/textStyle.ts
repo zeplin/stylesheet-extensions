@@ -2,7 +2,8 @@ import { Context } from "@zeplin/extension-model";
 import {
     ExtensionMethodCreator,
     ExtensionMethodCreatorParams,
-    ExtensionMethodOptions, ExtensionMethodReturnType,
+    ExtensionMethodOptions,
+    ExtensionMethodReturnType,
     FontFace,
     generateIdentifier,
     getFontFaces,

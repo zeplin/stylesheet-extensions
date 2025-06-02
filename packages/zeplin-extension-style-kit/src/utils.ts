@@ -1,5 +1,17 @@
-import { ColorFormat, NamingScheme, ContextParams, StyleDeclaration } from "./common.js";
-import { Barrel, Color, Context, TextStyle, Layer, Styleguide, Project, VariableCollection, Variable, VariableMode, VariableValue } from "@zeplin/extension-model";
+import { ColorFormat, ContextParams, NamingScheme, StyleDeclaration } from "./common.js";
+import {
+    Barrel,
+    Color,
+    Context,
+    Layer,
+    Project,
+    Styleguide,
+    TextStyle,
+    Variable,
+    VariableCollection,
+    VariableMode,
+    VariableValue
+} from "@zeplin/extension-model";
 import { FontFace } from "./elements/fontFace.js";
 import { OPTION_NAMES } from "./constants.js";
 import cssEscape from "css.escape";
@@ -194,6 +206,7 @@ function getFontFaces(textStyles: TextStyle[]): FontFace[] {
 
 type ResourceType = "styleguide" | "project";
 type ResourceContainer = { container: Barrel; type: ResourceType };
+
 /**
  * Gets the resource container (styleguide) from a context
  * @param context - The context containing an optional styleguide
@@ -222,10 +235,10 @@ type ArrayBarrelKeys = NonNullable<{
 type BarrelKey = Exclude<ArrayBarrelKeys, "linkedStyleguide" | "parent">;
 
 function getLinkedResources<T extends Barrel[BarrelKey]>
-    ({ context, resourceFn }: {
-        resourceFn: (b: Barrel) => T;
-        context: Context;
-    }): T {
+({ context, resourceFn }: {
+    resourceFn: (b: Barrel) => T;
+    context: Context;
+}): T {
     const { container, type } = getResourceContainer(context);
     let resources = resourceFn(container);
     let parentBarrel = type === "project" ? container.linkedStyleguide : container.parent;
@@ -268,7 +281,7 @@ function getParams(context: Context): ContextParams {
         unitlessLineHeight: context.getOption(OPTION_NAMES.UNITLESS_LINE_HEIGHT) as boolean,
         useMixin: context.getOption(OPTION_NAMES.MIXIN) as boolean,
         remPreferences: context.getOption(OPTION_NAMES.USE_REM_UNIT) ? container.remPreferences : undefined,
-        showPaddingMargin:   context.getOption(OPTION_NAMES.SHOW_PADDING_MARGIN) as boolean
+        showPaddingMargin: context.getOption(OPTION_NAMES.SHOW_PADDING_MARGIN) as boolean
     };
 }
 

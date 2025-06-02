@@ -1,9 +1,9 @@
 import {
+    Border as ExtensionBorder,
     Fill as ExtensionFill,
     Layer as ExtensionLayer,
-    TextStyle as ExtensionTextStyle,
-    Border as ExtensionBorder,
-    Layout as ExtensionLayout
+    Layout as ExtensionLayout,
+    TextStyle as ExtensionTextStyle
 } from "@zeplin/extension-model";
 import { Angle } from "../values/angle.js";
 import { Color } from "../values/color.js";
@@ -17,7 +17,7 @@ import { Width } from "../declarations/width.js";
 import { Height } from "../declarations/height.js";
 import { ObjectFit } from "../declarations/objectFit.js";
 import { Transform } from "../declarations/transform.js";
-import { MixBlendMode, BlendModeValue } from "../declarations/mixBlendMode.js";
+import { BlendModeValue, MixBlendMode } from "../declarations/mixBlendMode.js";
 import { BorderRadius } from "../declarations/borderRadius.js";
 import { BackgroundBlendMode, BlendMode } from "../declarations/backgroundBlendMode.js";
 import { BackgroundImage } from "../declarations/backgroundImage.js";
@@ -40,13 +40,7 @@ import { FlexDirection } from "../declarations/flexDirection.js";
 import { Gap } from "../declarations/gap.js";
 import { TextStyle } from "./textStyle.js";
 import { RuleSet } from "../ruleSet.js";
-import {
-    blendColors,
-    isHtmlTag,
-    isTextRelatedTag,
-    selectorize,
-    webkit
-} from "../utils.js";
+import { blendColors, isHtmlTag, isTextRelatedTag, selectorize, webkit } from "../utils.js";
 import { Bound } from "./utility/bound.js";
 import { JustifyContent } from "../declarations/justifyContent.js";
 import { AlignItems, AlignItemsValue } from "../declarations/alignItems.js";
@@ -128,10 +122,10 @@ export class Layer {
     blendBorders(accumulator: ExtensionBorder, current: ExtensionBorder): ExtensionBorder {
         if (accumulator.fill.type === ExtensionFill.TYPE.COLOR
             && current.fill.type === ExtensionFill.TYPE.COLOR) {
-                accumulator.fill = Object.assign({}, accumulator.fill, {
-                    color: current.fill.color!.blend(accumulator.fill.color!)
-                })
-                return accumulator;
+            accumulator.fill = Object.assign({}, accumulator.fill, {
+                color: current.fill.color!.blend(accumulator.fill.color!)
+            });
+            return accumulator;
         } else if (accumulator.fill.type === ExtensionFill.TYPE.GRADIENT) {
             accumulator.fill = Object.assign(
                 {},

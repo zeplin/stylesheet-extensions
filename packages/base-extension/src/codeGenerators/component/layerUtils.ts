@@ -25,7 +25,10 @@ function flatLayers(layers: ExtensionLayer[] = []): ExtensionLayer[] {
     return layers.flatMap(layer => (layer.exportable ? [layer] : [layer].concat(flatLayers(layer.layers))));
 }
 
-function groupComponentLayersBySignature(componentVersions: Version[] = []): { signature: string, layers: ExtensionLayer[] }[] {
+function groupComponentLayersBySignature(componentVersions: Version[] = []): {
+    signature: string,
+    layers: ExtensionLayer[]
+}[] {
     const [pivotLayers, ...otherVersions] = componentVersions.map(({ layers }) => flatLayers(layers));
 
     return pivotLayers.map(layer => {

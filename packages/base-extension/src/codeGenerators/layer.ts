@@ -1,6 +1,7 @@
 import {
     ContextParams,
-    ExtensionMethodCreator, ExtensionMethodReturnType,
+    ExtensionMethodCreator,
+    ExtensionMethodReturnType,
     getParams,
     getResourceContainer,
     getResources,

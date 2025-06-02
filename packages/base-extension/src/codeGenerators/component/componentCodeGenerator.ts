@@ -6,7 +6,8 @@ import {
     filterComponentsByProperties,
     findDefaultStateComponent,
     getDefaultPropertyFilters,
-    getPropertyFiltersForComponent, PropertyFilter,
+    getPropertyFiltersForComponent,
+    PropertyFilter,
     selectorizeComponentProperty
 } from "./componentUtils.js";
 

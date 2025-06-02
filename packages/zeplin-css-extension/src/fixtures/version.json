@@ -1,6 +1,11 @@
 {
   "snapshot": {
-    "backgroundColor": { "r": 255, "b": 255, "g": 255, "a": 1 },
+    "backgroundColor": {
+      "r": 255,
+      "b": 255,
+      "g": 255,
+      "a": 1
+    },
     "source": "sketch",
     "height": 960,
     "densityScale": 1,
