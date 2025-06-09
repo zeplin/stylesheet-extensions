@@ -1,4 +1,4 @@
-import { ESM_TS_TRANSFORM_PATTERN } from "ts-jest";
+import { ESM_TS_JS_TRANSFORM_PATTERN } from "ts-jest";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,15 +17,18 @@ export default {
     extensionsToTreatAsEsm: [".ts"],
     moduleDirectories: ["node_modules"],
     transform: {
-        [ESM_TS_TRANSFORM_PATTERN]: ["ts-jest", {
+        [ESM_TS_JS_TRANSFORM_PATTERN]: ["ts-jest", {
             tsconfig: "<rootDir>/tsconfig.json",
-            useESM: true,
-            babelConfig: true
+            useESM: true
         }]
     },
+    transformIgnorePatterns: [
+        "tests/"
+    ],
     moduleNameMapper: {
         "^@root/(.*)$": "<rootDir>/src/$1",
         "@testHelpers/(.*)$": "<rootDir>/tests/helpers/$1",
+        "(.+)\\.js": "$1"
     },
     collectCoverageFrom: [
         "src/**/*.{js,ts}",
