@@ -38,7 +38,7 @@
   "dependencies": {
     "@zeplin/extension-model": "^3.0.0",
     "base-extension": "^2.5.1",
-    "zem": "2.0.7",
+    "zem": "2.0.0-beta.0",
     "zeplin-extension-style-kit": "^4.4.1"
   },
   "devDependencies": {
