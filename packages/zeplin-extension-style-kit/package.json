@@ -59,7 +59,7 @@
     "typescript-eslint": "^8.32.1"
   },
   "dependencies": {
-    "@zeplin/extension-model": "1.0.20",
+    "@zeplin/extension-model": "^3.0.0",
     "css.escape": "^1.5.1"
   }
 }

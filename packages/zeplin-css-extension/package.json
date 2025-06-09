@@ -35,7 +35,7 @@
     "test": "zem test"
   },
   "dependencies": {
-    "@zeplin/extension-model": "1.0.20",
+    "@zeplin/extension-model": "^3.0.0",
     "base-extension": "^2.5.1",
     "zem": "2.0.3",
     "zeplin-extension-style-kit": "^4.4.1"
