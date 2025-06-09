@@ -24,10 +24,10 @@ export interface BorderOptions {
 }
 
 export class Border implements StyleDeclaration {
-    private style: BorderStyle;
-    private width: Length;
-    private color: Color;
-    private side: BorderSide;
+    style: BorderStyle;
+    width: Length;
+    color: Color;
+    side: BorderSide;
 
     constructor({ style, width, color, side }: BorderOptions) {
         this.style = style;

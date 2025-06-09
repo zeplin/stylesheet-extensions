@@ -3,7 +3,7 @@ import { LengthParams, StyleDeclaration } from "../common.js";
 import { Length } from "../values/index.js";
 
 export class BorderWidth implements StyleDeclaration {
-    private width: Length;
+    width: Length;
 
     constructor(width: Length) {
         this.width = width;

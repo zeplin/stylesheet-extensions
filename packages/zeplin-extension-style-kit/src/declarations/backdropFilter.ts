@@ -2,7 +2,7 @@ import { STYLE_PROPS } from "../constants.js";
 import { ColorNameResolver, StyleDeclaration, StyleFunction, StyleParams } from "../common.js";
 
 export class BackdropFilter implements StyleDeclaration {
-    private filters: StyleFunction[];
+    filters: StyleFunction[];
 
     constructor(filters: StyleFunction[]) {
         this.filters = filters;

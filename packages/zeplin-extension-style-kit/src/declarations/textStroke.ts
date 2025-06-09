@@ -3,8 +3,8 @@ import { STYLE_PROPS } from "../constants.js";
 import { Color, Length } from "../values/index.js";
 
 export class TextStroke implements StyleDeclaration {
-    private length: Length;
-    private color: Color;
+    length: Length;
+    color: Color;
 
     constructor(length: Length, color: Color) {
         this.length = length;

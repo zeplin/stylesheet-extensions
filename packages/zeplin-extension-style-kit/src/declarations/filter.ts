@@ -2,7 +2,7 @@ import { ColorNameResolver, StyleDeclaration, StyleFunction, StyleParams } from 
 import { STYLE_PROPS } from "../constants.js";
 
 export class Filter implements StyleDeclaration {
-    private filters: StyleFunction[];
+    filters: StyleFunction[];
 
     constructor(filters: StyleFunction[]) {
         this.filters = filters;

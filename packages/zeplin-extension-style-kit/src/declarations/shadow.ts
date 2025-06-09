@@ -22,16 +22,18 @@ function compareShadow(s1: ShadowObject, s2: ShadowObject): boolean {
     );
 }
 
-const TYPES = Object.freeze({
+type ShadowType = "text" | "box";
+
+const TYPES: Record<string, ShadowType> = {
     TEXT: "text",
     BOX: "box"
-});
+} as const;
 
 export class Shadow implements StyleDeclaration {
     private objects: ShadowObject[];
-    private type: string;
+    type: ShadowType;
 
-    constructor(shadowObjects: ShadowObject[], type: string) {
+    constructor(shadowObjects: ShadowObject[], type: ShadowType) {
         this.objects = shadowObjects;
         this.type = type;
     }
