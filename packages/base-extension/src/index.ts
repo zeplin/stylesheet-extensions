@@ -3,8 +3,8 @@ import { createLayerExtensionMethod } from "./codeGenerators/layer.js";
 import { createSpacingExtensionMethod } from "./codeGenerators/spacing.js";
 import { createTextStylesExtenionMethod } from "./codeGenerators/textStyle.js";
 import { createComponentExtensionMethod } from "./codeGenerators/component/index.js";
-import { Context } from "@zeplin/extension-model";
-import { ExtensionMethodCreator, ExtensionMethodReturnType } from "zeplin-extension-style-kit";
+import { Context, Extension } from "@zeplin/extension-model";
+import { ExtensionMethodCreator, ExtensionMethodOptions, ExtensionMethodReturnType } from "zeplin-extension-style-kit";
 import { ExportExtensionMethodCreatorParams, ExtensionCreator } from "./types.js";
 
 const comment = (_: Context, text: string) => `/* ${text} */`;
@@ -13,8 +13,10 @@ const exportColorsExtensionMethod: ExtensionMethodCreator<"exportColors", Export
     {
         baseMethod,
         options: {
-            prefix = "",
-            suffix = ""
+            declarationBlockOptions: {
+                prefix = "",
+                suffix = ""
+            } = {}
         } = {}
     }) => (context: Context): ExtensionMethodReturnType<"exportColors"> => {
     const { code, language } = baseMethod(context);
@@ -29,8 +31,10 @@ const exportTextStylesExtensionMethod: ExtensionMethodCreator<"exportTextStyles"
     {
         baseMethod,
         options: {
-            prefix = "",
-            suffix = ""
+            declarationBlockOptions: {
+                prefix = "",
+                suffix = ""
+            } = {}
         } = {}
     }) => (context: Context): ExtensionMethodReturnType<"exportTextStyles"> => {
     const { code, language } = baseMethod(context);
@@ -45,8 +49,10 @@ const createExportSpacingExtensionMethod: ExtensionMethodCreator<"exportSpacing"
     {
         baseMethod,
         options: {
-            prefix = "",
-            suffix = ""
+            declarationBlockOptions: {
+                prefix = "",
+                suffix = ""
+            } = {}
         } = {}
     }) => (context): ExtensionMethodReturnType<"exportSpacing"> => {
     const { code, language } = baseMethod(context);
@@ -56,6 +62,14 @@ const createExportSpacingExtensionMethod: ExtensionMethodCreator<"exportSpacing"
         language
     };
 };
+
+const processOptions = <T extends ExtensionMethodOptions>(
+    options: T = {} as T,
+    defaultLanguage?: string
+): T & { language: string; } => ({
+    ...options,
+    language: (options.language || defaultLanguage)!,
+});
 
 export const createExtension: ExtensionCreator = (
     {
@@ -69,45 +83,65 @@ export const createExtension: ExtensionCreator = (
         exportColorsOptions,
         exportTextStylesOptions,
         exportSpacingOptions
-    }) => {
-    const component = createComponentExtensionMethod({ language, Generator, options: componentOptions });
-    const colors = createColorsExtensionMethod({ language, Generator, options: colorsOptions });
-    const textStyles = createTextStylesExtenionMethod({ language, Generator, options: textStylesOptions });
-    const spacing = createSpacingExtensionMethod({ language, Generator, options: spacingOptions });
-    const layer = createLayerExtensionMethod({ language, Generator, options: layerOptions });
+    }): Extension => {
+    const component = createComponentExtensionMethod({
+        Generator,
+        options: processOptions(componentOptions, language)
+    });
+
+    const colors = createColorsExtensionMethod({
+        Generator,
+        options: processOptions(colorsOptions, language)
+    });
+
+    const textStyles = createTextStylesExtenionMethod({
+        Generator,
+        options: processOptions(textStylesOptions)
+    });
+
+    const spacing = createSpacingExtensionMethod({
+        Generator,
+        options: processOptions(spacingOptions)
+    });
+
+    const layer = createLayerExtensionMethod({
+        Generator,
+        options: processOptions(layerOptions)
+    });
 
     const exportColors = exportColorsExtensionMethod({
         baseMethod: colors,
-        options: exportColorsOptions
+        options: processOptions(exportColorsOptions)
     });
+
     const exportTextStyles = exportTextStylesExtensionMethod({
         baseMethod: textStyles,
-        options: exportTextStylesOptions
+        options: processOptions(exportTextStylesOptions)
     });
+
     const exportSpacing = createExportSpacingExtensionMethod({
         baseMethod: spacing,
-        options: exportSpacingOptions
+        options: processOptions(exportSpacingOptions)
     });
 
     const styleguideColors = createColorsExtensionMethod({
-        language,
         Generator,
-        options: colorsOptions
+        options: processOptions(colorsOptions)
     });
+
     const styleguideTextStyles = createTextStylesExtenionMethod({
-        language,
         Generator,
-        options: textStylesOptions
+        options: processOptions(textStylesOptions)
     });
 
     const exportStyleguideColors = exportColorsExtensionMethod({
         baseMethod: styleguideColors,
-        options: exportColorsOptions
+        options: processOptions(exportColorsOptions)
     });
 
     const exportStyleguideTextStyles = exportTextStylesExtensionMethod({
         baseMethod: styleguideTextStyles,
-        options: exportTextStylesOptions
+        options: processOptions(exportTextStylesOptions)
     });
 
     return {

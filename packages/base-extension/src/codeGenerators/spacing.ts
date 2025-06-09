@@ -18,12 +18,14 @@ type MethodName = "spacing";
 export const createSpacingExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams) =>
     (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
-            language,
             Generator,
             options: {
-                prefix = "",
-                separator = "\n",
-                suffix = ""
+                language,
+                declarationBlockOptions: {
+                    prefix = "",
+                    separator = "\n",
+                    suffix = ""
+                } = {}
             } = {}
         } = generatorParams;
         const params = getParams(context);
@@ -51,6 +53,6 @@ export const createSpacingExtensionMethod: ExtensionMethodCreator<MethodName> = 
 
         return {
             code,
-            language
+            language: language!
         };
     };

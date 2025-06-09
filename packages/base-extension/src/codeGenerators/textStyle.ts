@@ -31,14 +31,16 @@ type MethodName = "textStyles";
 export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, TextStyleExtensionMethodParams> = (generatorParams: TextStyleExtensionMethodParams) =>
     (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
-            language,
             Generator,
             options: {
-                prefix = "",
-                separator = "\n\n",
+                language,
+                declarationBlockOptions: {
+                    prefix = "",
+                    separator = "\n\n",
+                    suffix = ""
+                } = {},
                 fontFaceSeparator = "\n\n",
                 textStyleSeparator = "\n\n",
-                suffix = ""
             } = {}
         } = generatorParams;
 
@@ -69,6 +71,6 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
 
         return {
             code: `${prefix}${fontFaceCode}${separator}${textStyleCode}${suffix}`,
-            language
+            language: language!
         };
     };

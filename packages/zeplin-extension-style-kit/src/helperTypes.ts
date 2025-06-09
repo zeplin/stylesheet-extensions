@@ -4,11 +4,33 @@ import { AtRule } from "./atRule.js";
 import { RuleSet } from "./ruleSet.js";
 
 export interface GeneratorClass {
-    new<T extends Barrel>(barrel: T, param: ContextParams): Generator;
+    new<T extends Barrel>(barrel: T, param: ContextParams, options?: DeclarationOptions, ...rest: any[]): Generator;
+}
+
+/**
+ * Indiviual rule/declaration options
+ */
+export type DeclarationOptions = {
+    namePrefix?: string;
+    nameSuffix?: string;
+    valuePrefix?: string;
+    valueSuffix?: string;
+    nameValueSeparator?: string;
+    wrapperPrefix?: string;
+    wrapperSuffix?: string;
+}
+
+/**
+ * Rule/declaration block options
+ */
+export type DeclarationBlockOptions = {
+    prefix?: string;
+    separator?: string;
+    suffix?: string;
 }
 
 export type RuleSetOptions = {
-    parentDeclarations?: StyleDeclaration[]
+    parentDeclarations?: StyleDeclaration[];
     scope?: string;
     mixin?: boolean;
 };
@@ -22,15 +44,15 @@ export interface Generator {
 }
 
 export type ExtensionMethodOptions = {
-    prefix?: string;
-    separator?: string;
-    suffix?: string;
+    language?: string;
+    declarationBlockOptions?: DeclarationBlockOptions;
+    declarationOptions?: DeclarationOptions;
+    [key: string]: any;
 };
 
 export type ExtensionMethodCreatorParams = {
-    language: string;
     Generator: GeneratorClass;
-    options?: ExtensionMethodOptions
+    options?: ExtensionMethodOptions;
 };
 
 export type ExtensionMethodName = keyof Extension;

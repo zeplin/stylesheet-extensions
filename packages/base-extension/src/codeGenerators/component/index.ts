@@ -13,10 +13,12 @@ type MethodName = "component";
 
 export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> = (params: ExtensionMethodCreatorParams) => {
     const {
-        language,
         Generator,
         options: {
-            separator = "\n\n"
+            language,
+            declarationBlockOptions: {
+                separator = "\n\n"
+            } = {},
         } = {}
     } = params;
 
@@ -32,7 +34,7 @@ export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> 
 
         const componentGenerator = new ComponentCodeGenerator({
             generator,
-            language,
+            language: language!,
             lineSeparator: separator
         });
 

@@ -1,6 +1,8 @@
 import {
     ContextParams,
     ExtensionMethodCreator,
+    ExtensionMethodCreatorParams,
+    ExtensionMethodOptions,
     ExtensionMethodReturnType,
     getParams,
     getResourceContainer,
@@ -19,6 +21,15 @@ import {
     Styleguide,
     TextStyle as ExtensionTextStyle
 } from "@zeplin/extension-model";
+
+export type LayerExtensionMethodOptions = ExtensionMethodOptions & {
+    layerPrefix?: string,
+    layerSuffix?: string,
+};
+
+export type LayerCodeGeneratorParams = ExtensionMethodCreatorParams & {
+    options?: LayerExtensionMethodOptions
+}
 
 function findBestConformTextStyle(searchedTextStyle: ExtensionTextStyle, context: Context, params: ContextParams) {
     const { container, type } = getResourceContainer(context);
@@ -67,19 +78,25 @@ function getTextStyleDeclarations(textStyle: ExtensionTextStyle, layer: Layer, c
 
 type MethodName = "layer";
 
-export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams) =>
+export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams: LayerCodeGeneratorParams) =>
     (context: Context, selectedLayer: ExtensionLayer): ExtensionMethodReturnType<MethodName> => {
         const {
-            language,
             Generator,
             options: {
-                separator = "\n"
-            } = {}
+                language,
+                declarationBlockOptions: {
+                    separator = "\n"
+                } = {},
+                declarationOptions,
+                layerPrefix = "",
+                layerSuffix = "",
+                ...rest
+            } = {},
         } = generatorParams;
 
         const params = getParams(context);
         const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(container, params, declarationOptions, rest);
 
         const l = new Layer(selectedLayer);
         const layerRuleSet = l.style;
@@ -112,7 +129,7 @@ export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (g
         );
 
         return {
-            code: [layerStyle, ...childrenStyles].join(separator),
-            language
+            code: `${layerPrefix}${[layerStyle, ...childrenStyles].join(separator)}${layerSuffix}`,
+            language: language!
         };
     };

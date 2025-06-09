@@ -17,8 +17,17 @@ const COMMENT_START = "/* ";
 const COMMENT_END = " */";
 
 export type ColorExtensionMethodOptions = ExtensionMethodOptions & {
+    /**
+     * Related to Color Variables on Zeplin
+     */
     variablePrefix?: string,
+    /**
+     * Related to Color Variables on Zeplin
+     */
     variableSeparator?: string,
+    /**
+     * Related to Color Variables on Zeplin
+     */
     variableSuffix?: string
 };
 
@@ -31,12 +40,14 @@ type MethodName = "colors";
 export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams: ColorCodeGeneratorParams) =>
     (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
-            language,
             Generator,
             options: {
-                prefix = "",
-                separator = "\n",
-                suffix = "",
+                language,
+                declarationBlockOptions: {
+                    prefix = "",
+                    separator = "\n",
+                    suffix = "",
+                } = {},
                 variablePrefix = "",
                 variableSeparator = "\n",
                 variableSuffix = ""
@@ -98,6 +109,6 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
 
         return {
             code,
-            language
+            language: language!
         };
     };

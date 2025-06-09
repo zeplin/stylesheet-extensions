@@ -1,40 +1,26 @@
 import {
-    ExtensionMethod,
     ExtensionMethodCreator,
     ExtensionMethodCreatorParams,
     ExtensionMethodOptions
 } from "zeplin-extension-style-kit";
+import { Extension } from "@zeplin/extension-model";
 import { ColorExtensionMethodOptions } from "./codeGenerators/color.js";
 import { TextStyleExtensionMethodOptions } from "./codeGenerators/textStyle.js";
+import { LayerExtensionMethodOptions } from "./codeGenerators/layer.js";
 
-export type ExtensionCreatorParams = Omit<ExtensionMethodCreatorParams, "options"> & {
+export type ExtensionCreatorParams = Pick<ExtensionMethodCreatorParams, "Generator"> & {
+    language?: string;
     colorsOptions?: ColorExtensionMethodOptions,
     textStylesOptions?: TextStyleExtensionMethodOptions,
     spacingOptions?: ExtensionMethodOptions,
-    layerOptions?: ExtensionMethodOptions,
+    layerOptions?: LayerExtensionMethodOptions,
     componentOptions?: ExtensionMethodOptions,
     exportColorsOptions?: ExtensionMethodOptions,
     exportTextStylesOptions?: ExtensionMethodOptions,
     exportSpacingOptions?: ExtensionMethodOptions;
 };
 
-export type ExtensionCreatorOutput = {
-    component: ExtensionMethod<"component">,
-    colors: ExtensionMethod<"colors">,
-    textStyles: ExtensionMethod<"textStyles">,
-    spacing: ExtensionMethod<"spacing">,
-    layer: ExtensionMethod<"layer">,
-    comment: ExtensionMethod<"comment">,
-    exportColors: ExtensionMethod<"exportColors">,
-    exportTextStyles: ExtensionMethod<"exportTextStyles">,
-    exportSpacing: ExtensionMethod<"exportSpacing">,
-    styleguideColors: ExtensionMethod<"styleguideColors">,
-    styleguideTextStyles: ExtensionMethod<"styleguideTextStyles">,
-    exportStyleguideColors: ExtensionMethod<"exportStyleguideColors">,
-    exportStyleguideTextStyles: ExtensionMethod<"exportStyleguideTextStyles">
-};
-
-export type ExtensionCreator = (params: ExtensionCreatorParams) => ExtensionCreatorOutput;
+export type ExtensionCreator = (params: ExtensionCreatorParams) => Extension;
 
 export type ExportExtensionMethodCreatorParams = {
     baseMethod: ReturnType<ExtensionMethodCreator<"colors" | "textStyles" | "spacing">>
