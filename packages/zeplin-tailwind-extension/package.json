@@ -1,0 +1,145 @@
+{
+  "name": "tailwind",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Generates Tailwind CSS snippets from colors, text styles and layers.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "author": {
+    "name": "Zeplin",
+    "email": "support@zeplin.io",
+    "url": "http://zeplin.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeplin/stylesheet-extensions.git"
+  },
+  "scripts": {
+    "start": "tsc && zem start",
+    "build": "tsc && zem build",
+    "clean": "zem clean",
+    "exec": "zem exec",
+    "publish": "zem publish",
+    "test": "zem test"
+  },
+  "dependencies": {
+    "@zeplin/extension-model": "^3.0.0",
+    "base-extension": "^2.5.1",
+    "zem": "2.0.7",
+    "zeplin-extension-style-kit": "^4.4.1"
+  },
+  "zeplin": {
+    "displayName": "Tailwind CSS",
+    "projectTypes": [
+      "web"
+    ],
+    "options": [
+      {
+        "name": "Color format",
+        "type": "picker",
+        "id": "colorFormat",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "HEX",
+            "value": "hex"
+          },
+          {
+            "name": "RGB",
+            "value": "rgb"
+          },
+          {
+            "name": "HSL",
+            "value": "hsl"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "name": "Variable name format",
+        "type": "picker",
+        "id": "variableNameFormat",
+        "submenu": true,
+        "options": [
+          {
+            "name": "kebab-case",
+            "value": "kebab"
+          },
+          {
+            "name": "snake_case",
+            "value": "snake"
+          },
+          {
+            "name": "camelCase",
+            "value": "camel"
+          },
+          {
+            "name": "PascalCase",
+            "value": "pascal"
+          },
+          {
+            "name": "CONSTANT_CASE",
+            "value": "constant"
+          },
+          {
+            "name": "Use original",
+            "value": "none"
+          }
+        ],
+        "default": "kebab"
+      },
+      {
+        "name": "Dimensions",
+        "type": "switch",
+        "id": "showDimensions",
+        "default": true
+      },
+      {
+        "name": "Unitless line-height",
+        "type": "switch",
+        "id": "unitlessLineHeight",
+        "default": true
+      },
+      {
+        "name": "Default values",
+        "type": "switch",
+        "id": "showDefaultValues",
+        "default": true
+      },
+      {
+        "name": "Display resources from linked and parent styleguides",
+        "type": "switch",
+        "id": "useLinkedStyleguides",
+        "default": true
+      },
+      {
+        "name": "Use “rem” unit",
+        "type": "switch",
+        "id": "useRemUnit",
+        "default": true
+      },
+      {
+        "name": "Show padding, margin estimations (experimental)",
+        "type": "switch",
+        "id": "showPaddingMargin",
+        "default": true
+      }
+    ]
+  }
+}

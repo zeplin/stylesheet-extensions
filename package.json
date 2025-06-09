@@ -13,7 +13,8 @@
     "start:less": "npm run start --workspace=less",
     "start:sass": "npm run start --workspace=sass",
     "start:scss": "npm run start --workspace=scss",
-    "start:stylus": "npm run start --workspace=stylus"
+    "start:stylus": "npm run start --workspace=stylus",
+    "start:tailwind": "npm run start --workspace=tailwind"
   },
   "dependencies": {
     "@changesets/cli": "^2.27.1"
