@@ -3,6 +3,7 @@ import {
     AtRule,
     Color,
     ContextParams,
+    DeclarationOptions,
     generateColorNameResolver,
     generateLinkedColorVariableNameResolver,
     generateVariableName,
@@ -14,19 +15,25 @@ import {
     StyleValue,
 } from "zeplin-extension-style-kit";
 
-const PREFIX = "--";
-const SEPARATOR = ": ";
+const DEFAULT_NAME_PREFIX = "--";
+const DEFAULT_SEPARATOR = ": ";
 const DEFAULT_VALUE_SEPARATOR = ", ";
-const SUFFIX = ";";
+const DEFAULT_VALUE_SUFFIX = ";";
 const INDENTATION = "  ";
 
 export class CSSGenerator implements Generator {
     private readonly container: Barrel;
     private readonly params: ContextParams;
+    private readonly declarationOptions: DeclarationOptions;
 
-    constructor(container: Barrel, params: ContextParams) {
+    constructor(container: Barrel, params: ContextParams, declarationOptions: DeclarationOptions = {
+        namePrefix: DEFAULT_NAME_PREFIX,
+        valueSuffix: DEFAULT_VALUE_SUFFIX,
+        nameValueSeparator: DEFAULT_SEPARATOR
+    }) {
         this.params = params;
         this.container = container;
+        this.declarationOptions = declarationOptions;
     }
 
     formatColorVariable(color: ExtensionColor, options: { defaultColorStringByFormat?: string } = {}): string {
@@ -35,7 +42,7 @@ export class CSSGenerator implements Generator {
             defaultColorValue = `${DEFAULT_VALUE_SEPARATOR}${options.defaultColorStringByFormat}`;
         }
 
-        return `var(${PREFIX}${generateVariableName(
+        return `var(${this.declarationOptions.namePrefix}${generateVariableName(
             color.originalName || color.name!, this.params.variableNameFormat
         )}${defaultColorValue})`;
     }
@@ -71,6 +78,8 @@ export class CSSGenerator implements Generator {
     }
 
     declaration(d: StyleDeclaration): string {
+        const { valueSuffix, nameValueSeparator } = this.declarationOptions;
+
         const value = d.getValue(
             this.params,
             generateColorNameResolver({
@@ -79,7 +88,8 @@ export class CSSGenerator implements Generator {
                 formatVariableName: (color, options) => this.formatColorVariable(color, options)
             })
         );
-        return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
+
+        return `${INDENTATION}${d.name}${nameValueSeparator}${value}${valueSuffix}`;
     }
 
     declarationsBlock(declarations: StyleDeclaration[] = []): string {
@@ -87,6 +97,8 @@ export class CSSGenerator implements Generator {
     }
 
     variable(name: string, value: StyleValue): string {
+        const { namePrefix, valueSuffix, nameValueSeparator } = this.declarationOptions;
+
         const generatedName = generateVariableName(name, this.params.variableNameFormat);
 
         let colorNameResolver;
@@ -101,7 +113,7 @@ export class CSSGenerator implements Generator {
 
         const variableValue = value.toStyleValue(this.params, colorNameResolver);
 
-        return `${PREFIX}${generatedName}${SEPARATOR}${variableValue}${SUFFIX}`;
+        return `${namePrefix}${generatedName}${nameValueSeparator}${variableValue}${valueSuffix}`;
     }
 
     ruleSet({ selector, declarations }: RuleSet, { parentDeclarations = [], scope = "" }: RuleSetOptions = {}): string {

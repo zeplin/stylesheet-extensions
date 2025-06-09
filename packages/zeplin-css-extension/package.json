@@ -28,17 +28,21 @@
   },
   "scripts": {
     "start": "zem start",
-    "build": "zem build",
+    "build": "tsc && zem build",
     "clean": "zem clean",
     "exec": "zem exec",
     "publish": "zem publish",
-    "test": "zem test"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" zem test",
+    "jesto": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "dependencies": {
     "@zeplin/extension-model": "^3.0.0",
     "base-extension": "^2.5.1",
-    "zem": "2.0.3",
+    "zem": "2.0.7",
     "zeplin-extension-style-kit": "^4.4.1"
+  },
+  "devDependencies": {
+    "ts-jest": "^29.3.4"
   },
   "zeplin": {
     "displayName": "CSS",
@@ -140,8 +144,5 @@
         "default": true
       }
     ]
-  },
-  "devDependencies": {
-    "jest": "^29.7.0"
   }
 }
