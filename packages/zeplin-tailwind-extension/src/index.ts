@@ -34,7 +34,7 @@ const extension = createExtension({
             separator: " " // whitespace
         },
         declarationOptions: {
-            wrapperPrefix: "\n",
+            wrapperPrefix: "",
             wrapperSuffix: "",
             declarationMapper: TailwindMapper
         },

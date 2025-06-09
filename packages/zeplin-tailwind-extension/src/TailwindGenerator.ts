@@ -101,7 +101,7 @@ export class TailwindGenerator implements Generator {
 
 
         if (this.tailwindMapper) {
-            return `${INDENTATION}${this.tailwindMapper.mapValue(d)}`;
+            return this.tailwindMapper.mapValue(d);
         }
 
         const value = d.getValue(this.params, this.colorNameResolver);
@@ -115,7 +115,7 @@ export class TailwindGenerator implements Generator {
             wrapperSuffix
         } = this.declarationOptions;
 
-        return `${wrapperPrefix}${declarations.map(this.declaration, this).join("\n")}${wrapperSuffix}`;
+        return `${wrapperPrefix}${declarations.map(this.declaration, this).join(" ")}${wrapperSuffix}`;
     }
 
     variable(name: string, value: StyleValue): string {
