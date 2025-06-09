@@ -16,6 +16,7 @@ import {
     Color,
     ColorNameResolver,
     ContextParams,
+    DeclarationMapper,
     DeclarationOptions,
     Display,
     Filter,
@@ -59,7 +60,7 @@ const alphaFormatter = new Intl.NumberFormat("en-US", {
 
 type LengthDeclaration = Width | Height | Gap;
 
-export class TailwindMapper {
+export class TailwindMapper implements DeclarationMapper {
     private readonly params: ContextParams;
     private readonly declarationOptions: DeclarationOptions;
     private readonly colorNameResolver: ColorNameResolver;

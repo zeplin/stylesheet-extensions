@@ -89,14 +89,13 @@ export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (g
                 } = {},
                 declarationOptions,
                 layerPrefix = "",
-                layerSuffix = "",
-                ...rest
+                layerSuffix = ""
             } = {},
         } = generatorParams;
 
         const params = getParams(context);
         const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params, declarationOptions, rest);
+        const generator = new Generator(container, params, declarationOptions);
 
         const l = new Layer(selectedLayer);
         const layerRuleSet = l.style;

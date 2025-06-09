@@ -4,7 +4,15 @@ import { AtRule } from "./atRule.js";
 import { RuleSet } from "./ruleSet.js";
 
 export interface GeneratorClass {
-    new<T extends Barrel>(barrel: T, param: ContextParams, options?: DeclarationOptions, ...rest: any[]): Generator;
+    new<T extends Barrel>(barrel: T, param: ContextParams, declarationOptions?: DeclarationOptions, customOptions?: any): Generator;
+}
+
+export interface DeclarationMapper {
+    mapValue(value: StyleDeclaration): string;
+}
+
+export interface DeclarationMapperCreator {
+    new(options: any) : DeclarationMapper;
 }
 
 /**
@@ -18,6 +26,7 @@ export type DeclarationOptions = {
     nameValueSeparator?: string;
     wrapperPrefix?: string;
     wrapperSuffix?: string;
+    declarationMapper?: DeclarationMapperCreator;
 }
 
 /**
@@ -47,7 +56,6 @@ export type ExtensionMethodOptions = {
     language?: string;
     declarationBlockOptions?: DeclarationBlockOptions;
     declarationOptions?: DeclarationOptions;
-    [key: string]: any;
 };
 
 export type ExtensionMethodCreatorParams = {

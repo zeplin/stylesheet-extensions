@@ -35,9 +35,9 @@ const extension = createExtension({
         },
         declarationOptions: {
             wrapperPrefix: "\n",
-            wrapperSuffix: ""
+            wrapperSuffix: "",
+            declarationMapper: TailwindMapper
         },
-        declarationMapper: TailwindMapper
     },
     textStylesOptions: {
         language: "css"

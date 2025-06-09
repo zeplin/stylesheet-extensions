@@ -38,7 +38,7 @@ export class TailwindGenerator implements Generator {
         nameValueSeparator: DEFAULT_SEPARATOR,
         wrapperPrefix: DEFAULT_WRAPPER_PREFIX,
         wrapperSuffix: DEFAULT_WRAPPER_SUFFIX,
-    }, mapperCreator?: typeof TailwindMapper) {
+    }) {
         this.params = params;
         this.container = container;
         this.declarationOptions = declarationOptions;
@@ -48,13 +48,13 @@ export class TailwindGenerator implements Generator {
             formatVariableName: color => this.formatColorVariable(color)
         });
 
-        if (mapperCreator) {
-            this.tailwindMapper = new mapperCreator({
+        if (declarationOptions.declarationMapper) {
+            this.tailwindMapper = new declarationOptions.declarationMapper({
                 params: this.params,
                 declarationOptions: this.declarationOptions,
                 colorNameResolver: this.colorNameResolver,
                 spacingValue: getMinimumSpacingValue(container)
-            });
+            }) as TailwindMapper;
         }
     }
 
