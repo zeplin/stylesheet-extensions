@@ -1,4 +1,5 @@
 import { SpacingSection } from "@zeplin/extension-model";
+import { Length, LengthParams } from "zeplin-extension-style-kit";
 
 const TAILWIND_DEFAULT_SPACING_VALUE = 4;
 
@@ -17,4 +18,23 @@ export function getMinimumSpacingValue(spacingSections: SpacingSection[]): numbe
             return p;
         }).value;
     }
+}
+
+export function getValueInPixels(value: Length | string, params: LengthParams): number | null {
+    const stringValue = typeof value !== "string"
+        ? value.toStyleValue(params)
+        : value;
+
+    const num = parseFloat(stringValue);
+    if (!isNaN(num)) {
+        // If it has 'rem' suffix, convert to pixels
+        if (stringValue.endsWith("rem")) {
+            return num * params.remPreferences!.rootFontSize;
+        }
+
+        // Otherwise it has 'px' suffix, it's in pixels
+        return num;
+    }
+
+    return null;
 }

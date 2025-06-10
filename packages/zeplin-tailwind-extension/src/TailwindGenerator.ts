@@ -59,7 +59,6 @@ export class TailwindGenerator implements Generator {
 
             this.tailwindMapper = new declarationOptions.declarationMapper({
                 params: this.params,
-                declarationOptions: this.declarationOptions,
                 colorNameResolver: this.colorNameResolver,
                 spacingValue: getMinimumSpacingValue(spacingSections)
             }) as TailwindMapper;

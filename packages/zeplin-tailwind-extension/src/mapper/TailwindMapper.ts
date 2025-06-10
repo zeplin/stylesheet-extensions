@@ -17,7 +17,6 @@ import {
     ColorNameResolver,
     ContextParams,
     DeclarationMapper,
-    DeclarationOptions,
     Display,
     Filter,
     FlexDirection,
@@ -52,48 +51,32 @@ import {
     Width
 } from "zeplin-extension-style-kit";
 import { findMatchingClassValue } from "./predefined-class-values.js";
-
-const alphaFormatter = new Intl.NumberFormat("en-US", {
-    useGrouping: false,
-    maximumFractionDigits: 2
-});
+import { getValueInPixels } from "../util.js";
 
 type LengthDeclaration = Width | Height | Gap;
 
 export class TailwindMapper implements DeclarationMapper {
     private readonly params: ContextParams;
-    private readonly declarationOptions: DeclarationOptions;
     private readonly colorNameResolver: ColorNameResolver;
-    private readonly rootFontSize: number;
     private readonly spacingValue: number;
 
     constructor(mapperOptions: {
         params: ContextParams,
-        declarationOptions: DeclarationOptions,
         colorNameResolver: ColorNameResolver,
         spacingValue: number,
     }) {
         const {
             params,
-            declarationOptions,
             colorNameResolver,
             spacingValue = 1
         } = mapperOptions;
         this.params = params;
-        this.declarationOptions = declarationOptions;
         this.colorNameResolver = colorNameResolver;
-        this.rootFontSize = this.params.remPreferences?.rootFontSize || 16;
         this.spacingValue = spacingValue;
     }
 
     mapValue(d: StyleDeclaration): string {
-        const {
-            namePrefix = "",
-            nameSuffix = ""
-        } = this.declarationOptions;
-
-
-        return `${namePrefix}${nameSuffix}${this.mapDeclaration(d)}${nameSuffix}`;
+        return this.mapDeclaration(d);
     }
 
     private mapDeclaration(declaration: StyleDeclaration) {
@@ -211,12 +194,13 @@ export class TailwindMapper implements DeclarationMapper {
     }
 
     private mapFontColor(declaration: FontColor): string {
-        return `text-${declaration.getValue(this.params, this.colorNameResolver)}`;
+        const value = declaration.getValue(this.params, this.colorNameResolver);
+        return value.startsWith("#") ? `text-${value}` : `text-[${value}]`;
     }
 
     private mapFontSize(declaration: FontSize): string {
         const value = declaration.getValue(this.params);
-        const classValue = findMatchingClassValue(this.getValueInSpacingRatio(value)!, "text");
+        const classValue = findMatchingClassValue(this.getPixelValue(value)!, "text");
         return classValue
             ? `text-${classValue}`
             : `text-[${value}]`;
@@ -230,20 +214,20 @@ export class TailwindMapper implements DeclarationMapper {
     private mapLength(prefix: string, declaration: LengthDeclaration): string {
         const stringValue = declaration.getValue(this.params);
         // Convert to number if it's a string
-        const numericValue = this.getValueInRem(stringValue);
+        const numericValue = this.getPixelValue(stringValue);
 
         // If not a valid number, return as arbitrary value
         if (!numericValue) {
             return this.getArbitraryValue(prefix, stringValue);
         }
 
-        const classValue = findMatchingClassValue(this.getValueInPixels(stringValue)!, "spacing-class");
+        const classValue = findMatchingClassValue(numericValue, "spacing-class");
 
         // If found, use the predefined value, e.g. "w-sm"
         // Otherwise use spacing value e.g. "w-4"
         return classValue !== null
             ? `${prefix}-${classValue}`
-            : `${prefix}-${this.getValueInSpacingRatio(stringValue)}`;
+            : `${prefix}-${this.getPrintableValue(stringValue)}`;
     }
 
     private mapOpacity(value: Opacity): string {
@@ -256,17 +240,21 @@ export class TailwindMapper implements DeclarationMapper {
         const { top, right, bottom, left } = declaration;
 
         // Get all values in pixels
-        const topPx = this.getValueInRem(top);
-        const rightPx = this.getValueInRem(right);
-        const bottomPx = this.getValueInRem(bottom);
-        const leftPx = this.getValueInRem(left);
+        const topPx = this.getPixelValue(top);
+        const rightPx = this.getPixelValue(right);
+        const bottomPx = this.getPixelValue(bottom);
+        const leftPx = this.getPixelValue(left);
 
         // Helper to get the Tailwind class for a single value
         const getValueClass = (value: Length, direction: string) => {
-            const predefined = findMatchingClassValue(this.getValueInPixels(value)!, "spacing-class");
+            const valueInPixels = this.getPixelValue(value);
+            if (!valueInPixels) {
+                return ""
+            }
+            const predefined = findMatchingClassValue(valueInPixels, "spacing-class");
             return predefined !== null
                 ? `${prefix}${direction}-${predefined}`
-                : `${prefix}${direction}-${this.getValueInSpacingRatio(value)}`;
+                : `${prefix}${direction}-${this.getPrintableValue(value)}`;
         };
 
         const values: string[] = [];
@@ -290,7 +278,7 @@ export class TailwindMapper implements DeclarationMapper {
             values.push(getValueClass(left, "l"));
         }
 
-        return values.join(" ");
+        return values.filter(Boolean).join(" ");
     }
 
     private mapAlignItems(declaration: AlignItems): string {
@@ -374,7 +362,7 @@ export class TailwindMapper implements DeclarationMapper {
         if (side) {
             prefix = this.mapBorderSide(side);
         }
-        const num = this.getValueInPixels(value);
+        const num = this.getPixelValue(value);
 
         return num
             ? `${prefix}${num > 1 ? `-${num}` : ""}`
@@ -395,13 +383,13 @@ export class TailwindMapper implements DeclarationMapper {
 
     private mapBorderRadius(declaration: BorderRadius): string {
         const value = declaration.getValue(this.params);
-        const numericValue = this.getValueInPixels(value);
+        const numericValue = this.getPixelValue(value);
 
         if (numericValue === null) {
             return this.getArbitraryValue("rounded", value);
         }
 
-        const predefinedValue = findMatchingClassValue(this.getValueInSpacingRatio(value)!, "rounded");
+        const predefinedValue = findMatchingClassValue(numericValue, "rounded");
 
         return predefinedValue !== null
             ? `rounded${predefinedValue ? `-${predefinedValue}` : ""}`
@@ -462,10 +450,10 @@ export class TailwindMapper implements DeclarationMapper {
         const blurValues = styleFunctions.filter(sf => sf.fn === "blur" && sf.args.length === 1)
             .map(sf => {
                 const value = sf.args[0].toStyleValue(this.params, this.colorNameResolver);
-                const classValue = findMatchingClassValue(this.getValueInPixels(value)!, "blur");
+                const classValue = findMatchingClassValue(this.getPixelValue(value)!, "blur");
                 return classValue !== null
                     ? `blur-${classValue}`
-                    : `blur-[${this.getValueInPixels(value)}]`;
+                    : `blur-[${this.getPixelValue(value)}]`;
             }).join(" ");
 
         const others = styleFunctions.filter(sf => !(sf.fn === "blur" && sf.args.length === 1))
@@ -490,7 +478,7 @@ export class TailwindMapper implements DeclarationMapper {
 
     private mapFlexGrow(declaration: FlexGrow): string {
         const value = declaration.getValue();
-        const num = this.getValueInPixels(value);
+        const num = this.getPixelValue(value);
         return `flex${num && num > 1 ? `-${num}` : ""}`;
     }
 
@@ -516,18 +504,16 @@ export class TailwindMapper implements DeclarationMapper {
             "600": "font-semibold",
             "700": "font-bold",
             "800": "font-extrabold",
-            "900": "font-black"
+            "900": "font-black",
+            "normal": "font-normal",
+            "bold": "font-bold"
         };
         return valueMap[String(declaration.getValue())] || "font-normal";
     }
 
     private mapGap(declaration: Gap): string {
         const value = declaration.getValue(this.params);
-        const spacingRatio = this.getValueInSpacingRatio(value);
-
-        return spacingRatio
-            ? `gap-${spacingRatio}`
-            : `gap-[${value}]`;
+        return `gap-${this.getPrintableValue(value)}`;
     }
 
     private mapJustifyContent(declaration: JustifyContent): string {
@@ -544,9 +530,10 @@ export class TailwindMapper implements DeclarationMapper {
 
     private mapLetterSpacing(declaration: LetterSpacing): string {
         const value = `${declaration.getValue(this.params)}`;
+        const valueInPixels = this.getPixelValue(value);
         return value === "normal"
             ? "tracking-normal"
-            : `tracking-[${value}]`;
+            : `tracking-[${valueInPixels}]`;
     }
 
     private mapMixBlendMode(declaration: MixBlendMode): string {
@@ -606,40 +593,17 @@ export class TailwindMapper implements DeclarationMapper {
         return `${prefix}-[${formattedValue}]`;
     }
 
-    private getValueInRem(value: Length | string): number | null {
-        const pixelValue = this.getValueInPixels(value);
-        if (pixelValue) {
-            return pixelValue / this.rootFontSize;
-        }
-        return null;
+    private getPixelValue(value: Length | string): number | null {
+        return getValueInPixels(value, this.params);
     }
 
-    private getValueInPixels(value: Length | string): number | null {
-        const stringValue = typeof value !== "string"
-            ? value.toStyleValue(this.params)
-            : value;
-
-        const num = parseFloat(stringValue);
-        if (!isNaN(num)) {
-            // If it has 'rem' suffix, convert to pixels
-            if (stringValue.endsWith("rem")) {
-                return num * this.rootFontSize;
-            }
-
-            // Otherwise it has 'px' suffix, it's in pixels
-            return num;
-        }
-
-        return null;
-    }
-
-    private getValueInSpacingRatio(value: Length | string): number | null {
-        const pixelValue = this.getValueInPixels(value);
+    private getPrintableValue(value: Length | string): string | null {
+        const pixelValue = this.getPixelValue(value);
 
         if (pixelValue) {
-            return this.spacingValue !== 0
-                ? parseFloat(alphaFormatter.format(pixelValue / this.spacingValue))
-                : pixelValue;
+            return this.spacingValue !== 0 && pixelValue % this.spacingValue === 0
+                ? `${pixelValue / this.spacingValue}`
+                : `[${pixelValue}px]`; // Wrap with brackets if spacingValue is an exact divisor
         }
         return null;
     }
@@ -647,7 +611,7 @@ export class TailwindMapper implements DeclarationMapper {
     private mapLineHeight(declaration: LineHeight): string {
         const value = declaration.getValue(this.params);
         return value !== "normal"
-            ? `leading-${this.getValueInSpacingRatio(value)}`
+            ? `leading-${this.getPrintableValue(value)}`
             : `leading-none`;
     }
 
