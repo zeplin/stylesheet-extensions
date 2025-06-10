@@ -120,7 +120,7 @@
         "name": "Default values",
         "type": "switch",
         "id": "showDefaultValues",
-        "default": true
+        "default": false
       },
       {
         "name": "Display resources from linked and parent styleguides",
