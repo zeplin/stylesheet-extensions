@@ -51,11 +51,17 @@ export class TailwindGenerator implements Generator {
         });
 
         if (declarationOptions.declarationMapper) {
+            const spacingSections = getResources({
+                context,
+                useLinkedStyleguides: params.useLinkedStyleguides,
+                resourceFn: barrel => barrel.spacingSections,
+            });
+
             this.tailwindMapper = new declarationOptions.declarationMapper({
                 params: this.params,
                 declarationOptions: this.declarationOptions,
                 colorNameResolver: this.colorNameResolver,
-                spacingValue: getMinimumSpacingValue(this.container)
+                spacingValue: getMinimumSpacingValue(spacingSections)
             }) as TailwindMapper;
         }
     }

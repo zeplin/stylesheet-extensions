@@ -1,16 +1,20 @@
-import { Barrel } from "@zeplin/extension-model";
+import { SpacingSection } from "@zeplin/extension-model";
 
-export function getMinimumSpacingValue(container: Barrel): number {
-    const minimumSpacingToken = container.spacingSections
-        .filter((item, index, self) => index === self.findIndex(other => item.name === other.name))
+const TAILWIND_DEFAULT_SPACING_VALUE = 4;
+
+export function getMinimumSpacingValue(spacingSections: SpacingSection[]): number {
+    const spacingTokens = spacingSections
         .map(({ spacingTokens: items }) => items)
-        .reduce((prev, current) => [...prev, ...current], [])
-        .reduce((p, c) => {
+        .reduce((prev, current) => [...prev, ...current], []);
+
+    if (spacingTokens.length === 0) {
+        return TAILWIND_DEFAULT_SPACING_VALUE;
+    } else {
+        return spacingTokens.reduce((p, c) => {
             if (c.value < p.value) {
                 return c;
             }
             return p;
-        }, { value : 0 });
-
-    return minimumSpacingToken.value;
+        }).value;
+    }
 }

@@ -10,6 +10,10 @@ import {
 import { getMinimumSpacingValue } from "./util.js";
 
 type MethodName = "spacing";
+
+const COMMENT = "/* Using smallest spacing token as the variable. */";
+const INDENTATION = "  ";
+
 export const createSingleSpacingExtensionMethod: ExtensionMethodCreator<MethodName> = (generatorParams) =>
     (context: Context): ExtensionMethodReturnType<MethodName> => {
         const {
@@ -26,13 +30,19 @@ export const createSingleSpacingExtensionMethod: ExtensionMethodCreator<MethodNa
         const params = getParams(context);
         const generator = new Generator(context, params, declarationOptions);
 
-        const minimumSpacingValue = getMinimumSpacingValue(container);
+        const spacingSections = getResources({
+            context,
+            useLinkedStyleguides: params.useLinkedStyleguides,
+            resourceFn: barrel => barrel.spacingSections,
+        });
+
+        const minimumSpacingValue = getMinimumSpacingValue(spacingSections);
 
         const code = `${prefix}${
-            generator.variable(
-                "spacing",
-                new Length(minimumSpacingValue || 1))
-        }${suffix}`;
+            spacingSections.length > 1 ? `${COMMENT}\n${INDENTATION}` : ""
+        }${
+            generator.variable("spacing", new Length(minimumSpacingValue)
+            )}${suffix}`;
 
         return {
             code,
