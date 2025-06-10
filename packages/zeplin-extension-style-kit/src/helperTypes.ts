@@ -26,6 +26,7 @@ export type DeclarationOptions = {
     nameValueSeparator?: string;
     wrapperPrefix?: string;
     wrapperSuffix?: string;
+    useRuleSetName?: boolean;
     declarationMapper?: DeclarationMapperCreator;
 }
 

@@ -157,7 +157,10 @@ export class TailwindGenerator implements Generator {
             return "";
         }
 
-        return `${ruleSelector} ${this.declarationsBlock(filteredDeclarations)}`;
+        const declarationsBlock = this.declarationsBlock(filteredDeclarations);
+        return this.declarationOptions.useRuleSetName
+            ? `${ruleSelector} ${declarationsBlock}`
+            : `${declarationsBlock}`;
     }
 
     atRule({ identifier, declarations }: AtRule): string {

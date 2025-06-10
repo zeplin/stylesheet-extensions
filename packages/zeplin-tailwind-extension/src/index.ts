@@ -43,6 +43,7 @@ const extension = createExtension({
         declarationOptions: {
             wrapperPrefix: "",
             wrapperSuffix: "",
+            useRuleSetName: false,
             declarationMapper: TailwindMapper
         },
     },
