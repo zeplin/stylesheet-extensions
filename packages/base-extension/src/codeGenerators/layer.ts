@@ -23,8 +23,8 @@ import {
 } from "@zeplin/extension-model";
 
 export type LayerExtensionMethodOptions = ExtensionMethodOptions & {
-    layerPrefix?: string,
-    layerSuffix?: string,
+    layerPrefix?: string | ((l: ExtensionLayer) => string);
+    layerSuffix?: string | ((l: ExtensionLayer) => string);
 };
 
 export type LayerCodeGeneratorParams = ExtensionMethodCreatorParams & {
@@ -126,8 +126,11 @@ export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (g
             s => generator.ruleSet(s, { parentDeclarations: layerRuleSet.declarations })
         );
 
+        const prefix = typeof layerPrefix === "function" ? layerPrefix(selectedLayer) : layerPrefix;
+        const suffix = typeof layerSuffix === "function" ? layerSuffix(selectedLayer) : layerSuffix;
+
         return {
-            code: `${layerPrefix}${[layerStyle, ...childrenStyles].join(separator)}${layerSuffix}`,
+            code: `${prefix}${[layerStyle, ...childrenStyles].join(separator)}${suffix}`,
             language: language!
         };
     };

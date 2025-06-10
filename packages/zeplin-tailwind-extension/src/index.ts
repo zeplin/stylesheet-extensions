@@ -4,7 +4,7 @@ import { TailwindGenerator } from "./TailwindGenerator.js";
 import { COPYRIGHT } from "./constants.js";
 import { createExportSingleSpacingExtensionMethod, createSingleSpacingExtensionMethod } from "./single-spacing.js";
 import { TailwindMapper } from "./mapper/TailwindMapper.js";
-
+import { Layer } from "@zeplin/extension-model";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
@@ -28,8 +28,14 @@ const extension = createExtension({
     },
     layerOptions: {
         language: "html",
-        layerSuffix: "\">\n</div>",
-        layerPrefix: "<div class=\"",
+        layerSuffix: (layer: Layer) => {
+            const tag = layer.type === "text" ? "p" : "div";
+            return `">\n</${tag}>`;
+        },
+        layerPrefix: (layer: Layer) => {
+            const tag = layer.type === "text" ? "p" : "div";
+            return `<${tag} class="`;
+        },
         declarationBlockOptions: {
             separator: " " // whitespace
         },
