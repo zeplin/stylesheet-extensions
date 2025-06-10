@@ -16,7 +16,7 @@ const extension = createExtension({
     Generator: TailwindGenerator,
     colorsOptions: {
         declarationBlockOptions: {
-            prefix: `@theme {\n${INDENTATION}`,
+            prefix: `@theme {\n${INDENTATION}--color-*: initial;\n${INDENTATION}`,
             separator: `\n${INDENTATION}`,
             suffix: "\n}",
         },
