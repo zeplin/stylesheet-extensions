@@ -41,6 +41,10 @@ const extension = createExtension({
             separator: " " // whitespace
         },
         declarationOptions: {
+            namePrefix: "",
+            nameSuffix: "",
+            valuePrefix: "",
+            valueSuffix: "",
             wrapperPrefix: "",
             wrapperSuffix: "",
             useRuleSetName: false,

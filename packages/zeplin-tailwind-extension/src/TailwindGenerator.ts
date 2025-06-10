@@ -21,10 +21,13 @@ import { TailwindMapper } from "./mapper/TailwindMapper.js";
 import { getMinimumSpacingValue } from "./util.js";
 
 const DEFAULT_NAME_PREFIX = "--";
+const DEFAULT_NAME_SUFFIX = "";
 const DEFAULT_SEPARATOR = ": ";
+const DEFAULT_VALUE_PREFIX = "";
 const DEFAULT_VALUE_SUFFIX = ";";
 const DEFAULT_WRAPPER_PREFIX = "{\n";
 const DEFAULT_WRAPPER_SUFFIX = "\n}";
+const DEFAULT_USE_RULE_SET_NAME = true;
 const INDENTATION = "  ";
 
 export class TailwindGenerator implements Generator {
@@ -34,16 +37,19 @@ export class TailwindGenerator implements Generator {
     private readonly colorNameResolver: ColorNameResolver;
     private readonly tailwindMapper?: TailwindMapper;
 
-    constructor(context: Context, params: ContextParams, declarationOptions: DeclarationOptions = {
-        namePrefix: DEFAULT_NAME_PREFIX,
-        valueSuffix: DEFAULT_VALUE_SUFFIX,
-        nameValueSeparator: DEFAULT_SEPARATOR,
-        wrapperPrefix: DEFAULT_WRAPPER_PREFIX,
-        wrapperSuffix: DEFAULT_WRAPPER_SUFFIX,
-    }) {
+    constructor(context: Context, params: ContextParams, declarationOptions: DeclarationOptions = {}) {
         this.params = params;
         this.container = getResourceContainer(context).container;
-        this.declarationOptions = declarationOptions;
+        this.declarationOptions = {
+            namePrefix: declarationOptions.namePrefix ?? DEFAULT_NAME_PREFIX,
+            nameSuffix: declarationOptions.nameSuffix ?? DEFAULT_NAME_SUFFIX,
+            valuePrefix: declarationOptions.valuePrefix ?? DEFAULT_VALUE_PREFIX,
+            valueSuffix: declarationOptions.valueSuffix ?? DEFAULT_VALUE_SUFFIX,
+            nameValueSeparator: declarationOptions.nameValueSeparator ?? DEFAULT_SEPARATOR,
+            wrapperPrefix: declarationOptions.wrapperPrefix ?? DEFAULT_WRAPPER_PREFIX,
+            wrapperSuffix: declarationOptions.wrapperSuffix ?? DEFAULT_WRAPPER_SUFFIX,
+            useRuleSetName: declarationOptions.useRuleSetName ?? DEFAULT_USE_RULE_SET_NAME
+        };
         this.colorNameResolver = generateColorNameResolver({
             container: this.container,
             useLinkedStyleguides: this.params.useLinkedStyleguides,
@@ -102,18 +108,20 @@ export class TailwindGenerator implements Generator {
     declaration(d: StyleDeclaration): string {
         const {
             namePrefix,
+            nameSuffix,
             nameValueSeparator,
+            valuePrefix,
             valueSuffix
         } = this.declarationOptions;
 
 
         if (this.tailwindMapper) {
-            return this.tailwindMapper.mapValue(d);
+            return `${namePrefix}${this.tailwindMapper.mapValue(d)}${nameSuffix}`;
         }
 
         const value = d.getValue(this.params, this.colorNameResolver);
 
-        return `${INDENTATION}${namePrefix}${d.name}${nameValueSeparator}${value}${valueSuffix}`;
+        return `${INDENTATION}${namePrefix}${d.name}${nameSuffix}${nameValueSeparator}${valuePrefix}${value}${valueSuffix}`;
     }
 
     declarationsBlock(declarations: StyleDeclaration[] = []): string {
@@ -128,6 +136,8 @@ export class TailwindGenerator implements Generator {
     variable(name: string, value: StyleValue): string {
         const {
             namePrefix,
+            nameSuffix,
+            valuePrefix,
             valueSuffix,
             nameValueSeparator
         } = this.declarationOptions;
@@ -146,7 +156,7 @@ export class TailwindGenerator implements Generator {
 
         const variableValue = value.toStyleValue(this.params, colorNameResolver);
 
-        return `${namePrefix}${generatedName}${nameValueSeparator}${variableValue}${valueSuffix}`;
+        return `${namePrefix}${generatedName}${nameSuffix}${nameValueSeparator}${valuePrefix}${variableValue}${valueSuffix}`;
     }
 
     ruleSet({ selector, declarations }: RuleSet, { parentDeclarations = [], scope = "" }: RuleSetOptions = {}): string {
