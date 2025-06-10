@@ -4,7 +4,7 @@ import {
     ExtensionMethodCreator,
     ExtensionMethodReturnType,
     getParams,
-    getResourceContainer,
+    getResources,
     Length
 } from "zeplin-extension-style-kit";
 import { getMinimumSpacingValue } from "./util.js";
@@ -16,6 +16,7 @@ export const createSingleSpacingExtensionMethod: ExtensionMethodCreator<MethodNa
             Generator,
             options: {
                 language,
+                declarationOptions,
                 declarationBlockOptions: {
                     prefix = "",
                     suffix = ""
@@ -23,8 +24,7 @@ export const createSingleSpacingExtensionMethod: ExtensionMethodCreator<MethodNa
             } = {}
         } = generatorParams;
         const params = getParams(context);
-        const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(context, params, declarationOptions);
 
         const minimumSpacingValue = getMinimumSpacingValue(container);
 

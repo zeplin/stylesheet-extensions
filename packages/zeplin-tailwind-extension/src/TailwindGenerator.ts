@@ -1,4 +1,4 @@
-import { Barrel, Color as ExtensionColor } from "@zeplin/extension-model";
+import { Barrel, Color as ExtensionColor, Context } from "@zeplin/extension-model";
 import {
     AtRule,
     Color,
@@ -9,6 +9,8 @@ import {
     generateLinkedColorVariableNameResolver,
     generateVariableName,
     Generator,
+    getResourceContainer,
+    getResources,
     isDeclarationInherited,
     RuleSet,
     RuleSetOptions,
@@ -32,7 +34,7 @@ export class TailwindGenerator implements Generator {
     private readonly colorNameResolver: ColorNameResolver;
     private readonly tailwindMapper?: TailwindMapper;
 
-    constructor(container: Barrel, params: ContextParams, declarationOptions: DeclarationOptions = {
+    constructor(context: Context, params: ContextParams, declarationOptions: DeclarationOptions = {
         namePrefix: DEFAULT_NAME_PREFIX,
         valueSuffix: DEFAULT_VALUE_SUFFIX,
         nameValueSeparator: DEFAULT_SEPARATOR,
@@ -40,7 +42,7 @@ export class TailwindGenerator implements Generator {
         wrapperSuffix: DEFAULT_WRAPPER_SUFFIX,
     }) {
         this.params = params;
-        this.container = container;
+        this.container = getResourceContainer(context).container;
         this.declarationOptions = declarationOptions;
         this.colorNameResolver = generateColorNameResolver({
             container: this.container,
@@ -53,7 +55,7 @@ export class TailwindGenerator implements Generator {
                 params: this.params,
                 declarationOptions: this.declarationOptions,
                 colorNameResolver: this.colorNameResolver,
-                spacingValue: getMinimumSpacingValue(container)
+                spacingValue: getMinimumSpacingValue(this.container)
             }) as TailwindMapper;
         }
     }

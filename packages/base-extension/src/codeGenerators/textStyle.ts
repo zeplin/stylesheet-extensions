@@ -8,7 +8,6 @@ import {
     generateIdentifier,
     getFontFaces,
     getParams,
-    getResourceContainer,
     getResources,
     getUniqueFirstItems,
     TextStyle,
@@ -34,6 +33,7 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
             Generator,
             options: {
                 language,
+                declarationOptions,
                 declarationBlockOptions: {
                     prefix = "",
                     separator = "\n\n",
@@ -45,8 +45,7 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
         } = generatorParams;
 
         const params = getParams(context);
-        const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(context, params, declarationOptions);
         const textStyles = getResources({
             context,
             useLinkedStyleguides: params.useLinkedStyleguides,

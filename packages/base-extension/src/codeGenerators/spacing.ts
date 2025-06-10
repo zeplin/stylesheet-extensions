@@ -4,7 +4,6 @@ import {
     ExtensionMethodReturnType,
     generateIdentifier,
     getParams,
-    getResourceContainer,
     getResources,
     getUniqueFirstItems,
     Length,
@@ -21,6 +20,7 @@ export const createSpacingExtensionMethod: ExtensionMethodCreator<MethodName> = 
             Generator,
             options: {
                 language,
+                declarationOptions,
                 declarationBlockOptions: {
                     prefix = "",
                     separator = "\n",
@@ -29,8 +29,7 @@ export const createSpacingExtensionMethod: ExtensionMethodCreator<MethodName> = 
             } = {}
         } = generatorParams;
         const params = getParams(context);
-        const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(context, params, declarationOptions);
 
         const spacingSections = getResources({
             context,

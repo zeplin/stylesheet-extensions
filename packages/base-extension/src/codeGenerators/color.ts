@@ -8,7 +8,6 @@ import {
     generateColorDetailsByModeName,
     generateIdentifier,
     getParams,
-    getResourceContainer,
     getResources
 } from "zeplin-extension-style-kit";
 
@@ -48,6 +47,7 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
                     separator = "\n",
                     suffix = "",
                 } = {},
+                declarationOptions,
                 variablePrefix = "",
                 variableSeparator = "\n",
                 variableSuffix = ""
@@ -55,8 +55,7 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
         } = generatorParams;
 
         const params = getParams(context);
-        const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(context, params, declarationOptions);
 
         const allColors = getResources({
             context,

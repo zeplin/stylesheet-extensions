@@ -1,10 +1,10 @@
-import { Barrel, Color, Extension } from "@zeplin/extension-model";
+import { Color, Context, Extension } from "@zeplin/extension-model";
 import { ContextParams, StyleDeclaration, StyleValue } from "./common.js";
 import { AtRule } from "./atRule.js";
 import { RuleSet } from "./ruleSet.js";
 
 export interface GeneratorClass {
-    new<T extends Barrel>(barrel: T, param: ContextParams, declarationOptions?: DeclarationOptions, customOptions?: any): Generator;
+    new(context: Context, param: ContextParams, declarationOptions?: DeclarationOptions, customOptions?: any): Generator;
 }
 
 export interface DeclarationMapper {

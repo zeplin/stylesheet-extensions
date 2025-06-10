@@ -1,4 +1,4 @@
-import { Barrel, Color as ExtensionColor } from "@zeplin/extension-model";
+import { Barrel, Color as ExtensionColor, Context } from "@zeplin/extension-model";
 import {
     AtRule,
     Color,
@@ -8,6 +8,7 @@ import {
     generateLinkedColorVariableNameResolver,
     generateVariableName,
     Generator,
+    getResourceContainer,
     isDeclarationInherited,
     RuleSet,
     RuleSetOptions,
@@ -26,13 +27,13 @@ export class CSSGenerator implements Generator {
     private readonly params: ContextParams;
     private readonly declarationOptions: DeclarationOptions;
 
-    constructor(container: Barrel, params: ContextParams, declarationOptions: DeclarationOptions = {
+    constructor(context: Context, params: ContextParams, declarationOptions: DeclarationOptions = {
         namePrefix: DEFAULT_NAME_PREFIX,
         valueSuffix: DEFAULT_VALUE_SUFFIX,
         nameValueSeparator: DEFAULT_SEPARATOR
     }) {
         this.params = params;
-        this.container = container;
+        this.container = getResourceContainer(context).container;
         this.declarationOptions = declarationOptions;
     }
 

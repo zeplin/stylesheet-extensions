@@ -3,8 +3,7 @@ import {
     ExtensionMethodCreator,
     ExtensionMethodCreatorParams,
     ExtensionMethodReturnType,
-    getParams,
-    getResourceContainer
+    getParams
 } from "zeplin-extension-style-kit";
 import { ComponentCodeGenerator } from "./componentCodeGenerator.js";
 import { fixVariantPropertyOrder } from "./componentUtils.js";
@@ -16,6 +15,7 @@ export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> 
         Generator,
         options: {
             language,
+            declarationOptions,
             declarationBlockOptions: {
                 separator = "\n\n"
             } = {},
@@ -25,8 +25,7 @@ export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> 
     return (context: Context, _: Version, component: Component): ExtensionMethodReturnType<MethodName> => {
         const params = getParams(context);
 
-        const { container } = getResourceContainer(context);
-        const generator = new Generator(container, params);
+        const generator = new Generator(context, params, declarationOptions);
 
         if (component.variant) {
             fixVariantPropertyOrder(component);
