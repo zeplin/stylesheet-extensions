@@ -3,10 +3,17 @@
   "private": true,
   "version": "2.12.1",
   "description": "Generates Less snippets from colors, text styles and layers.",
+  "type": "module",
   "author": {
     "name": "Zeplin",
     "email": "support@zeplin.io",
     "url": "http://zeplin.io"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -26,6 +33,9 @@
     "base-extension": "^2.5.1",
     "zem": "^2.0.4",
     "zeplin-extension-style-kit": "^4.4.1"
+  },
+  "devDependencies": {
+    "ts-jest": "^29.3.4"
   },
   "zeplin": {
     "displayName": "Less",

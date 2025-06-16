@@ -1,7 +1,7 @@
 import { createExtension } from "base-extension";
 
-import Generator from "./generator";
-import { COPYRIGHT } from "./constants";
+import { LessGenerator } from "./LessGenerator.js";
+import { COPYRIGHT } from "./constants.js";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
@@ -9,19 +9,25 @@ const INDENTATION = "  ";
 
 export default createExtension({
     language: "less",
-    Generator,
+    Generator: LessGenerator,
     colorsOptions: {
         variablePrefix: `.modeName {\n${INDENTATION}`,
         variableSeparator: `\n${INDENTATION}`,
         variableSuffix: "\n}"
     },
     exportTextStylesOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     },
     exportColorsOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     },
     exportSpacingOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     }
 });
