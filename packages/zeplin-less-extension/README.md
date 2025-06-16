@@ -88,6 +88,5 @@ Toggles always generating default values from layers or text styles, such as `fo
 
 ## Development
 
-Less extension is developed using [zem](https://github.com/zeplin/zem), Zeplin Extension Manager. zem is a command line tool that lets you quickly create and test extensions.
-
-To learn more about zem, [see documentation](https://github.com/zeplin/zem).
+Less extension is developed using [zem](https://github.com/zeplin/zem) and [@zeplin/extension-model](https://zeplin.github.io/extension-model/), Zeplin Extension Manager. zem is a command line
+tool that lets you quickly create and test extensions.

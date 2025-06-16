@@ -7,4 +7,5 @@ This monorepo consists of stylesheet extensions and a package that extracts CSS-
 - [SCSS extension](./packages/zeplin-scss-extension)
 - [Sass extension](./packages/zeplin-sass-extension)
 - [Stylus extension](./packages/zeplin-stylus-extension)
+- [Tailwind extension](./packages/zeplin-tailwind-extension)
 - [Extension Style Kit](./packages/zeplin-extension-style-kit)
