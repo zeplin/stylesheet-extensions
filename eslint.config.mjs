@@ -15,5 +15,5 @@ export default defineConfig([
             sourceType: "module"
         }
     }, {
-        ignores: ["eslint.config.mjs", "**/tests/**/*"]
+        ignores: ["eslint.config.mjs", "**/tests/**/*", "**/build/**/*", "**/dist/**/*"]
     }]);
