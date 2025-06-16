@@ -1,28 +1,50 @@
-import Mixin from "zeplin-extension-style-kit/declarations/mixin";
 import {
-    isHtmlTag,
-    isDeclarationInherited,
+    AtRule,
+    Color,
+    ContextParams,
+    DeclarationOptions,
     generateColorNameResolver,
     generateLinkedColorVariableNameResolver,
-    generateVariableName
-} from "zeplin-extension-style-kit/utils";
+    generateVariableName,
+    Generator,
+    getResourceContainer,
+    isDeclarationInherited,
+    isHtmlTag,
+    Mixin,
+    RuleSet,
+    RuleSetOptions,
+    StyleDeclaration,
+    StyleValue
+} from "zeplin-extension-style-kit";
+import { Barrel, Color as ExtensionColor, Context } from "@zeplin/extension-model";
 
 const PREFIX = "$";
 const SEPARATOR = ": ";
 const SUFFIX = ";";
 const INDENTATION = "  ";
 
-class SCSS {
-    constructor(container, params) {
+export class ScssGenerator implements Generator {
+    private readonly container: Barrel;
+    private readonly params: ContextParams;
+    private readonly declarationOptions: DeclarationOptions;
+
+    constructor(context: Context, params: ContextParams, declarationOptions: DeclarationOptions = {
+        namePrefix: PREFIX,
+        valueSuffix: SUFFIX,
+        nameValueSeparator: SEPARATOR
+    }) {
         this.params = params;
-        this.container = container;
+        this.container = getResourceContainer(context).container;
+        this.declarationOptions = declarationOptions;
     }
 
-    formatColorVariable(color) {
-        return `${PREFIX}${generateVariableName(color.originalName || color.name, this.params.variableNameFormat)}`;
+    formatColorVariable(color: ExtensionColor): string {
+        const { namePrefix } = this.declarationOptions;
+
+        return `${namePrefix}${generateVariableName(color.originalName || color.name!, this.params.variableNameFormat)}`;
     }
 
-    filterDeclarations(childDeclarations, parentDeclarations, isMixin) {
+    filterDeclarations(childDeclarations: StyleDeclaration[], parentDeclarations: StyleDeclaration[], isMixin?: boolean) {
         const { params: { showDefaultValues, showDimensions, showPaddingMargin } } = this;
 
         return childDeclarations.filter(declaration => {
@@ -52,9 +74,9 @@ class SCSS {
         });
     }
 
-    declaration(p, mixin) {
-        if (p instanceof Mixin) {
-            return `${INDENTATION}@include ${p.identifier}${SUFFIX}`;
+    declaration(d: StyleDeclaration, mixin?: boolean): string {
+        if (d instanceof Mixin) {
+            return `${INDENTATION}@include ${d.identifier}${SUFFIX}`;
         }
 
         let { params } = this;
@@ -63,7 +85,7 @@ class SCSS {
             params = Object.assign({}, params, { showDefaultValues: false });
         }
 
-        const value = p.getValue(
+        const value = d.getValue(
             params,
             generateColorNameResolver({
                 container: this.container,
@@ -71,14 +93,14 @@ class SCSS {
                 formatVariableName: color => this.formatColorVariable(color)
             })
         );
-        return `${INDENTATION}${p.name}${SEPARATOR}${value}${SUFFIX}`;
+        return `${INDENTATION}${d.name}${SEPARATOR}${value}${SUFFIX}`;
     }
 
-    variable(name, value) {
+    variable(name: string, value: StyleValue): string {
         const generatedName = generateVariableName(name, this.params.variableNameFormat);
 
         let colorNameResolver;
-        if (value.object && value.object.linkedVariableSourceId) {
+        if (value instanceof Color && value.object && value.object.linkedVariableSourceId) {
             colorNameResolver = generateLinkedColorVariableNameResolver({
                 container: this.container,
                 useLinkedStyleguides: this.params.useLinkedStyleguides,
@@ -92,7 +114,11 @@ class SCSS {
         return `${PREFIX}${generatedName}${SEPARATOR}${variableValue}${SUFFIX}`;
     }
 
-    ruleSet({ selector, declarations }, { parentDeclarations = [], scope = "", mixin = false } = {}) {
+    ruleSet({ selector, declarations }: RuleSet, {
+        parentDeclarations = [],
+        scope = "",
+        mixin = false
+    }: RuleSetOptions = {}): string {
         const isMixin = !isHtmlTag(selector) && mixin;
         const filteredDeclarations = this.filterDeclarations(declarations, parentDeclarations, isMixin);
 
@@ -111,9 +137,7 @@ class SCSS {
         return `${ruleSelector} {\n${filteredDeclarations.map(p => this.declaration(p, isMixin)).join("\n")}\n}`;
     }
 
-    atRule({ identifier, declarations }) {
+    atRule({ identifier, declarations }: AtRule): string {
         return `@${identifier} {\n${declarations.map(p => this.declaration(p)).join("\n")}\n}`;
     }
 }
-
-export default SCSS;

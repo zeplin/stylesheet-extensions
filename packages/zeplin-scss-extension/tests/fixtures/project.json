@@ -1,6 +1,6 @@
 {
     "name": "Sample extension project",
-    "type": "ios",
+    "type": "web",
     "density": "1x",
     "remPreferences": {
         "rootFontSize": 16,

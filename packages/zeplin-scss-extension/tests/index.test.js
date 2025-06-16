@@ -1,4 +1,4 @@
-import extension from "./index";
+import extension from "../src";
 import { context, version, screens, components } from "./fixtures";
 
 
