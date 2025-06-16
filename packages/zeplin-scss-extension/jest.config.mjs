@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ESM_TS_JS_TRANSFORM_PATTERN, ESM_TS_TRANSFORM_PATTERN } from "ts-jest";
+import { ESM_TS_JS_TRANSFORM_PATTERN } from "ts-jest";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
