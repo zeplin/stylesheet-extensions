@@ -190,12 +190,13 @@ export class TailwindMapper implements DeclarationMapper {
     }
 
     private mapBackgroundColor(declaration: BackgroundColor): string {
-        return `bg-${declaration.getValue(this.params, this.colorNameResolver)}`;
+        const value = declaration.getValue(this.params, this.colorNameResolver);
+        return value.startsWith("#") ? `bg-[${value}]` : `bg-${value}`;
     }
 
     private mapFontColor(declaration: FontColor): string {
         const value = declaration.getValue(this.params, this.colorNameResolver);
-        return value.startsWith("#") ? `text-${value}` : `text-[${value}]`;
+        return value.startsWith("#") ? `text-[${value}]` : `text-${value}`;
     }
 
     private mapFontSize(declaration: FontSize): string {
@@ -208,7 +209,7 @@ export class TailwindMapper implements DeclarationMapper {
 
 
     private mapTransform(declaration: Transform): string {
-        return `transform-${declaration.getValue(this.params, this.colorNameResolver)}`;
+        return `transform-[${declaration.getValue(this.params, this.colorNameResolver)}]`;
     }
 
     private mapLength(prefix: string, declaration: LengthDeclaration): string {
