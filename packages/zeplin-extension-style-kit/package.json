@@ -1,6 +1,6 @@
 {
   "name": "zeplin-extension-style-kit",
-  "version": "4.4.1",
+  "version": "5.0.0",
   "description": "Models and utilities to generate CSS-like style code in Zeplin extensions.",
   "type": "module",
   "exports": {
@@ -11,7 +11,9 @@
   },
   "typesVersions": {
     "*": {
-      "*": ["dist/*"]
+      "*": [
+        "dist/*"
+      ]
     }
   },
   "scripts": {
