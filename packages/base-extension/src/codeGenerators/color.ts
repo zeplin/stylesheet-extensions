@@ -77,7 +77,7 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
 
         let colorVariablesCode = "";
         for (const [modeName, colorDetails] of Object.entries(colorDetailsByModeName || {})) {
-            let variables = [];
+            const variables = [];
             let colorSectionName = null;
             for (const { color, shouldDisplayDefaultValue } of colorDetails) {
                 const adjustedColorSectionName = color.originalName?.replace(/\/[^/]*$/, "").replace(/\//g, " / ");
