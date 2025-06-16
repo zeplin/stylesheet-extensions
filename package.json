@@ -2,7 +2,14 @@
   "name": "stylesheet-extensions",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/zeplin-extension-style-kit",
+    "packages/base-extension",
+    "packages/zeplin-css-extension",
+    "packages/zeplin-less-extension",
+    "packages/zeplin-sass-extension",
+    "packages/zeplin-scss-extension",
+    "packages/zeplin-stylus-extension",
+    "packages/zeplin-tailwind-extension"
   ],
   "scripts": {
     "test": "npm run test --workspaces --if-present",
