@@ -47,7 +47,7 @@ export type RuleSetOptions = {
 
 export interface Generator {
     formatColorVariable: (color: Color) => string;
-    filterDeclarations: (childDeclarations: StyleDeclaration[], parentDeclarations: StyleDeclaration[]) => StyleDeclaration[];
+    filterDeclarations: (childDeclarations: StyleDeclaration[], parentDeclarations: StyleDeclaration[], isMixin?: boolean) => StyleDeclaration[];
     variable: (name: string, value: StyleValue) => string;
     ruleSet: (ruleSet: RuleSet, options?: RuleSetOptions) => string;
     atRule: (atRule: AtRule) => string;
