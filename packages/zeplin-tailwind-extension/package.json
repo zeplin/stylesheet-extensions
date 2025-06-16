@@ -43,7 +43,7 @@
     "zeplin-extension-style-kit": "^4.4.1"
   },
   "zeplin": {
-    "displayName": "Tailwind CSS",
+    "displayName": "Tailwind CSS (beta)",
     "projectTypes": [
       "web"
     ],
