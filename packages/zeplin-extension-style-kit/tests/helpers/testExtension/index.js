@@ -7,11 +7,14 @@ import { getUniqueLayerTextStyles, selectorize } from "@root/utils";
 import Generator from "./generator";
 
 class Extension {
-    constructor(params, container = { findColorEqual: () => void 0 }) {
+    constructor(params, context = {
+        project: { findColorEqual: () => void 0 }
+    }, declarationOptions = {}) {
         this.params = params;
-        this.container = container;
+        this.context = context;
+        this.declarationOptions = declarationOptions;
 
-        this.generator = new Generator(this.container, this.params);
+        this.generator = new Generator(this.context, this.params, this.declarationOptions);
     }
 
     // TODO: Consider extending tests for colors and color variables.

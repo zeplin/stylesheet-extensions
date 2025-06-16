@@ -96,52 +96,52 @@ export const createExtension: ExtensionCreator = (
 
     const textStyles = createTextStylesExtenionMethod({
         Generator,
-        options: processOptions(textStylesOptions)
+        options: processOptions(textStylesOptions, language)
     });
 
     const spacing = createSpacingExtensionMethod({
         Generator,
-        options: processOptions(spacingOptions)
+        options: processOptions(spacingOptions, language)
     });
 
     const layer = createLayerExtensionMethod({
         Generator,
-        options: processOptions(layerOptions)
+        options: processOptions(layerOptions, language)
     });
 
     const exportColors = exportColorsExtensionMethod({
         baseMethod: colors,
-        options: processOptions(exportColorsOptions)
+        options: processOptions(exportColorsOptions, language)
     });
 
     const exportTextStyles = exportTextStylesExtensionMethod({
         baseMethod: textStyles,
-        options: processOptions(exportTextStylesOptions)
+        options: processOptions(exportTextStylesOptions, language)
     });
 
     const exportSpacing = createExportSpacingExtensionMethod({
         baseMethod: spacing,
-        options: processOptions(exportSpacingOptions)
+        options: processOptions(exportSpacingOptions, language)
     });
 
     const styleguideColors = createColorsExtensionMethod({
         Generator,
-        options: processOptions(colorsOptions)
+        options: processOptions(colorsOptions, language)
     });
 
     const styleguideTextStyles = createTextStylesExtenionMethod({
         Generator,
-        options: processOptions(textStylesOptions)
+        options: processOptions(textStylesOptions, language)
     });
 
     const exportStyleguideColors = exportColorsExtensionMethod({
         baseMethod: styleguideColors,
-        options: processOptions(exportColorsOptions)
+        options: processOptions(exportColorsOptions, language)
     });
 
     const exportStyleguideTextStyles = exportTextStylesExtensionMethod({
         baseMethod: styleguideTextStyles,
-        options: processOptions(exportTextStylesOptions)
+        options: processOptions(exportTextStylesOptions, language)
     });
 
     return {

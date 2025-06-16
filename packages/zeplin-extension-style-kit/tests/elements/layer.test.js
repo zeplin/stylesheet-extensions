@@ -29,15 +29,15 @@ const extension = new TestExtension({
     unitlessLineHeight: true
 });
 
-const getLayer = layer => new Version(
-    {
-        snapshot: {
-            layers: [layer],
-            width: 1024,
-            height: 768
-        }
+const getLayer = layer => new Version({
+    snapshot: {
+        layers: [layer],
+        width: 1024,
+        height: 768,
+        source: null,
+        url: ""
     }
-).layers[0];
+}).layers[0];
 
 describe("layer", () => {
     test("plain text layer", () => {

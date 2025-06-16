@@ -1,4 +1,9 @@
-import { generateColorNameResolver, generateIdentifier, isDeclarationInherited } from "@root/utils";
+import {
+    generateColorNameResolver,
+    generateIdentifier,
+    isDeclarationInherited,
+    getResourceContainer
+} from "@root/utils";
 
 const PREFIX = "--";
 const SEPARATOR = ": ";
@@ -6,9 +11,9 @@ const SUFFIX = ";";
 const INDENTATION = "  ";
 
 class TestGenerator {
-    constructor(container, params) {
+    constructor(context, params) {
         this.params = params;
-        this.container = container;
+        this.container = getResourceContainer(context).container;
     }
 
     formatColorVariable(color) {
