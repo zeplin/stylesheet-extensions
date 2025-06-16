@@ -58,8 +58,6 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
         const uniqueTextStyles = getUniqueFirstItems(textStyles,
             (textStyle, other) => generateIdentifier(textStyle.name) === generateIdentifier(other.name));
 
-        uniqueTextStyles.forEach(ts => console.log(`${ts.name} -> ${ts.fontFamily} - ${ts.fontWeight} - ${ts.fontSize} - ${ts.fontVariationSettings}`));
-
         const fontFamilies = Array.from(new Set(uniqueTextStyles.map(ts => ts.fontFamily)))
             .map(ff => new FontFamily(ff));
         const fontWeights = Array.from(new Set(uniqueTextStyles.map(ts => ts.fontWeight)))
