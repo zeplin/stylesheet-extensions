@@ -4,9 +4,9 @@ import project from "./project.json";
 import screensData from "./screens.json";
 import componentsData from "./components.json";
 import versionData from "./version.json";
-import { zeplin } from "../../package.json";
+import packageJson from "../../package.json";
 
-const defaultOptions = zeplin.options.reduce((options, option) => {
+const defaultOptions = packageJson.zeplin.options.reduce((options, option) => {
     options[option.id] = option.default;
     return options;
 }, {});

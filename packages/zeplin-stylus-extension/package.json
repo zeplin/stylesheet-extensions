@@ -3,6 +3,22 @@
   "private": true,
   "version": "2.12.1",
   "description": "Generates Stylus snippets from colors, text styles and layers.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "author": {
+    "name": "Zeplin",
+    "email": "support@zeplin.io",
+    "url": "http://zeplin.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeplin/stylesheet-extensions.git"
+  },
   "scripts": {
     "start": "zem start",
     "clean": "zem clean",
@@ -13,18 +29,13 @@
     "publish": "npm run build && zem publish"
   },
   "dependencies": {
+    "@zeplin/extension-model": "^3.0.3",
     "base-extension": "^2.5.1",
     "zem": "^2.0.4",
     "zeplin-extension-style-kit": "^4.4.1"
   },
-  "author": {
-    "name": "Zeplin",
-    "email": "support@zeplin.io",
-    "url": "http://zeplin.io"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zeplin/stylesheet-extensions.git"
+  "devDependencies": {
+    "ts-jest": "^29.3.4"
   },
   "zeplin": {
     "displayName": "Stylus",

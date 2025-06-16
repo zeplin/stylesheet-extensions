@@ -1,7 +1,6 @@
 import { createExtension } from "base-extension";
-
-import Generator from "./generator";
-import { COPYRIGHT } from "./constants";
+import { StylusGenerator } from "./StylusGenerator.js";
+import { COPYRIGHT } from "./constants.js";
 
 const exportPrefix = `${COPYRIGHT}\n\n`;
 
@@ -9,19 +8,25 @@ const INDENTATION = "  ";
 
 export default createExtension({
     language: "stylus",
-    Generator,
+    Generator: StylusGenerator,
     colorsOptions: {
         variablePrefix: `.modeName \n${INDENTATION}`,
         variableSeparator: `\n${INDENTATION}`,
         variableSuffix: "\n"
     },
     exportTextStylesOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     },
     exportColorsOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     },
     exportSpacingOptions: {
-        prefix: exportPrefix
+        declarationBlockOptions: {
+            prefix: exportPrefix
+        }
     }
 });
