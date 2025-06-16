@@ -13,13 +13,14 @@ export default {
     transform: {
         [ESM_TS_JS_TRANSFORM_PATTERN]: ["ts-jest", {
             tsconfig: "<rootDir>/tsconfig.json",
-            useESM: true,
-            // babelConfig: true
+            useESM: true
         }]
     },
+    transformIgnorePatterns: [
+        "tests/"
+    ],
     moduleNameMapper: {
-        "^@root/(.*)$": "<rootDir>/src/$1",
-        // "base-extension": "<rootDir>/../base-extension/dist/index.js",
+        "^@root/(.*)$": "<rootDir>/dist/$1",
         "(.+)\\.js": "$1",
     }
 };
