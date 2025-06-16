@@ -14,15 +14,17 @@
   },
   "scripts": {
     "start": "zem start",
-    "build": "zem build",
     "clean": "zem clean",
-    "exec": "zem exec",
-    "publish": "zem publish",
-    "test": "zem test"
+    "prebuild": "npm run clean",
+    "build": "tsc && zem build",
+    "exec": "npm run build && zem exec",
+    "test": "npm run build && zem test",
+    "publish": "npm run build && zem publish"
   },
   "dependencies": {
+    "@zeplin/extension-model": "^3.0.3",
     "base-extension": "^2.5.1",
-    "zem": "^1.3.0",
+    "zem": "^2.0.4",
     "zeplin-extension-style-kit": "^4.4.1"
   },
   "zeplin": {

@@ -28,17 +28,17 @@
   },
   "scripts": {
     "start": "zem start",
-    "build": "tsc && zem build",
     "clean": "zem clean",
-    "exec": "zem exec",
-    "publish": "zem publish",
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" zem test",
-    "jesto": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
+    "prebuild": "npm run clean",
+    "build": "tsc && zem build",
+    "exec": "npm run build && zem exec",
+    "test": "npm run build && zem test",
+    "publish": "npm run build && zem publish"
   },
   "dependencies": {
-    "@zeplin/extension-model": "^3.0.0",
+    "@zeplin/extension-model": "^3.0.3",
     "base-extension": "^2.5.1",
-    "zem": "2.0.0-beta.0",
+    "zem": "^2.0.4",
     "zeplin-extension-style-kit": "^4.4.1"
   },
   "devDependencies": {

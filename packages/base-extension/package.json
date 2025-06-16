@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
-    "@zeplin/extension-model": "^3.0.0",
+    "@zeplin/extension-model": "^3.0.3",
     "eslint": "^8.57.0",
     "globals": "^16.2.0",
     "typescript": "^5.8.3",

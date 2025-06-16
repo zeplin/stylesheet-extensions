@@ -128,8 +128,11 @@ function getPropertyFiltersForComponent(component: Component): PropertyFilter[] 
     })).filter(Boolean);
 }
 
+export type {
+    PropertyFilter
+};
+
 export {
-    PropertyFilter,
     fixVariantPropertyOrder,
     findDefaultStateComponent,
     isStateProperty,

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -17,6 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "declaration": true,
+    "isolatedModules": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
