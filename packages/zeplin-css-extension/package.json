@@ -1,7 +1,7 @@
 {
   "name": "css",
   "private": true,
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Generates CSS snippets from colors, text styles and layers.",
   "type": "module",
   "exports": {
@@ -38,9 +38,9 @@
   },
   "dependencies": {
     "@zeplin/extension-model": "^3.0.3",
-    "base-extension": "^3.0.1",
-    "zem": "^2.0.6",
-    "zeplin-extension-style-kit": "^5.0.1"
+    "base-extension": "^3.0.2",
+    "zem": "^2.0.7",
+    "zeplin-extension-style-kit": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
