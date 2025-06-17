@@ -17,16 +17,13 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "declaration": true,
+    "isolatedModules": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "resolveJsonModule": true,
     "baseUrl": "."
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

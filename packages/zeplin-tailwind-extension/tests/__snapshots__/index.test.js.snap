@@ -1,15 +1,16 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Colors should generate code snippet 1`] = `
 {
-  "code": ":root {
-  --red: #f00;
-  --green: #0f0;
-  --blue: #00f;
-  --yellow: #ff0;
-  --black: #000;
-  --black-50: rgba(0, 0, 0, 0.5);
-  --white: #fff;
+  "code": "@theme {
+  --color-*: initial;
+  --color-red: #f00;
+  --color-green: #0f0;
+  --color-blue: #00f;
+  --color-yellow: #ff0;
+  --color-black: #000;
+  --color-black-50: rgba(0, 0, 0, 0.5);
+  --color-white: #fff;
 }",
   "language": "css",
 }
@@ -35,14 +36,15 @@ exports[`Colors should generate exportable file 1`] = `
  * limitations under the License.
  */
 
-:root {
-  --red: #f00;
-  --green: #0f0;
-  --blue: #00f;
-  --yellow: #ff0;
-  --black: #000;
-  --black-50: rgba(0, 0, 0, 0.5);
-  --white: #fff;
+@theme {
+  --color-*: initial;
+  --color-red: #f00;
+  --color-green: #0f0;
+  --color-blue: #00f;
+  --color-yellow: #ff0;
+  --color-black: #000;
+  --color-black-50: rgba(0, 0, 0, 0.5);
+  --color-white: #fff;
 }",
   "filename": "colors.css",
   "language": "css",
@@ -51,197 +53,112 @@ exports[`Colors should generate exportable file 1`] = `
 
 exports[`Layer \`Exportable layer\` should generate code snippet 1`] = `
 {
-  "code": "img.Exportable-layer {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 1.25rem 1.25rem 0 3.125rem;
-  object-fit: contain;
-  background-color: var(--yellow);
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[20px] mr-[20px] ml-[50px] object-contain bg-yellow">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with blur\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-blur {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 1.25rem 0.188rem 0 1.25rem;
-  -webkit-filter: blur(10px);
-  filter: blur(10px);
-  background-color: #0ff;
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[20px] mr-[3.008px] ml-[20px]  blur-[10] filter-[] bg-[#0ff]">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with border radius\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-border-radius {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 1.25rem 1.25rem 1.25rem 3.125rem;
-  border-radius: 20px;
-  background-color: var(--red);
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[20px] mr-[20px] mb-[20px] ml-[50px] rounded-[20px] bg-red">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with border\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-border {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 0 4.375rem 1.25rem 0;
-  border: solid 2px var(--black);
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mr-[70px] mb-[20px] border-2 black border-solid">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with fill\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-fill {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 0 4.375rem 1.25rem 0;
-  background-color: var(--blue);
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mr-[70px] mb-[20px] bg-blue">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with gradient border\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-gradient-border {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 1.25rem 4.375rem 4.375rem 0;
-  border-style: solid;
-  border-width: 6px;
-  border-image-source: radial-gradient(circle at 50% 0, var(--red), rgba(255, 0, 0, 0) 89%);
-  border-image-slice: 1;
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[20px] mr-[70px] mb-[70px] border-solid border-6  ">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with gradient fill\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-gradient-fill {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 1.25rem 4.375rem 4.375rem 0;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), var(--black-50));
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[20px] mr-[70px] mb-[70px] bg-[linear-gradient(to bottom, rgba(255, 255, 255, 0.5), black-50)]">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Layer with shadow\` should generate code snippet 1`] = `
 {
-  "code": ".Layer-with-shadow {
-  width: 6.25rem;
-  height: 6.25rem;
-  margin: 4.375rem 1.25rem 1.25rem 3.125rem;
-  box-shadow: 0 2px 4px 6px var(--black-50);
-}",
-  "language": "css",
+  "code": "<div class="w-[100px] h-[100px] mt-[70px] mr-[20px] mb-[20px] ml-[50px] shadow-[0 2px 4px 6px black-50]">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Rotated layer\` should generate code snippet 1`] = `
 {
-  "code": ".Rotated-layer {
-  width: 6.438rem;
-  height: 6.25rem;
-  margin: 1.25rem 0 1.25rem 1.25rem;
-  transform: rotate(45deg);
-  background-color: var(--green);
-}",
-  "language": "css",
+  "code": "<div class="w-[103.008px] h-[100px] mt-[20px] mb-[20px] ml-[20px] transform-[rotate(45deg)] bg-green">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Sample layer\` should generate code snippet 1`] = `
 {
-  "code": ".Sample-layer {
-  width: 20rem;
-  height: 48rem;
-  padding: 0 2.938rem 8.625rem 0;
-}",
-  "language": "css",
+  "code": "<div class="w-xs h-3xl pr-[47.008px] pb-[138px]">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Text layer with multiple styles\` should generate code snippet 1`] = `
 {
-  "code": ".Text-layer-with-multiple-styles {
-  width: 13.75rem;
-  height: 1.5rem;
-  margin: 1.25rem 3.313rem 3.25rem 0;
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--black);
-}
-.Text-layer-with-multiple-styles .text-style-1 {
-  font-weight: 500;
-}
-.Text-layer-with-multiple-styles .Sample-text-style-with-color {
-  color: var(--red);
-}",
-  "language": "css",
+  "code": "<p class="w-[220px] h-3 mt-[20px] mr-[53.008px] mb-[52px] font-sf-pro-text text-xl text-left text-black font-medium text-red">
+</p>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Text layer\` should generate code snippet 1`] = `
 {
-  "code": ".Text-layer {
-  width: 13.75rem;
-  height: 1.5rem;
-  margin: 0 3.313rem 1.25rem 0;
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--black);
-}",
-  "language": "css",
+  "code": "<p class="w-[220px] h-3 mr-[53.008px] mb-[20px] font-sf-pro-text text-xl text-left text-black">
+</p>",
+  "language": "html",
 }
 `;
 
 exports[`Layer \`Transparent layer with blend mode\` should generate code snippet 1`] = `
 {
-  "code": ".Transparent-layer-with-blend-mode {
-  width: 6.438rem;
-  height: 6.25rem;
-  margin: 4.375rem 0 1.25rem 1.25rem;
-  opacity: 0.3;
-  mix-blend-mode: multiply;
-  background-color: var(--green);
-}",
-  "language": "css",
+  "code": "<div class="w-[103.008px] h-[100px] mt-[70px] mb-[20px] ml-[20px] opacity-0.3 mix-blend-multiply bg-green">
+</div>",
+  "language": "html",
 }
 `;
 
 exports[`Spacing should generate code snippet 1`] = `
 {
-  "code": ":root {
-  --base: 1rem;
-  --double: 2rem;
-  --half: 0.5rem;
+  "code": "@theme {
+  --spacing: 8px;
 }",
   "language": "css",
 }
@@ -267,10 +184,8 @@ exports[`Spacing should generate exportable file 1`] = `
  * limitations under the License.
  */
 
-:root {
-  --base: 1rem;
-  --double: 2rem;
-  --half: 0.5rem;
+@theme {
+  --spacing: 8px;
 }",
   "filename": "spacing.css",
   "language": "css",
@@ -279,39 +194,13 @@ exports[`Spacing should generate exportable file 1`] = `
 
 exports[`Text Styles should generate code snippet 1`] = `
 {
-  "code": "@font-face {
-  font-family: SFProText;
-  src: local(SFProText-Regular),
-    url(/path/to/SFProText-Regular.woff2) format("woff2"),
-    url(/path/to/SFProText-Regular.woff) format("woff"),
-    url(/path/to/SFProText-Regular.ttf) format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-}
-
-.Sample-text-style-with-color {
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--red);
-}
-
-.Sample-text-style {
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--black);
+  "code": "@theme {
+  /* Font families */
+  --font-sf-pro-text: SFProText;
+  /* Font weights */
+  --font-normal: normal;
+  /* Font sizes */
+  --text-20: 20px;
 }",
   "language": "css",
 }
@@ -337,39 +226,13 @@ exports[`Text Styles should generate exportable file 1`] = `
  * limitations under the License.
  */
 
-@font-face {
-  font-family: SFProText;
-  src: local(SFProText-Regular),
-    url(/path/to/SFProText-Regular.woff2) format("woff2"),
-    url(/path/to/SFProText-Regular.woff) format("woff"),
-    url(/path/to/SFProText-Regular.ttf) format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-}
-
-.Sample-text-style-with-color {
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--red);
-}
-
-.Sample-text-style {
-  font-family: SFProText;
-  font-size: 1.25rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--black);
+@theme {
+  /* Font families */
+  --font-sf-pro-text: SFProText;
+  /* Font weights */
+  --font-normal: normal;
+  /* Font sizes */
+  --text-20: 20px;
 }",
   "filename": "fonts.css",
   "language": "css",
