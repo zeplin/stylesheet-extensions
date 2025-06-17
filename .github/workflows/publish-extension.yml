@@ -36,6 +36,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Build zeplin-extension-style-kit and base-extension
+        run: npm run build --workspace=zeplin-extension-style-kit --workspace=base-extension
+
       - name: Build Target Package
         run: npm run build --workspace=$(echo $GITHUB_REF_NAME | cut -d'@' -f 1)
 
