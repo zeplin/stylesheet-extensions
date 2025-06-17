@@ -446,17 +446,17 @@ function setColorObjectsForVariable(variable: Variable, variableBySourceId: Reco
             value, variableBySourceId, modeByModeId
         ) || {};
 
-        if (colorValue && isRemote) {
+        if (colorValue) {
             const colorObject = value.generateColorObject(variable, colorValue);
             if (colorObject) {
                 const mode = modeByModeId[value.modeId];
                 if (colorDetailsByModeName[mode.name]) {
                     colorDetailsByModeName[mode.name].push({
-                        color: colorObject, shouldDisplayDefaultValue: isRemote
+                        color: colorObject, shouldDisplayDefaultValue: isRemote!
                     });
                 } else {
                     colorDetailsByModeName[mode.name] = [{
-                        color: colorObject, shouldDisplayDefaultValue: isRemote
+                        color: colorObject, shouldDisplayDefaultValue: isRemote!
                     }];
                 }
             }
