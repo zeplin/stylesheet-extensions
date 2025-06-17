@@ -40,7 +40,7 @@
   "dependencies": {
     "@zeplin/extension-model": "^3.0.3",
     "base-extension": "^3.0.0",
-    "zem": "^2.0.4",
+    "zem": "^2.0.5",
     "zeplin-extension-style-kit": "^5.0.0"
   },
   "zeplin": {
