@@ -92,8 +92,10 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
         const declarations = [
             `/* Font families */`,
             ...fontFamilies.map(ff => `${namePrefix}${mapper.mapValue(ff)}${nameValueSeparator}${ff.getValue()}${valueSuffix}`),
+            "", // line break
             `/* Font weights */`,
             ...fontWeights.map(fw => `${namePrefix}${mapper.mapValue(fw)}${nameValueSeparator}${fw.getValue()}${valueSuffix}`),
+            "", // line break
             `/* Font sizes */`,
             ...fontSizes.map(fs => `${namePrefix}text-${getValueInPixels(fs.getValue(params), params)}${nameValueSeparator}${fs.getValue(params)}${valueSuffix}`)
         ].join(separator);
