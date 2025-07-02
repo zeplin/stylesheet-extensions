@@ -19,15 +19,15 @@ export type ColorExtensionMethodOptions = ExtensionMethodOptions & {
     /**
      * Related to Color Variables on Zeplin
      */
-    variablePrefix?: string,
+    colorVariablePrefix?: string,
     /**
      * Related to Color Variables on Zeplin
      */
-    variableSeparator?: string,
+    colorVariableSeparator?: string,
     /**
      * Related to Color Variables on Zeplin
      */
-    variableSuffix?: string
+    colorVariableSuffix?: string
 };
 
 export type ColorCodeGeneratorParams = ExtensionMethodCreatorParams & {
@@ -42,15 +42,19 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
             Generator,
             options: {
                 language,
-                declarationBlockOptions: {
+                fullCodeOptions: {
+                    prefix: fullCodePrefix = "",
+                    suffix: fullCodeSuffix = "",
+                } = {},
+                blockCodeOptions: {
                     prefix = "",
                     separator = "\n",
                     suffix = "",
                 } = {},
                 declarationOptions,
-                variablePrefix = "",
-                variableSeparator = "\n",
-                variableSuffix = ""
+                colorVariablePrefix = "",
+                colorVariableSeparator = "\n",
+                colorVariableSuffix = ""
             } = {}
         } = generatorParams;
 
@@ -67,6 +71,8 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
             color => generator.variable((color.originalName || color.name)!, new Color(color))
         ).join(separator);
 
+        const colorsBlockCode = `${prefix}${colorsCode}${suffix}`;
+
         const variableCollections = getResources({
             context,
             useLinkedStyleguides: params.useLinkedStyleguides,
@@ -75,7 +81,7 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
 
         const colorDetailsByModeName = generateColorDetailsByModeName(variableCollections);
 
-        let colorVariablesCode = "";
+        let colorVariablesBlockCode = "";
         for (const [modeName, colorDetails] of Object.entries(colorDetailsByModeName || {})) {
             const variables = [];
             let colorSectionName = null;
@@ -85,7 +91,7 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
                 if (colorSectionName !== adjustedColorSectionName) {
                     variables.push(
                         `${colorSectionName
-                            ? variableSeparator
+                            ? colorVariableSeparator
                             : ""
                         }${COMMENT_START}${adjustedColorSectionName}${COMMENT_END}`
                     );
@@ -98,13 +104,13 @@ export const createColorsExtensionMethod: ExtensionMethodCreator<MethodName> = (
                 );
             }
 
-            const variableName = variables.join(variableSeparator);
-            const prefixForMode = variablePrefix.replace("modeName", generateIdentifier(modeName));
+            const joinedVariables = variables.join(colorVariableSeparator);
+            const prefixForMode = colorVariablePrefix.replace("modeName", generateIdentifier(modeName));
 
-            colorVariablesCode += `${MODE_SEPARATOR}${prefixForMode}${variableName}${variableSuffix}`;
+            colorVariablesBlockCode += `${MODE_SEPARATOR}${prefixForMode}${joinedVariables}${colorVariableSuffix}`;
         }
 
-        const code = `${prefix}${colorsCode}${suffix}${colorVariablesCode}`;
+        const code = `${fullCodePrefix}${colorsBlockCode}${colorVariablesBlockCode}${fullCodeSuffix}`;
 
         return {
             code,

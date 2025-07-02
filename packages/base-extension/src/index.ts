@@ -13,7 +13,7 @@ const exportColorsExtensionMethod: ExtensionMethodCreator<"exportColors", Export
     {
         baseMethod,
         options: {
-            declarationBlockOptions: {
+            blockCodeOptions: {
                 prefix = "",
                 suffix = ""
             } = {}
@@ -31,7 +31,7 @@ const exportTextStylesExtensionMethod: ExtensionMethodCreator<"exportTextStyles"
     {
         baseMethod,
         options: {
-            declarationBlockOptions: {
+            blockCodeOptions: {
                 prefix = "",
                 suffix = ""
             } = {}
@@ -49,7 +49,7 @@ const createExportSpacingExtensionMethod: ExtensionMethodCreator<"exportSpacing"
     {
         baseMethod,
         options: {
-            declarationBlockOptions: {
+            blockCodeOptions: {
                 prefix = "",
                 suffix = ""
             } = {}

@@ -15,16 +15,20 @@ const extension = createExtension({
     language: "html",
     Generator: TailwindGenerator,
     colorsOptions: {
-        declarationBlockOptions: {
+        fullCodeOptions: {
             prefix: `@theme {\n${INDENTATION}--color-*: initial;\n${INDENTATION}`,
-            separator: `\n${INDENTATION}`,
             suffix: "\n}",
+        },
+        blockCodeOptions: {
+            separator: `\n${INDENTATION}`
         },
         declarationOptions: {
             namePrefix: "--color-",
             valueSuffix: `;`,
             nameValueSeparator: `: `,
         },
+        colorVariablePrefix: `${INDENTATION}`,
+        colorVariableSeparator: `\n${INDENTATION}`,
         language: "css"
     },
     layerOptions: {
@@ -37,7 +41,7 @@ const extension = createExtension({
             const tag = layer.type === "text" ? "p" : "div";
             return `<${tag} class="`;
         },
-        declarationBlockOptions: {
+        blockCodeOptions: {
             separator: " " // whitespace
         },
         declarationOptions: {
@@ -52,7 +56,7 @@ const extension = createExtension({
         },
     },
     exportColorsOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     }
@@ -62,7 +66,7 @@ const extension = createExtension({
 extension.spacing = createSingleSpacingExtensionMethod({
     Generator: TailwindGenerator,
     options: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: `@theme {\n${INDENTATION}`,
             separator: `\n${INDENTATION}`,
             suffix: "\n}",
@@ -83,7 +87,7 @@ extension.exportSpacing = createExportSingleSpacingExtensionMethod(extension.spa
 extension.textStyles = createTextStylesExtenionMethod({
     Generator: TailwindGenerator,
     options: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: `@theme {\n${INDENTATION}`,
             separator: `\n${INDENTATION}`,
             suffix: "\n}",
