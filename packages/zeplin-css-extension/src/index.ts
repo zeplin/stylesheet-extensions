@@ -11,34 +11,34 @@ export default createExtension({
     language: "css",
     Generator: CSSGenerator,
     colorsOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: `:root {\n${INDENTATION}`,
             separator: `\n${INDENTATION}`,
             suffix: "\n}",
         },
-        variablePrefix: `.modeName {\n${INDENTATION}`,
-        variableSeparator: `\n${INDENTATION}`,
-        variableSuffix: "\n}"
+        colorVariablePrefix: `.modeName {\n${INDENTATION}`,
+        colorVariableSeparator: `\n${INDENTATION}`,
+        colorVariableSuffix: "\n}"
     },
     spacingOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: `:root {\n${INDENTATION}`,
             separator: `\n${INDENTATION}`,
             suffix: "\n}"
         }
     },
     exportTextStylesOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     },
     exportColorsOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     },
     exportSpacingOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     }

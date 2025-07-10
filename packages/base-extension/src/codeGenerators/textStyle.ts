@@ -34,7 +34,7 @@ export const createTextStylesExtenionMethod: ExtensionMethodCreator<MethodName, 
             options: {
                 language,
                 declarationOptions,
-                declarationBlockOptions: {
+                blockCodeOptions: {
                     prefix = "",
                     separator = "\n\n",
                     suffix = ""

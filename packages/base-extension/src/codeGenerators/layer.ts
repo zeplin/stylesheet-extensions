@@ -84,7 +84,7 @@ export const createLayerExtensionMethod: ExtensionMethodCreator<MethodName> = (g
             Generator,
             options: {
                 language,
-                declarationBlockOptions: {
+                blockCodeOptions: {
                     separator = "\n"
                 } = {},
                 declarationOptions,

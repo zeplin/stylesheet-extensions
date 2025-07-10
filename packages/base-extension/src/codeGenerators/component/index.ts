@@ -16,7 +16,7 @@ export const createComponentExtensionMethod: ExtensionMethodCreator<MethodName> 
         options: {
             language,
             declarationOptions,
-            declarationBlockOptions: {
+            blockCodeOptions: {
                 separator = "\n\n"
             } = {},
         } = {}

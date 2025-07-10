@@ -33,7 +33,7 @@ export type DeclarationOptions = {
 /**
  * Rule/declaration block options
  */
-export type DeclarationBlockOptions = {
+export type CodeOptions = {
     prefix?: string;
     separator?: string;
     suffix?: string;
@@ -55,7 +55,8 @@ export interface Generator {
 
 export type ExtensionMethodOptions = {
     language?: string;
-    declarationBlockOptions?: DeclarationBlockOptions;
+    fullCodeOptions?: Omit<CodeOptions, "separator">;
+    blockCodeOptions?: CodeOptions;
     declarationOptions?: DeclarationOptions;
 };
 

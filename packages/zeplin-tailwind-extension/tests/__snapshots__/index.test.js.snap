@@ -197,8 +197,10 @@ exports[`Text Styles should generate code snippet 1`] = `
   "code": "@theme {
   /* Font families */
   --font-sf-pro-text: SFProText;
+  
   /* Font weights */
   --font-normal: normal;
+  
   /* Font sizes */
   --text-20: 20px;
 }",
@@ -229,8 +231,10 @@ exports[`Text Styles should generate exportable file 1`] = `
 @theme {
   /* Font families */
   --font-sf-pro-text: SFProText;
+  
   /* Font weights */
   --font-normal: normal;
+  
   /* Font sizes */
   --text-20: 20px;
 }",

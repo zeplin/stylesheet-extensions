@@ -21,7 +21,7 @@ export const createSingleSpacingExtensionMethod: ExtensionMethodCreator<MethodNa
             options: {
                 language,
                 declarationOptions,
-                declarationBlockOptions: {
+                blockCodeOptions: {
                     prefix = "",
                     suffix = ""
                 } = {}

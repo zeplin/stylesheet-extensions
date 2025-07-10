@@ -11,22 +11,22 @@ export default createExtension({
     language: "less",
     Generator: LessGenerator,
     colorsOptions: {
-        variablePrefix: `.modeName {\n${INDENTATION}`,
-        variableSeparator: `\n${INDENTATION}`,
-        variableSuffix: "\n}"
+        colorVariablePrefix: `.modeName {\n${INDENTATION}`,
+        colorVariableSeparator: `\n${INDENTATION}`,
+        colorVariableSuffix: "\n}"
     },
     exportTextStylesOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     },
     exportColorsOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     },
     exportSpacingOptions: {
-        declarationBlockOptions: {
+        blockCodeOptions: {
             prefix: exportPrefix
         }
     }
