@@ -1,7 +1,7 @@
 {
   "name": "tailwind",
   "private": true,
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "Generates Tailwind CSS snippets from colors, text styles and layers.",
   "type": "module",
   "exports": {
@@ -38,9 +38,9 @@
   },
   "dependencies": {
     "@zeplin/extension-model": "^3.0.3",
-    "base-extension": "^3.0.2",
+    "base-extension": "^3.0.3",
     "zem": "^2.0.7",
-    "zeplin-extension-style-kit": "^5.0.2"
+    "zeplin-extension-style-kit": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
