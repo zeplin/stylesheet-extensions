@@ -37,7 +37,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@zeplin/extension-model": "^3.0.3",
+    "@zeplin/extension-model": "3.0.5-add-figma-grid-properties-to-layer",
     "base-extension": "^3.0.3",
     "zem": "^2.0.7",
     "zeplin-extension-style-kit": "^5.0.3"

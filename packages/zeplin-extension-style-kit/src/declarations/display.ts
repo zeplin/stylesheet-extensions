@@ -46,4 +46,8 @@ export class Display implements StyleDeclaration {
     static flex(): Display {
         return new Display("flex");
     }
+
+    static grid(): Display {
+        return new Display("grid");
+    }
 }

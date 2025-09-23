@@ -1,5 +1,9 @@
 export { AlignItems } from "./alignItems.js";
 export { AlignSelf } from "./alignSelf.js";
+export { JustifySelf } from "./justifySelf.js";
+export { GridRow } from "./gridRow.js";
+export { GridColumn } from "./gridColumn.js";
+export { GridTemplate } from "./gridTemplate.js";
 export { BackdropFilter } from "./backdropFilter.js";
 export { BackgroundBlendMode } from "./backgroundBlendMode.js";
 export { BackgroundClip } from "./backgroundClip.js";
@@ -25,6 +29,8 @@ export { FontStyle } from "./fontStyle.js";
 export { FontVariationSettings } from "./fontVariationSettings.js";
 export { FontWeight } from "./fontWeight.js";
 export { Gap } from "./gap.js";
+export { RowGap } from "./rowGap.js";
+export { ColumnGap } from "./columnGap.js";
 export { Height } from "./height.js";
 export { JustifyContent } from "./justifyContent.js";
 export { LetterSpacing } from "./letterSpacing.js";
