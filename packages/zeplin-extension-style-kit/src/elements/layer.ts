@@ -68,7 +68,6 @@ export class Layer {
     private declarations: StyleDeclaration[];
 
     constructor(layer: ExtensionLayer) {
-        console.log("extension-style-kit", { layer });
         this.object = layer;
         this.declarations = this.collectDeclarations();
     }
@@ -508,8 +507,6 @@ export class Layer {
             }
         } = this;
 
-        console.log("add layout to declarations", { layout });
-
         if (layoutAlignment && layoutAlignment !== ExtensionLayout.ALIGNMENT.INHERIT) {
             declarations.push(new AlignSelf(layoutAlignment as AlignSelfValue));
         }
@@ -582,15 +579,6 @@ export class Layer {
                 gridRowSpan
             }
         } = this;
-
-        console.log("addGridItemProperties", {
-            gridChildHorizontalAlignment,
-            gridChildVerticalAlignment,
-            gridRowIndex,
-            gridColumnIndex,
-            gridColumnSpan,
-            gridRowSpan
-        })
 
         if (gridChildHorizontalAlignment) {
             declarations.push(new JustifySelf(gridChildHorizontalAlignment));
