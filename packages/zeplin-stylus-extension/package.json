@@ -1,7 +1,7 @@
 {
   "name": "stylus",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Generates Stylus snippets from colors, text styles and layers.",
   "type": "module",
   "exports": {
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@zeplin/extension-model": "^3.1.0",
-    "base-extension": "^3.0.3",
+    "base-extension": "^3.1.0",
     "zem": "^2.0.7",
-    "zeplin-extension-style-kit": "^5.0.3"
+    "zeplin-extension-style-kit": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
