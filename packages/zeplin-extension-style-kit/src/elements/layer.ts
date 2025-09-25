@@ -595,7 +595,7 @@ export class Layer {
         }
 
         if (typeof gridColumnIndex === "number" || typeof gridColumnSpan === "number") {
-            // figma grid rows are 0 indexed, css is 1 indexed
+            // figma grid columns are 0 indexed, css is 1 indexed
             const oneIndexedGridColumnIndex = typeof gridColumnIndex === "number" ? gridColumnIndex + 1 : undefined;
             declarations.push(new GridColumn(oneIndexedGridColumnIndex, gridColumnSpan));
         }
