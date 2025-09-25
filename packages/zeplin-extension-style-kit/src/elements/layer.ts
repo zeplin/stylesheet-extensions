@@ -47,6 +47,12 @@ import { AlignItems, AlignItemsValue } from "../declarations/alignItems.js";
 import { AlignSelf, AlignSelfValue } from "../declarations/alignSelf.js";
 import { FlexGrow } from "../declarations/flexGrow.js";
 import { StyleDeclaration } from "../common.js";
+import { JustifySelf } from "../declarations/justifySelf.js";
+import { GridRow } from "../declarations/gridRow.js";
+import { GridColumn } from "../declarations/gridColumn.js";
+import { GridTemplate } from "../declarations/gridTemplate.js";
+import { ColumnGap } from "../declarations/columnGap.js";
+import { RowGap } from "../declarations/rowGap.js";
 
 const useRemUnitForMeasurement = ({ useForMeasurements }: {
     useForMeasurements: boolean
@@ -509,7 +515,7 @@ export class Layer {
             declarations.push(new FlexGrow(new Scalar(layoutGrow)));
         }
 
-        if (layout && layout.direction) {
+        if (layout?.direction && layout.direction !== ExtensionLayout.DIRECTION.GRID) {
             const {
                 direction,
                 distribution,
@@ -531,6 +537,69 @@ export class Layer {
                 declarations.push(new Gap(new Length(gap)));
             }
         }
+
+        if (layout?.direction === ExtensionLayout.DIRECTION.GRID) {
+            const {
+                columnCount,
+                columnGap,
+                rowCount,
+                rowGap,
+                columnSizes,
+                rowSizes
+            } = layout;
+
+            declarations.push(Display.grid());
+
+            if (columnCount && columnSizes) {
+                declarations.push(new GridTemplate("columns", columnCount, columnSizes));
+            }
+
+            if (rowCount && rowSizes) {
+                declarations.push(new GridTemplate("rows", rowCount, rowSizes));
+            }
+
+            if (columnGap) {
+                declarations.push(new ColumnGap(new Length(columnGap)));
+            }
+
+            if (rowGap) {
+                declarations.push(new RowGap(new Length(rowGap)));
+            }
+        }
+    }
+
+    addGridItemProperties(declarations: StyleDeclaration[]): void {
+        const {
+            object: {
+                gridChildHorizontalAlignment,
+                gridChildVerticalAlignment,
+                gridRowIndex,
+                gridColumnIndex,
+                gridColumnSpan,
+                gridRowSpan
+            }
+        } = this;
+
+        if (gridChildHorizontalAlignment) {
+            declarations.push(new JustifySelf(gridChildHorizontalAlignment));
+        }
+
+        if (gridChildVerticalAlignment) {
+            declarations.push(new AlignSelf(gridChildVerticalAlignment));
+        }
+
+        if (typeof gridRowIndex === "number" || typeof gridRowSpan === "number") {
+            // figma grid rows are 0 indexed, css is 1 indexed
+            const oneIndexedGridRowIndex = typeof gridRowIndex === "number" ? gridRowIndex + 1 : undefined;
+            declarations.push(new GridRow(oneIndexedGridRowIndex, gridRowSpan));
+        }
+
+        if (typeof gridColumnIndex === "number" || typeof gridColumnSpan === "number") {
+            // figma grid columns are 0 indexed, css is 1 indexed
+            const oneIndexedGridColumnIndex = typeof gridColumnIndex === "number" ? gridColumnIndex + 1 : undefined;
+            declarations.push(new GridColumn(oneIndexedGridColumnIndex, gridColumnSpan));
+        }
+
     }
 
     addPaddingMargin(declarations: StyleDeclaration[]): void {
@@ -572,6 +641,7 @@ export class Layer {
 
         this.addSizeToDeclaration(declarations);
         this.addLayoutToDeclarations(declarations);
+        this.addGridItemProperties(declarations);
         this.addPaddingMargin(declarations);
 
         if (layer.exportable) {

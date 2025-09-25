@@ -15,6 +15,7 @@ import {
     BorderWidth,
     Color,
     ColorNameResolver,
+    ColumnGap,
     ContextParams,
     DeclarationMapper,
     Display,
@@ -31,8 +32,12 @@ import {
     FontWeight,
     Gap,
     generateVariableName,
+    GridColumn,
+    GridRow,
+    GridTemplate,
     Height,
     JustifyContent,
+    JustifySelf,
     Length,
     LetterSpacing,
     LineHeight,
@@ -41,6 +46,7 @@ import {
     ObjectFit,
     Opacity,
     Padding,
+    RowGap,
     Shadow,
     StyleDeclaration,
     StyleFunction,
@@ -98,8 +104,20 @@ export class TailwindMapper implements DeclarationMapper {
                 return this.mapAlignItems(declaration as AlignItems);
             case AlignSelf:
                 return this.mapAlignSelf(declaration as AlignSelf);
+            case JustifySelf:
+                return this.mapJustifySelf(declaration as JustifySelf);
             case Gap:
                 return this.mapGap(declaration as Gap);
+            case GridTemplate:
+                return this.mapGridTemplate(declaration as GridTemplate);
+            case GridColumn:
+                return this.mapGridColumn(declaration as GridColumn);
+            case GridRow:
+                return this.mapGridRow(declaration as GridRow);
+            case RowGap:
+                return this.mapRowGap(declaration as RowGap);
+            case ColumnGap:
+                return this.mapColumnGap(declaration as ColumnGap);
 
             // Sizing
             case Width:
@@ -300,6 +318,17 @@ export class TailwindMapper implements DeclarationMapper {
             "stretch": "self-stretch"
         };
         return valueMap[declaration.getValue()] || "";
+    }
+
+    private mapJustifySelf(declaration: JustifySelf): string {
+        const valueMap: Record<string, string> = {
+            "center": "justify-self-center",
+            "flex-start": "justify-self-start",
+            "flex-end": "justify-self-end",
+            "stretch": "justify-self-stretch"
+        };
+
+        return valueMap[declaration.getValue()] || ""; 
     }
 
     private mapBackgroundBlendMode(declaration: BackgroundBlendMode): string {
@@ -515,6 +544,34 @@ export class TailwindMapper implements DeclarationMapper {
     private mapGap(declaration: Gap): string {
         const value = declaration.getValue(this.params);
         return `gap-${this.getPrintableValue(value)}`;
+    }
+
+    private mapGridTemplate(declaration: GridTemplate): string {
+        const value = declaration.getValue(this.params);
+        if (declaration.type === "columns") {
+            return this.getArbitraryValue("grid-cols", value);
+        }
+        return this.getArbitraryValue("grid-rows", value);
+    }
+
+    private mapGridRow(declaration: GridRow): string {
+        const value = declaration.getValue();
+        return this.getArbitraryValue("row", value);
+    }
+
+    private mapGridColumn(declaration: GridColumn): string {
+        const value = declaration.getValue();
+        return this.getArbitraryValue("col", value);
+    }
+
+    private mapRowGap(declaration: RowGap): string {
+        const value = declaration.getValue(this.params);
+        return this.getArbitraryValue("gap-y", value);
+    }
+
+    private mapColumnGap(declaration: ColumnGap): string {
+        const value = declaration.getValue(this.params);
+        return this.getArbitraryValue("gap-x", value);
     }
 
     private mapJustifyContent(declaration: JustifyContent): string {

@@ -46,7 +46,14 @@ const STYLE_PROPS = {
     JUSTIFY_CONTENT: "justify-content",
     ALIGN_ITEMS: "align-items",
     ALIGN_SELF: "align-self",
-    GAP: "gap"
+    JUSTIFY_SELF: "justify-self",
+    GAP: "gap",
+    GRID_ROW: "grid-row",
+    GRID_COLUMN: "grid-column",
+    GRID_TEMPLATE_COLUMNS: "grid-template-columns",
+    GRID_TEMPLATE_ROWS: "grid-template-rows",
+    ROW_GAP: "row-gap",
+    COLUMN_GAP: "column-gap"
 } as const;
 
 const OPTION_NAMES = {

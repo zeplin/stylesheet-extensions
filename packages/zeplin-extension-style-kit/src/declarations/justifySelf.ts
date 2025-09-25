@@ -1,9 +1,9 @@
 import { StyleDeclaration } from "../common.js";
 import { STYLE_PROPS } from "../constants.js";
 
-export type AlignSelfValue = "center" | "max" | "min" | "stretch" | "inherit" | "auto";
+export type JustifySelfValue = "center" | "max" | "min" | "stretch" | "inherit" | "auto";
 
-const valueMapper: Record<AlignSelfValue, string> = {
+const valueMapper: Record<JustifySelfValue, string> = {
     center: "center",
     max: "flex-end",
     min: "flex-start",
@@ -12,18 +12,18 @@ const valueMapper: Record<AlignSelfValue, string> = {
     auto: "auto"
 } as const;
 
-export class AlignSelf implements StyleDeclaration {
-    private value: AlignSelfValue;
+export class JustifySelf implements StyleDeclaration {
+    private value: JustifySelfValue;
 
-    constructor(value: AlignSelfValue) {
+    constructor(value: JustifySelfValue) {
         this.value = value;
     }
 
     get name(): string {
-        return STYLE_PROPS.ALIGN_SELF;
+        return STYLE_PROPS.JUSTIFY_SELF;
     }
 
-    equals(other: AlignSelf): boolean {
+    equals(other: JustifySelf): boolean {
         return this.value === other.value;
     }
 
